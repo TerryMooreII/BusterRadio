@@ -14,6 +14,7 @@ body {
     font-size: 1em;
     line-height: 1.4;
     height:100%;
+    overflow: hidden;
 }
 #wrapper{
     height:100%;
@@ -99,7 +100,9 @@ body {
 }
 
 .title {
+    font-size:26px;
     color: white;
+    margin:0;
 }
 
 /* ==============
@@ -178,27 +181,81 @@ audio{
     width:100%;
 }
 
-#artistShowList{
+#playlists .listDisplay{
+    top:140px;
+}
+
+#search .listDisplay{
+    top:160px;
+}
+.listDisplay{
+    position:absolute;
+    display: inline-block;
+    bottom:95px;
+    
+    overflow:auto;
+    width:495px;
+    margin-top:5px;
     margin-left:0px;
 }
-#artistShowList li{
-    list-style: none
+.listDisplay li{
+    list-style: none;
+    border-top: 1px solid #eee;
+    padding:2px 0px 2px 7px;
+    
 }
+.listDisplay li:hover{
+    background-color:#eee;
+}
+
+
+.listDisplay li a:link{
+   color:#333;
+   font-size:.8em;
+} 
 
 .addSong{
     z-index: 100;
     opacity: 0;  
     display: inline-block;
+    /* Double-sized Checkboxes */
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
 }
 .addSongIcon{
     margin-left: -14px;
 }
 
+#showDetails p{
+    margin: 3px 0px 3px 0px;
+}
+.artist{
+    font-size:1.5em;
+    font-weight: bold
+}
 
+.venue{
 
+}
 
+.showDate{
 
-
+}
+.showDescription{
+    font-size:.9em;
+    max-height: 80px;
+    overflow: auto;
+}
+#showSongList{
+    display: inline-block;
+    position:absolute;
+    top:235px;
+    bottom:95px;
+    width:758px;
+    overflow:auto;
+}
 
 /* ==========================================================================
    Media Queries
@@ -214,7 +271,7 @@ audio{
         float: left;
         width: 27%;
         margin: 0 1.7%;
-        padding: 25px 2%;
+        padding: 10px 2%;
         margin-bottom: 0;
     }
 
@@ -286,8 +343,13 @@ audio{
     Maximal Width
    =============== */
 
+   .footer-wrapper{
+        width: 1026px;   /* 1140px - 10% for margins */
+        margin: 0 auto;
+   }
+
     .wrapper {
-        width: 1026px; /* 1140px - 10% for margins */
+        width: 1140px; /*1026px;*/ /* 1140px - 10% for margins */
         margin: 0 auto;
     }
 }

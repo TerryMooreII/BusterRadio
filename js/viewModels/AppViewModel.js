@@ -14,14 +14,24 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
         self.showDetails    = ko.observable(new ShowDetails());
         self.playlist       = ko.observableArray([]);
         self.showPause      = ko.observable(false);
-        self.duration       = ko.observable('-0:00')
+        self.duration       = ko.observable('0:00')
+        self.timeLeft       = ko.observable('-0:00')
+
         var audioElement;
         var playlistPosition = 0;
 
         self.init = function(){
             console.log('Hello Live Music')
+            self.checkForHTML5Audio();
         };
 
+        self.checkForHTML5Audio = function(){
+            if(!document.createElement('audio').canPlayType){
+                alert('Your browser doesn\'t support the HTML5 audio tag. \n\n Get a better browser like Google Chrome. \n\n Also I need a better error message' );
+                window.location = 'http://google.com/chrome';
+            }
+            
+        }
 
         self.search = function(){  
 
@@ -102,7 +112,7 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
             if (audioElement === null || audioElement === undefined){
                
                 var song = self.getSongFromPlaylist(playlistPosition);
-               
+                
                 if (song === undefined)
                     return;
 
@@ -111,8 +121,8 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
                 audioElement = document.createElement('audio');
                 audioElement.setAttribute('src', url);
                 
-                self.getDuration();
-
+                self.getDuration(); //sets the time and binds the slider 
+                self.onSongEnd();
             }
             self.showPause(true);
             audioElement.play();
@@ -124,6 +134,12 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
             audioElement.pause();
         }
 
+        self.resetTime = function(){
+
+            self.duration('0:00');
+            self.timeLeft('-0:00');
+        }
+
         self.next = function(){
             
             if ( playlistPosition + 1 > self.playlist().length - 1)
@@ -132,7 +148,7 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
             self.pause();
             audioElement = null;
             playlistPosition++;
-            self.duration('-0:00');
+            self.resetTime();
             self.play();
         }
 
@@ -144,14 +160,14 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
             self.pause();
             audioElement = null;
             playlistPosition--;
-            self.duration('-0:00');
+            self.resetTime();
             self.play();
         }
 
         self.getDuration = function(){
             
             var i = setInterval(function(){
-                self.duration('-0:00');
+                self.resetTime();
                 if (audioElement.readyState > 0) {
                 
                     var duration = Math.round(audioElement.duration);
@@ -174,29 +190,80 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
                 max: audioElement.duration,
                 animate: true,          
                 slide: function() {             
-                    manualSeek = true;
+                    
                 },
-                stop:function(e,ui) {
-                    manualSeek = false;         
+                stop:function(e,ui) {         
                     audioElement.currentTime = ui.value;
                 }           
             });
+            self.bindTimeUpdateToSlider();
+        };
 
+        self.bindTimeUpdateToSlider = function(){
 
-            $(audioElement).bind('timeupdate', function() {
+            $(audioElement).on('timeupdate', function() {
                 
-              var rem = parseInt(audioElement.duration - audioElement.currentTime, 10),
-              pos = (audioElement.currentTime / audioElement.duration) * 100,
-              mins = Math.floor(rem/60,10),
-              secs = rem - mins*60;
+              var rem = parseInt(audioElement.duration - audioElement.currentTime, 10);
+              //pos = (audioElement.currentTime / audioElement.duration) * 100;
+              var mins = Math.floor(rem/60,10);
+              var secs = rem - mins*60;
               
+              var dur = parseInt(audioElement.currentTime);
+              var durMins = Math.floor(dur/60, 10);
+              var durSecs = dur -durMins * 60;
+                
+              if (isNaN(durMins)) { durMins = 0 }
+              if (isNaN(durSecs)) { durSecs = 0 } 
               if (isNaN(mins)) { mins = 0 }
               if (isNaN(secs)) { secs = 0 } 
 
-              self.duration('-' + mins + ':' + (secs > 9 ? secs : '0' + secs));
+              self.duration(durMins + ':' + (durSecs > 9 ? durSecs : '0' + durSecs));
+              self.timeLeft('-' + mins + ':' + (secs > 9 ? secs : '0' + secs));
               slider.slider("value", audioElement.currentTime)
 
             });
-        }
+        };
+
+        self.onSongEnd = function(){
+            $(audioElement).on('ended', function(){
+                self.next();
+            });
+        };
+
+
     }        
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
