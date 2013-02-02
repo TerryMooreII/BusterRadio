@@ -2,12 +2,17 @@
    HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
    ========================================================================== */
 
+*{
+    font-size:12px;
+}
+
 html,
 button,
 input,
 select,
 textarea {
     color: #222;
+
 }
 
 body {
@@ -22,6 +27,7 @@ body {
 
 * html #wrapper{
     height:100%;
+
 }
 
 ::-moz-selection {
@@ -252,7 +258,7 @@ audio{
     display: inline-block;
     position:absolute;
     top:235px;
-    bottom:95px;
+    bottom:105px;
     width:758px;
     overflow:auto;
 }

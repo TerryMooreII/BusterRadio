@@ -25,22 +25,32 @@ require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'artistsLi
     ko.applyBindings(viewModel);
     viewModel.init();
 
-    $('#searchArtists').typeahead({source:list, onselect: function() { $(this).change(); }});
+    // $('#searchArtists').typeahead({
+    //                                 source:list, 
+    //                                 onselect: function() { 
+    //                                     $(this).change(); 
+    //                                 }
+    //                             });
+
+    $('#searchArtists').autocomplete({
+      source: list,
+      select: function( event, ui ) {
+        $('#searchArtists').val(ui.item.value).change(); 
+      }
+    });
     
     $('#myTab a').click(function (e) {
       e.preventDefault();
       $(this).tab('show');
     })
     
+    //setup an empty slitder
     $( "#slider" ).slider({
       range: "max",
       value: 0,
       min: 0,
-      max: 700, //sceconds
-      slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.value );
-      }
+      max: 700
     });
-
+    $('.ui-slider-handle').height(10).width(10);
 });
 

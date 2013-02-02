@@ -37,10 +37,11 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
         self.search = function(){  
 
             self.searchResults([]); //clear previous search 
-            var search = self.searchValue().replace(' ', '')
+            var search = self.searchValue().replace(/ /gi, '');
             search.toLowerCase();
 
             console.log('search: ' + search)
+            self.searchValue('')
             $.ajax({
                 url: 'http://archive.org/advancedsearch.php',
                 data: 'q=mediatype:(etree)+AND+collection:(' + search + ')&fl[]=title&fl[]=avg_rating&fl[]=coverage&fl[]=date&fl[]=description&fl[]=downloads&fl[]=identifier&fl[]=mediatype&fl[]=year&sort[]=date+asc&sort[]=&sort[]=&rows=50&page=1&output=json',
