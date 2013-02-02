@@ -136,14 +136,16 @@
         </div>
         <div class="footer-container" style="position:fixed; bottom:0px;width:100%">
             <footer class="footer-wrapper">
-                <div id="currentSong">
-                    <!-- <span data-bind="text:currentSong.Song.artist"></span> -->
+                <div id="currentSong" style="height:15px; margin:0px auto; text-align:center">
+                    <span data-bind="text:currentSong().creator"></span>::
+                    <span data-bind="text:currentSong().title"></span>::
+                    <span data-bind="text:currentSong().album"></span>
                 </div>
-                <div id="audio" style="padding-bottom:30px">
+                <div id="audio" style="margin:0 auto;width:100%; padding-bottom:30px;">
                     <i class="pull-left icon-play icon-2x" id="play" data-bind="click:play, visible:showPause() == false"></i>
                     <i class="pull-left icon-pause icon-2x" id="pause" data-bind="click:pause, visible:showPause"></i>
-                    <div class="pull-left" data-bind="text:duration" style="margin:2px 4px 0 0 "></div>
-                    <div class="pull-left" style="width:70%; margin:12px 8px 0px 6px; font-size:6px" id="slider"></div>
+                    <div class="pull-left" data-bind="text:duration" style="margin:2px 8px 0 0 "></div>
+                    <div class="pull-left" style="width:76%; margin:12px 8px 0px 6px; font-size:6px" id="slider"></div>
                     <div class="pull-left" data-bind="text:timeLeft" style="margin:2px 4px 0 0 "></div>
                     <i class=" pull-left icon-backward icon-2x" id="previous" data-bind="click:previous"></i>
                     <i class="pull-left icon-forward icon-2x" id="next" data-bind="click:next"></i>

@@ -1,6 +1,6 @@
 
 
-define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem'], function($, ko, Show, ShowDetails, PlaylistItem){
+define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem', 'models/Song'], function($, ko, Show, ShowDetails, PlaylistItem, Song){
 
     return AppViewModel = function(){
 
@@ -16,7 +16,8 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
         self.showPause      = ko.observable(false);
         self.duration       = ko.observable('0:00')
         self.timeLeft       = ko.observable('-0:00')
-
+        self.currentSong    = ko.observable(new Song());
+        console.log(self.currentSong())
         var audioElement;
         var playlistPosition = 0;
 
@@ -83,7 +84,7 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
         }
         
         self.addToPlaylist = function(song) {
-            console.log(song.addSong())
+
             if (!song.addSong()){
                 song.addSong(true);
                 self.playlist.push( song ); 
@@ -112,7 +113,8 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
             if (audioElement === null || audioElement === undefined){
                
                 var song = self.getSongFromPlaylist(playlistPosition);
-                
+                self.currentSong(song);
+                console.log(self.currentSong())
                 if (song === undefined)
                     return;
 

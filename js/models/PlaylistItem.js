@@ -7,6 +7,7 @@ define(['models/Song'], function(Song){
 
         self.song = json.song;
         self.hasBeenPlayed = json.hasBeenPlayed;
+        self.index = json.index;
 
     };
 
