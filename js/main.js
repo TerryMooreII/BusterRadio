@@ -16,11 +16,29 @@ require.config({
     }
 });
 
+require(['knockout'], function(ko){
 
+    ko.bindingHandlers.sortDate = {
+
+            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                // This will be called when the binding is first applied to an element
+                // Set up any initial state, event handlers, etc. here
+                //console.log('here')
+                //console.log(allBindingsAccessor())
+                console.log(allBindingsAccessor().sortDate)
+            },
+            update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                // This will be called once when the binding is first applied to an element,
+                // and again whenever the associated observable changes value.
+                // Update the DOM element based on the supplied values here.
+                console.log('update')
+            }
+        };
+})
 
 
 require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'artistsList', 'jqueryui'], function($, ko, AppViewModel){
-
+    
     var viewModel = new AppViewModel();
     ko.applyBindings(viewModel);
     viewModel.init();
@@ -42,7 +60,8 @@ require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'artistsLi
     $('#myTab a').click(function (e) {
       e.preventDefault();
       $(this).tab('show');
-    })
+    });
+
     
     //setup an empty slitder
     $( "#slider" ).slider({
@@ -52,5 +71,7 @@ require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'artistsLi
       max: 700
     });
     $('.ui-slider-handle').height(10).width(10);
+
+
 });
 

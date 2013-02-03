@@ -187,14 +187,15 @@ audio{
     width:100%;
 }
 
-#playlists .listDisplay{
+/*#playlists .listDisplay{
     top:140px;
 }
 
 #search .listDisplay{
-    top:160px;
-}
+}*/
 .listDisplay{
+    top:160px;
+
     position:absolute;
     display: inline-block;
     bottom:95px;
@@ -204,6 +205,7 @@ audio{
     margin-top:5px;
     margin-left:0px;
 }
+
 .listDisplay li{
     list-style: none;
     border-top: 1px solid #eee;
@@ -219,20 +221,6 @@ audio{
    color:#333;
    font-size:.8em;
 } 
-
-.addSong{
-    z-index: 100;
-    opacity: 0;  
-    display: inline-block;
-    /* Double-sized Checkboxes */
-    -ms-transform: scale(2); /* IE */
-    -moz-transform: scale(2); /* FF */
-    -webkit-transform: scale(2); /* Safari and Chrome */
-    -o-transform: scale(2); /* Opera */
-}
-.addSongIcon{
-    margin-left: -14px;
-}
 
 #showDetails p{
     margin: 3px 0px 3px 0px;
@@ -261,6 +249,13 @@ audio{
     bottom:105px;
     width:758px;
     overflow:auto;
+}
+
+.mute{
+    color:#999;
+}
+.mute:hover{
+    color:#333;
 }
 
 /* ==========================================================================
@@ -350,7 +345,8 @@ audio{
    =============== */
 
    .footer-wrapper{
-        width: 1026px;   /* 1140px - 10% for margins */
+        width: 860px;   /*1026px; 1140px - 10% for margins */
+        
         margin: 0 auto;
    }
 

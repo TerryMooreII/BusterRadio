@@ -17,9 +17,10 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
         self.duration       = ko.observable('0:00')
         self.timeLeft       = ko.observable('-0:00')
         self.currentSong    = ko.observable(new Song());
-        console.log(self.currentSong())
+
         var audioElement;
         var playlistPosition = 0;
+        var playlistItemPrevious = 0;
 
         self.init = function(){
             console.log('Hello Live Music')
@@ -85,41 +86,53 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
         }
         
         self.addToPlaylist = function(song) {
-
-            if (!song.addSong()){
-                song.addSong(true);
-                self.playlist.push( song ); 
-                return true;
-            }else{
-                self.playlist.remove( song )
-                song.addSong(false);
-                return false
-            }
+            $('#myTab a[href="#playlists"]').tab('show');
+            self.playlist.push( new PlaylistItem(song) ); 
+        };
+        
+        self.addAll = function(){
+            $.each(self.showDetails().songs, function(index, song){
+                self.addToPlaylist(song);
+            });
         };
 
-        
-        self.getSongFromPlaylist = function(index){
-            
-            var sizeOfPlaylist = self.playlist().length;
-            
-            if (sizeOfPlaylist === 0 || index < 0 || index > sizeOfPlaylist - 1)
-                return;
-            
-            return self.playlist()[index];
-        }
+        self.removeFromPlaylist = function(data, event){
+            self.playlist.remove(data);
+        };
 
+        self.removeAllFromPlaylist = function(data, event){
+            self.playlist([]);
+        };
+
+        self.playSongFromPlaylist = function(playlistItem){
+            var index = self.playlist.indexOf(playlistItem);
+            playlistPosition = index;
+            if (audioElement)
+                self.pause();
+            audioElement = null;
+            self.resetTime();
+            self.play();
+        }
 
         self.play = function(){
             
             if (audioElement === null || audioElement === undefined){
-               
-                var song = self.getSongFromPlaylist(playlistPosition);
-                self.currentSong(song);
-                console.log(self.currentSong())
-                if (song === undefined)
-                    return;
+                
+                //reset isPlaying to false for previous song
+                if (self.playlist.indexOf(playlistItemPrevious) !== -1)
+                    self.playlist()[self.playlist.indexOf(playlistItemPrevious)].isPlaying(false);
+                                
 
-                var url = 'http://archive.org/download/' + song.identifier +'/' + song.file;
+                //playListPlayingIndex = self.getSongFromPlaylist(playlistPosition);
+                                
+                playlistItem = self.playlist()[playlistPosition];
+                console.log(playlistItem)
+                playlistItemPrevious = playlistItem;
+                var url = 'http://archive.org/download/' + playlistItem.song.identifier +'/' + playlistItem.song.file;
+
+                playlistItem.isPlaying(true);
+                
+                self.currentSong(playlistItem.song)
                 
                 audioElement = document.createElement('audio');
                 audioElement.setAttribute('src', url);
@@ -233,7 +246,7 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
             });
         };
 
-
+        
     }        
 });
 

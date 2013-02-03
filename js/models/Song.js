@@ -5,8 +5,7 @@ define(['knockout'], function(ko){
     return Song = function(json){
         
         var self = this;
-        
-        self.addSong    = '';
+
         self.album      = '';
         self.bitrate    = '';
         self.creator    = '';
@@ -21,7 +20,6 @@ define(['knockout'], function(ko){
         if (json === null || json === undefined)
             return;
 
-        self.addSong     = ko.observable(false);
         self.album      = json.album;
         self.bitrate    = json.bitrate
         self.creator    = json.creator;
@@ -31,7 +29,6 @@ define(['knockout'], function(ko){
         self.source     = json.source;
         self.title      = json.title;
         self.track      = json.track;
-
     };
 
 });

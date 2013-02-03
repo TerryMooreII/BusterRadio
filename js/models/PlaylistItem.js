@@ -1,13 +1,14 @@
 
-define(['models/Song'], function(Song){
+define(['knockout', 'models/Song'], function(ko, Song){
 
-    return PlaylistItem = function(json){
+    return PlaylistItem = function(song){
 
         var self = this;
 
-        self.song = json.song;
-        self.hasBeenPlayed = json.hasBeenPlayed;
-        self.index = json.index;
+        self.hasBeenPlayed = ko.observable(false);
+        self.isPlaying = ko.observable(false)
+
+        self.song = song;
 
     };
 
