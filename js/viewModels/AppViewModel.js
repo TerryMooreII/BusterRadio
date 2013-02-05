@@ -1,5 +1,4 @@
 
-
 define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem', 'models/Song'], function($, ko, Show, ShowDetails, PlaylistItem, Song){
 
     return AppViewModel = function(){
@@ -108,7 +107,8 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
                 self.showDetails(new ShowDetails(json));
             });
         }
-
+        // no longer used.  This would play a single song with native chrome audio player
+        //below we create our own
         self.playSong = function(song){
             var song = 'http://archive.org/download/' + song.identifier +'/' + song.file;
             console.log(song)
