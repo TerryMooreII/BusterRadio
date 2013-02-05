@@ -49,12 +49,13 @@
                     </ul>
                      
                     <div class="tab-content">
-                        <div class="tab-pane active" id="search">
+                        <div class="tab-pane active" id="search" data-bind="submit:search">
                             <form class="form-inline" style="margin:0">
                                 <input style="width:300px;" id="searchArtists" type="text" class="input" placeholder="Artist Name" data-bind="value:searchValue">
-                                <button type="submit" class="btn" data-bind="click:search">Search</button>
+                                <button type="submit" class="btn">Search</button>
                             </form>
-                            <div>
+                            <!-- Flat show results -->
+                            <!-- <div>
                                 <ul id="artistShowList" class="listDisplay" data-bind="foreach:{data:searchResults}">
                                     <span data-bind="sortDate:$data.year"></span>
                                     <li>
@@ -63,8 +64,20 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </div> 
-
+                            </div> -->
+                            <!-- Show results by year -->
+                            <div class="listDisplay"  id="accordion" data-bind="foreach:{data:searchResultsByYear, as: 'list'}">
+                                <h3 data-bind="text:list.year"></h3>
+                                    <div> 
+                                        <ul data-bind="foreach:{data:shows, as: 'show'}">
+                                            <li>
+                                                <a data-bind="attr:{href:show.identifier, title: show.title}, click:$root.getShowDetails.bind($data)">
+                                                  <span data-bind="text:show.date"></span> - <span data-bind="text:show.venue"></span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                             </div>
                         </div>
                         <div class="tab-pane" id="playlists"> 
                             <form class="form-inline" style="margin:0">

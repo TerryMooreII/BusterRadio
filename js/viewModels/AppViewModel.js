@@ -11,6 +11,7 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
         //Observables
         self.searchValue    = ko.observable('');
         self.searchResults  = ko.observableArray([]);
+        self.searchResultsByYear = ko.observableArray([]);
         self.showDetails    = ko.observable(new ShowDetails());
         self.playlist       = ko.observableArray([]);
         self.showPause      = ko.observable(false);
@@ -38,6 +39,11 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
         self.search = function(){  
 
             self.searchResults([]); //clear previous search 
+            self.searchResultsByYear([]);
+
+            if ($('.listDisplay').hasClass('ui-accordion'))
+                $( "#accordion" ).accordion('destroy');
+            
             var search = self.searchValue().replace(/ /gi, '');
             search.toLowerCase();
 
@@ -45,17 +51,45 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
             self.searchValue('')
             $.ajax({
                 url: 'http://archive.org/advancedsearch.php',
-                data: 'q=mediatype:(etree)+AND+collection:(' + search + ')&fl[]=title&fl[]=avg_rating&fl[]=coverage&fl[]=date&fl[]=description&fl[]=downloads&fl[]=identifier&fl[]=mediatype&fl[]=year&sort[]=date+asc&sort[]=&sort[]=&rows=50&page=1&output=json',
+                data: 'q=mediatype:(etree)+AND+collection:(' + search + ')&fl[]=title&fl[]=avg_rating&fl[]=coverage&fl[]=date&fl[]=description&fl[]=downloads&fl[]=identifier&fl[]=mediatype&fl[]=year&sort[]=date+asc&sort[]=&sort[]=&rows=15000&page=1&output=json',
                 dataType: 'jsonp',
                 type: 'GET',
                 beforeSend: function(){
-
+                    console.log('Loading...')
                 }
-
             }).done(function(json){
+                console.log('Begin parse')
+                var year = 0;
+                var flat = []
+                var byYear = {};
+                var shows = [];
+                byYear.shows = [];
+                var tot = [];
                 $.each(json.response.docs, function(k,v){
-                    self.searchResults.push(new Show(v));
+                    flat.push(new Show(v));
+                    
+                    if ( year !== v.year ){
+                        if (byYear.shows.length > 0){
+                            self.searchResultsByYear.push(byYear);
+                            byYear = {}
+                            byYear.shows = [];
+                        }
+                        year = v.year;
+                        byYear.year = year;
+                    
+                    }
+                    byYear.shows.push(new Show(v));
+                    
                 });
+               
+                self.searchResultsByYear.push(byYear);
+                
+                self.searchResults(flat);
+                
+                $( "#accordion" ).accordion({
+                  heightStyle: "content"
+                });
+                console.log('done')
             });
         };
 
@@ -246,7 +280,7 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
             });
         };
 
-        
+
     }        
 });
 

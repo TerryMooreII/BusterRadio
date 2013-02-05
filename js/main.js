@@ -16,25 +16,7 @@ require.config({
     }
 });
 
-require(['knockout'], function(ko){
 
-    ko.bindingHandlers.sortDate = {
-
-            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-                // This will be called when the binding is first applied to an element
-                // Set up any initial state, event handlers, etc. here
-                //console.log('here')
-                //console.log(allBindingsAccessor())
-                console.log(allBindingsAccessor().sortDate)
-            },
-            update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-                // This will be called once when the binding is first applied to an element,
-                // and again whenever the associated observable changes value.
-                // Update the DOM element based on the supplied values here.
-                console.log('update')
-            }
-        };
-})
 
 
 require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'artistsList', 'jqueryui'], function($, ko, AppViewModel){
@@ -43,17 +25,11 @@ require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'artistsLi
     ko.applyBindings(viewModel);
     viewModel.init();
 
-    // $('#searchArtists').typeahead({
-    //                                 source:list, 
-    //                                 onselect: function() { 
-    //                                     $(this).change(); 
-    //                                 }
-    //                             });
-
     $('#searchArtists').autocomplete({
       source: list,
       select: function( event, ui ) {
-        $('#searchArtists').val(ui.item.value).change(); 
+        //console.log(ui.item)
+        $(this).val(ui.item.label).change(); 
       }
     });
     

@@ -488,3 +488,22 @@ audio{
         page-break-after: avoid;
     }
 }
+
+
+/*****************Over ride jquery ui values*/
+
+.ui-accordion .ui-accordion-content {
+    padding: 0;
+    border-top: 0;
+    overflow: auto;
+}
+
+
+
+
+
+
+
+
+
+
