@@ -1,6 +1,10 @@
 
+<<<<<<< HEAD
 
 define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem', 'models/Song'], function($, ko, Sammy, Show, ShowDetails, PlaylistItem, Song){
+=======
+define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem', 'models/Song'], function($, ko, Show, ShowDetails, PlaylistItem, Song){
+>>>>>>> dd6a5b898432c4139a4b53a06138e9d580eb20fe
 
     return AppViewModel = function(){
 
@@ -115,7 +119,8 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 self.showDetails(new ShowDetails(json));
             });
         }
-
+        // no longer used.  This would play a single song with native chrome audio player
+        //below we create our own
         self.playSong = function(song){
             var song = 'http://archive.org/download/' + song.identifier +'/' + song.file;
             console.log(song)
