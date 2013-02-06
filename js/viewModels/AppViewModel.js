@@ -1,6 +1,6 @@
 
 
-define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem', 'models/Song'], function($, ko, Show, ShowDetails, PlaylistItem, Song){
+define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem', 'models/Song'], function($, ko, Sammy, Show, ShowDetails, PlaylistItem, Song){
 
     return AppViewModel = function(){
 
@@ -24,9 +24,9 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
         var playlistItemPrevious = 0;
 
         self.init = function(){
-            console.log('Hello Live Music')
             self.checkForHTML5Audio();
         };
+
 
         self.checkForHTML5Audio = function(){
             if(!document.createElement('audio').canPlayType){
@@ -36,19 +36,25 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
             
         }
 
-        self.search = function(){  
+        self.setSearchHash = function(){
+            var search = self.searchValue().replace(/ /gi, '');
+            search.toLowerCase();
+                
+            location.hash = search;
+        }
 
-            self.searchResults([]); //clear previous search 
-            self.searchResultsByYear([]);
+
+        self.setShowDetailsHash = function(show){
+            var artist = (location.hash.indexOf('/') === -1) ? 1000 :  location.hash.indexOf('/')
+            location.hash = location.hash.substring(1, artist) +'/'+ show.identifier
+        }
+
+        self.search = function(search){  
 
             if ($('.listDisplay').hasClass('ui-accordion'))
                 $( "#accordion" ).accordion('destroy');
             
-            var search = self.searchValue().replace(/ /gi, '');
-            search.toLowerCase();
-
-            console.log('search: ' + search)
-            self.searchValue('')
+            
             $.ajax({
                 url: 'http://archive.org/advancedsearch.php',
                 data: 'q=mediatype:(etree)+AND+collection:(' + search + ')&fl[]=title&fl[]=avg_rating&fl[]=coverage&fl[]=date&fl[]=description&fl[]=downloads&fl[]=identifier&fl[]=mediatype&fl[]=year&sort[]=date+asc&sort[]=&sort[]=&rows=15000&page=1&output=json',
@@ -87,16 +93,17 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
                 self.searchResults(flat);
                 
                 $( "#accordion" ).accordion({
-                  heightStyle: "content"
+                  heightStyle: "content",
+                  collapsible: true 
                 });
                 console.log('done')
             });
         };
 
-        self.getShowDetails = function(show){  
+        self.getShowDetails = function(identifier){  
 
             $.ajax({
-                url: 'http://archive.org/details/' + show.identifier,
+                url: 'http://archive.org/details/' + identifier,
                 data: 'output=json',
                 dataType: 'jsonp',
                 type: 'GET',
@@ -281,7 +288,35 @@ define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/Playl
         };
 
 
+        // Client-side routes    
+        Sammy(function() {
+            this.get('#:artist', function() {   
+                self.searchResults([]); //clear previous search 
+                self.searchResultsByYear([]);
+                
+                self.searchValue(this.params.artist)
+                self.search(this.params.artist);    
+            });
+
+            this.get('#:artist/:show', function() {   
+                //if loading from scratch then load both show list and details
+                if (self.searchValue() === '' || self.searchValue === undefined){
+                    self.search(this.params.artist)
+                    self.searchValue(this.params.artist)
+                }
+
+                self.getShowDetails(this.params.show)    
+            });
+
+            this.get('', function() {
+                //do this when there isnt a hash tag
+            });
+
+        }).run();
+
     }        
+
+
 });
 
 

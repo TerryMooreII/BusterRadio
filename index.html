@@ -49,11 +49,11 @@
                     </ul>
                      
                     <div class="tab-content">
-                        <div class="tab-pane active" id="search" data-bind="submit:search">
-                            <form class="form-inline" style="margin:0">
+                        <div class="tab-pane active" id="search" >
+                            <div class="form-inline" style="margin:0">
                                 <input style="width:300px;" id="searchArtists" type="text" class="input" placeholder="Artist Name" data-bind="value:searchValue">
-                                <button type="submit" class="btn">Search</button>
-                            </form>
+                                <button type="submit" class="btn" data-bind="click:setSearchHash">Search</button>
+                            </div>
                             <!-- Flat show results -->
                             <!-- <div>
                                 <ul id="artistShowList" class="listDisplay" data-bind="foreach:{data:searchResults}">
@@ -71,7 +71,7 @@
                                     <div> 
                                         <ul data-bind="foreach:{data:shows, as: 'show'}">
                                             <li>
-                                                <a data-bind="attr:{href:show.identifier, title: show.title}, click:$root.getShowDetails.bind($data)">
+                                                <a data-bind="attr:{href:show.identifier, title: show.title}, click:$root.setShowDetailsHash.bind($data)">
                                                   <span data-bind="text:show.date"></span> - <span data-bind="text:show.venue"></span>
                                                 </a>
                                             </li>

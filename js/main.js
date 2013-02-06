@@ -8,7 +8,8 @@ require.config({
         'jquery': 'vendor/jquery-1.9.0.min',
         'bootstrap': 'vendor/bootstrap.min',
         'knockout': 'vendor/knockout-2.2.1',
-        'jqueryui': 'vendor/jquery-ui-1.10.0.custom.min'
+        'jqueryui': 'vendor/jquery-ui-1.10.0.custom.min',
+        'sammyjs': 'vendor/sammy-latest.min'
     },
     shim: {
         'bootstrap': ['jquery'],
