@@ -1,10 +1,5 @@
 
-<<<<<<< HEAD
-
 define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem', 'models/Song'], function($, ko, Sammy, Show, ShowDetails, PlaylistItem, Song){
-=======
-define(['jquery', 'knockout', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem', 'models/Song'], function($, ko, Show, ShowDetails, PlaylistItem, Song){
->>>>>>> dd6a5b898432c4139a4b53a06138e9d580eb20fe
 
     return AppViewModel = function(){
 
