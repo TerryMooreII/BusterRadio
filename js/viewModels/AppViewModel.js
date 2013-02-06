@@ -17,11 +17,11 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         self.duration       = ko.observable('0:00')
         self.timeLeft       = ko.observable('-0:00')
         self.currentSong    = ko.observable(new Song());
-
+        self.showMute       = ko.observable(false);
         var audioElement;
         var playlistPosition = 0;
         var playlistItemPrevious = 0;
-
+        var volumeState = 1;
         self.init = function(){
             self.checkForHTML5Audio();
         };
@@ -180,6 +180,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 
                 self.getDuration(); //sets the time and binds the slider 
                 self.onSongEnd();
+                audioElement.volume = volumeState;
             }
             self.showPause(true);
             audioElement.play();
@@ -287,7 +288,21 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             });
         };
 
-
+        self.volumeControl = function(){
+            if (audioElement === null || audioElement === undefined)
+                return true
+            
+            if (audioElement.volume === 0 ){
+                audioElement.volume = 1;
+                volumeState = 1;
+                self.showMute(false)
+            }else{
+                audioElement.volume = 0;
+                volumeState = 0;
+                self.showMute(true);
+            }
+        }
+        
         // Client-side routes    
         Sammy(function() {
             this.get('#:artist', function() {   
