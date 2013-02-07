@@ -22,10 +22,10 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         var playlistPosition = 0;
         var playlistItemPrevious = 0;
         var volumeState = 1;
+
         self.init = function(){
             self.checkForHTML5Audio();
         };
-
 
         self.checkForHTML5Audio = function(){
             if(!document.createElement('audio').canPlayType){
