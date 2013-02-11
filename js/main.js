@@ -47,7 +47,7 @@ require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'artistsLi
       min: 0,
       max: 700
     });
-    $('.ui-slider-handle').height(10).width(10);
+    $('.ui-slider-handle').height(7).width(7);
 
 
 });
