@@ -114,7 +114,7 @@
                                 <span class="showDate" data-bind="text:showDetails().date"></span>
                                 at 
                                 <span class="venue" data-bind="text:showDetails().venue"></span>
-                            </p>
+                            </p>    
                             <p class="showDescription">
                                 <span  data-bind="text:showDetails().description"></span>
                             </p>
@@ -161,24 +161,27 @@
         </div>
         <div class="footer-container">
             <footer class="footer-wrapper">
-                <div id="currentSong" style="height:15px; margin:0px 60px; width:100%;text-align:center;">
-                    <span data-bind="text:currentSong().creator"></span><span data-bind="visible:currentSong().creator"> :: </span>
-                    <span data-bind="text:currentSong().title"></span><span data-bind="visible:currentSong().title"> :: </span>
-                    <span data-bind="text:currentSong().album"></span>
-                </div>
-                <div id="audio" style="margin:0 auto;width:700px; padding-bottom:30px;line-height:28px">
-                    
-                    <div id="controls" >
+                
+                <div id="audio" style="margin:0 auto;width:700px;margin-top:5px; line-height:28px">
+                    <div id="currentSong" style="height:15px; width:700px;text-align:center;">
+                        
+                        <span data-bind="text:currentSong().title"></span>
+                        <span data-bind="visible:currentSong().title"> by </span>
+                        <span data-bind="text:currentSong().creator"></span>
+                        <br/>
+                        <span data-bind="text:currentSong().album"></span>
+                    </div>
+                    <div id="controls">
                         <i class=" pull-left icon-step-backward icon-2x" style="margin: 2px 15px 0 0" id="previous" data-bind="click:previous"></i>
                         <i class="pull-left icon-play icon-3x" style="margin-top:-3px" id="play" data-bind="click:play, visible:showPause() == false"></i>
                         <i class="pull-left icon-pause icon-3x" style="margin-top:-3px" id="pause" data-bind="click:pause, visible:showPause"></i>
                         <i class="pull-left icon-step-forward icon-2x" style="margin: 2px 15px 0 0" id="next" data-bind="click:next"></i>
                     </div>
                     <div id="time">
-                        <div class="pull-left" style="width:470px; margin:12px 8px 0px 6px; font-size:0px !important" id="slider"></div>
+                        <div class="pull-left" style="width:460px; margin:12px 8px 0px 6px; font-size:0px !important" id="slider"></div>
                         <div class="pull-left" data-bind="text:duration" style="margin:0px 8px 0 0  "></div>
-                        <span class="pull-left" style="margin:0px 8px 0 0 ">/ </span>
-                        <div class="pull-left" data-bind="text:timeLeft" style="margin:0px 8px 0 0 "></div>
+                        <span class="pull-left" style="margin:0px 8px 0 0">/ </span>
+                        <div class="pull-left" data-bind="text:songLength" style="margin:0px 8px 0 0 "></div>
                     </div>
                     <div id="other">
                         <i class="pull-left icon-volume-up icon-2x" style="margin: 1px 15px 0 0" data-bind="click:volumeControl, visible:showMute() == false"></i>

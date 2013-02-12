@@ -14,8 +14,9 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         self.showDetails    = ko.observable(new ShowDetails());
         self.playlist       = ko.observableArray([]);
         self.showPause      = ko.observable(false);
-        self.duration       = ko.observable('0:00')
-        self.timeLeft       = ko.observable('-0:00')
+        self.duration       = ko.observable('0:00');
+        self.timeLeft       = ko.observable('-0:00');
+        self.songLength     = ko.observable('0:00');
         self.currentSong    = ko.observable(new Song());
         self.showMute       = ko.observable(false);
         var audioElement;
@@ -196,6 +197,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
 
             self.duration('0:00');
             self.timeLeft('-0:00');
+            self.songLength('0:00');
         }
 
         self.next = function(){
@@ -232,7 +234,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                    
                     if (duration){
                         clearInterval(i);
-                        self.updateSlider();                 
+                        self.updateSlider();
                     }
                 }
             },500);
@@ -260,24 +262,32 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         self.bindTimeUpdateToSlider = function(){
 
             $(audioElement).on('timeupdate', function() {
-                
-              var rem = parseInt(audioElement.duration - audioElement.currentTime, 10);
-              //pos = (audioElement.currentTime / audioElement.duration) * 100;
-              var mins = Math.floor(rem/60,10);
-              var secs = rem - mins*60;
-              
-              var dur = parseInt(audioElement.currentTime);
-              var durMins = Math.floor(dur/60, 10);
-              var durSecs = dur -durMins * 60;
-                
-              if (isNaN(durMins)) { durMins = 0 }
-              if (isNaN(durSecs)) { durSecs = 0 } 
-              if (isNaN(mins)) { mins = 0 }
-              if (isNaN(secs)) { secs = 0 } 
+                //commented items are for count down
+                //var rem = parseInt(audioElement.duration - audioElement.currentTime, 10);
+                //var mins = Math.floor(rem/60,10);
+                //var secs = rem - mins*60;
 
-              self.duration(durMins + ':' + (durSecs > 9 ? durSecs : '0' + durSecs));
-              self.timeLeft('-' + mins + ':' + (secs > 9 ? secs : '0' + secs));
-              slider.slider("value", audioElement.currentTime)
+                var len = parseInt(audioElement.duration);
+                var lenMins = Math.floor(len/60, 10);
+                var lenSecs = len - lenMins * 60;
+
+
+                var dur = parseInt(audioElement.currentTime);
+                var durMins = Math.floor(dur/60, 10);
+                var durSecs = dur -durMins * 60;
+
+                if (isNaN(durMins)) { durMins = 0 }
+                if (isNaN(durSecs)) { durSecs = 0 } 
+                if (isNaN(lenMins)) { lenMins = 0 }
+                if (isNaN(lenSecs)) { lenSecs = 0 } 
+                
+                //if (isNaN(mins)) { mins = 0 }
+                //if (isNaN(secs)) { secs = 0 } 
+
+                self.duration(durMins + ':' + (durSecs > 9 ? durSecs : '0' + durSecs));
+                //self.timeLeft('-' + mins + ':' + (secs > 9 ? secs : '0' + secs));
+                self.songLength(lenMins + ':' + (lenSecs > 9 ? lenSecs : '0' + lenSecs))
+                slider.slider("value", audioElement.currentTime)
 
             });
         };
