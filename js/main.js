@@ -1,7 +1,5 @@
 
 
-
-
 require.config({
     baseUrl: "js",
     paths: {
@@ -35,6 +33,11 @@ require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'artistsLi
     });
     
     $('#myTab a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
+
+    $('#tabsInfo a').click(function (e) {
       e.preventDefault();
       $(this).tab('show');
     });

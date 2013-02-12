@@ -34,6 +34,9 @@ define(['models/Song'], function(Song){
         if (json.metadata.venue !== undefined)
             self.venue      = json.metadata.venue[0];
 
+        if (json.metadata.coverage !== undefined)
+            self.location   = json.metadata.coverage[0]
+
         self.year           = json.metadata.year[0];
 
         self.songs = [];

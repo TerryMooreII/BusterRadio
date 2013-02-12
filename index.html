@@ -10,12 +10,12 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
-        
+        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/smoothness/jquery-ui-1.10.0.custom.min.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/font-awesome.min.css">
         <link rel="stylesheet" href="css/main.css">
-
+        
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <script data-main="js/main.js" src="js/vendor/require.js" ></script>
     </head>
@@ -39,7 +39,7 @@
         
 
         <div id="content" style="width:100%">
-           <div id="left" style="height:100%"> <!-- " -->
+           <div id="left" style="height:100%;overflow:hidden;"> 
                 
                 <ul class="nav nav-tabs" id="myTab">
                     <li class="active"><a href="#search">Search</a></li>
@@ -65,8 +65,8 @@
                             </ul>
                         </div> -->
                         <!-- Show results by year -->
-                        <div style="overflow-y:auto;width:100%; position:absolute;top:90px;bottom:0px;">
-                            <div class=""  id="accordion" data-bind="foreach:{data:searchResultsByYear, as: 'list'}"  >
+                        <div style="" class="sideBarList scrollList">
+                            <div class="listDisplay"  id="accordion" data-bind="foreach:{data:searchResultsByYear, as: 'list'}"  >
                                 <h3 data-bind="text:list.year"></h3>
                                     <div> 
                                         <ul data-bind="foreach:{data:shows, as: 'show'}">
@@ -86,17 +86,17 @@
                             <input style="width:300px;" type="text" class="input" placeholder="Playlist title">
                             <!-- <button class="btn">Save</button> -->
                         </form>
-                        
-                        <ul  class="listDisplay" data-bind="foreach:playlist">
-                            <li>
-                                <a data-bind="attr:{href:song.title, title:song.title + ' by ' + song.creator}, click:$parent.playSongFromPlaylist">
-                                    <span data-bind="text:song.title"></span>
-                                </a>
-                                <span class="pull-right mute" data-bind="click:$parent.removeFromPlaylist"><i class="icon-trash"></i></span>
-                                <span class="pull-right" data-bind="visible:isPlaying"><i class="icon-volume-up"></i></span>
-                            </li>
-                        </ul>
-                        
+                        <div class="sideBarList scrollList">
+                            <ul  data-bind="foreach:playlist">
+                                <li>
+                                    <a data-bind="attr:{href:song.title, title:song.title + ' by ' + song.creator}, click:$parent.playSongFromPlaylist">
+                                        <span data-bind="text:song.title"></span>
+                                    </a>
+                                    <span class="pull-right mute" data-bind="click:$parent.removeFromPlaylist"><i class="icon-trash"></i></span>
+                                    <span class="pull-right" data-bind="visible:isPlaying"><i class="icon-volume-up"></i></span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="tab-pane" id="settings">Setting  coming soon...</div>
                 </div>
@@ -104,7 +104,7 @@
         
             <div id="right">
                 <div data-bind="visible:showDetails().artist">
-                    <div id="showDetails">
+                    <div id="showDetails" style="height:45px">
                         <div>
                             <img class="pull-right" style="margin-top:15px" data-bind="attr:{src:showDetails().headerImage}, visible:showDetails().headerImage" />
                             <p>
@@ -112,48 +112,63 @@
                             </p>
                             <p>
                                 <span class="showDate" data-bind="text:showDetails().date"></span>
-                                at 
-                                <span class="venue" data-bind="text:showDetails().venue"></span>
-                            </p>    
+                            </p>  
+                            <p>  
+                                <span class="venue" data-bind="text:showDetails().venue"></span>  
+                                <span class="venue" data-bind="text:showDetails().location"></span>
+                            </p>  
+                        </div>
+                    </div>
+
+                    <ul class="nav nav-tabs" id="tabsInfo" style="margin-top:15px">
+                        <li class="active"><a href="#information">Information</a></li>
+                        <li><a href="#tracks">Tracks</a></li>
+                        <li><a href="#reviews">Reviews</a></li>
+                    </ul>
+                
+                    <div class="tab-content" style="overflow:hidden;">
+                        <div class="tab-pane" id="information">
                             <p class="showDescription">
                                 <span  data-bind="text:showDetails().description"></span>
                             </p>
                         </div>
-                    </div>
-
-                    <div id="showTabbedInfo">
-                        <h4 data-bind="visible:showDetails().songs.length == 0">No MP3s for this show.  </h4>                        
-                        <div id="showSongList">
-                            <table class="table table-striped table-hover table-condensed" data-bind="visible:showDetails().songs.length !=0" >
-                                <thead>
-                                    <tr>
-                                        <th style="width:25px; text-align:center">
-                                            <i class="icon-plus mute" data-bind="click:addAll"></i>
-                                        </th>
-                                        <th style="width:50px; text-align:center">Track</th>
-                                        <th style="width:350px">Title</th>
-                                        <th style="width:100px; text-align:center">Length</th>
-                                        <!-- <th></th> -->
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th colspan="3" class=""></th>
-                                        <th class="textCenter">Total</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody data-bind="foreach:showDetails().songs">
-                                    <tr>
-                                        <td  style="text-align:center">
-                                            <i class="icon-plus addSongIcon mute"  data-bind="click:$parent.addToPlaylist.bind($data)" ></i>
-                                        </td>
-                                        <td style="text-align:center" class="textCenter"><span data-bind="text:track"></span></td>
-                                        <td><span data-bind="text:title"></span></td>
-                                        <td style="text-align:center" class="textCenter"><span data-bind="text:length"></span></td>
-                                        <!-- <td><i class="icon-play"  data-bind="click:$parent.playSong.bind($data)"></i></td> -->
-                                    </tr>
-                                </tbody>
-                            </table>
+                        
+                        <div class="tab-pane" id="reviews"></div>
+                        
+                        <div class="tab-pane mainList scrollList" id="tracks">
+                            <h4 data-bind="visible:showDetails().songs.length == 0">No MP3s for this show.  </h4>                        
+                            <div id="showSongList">
+                                <table class="table table-striped table-hover table-condensed" data-bind="visible:showDetails().songs.length !=0" >
+                                    <thead>
+                                        <tr>
+                                            <th style="width:25px; text-align:center">
+                                                <i class="icon-plus mute" data-bind="click:addAll"></i>
+                                            </th>
+                                            <th style="width:50px; text-align:center">Track</th>
+                                            <th style="width:350px">Title</th>
+                                            <th style="width:100px; text-align:center">Length</th>
+                                            <!-- <th></th> -->
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="3" class=""></th>
+                                            <th class="textCenter">Total</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody data-bind="foreach:showDetails().songs">
+                                        <tr>
+                                            <td  style="text-align:center">
+                                                <i class="icon-plus addSongIcon mute"  data-bind="click:$parent.addToPlaylist.bind($data)" ></i>
+                                            </td>
+                                            <td style="text-align:center" class="textCenter"><span data-bind="text:track"></span></td>
+                                            <td><span data-bind="text:title"></span></td>
+                                            <td style="text-align:center" class="textCenter"><span data-bind="text:length"></span></td>
+                                            <!-- <td><i class="icon-play"  data-bind="click:$parent.playSong.bind($data)"></i></td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

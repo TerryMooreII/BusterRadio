@@ -27,7 +27,7 @@ define(['knockout'], function(ko){
         self.length     = json.length;
         self.size       = json.size;
         self.source     = json.source;
-        self.title      = json.title;
+        self.title      = json.title || 'n/a';
         self.track      = json.track;
     };
 

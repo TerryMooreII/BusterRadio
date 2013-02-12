@@ -61,7 +61,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 dataType: 'jsonp',
                 type: 'GET',
                 beforeSend: function(){
-                    console.log('Loading...')
+                    console.log('Loading...');
                 }
             }).done(function(json){
                 console.log('Begin parse')
@@ -71,13 +71,15 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 var shows = [];
                 byYear.shows = [];
                 var tot = [];
+                
                 $.each(json.response.docs, function(k,v){
-                    flat.push(new Show(v));
+                    //flat.push(new Show(v));
                     
                     if ( year !== v.year ){
+                    
                         if (byYear.shows.length > 0){
                             self.searchResultsByYear.push(byYear);
-                            byYear = {}
+                            byYear = {};
                             byYear.shows = [];
                         }
                         year = v.year;
@@ -87,10 +89,10 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                     byYear.shows.push(new Show(v));
                     
                 });
-               
+                
                 self.searchResultsByYear.push(byYear);
                 
-                self.searchResults(flat);
+                //self.searchResults(flat);
                 
                 $( "#accordion" ).accordion({
                   heightStyle: "content",
@@ -112,6 +114,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 }
 
             }).done(function(json){
+                console.log(json)
                 self.showDetails(new ShowDetails(json));
             });
         }
@@ -119,7 +122,6 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         //below we create our own
         self.playSong = function(song){
             var song = 'http://archive.org/download/' + song.identifier +'/' + song.file;
-            console.log(song)
             $('#audio').empty();
             $('#audio').html('<audio controls autoplay>'
                                   +   '<source src="' + song  + '" type="audio/mpeg">'
