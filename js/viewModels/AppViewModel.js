@@ -23,7 +23,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         var playlistPosition = 0;
         var playlistItemPrevious = 0;
         var volumeState = 1;
-
+        var xhr = null;
         self.init = function(){
             self.checkForHTML5Audio();
         };
@@ -33,7 +33,6 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 alert('Your browser doesn\'t support the HTML5 audio tag. \n\n Get a better browser like Google Chrome. \n\n Also I need a better error message' );
                 window.location = 'http://google.com/chrome';
             }
-            
         }
 
         self.setSearchHash = function(){
@@ -49,22 +48,28 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             location.hash = location.hash.substring(1, artist) +'/'+ show.identifier
         }
 
+
         self.search = function(search){  
 
             if ($('.listDisplay').hasClass('ui-accordion'))
                 $( "#accordion" ).accordion('destroy');
             
-            
-            $.ajax({
+            if (xhr)
+                xhr.abort();
+
+            xhr = $.ajax({
                 url: 'http://archive.org/advancedsearch.php',
                 data: 'q=mediatype:(etree)+AND+collection:(' + search + ')&fl[]=title&fl[]=avg_rating&fl[]=coverage&fl[]=date&fl[]=description&fl[]=downloads&fl[]=identifier&fl[]=mediatype&fl[]=year&sort[]=date+asc&sort[]=&sort[]=&rows=15000&page=1&output=json',
                 dataType: 'jsonp',
                 type: 'GET',
                 beforeSend: function(){
                     console.log('Loading...');
+                    $('.loading').find('span').text('Loading...');
+                    $('.loading').show();
                 }
             }).done(function(json){
                 console.log('Begin parse')
+                $('.loading').find('span').text('Parsing...')
                 var year = 0;
                 var flat = []
                 var byYear = {};
@@ -84,7 +89,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                         }
                         year = v.year;
                         byYear.year = year;
-                    
+
                     }
                     byYear.shows.push(new Show(v));
                     
@@ -98,6 +103,9 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                   heightStyle: "content",
                   collapsible: true 
                 });
+                
+                $('.loading').hide();
+                xhr = null;
                 console.log('done')
             });
         };
@@ -110,7 +118,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 dataType: 'jsonp',
                 type: 'GET',
                 beforeSend: function(){
-
+                    console.log('finding show...')
                 }
 
             }).done(function(json){
@@ -269,12 +277,12 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 //var mins = Math.floor(rem/60,10);
                 //var secs = rem - mins*60;
 
-                var len = parseInt(audioElement.duration);
+                var len = parseInt(audioElement.duration, 10);
                 var lenMins = Math.floor(len/60, 10);
                 var lenSecs = len - lenMins * 60;
 
 
-                var dur = parseInt(audioElement.currentTime);
+                var dur = parseInt(audioElement.currentTime, 10);
                 var durMins = Math.floor(dur/60, 10);
                 var durSecs = dur -durMins * 60;
 

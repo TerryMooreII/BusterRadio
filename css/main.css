@@ -107,13 +107,12 @@ body {
 }
 
 .title {
-    font-size:26px;
+    font-size:20px; 
     color: #8cc84b;
     margin:0;
     margin-left:10px;
     float: left;
 }
-
 
 .footer-container footer {
     color: #8cc84b;
@@ -258,6 +257,7 @@ audio{
 }
 
 .showDate{
+    margin:2px 0px 2px;
     font-size:1.2em;
     
 }

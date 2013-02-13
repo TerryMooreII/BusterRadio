@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/font-awesome.min.css">
         <link rel="stylesheet" href="css/main.css">
-        
+
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <script data-main="js/main.js" src="js/vendor/require.js" ></script>
     </head>
@@ -65,6 +65,12 @@
                             </ul>
                         </div> -->
                         <!-- Show results by year -->
+                        <div class="well well-transparent loading" style="display:none">
+                                <div style="margin-left;">
+                                <i class="icon-spinner icon-4x icon-spin"></i>
+                                <span style="margin-left:5px; font-size:1.5em">Loading...</span>
+                            </div>
+                        </div>
                         <div style="" class="sideBarList scrollList">
                             <div class="listDisplay"  id="accordion" data-bind="foreach:{data:searchResultsByYear, as: 'list'}"  >
                                 <h3 data-bind="text:list.year"></h3>
@@ -106,18 +112,24 @@
                 <div data-bind="visible:showDetails().artist">
                     <div id="showDetails" style="height:45px">
                         <div>
-                            <img class="pull-right" style="margin-top:15px" data-bind="attr:{src:showDetails().headerImage}, visible:showDetails().headerImage" />
-                            <p>
-                                <span class="artist" data-bind="text:showDetails().artist"></span>
-                            </p>
-                            <p>
-                                <span class="showDate" data-bind="text:showDetails().date"></span>
-                            </p>  
-                            <p>  
-                                <span class="venue" data-bind="text:showDetails().venue"></span>  
-                                <span class="venue" data-bind="text:showDetails().location"></span>
-                            </p>  
+                            <img class="pull-right" data-bind="attr:{src:showDetails().headerImage}, visible:showDetails().headerImage" />
+                            <div class="pull-left">
+                                <p>
+                                    <span class="artist" data-bind="text:showDetails().artist"></span>
+                                </p>
+                                <p>
+                                    <span class="showDate" data-bind="text:showDetails().date"></span>
+                                </p>  
+                                <p>  
+                                    <span class="venue" data-bind="text:showDetails().venue"></span>  
+                                    <span class="venue" data-bind="text:showDetails().location"></span>
+                                </p>  
+                            </div>
+                            <div class="pull-left">
+                                <span class="venue" data-bind="html:showDetails().starsHtml"></span>
+                            </div>
                         </div>
+
                     </div>
 
                     <ul class="nav nav-tabs" id="tabsInfo" style="margin-top:15px">
@@ -128,12 +140,42 @@
                 
                     <div class="tab-content" style="overflow:hidden;">
                         <div class="tab-pane" id="information">
+                            
+                            
                             <p class="showDescription">
-                                <span  data-bind="text:showDetails().description"></span>
+                                <p>
+                                    Downloads: <span data-bind="text:showDetails().downloads"></span>
+                                </p>
+                                <p>
+                                    Source:<br />
+                                    <span data-bind="text:showDetails().lineage"></span>
+                                    <br />
+                                    <span data-bind="text:showDetails().source"></span>
+                                </p>
+                                <span data-bind="text:showDetails().description"></span>
+                                
                             </p>
                         </div>
                         
-                        <div class="tab-pane" id="reviews"></div>
+                        <div class="tab-pane mainList scrollList" id="reviews">
+                            <div data-bind="foreach:showDetails().reviews">
+                                <div class="well">
+                                    <div class="reivewTitle" style="margin-bottom:5px;width:100%; padding:5px 0px 5px 0px; border-bottom:1px solid #ccc; display:inline-block">
+                                        <div class="pull-left">
+                                            <span style="font-weight:bold" data-bind="text:reviewTitle"></span>
+                                            <span style="margin-left:5px;" data-bind="html:starsHtml"></span>
+                                        </div>
+                                        <div class="pull-right">
+                                            <span style="font-style:italic" data-bind="text:reviewDate"></span>
+                                        </div>
+                                    </div>
+                                    <p>
+                                        <span data-bind="text:reviewBody"></span>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
                         
                         <div class="tab-pane mainList scrollList" id="tracks">
                             <h4 data-bind="visible:showDetails().songs.length == 0">No MP3s for this show.  </h4>                        
@@ -193,7 +235,7 @@
                         <i class="pull-left icon-step-forward icon-2x" style="margin: 2px 15px 0 0" id="next" data-bind="click:next"></i>
                     </div>
                     <div id="time">
-                        <div class="pull-left" style="width:460px; margin:12px 8px 0px 6px; font-size:0px !important" id="slider"></div>
+                        <div class="pull-left" style="width:455px; margin:12px 8px 0px 6px; font-size:0px !important" id="slider"></div>
                         <div class="pull-left" data-bind="text:duration" style="margin:0px 8px 0 0  "></div>
                         <span class="pull-left" style="margin:0px 8px 0 0">/ </span>
                         <div class="pull-left" data-bind="text:songLength" style="margin:0px 8px 0 0 "></div>
