@@ -190,7 +190,11 @@ nav li a:hover{
     position:absolute;
     bottom:0px;
 }
-
+.showStars{
+    width:40px;
+    color:goldenrod;
+    margin-left:20px;
+}
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */

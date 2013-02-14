@@ -110,7 +110,7 @@
         
             <div id="right">
                 <div data-bind="visible:showDetails().artist">
-                    <div id="showDetails" style="height:45px">
+                    <div id="showDetails" style="height:45px;">
                         <div>
                             <img class="pull-right" data-bind="attr:{src:showDetails().headerImage}, visible:showDetails().headerImage" />
                             <div class="pull-left">
@@ -123,24 +123,23 @@
                                 <p>  
                                     <span class="venue" data-bind="text:showDetails().venue"></span>  
                                     <span class="venue" data-bind="text:showDetails().location"></span>
+                                    <span class="venue showStars" data-bind="html:showDetails().starsHtml"></span>
                                 </p>  
                             </div>
-                            <div class="pull-left">
-                                <span class="venue" data-bind="html:showDetails().starsHtml"></span>
-                            </div>
+                            
                         </div>
 
                     </div>
 
                     <ul class="nav nav-tabs" id="tabsInfo" style="margin-top:15px">
-                        <li class="active"><a href="#information">Information</a></li>
-                        <li><a href="#tracks">Tracks</a></li>
+                        <li class="active"><a href="#tracks">Tracks</a></li>
                         <li><a href="#reviews">Reviews</a></li>
+                        <li><a href="#information">Information</a></li>
+                        
                     </ul>
                 
                     <div class="tab-content" style="overflow:hidden;">
                         <div class="tab-pane" id="information">
-                            
                             
                             <p class="showDescription">
                                 <p>
@@ -177,7 +176,7 @@
 
                         </div>
                         
-                        <div class="tab-pane mainList scrollList" id="tracks">
+                        <div class="tab-pane mainList scrollList active" id="tracks">
                             <h4 data-bind="visible:showDetails().songs.length == 0">No MP3s for this show.  </h4>                        
                             <div id="showSongList">
                                 <table class="table table-striped table-hover table-condensed" data-bind="visible:showDetails().songs.length !=0" >
@@ -230,7 +229,7 @@
                     </div>
                     <div id="controls">
                         <i class=" pull-left icon-step-backward icon-2x" style="margin: 2px 15px 0 0" id="previous" data-bind="click:previous"></i>
-                        <i class="pull-left icon-play icon-3x" style="margin-top:-3px" id="play" data-bind="click:play, visible:showPause() == false"></i>
+                        <i class="pull-left icon-play icon-3x" style="margin:-3px 12px 0px 2px" id="play" data-bind="click:play, visible:showPause() == false"></i>
                         <i class="pull-left icon-pause icon-3x" style="margin-top:-3px" id="pause" data-bind="click:pause, visible:showPause"></i>
                         <i class="pull-left icon-step-forward icon-2x" style="margin: 2px 15px 0 0" id="next" data-bind="click:next"></i>
                     </div>

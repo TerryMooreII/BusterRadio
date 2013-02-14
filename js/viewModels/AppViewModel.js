@@ -64,7 +64,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 type: 'GET',
                 beforeSend: function(){
                     console.log('Loading...');
-                    $('.loading').find('span').text('Loading...');
+                    $('.loading').find('span').text('Loading...')
                     $('.loading').show();
                 }
             }).done(function(json){
@@ -122,8 +122,9 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 }
 
             }).done(function(json){
-                console.log(json)
+                $('showSongList').show()
                 self.showDetails(new ShowDetails(json));
+
             });
         }
         // no longer used.  This would play a single song with native chrome audio player

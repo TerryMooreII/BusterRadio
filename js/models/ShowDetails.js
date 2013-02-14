@@ -21,7 +21,16 @@ define(['models/Song', 'models/ShowReview'], function(Song, ShowReview){
         if (json.reviews !== undefined){
             self.stars     = json.reviews.info.avg_rating;
             self.numReviews = json.reviews.info.num_reviews;
+            
+            self.reviews = [];
+            if (json.reviews.reviews !== undefined){
+                $.each(json.reviews.reviews, function(k,v){
+                    self.reviews.push(new ShowReview(v));
+                });
+            }        
+
         }
+
         self.starsHtml = '';
         var starFull = '<i class="icon-star"></i>';
         var starEmpty = '<i class="icon-star-empty"></i>';
@@ -38,19 +47,11 @@ define(['models/Song', 'models/ShowReview'], function(Song, ShowReview){
             self.starsHtml += starEmpty;
         }
 
-        
-        self.reviews = [];
-        if (json.reviews.reviews !== undefined){
-            $.each(json.reviews.reviews, function(k,v){
-                self.reviews.push(new ShowReview(v));
-            });
-        }        
-
         if (json.metadata !== undefined){        
             self.artist         = json.metadata.creator[0];
             self.date           = json.metadata.date[0];
             self.description    = json.metadata.description[0];
-            self.hasMP3         = json.metadata.has_mp3[0];
+            //self.hasMP3         = json.metadata.has_mp3[0];
             self.identifier     = json.metadata.identifier[0];
             self.title          = json.metadata.title[0];
             self.venue          = json.metadata.venue[0];
