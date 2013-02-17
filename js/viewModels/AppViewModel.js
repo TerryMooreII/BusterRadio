@@ -18,7 +18,8 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         self.songLength     = ko.observable('0:00');
         self.currentSong    = ko.observable(new Song());
         self.showMute       = ko.observable(false);
-        self.alphabet       = ko.observableArray('ABCDEFGHIJKLMNOPQUSTUVWXWYZ'.split(''));
+        self.alphabet       = ko.observableArray('ABCDEFGHIJKLMNOPQURSTUVWXWYZ'.split(''));
+        self.alphabet.push('Other');
         self.artistsStartingWith = ko.observable('');
         self.allArtistStartingWith = ko.observableArray([])
         var audioElement;
@@ -61,7 +62,10 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         
             var temp = [];
             for (var i=0; i<list.length; i++){
-                if (list[i].substring(0,1) ===  self.artistsStartingWith() ){
+                if (self.artistsStartingWith() === 'Other'){
+                    if ( self.alphabet.indexOf(list[i].substring(0,1).toUpperCase()) === -1)
+                        temp.push(list[i]);       
+                }else if (list[i].substring(0,1).toUpperCase() ===  self.artistsStartingWith() ){
                     temp.push(list[i]);
                 }
             }

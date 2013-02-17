@@ -51,11 +51,11 @@
                 <div class="tab-content"style="overflow:hidden;">
                     <div class="tab-pane" id="artistList">
                           <div class="form-inline" style="margin:0">
-                            <select data-bind="options: alphabet,optionsCaption:'Artist List...', value:artistsStartingWith"></select>
-                            <button data-bind="click:getArtistStartingWith">Go</button>
+                            <select style="width=150px" data-bind="options: alphabet,optionsCaption:'Artist List...', value:artistsStartingWith, event:{change:getArtistStartingWith}"></select>
+                            <!-- <button data-bind="click:getArtistStartingWith">Go</button> -->
                         </div>
                         <div class="sideBarList scrollList">
-                            <ul class="listDisplay" data-bind="foreach:allArtistStartingWith">
+                            <ul style="margin:0px" class="listDisplay" data-bind="foreach:allArtistStartingWith">
                                 <li><a data-bind="click:$root.setArtistHash.bind($data)"> <span data-bind="text:$data"></span></a></li>
                             </ul>
                         </div>
