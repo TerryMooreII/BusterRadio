@@ -4,7 +4,7 @@
 define(['models/Song', 'models/ShowReview'], function(Song, ShowReview){
 
     return ShowDetails = function(json){
-
+        console.log(json)
         var self = this;
         self.songs = [];
 
@@ -48,17 +48,17 @@ define(['models/Song', 'models/ShowReview'], function(Song, ShowReview){
         }
 
         if (json.metadata !== undefined){        
-            self.artist         = json.metadata.creator[0];
-            self.date           = json.metadata.date[0];
-            self.description    = json.metadata.description[0];
-            //self.hasMP3         = json.metadata.has_mp3[0];
-            self.identifier     = json.metadata.identifier[0];
-            self.title          = json.metadata.title[0];
-            self.venue          = json.metadata.venue[0];
-            self.location       = json.metadata.coverage[0]
-            self.year           = json.metadata.year[0];
-            self.lineage        = json.metadata.lineage[0];
-            self.source         = json.metadata.source[0];
+            self.artist         = json.metadata.creator ? json.metadata.creator[0] : '';
+            self.date           = json.metadata.date ? json.metadata.date[0] : '';
+            self.description    = json.metadata.description ? json.metadata.description[0] : '';
+            self.hasMP3         = json.metadata.has_mp3 ? json.metadata.has_mp3[0] : '';
+            self.identifier     = json.metadata.identifier ? json.metadata.identifier[0] : '';
+            self.title          = json.metadata.title ? json.metadata.title[0] : '';
+            self.venue          = json.metadata.venue ? json.metadata.venue[0] : '';
+            self.location       = json.metadata.coverage ? json.metadata.coverage[0] : ''
+            self.year           = json.metadata.year? json.metadata.year[0] : '';
+            self.lineage        = json.metadata.lineage ? json.metadata.lineage[0]:'';
+            self.source         = json.metadata.source ? json.metadata.source[0] : '';
         }
 
         self.songs = [];
