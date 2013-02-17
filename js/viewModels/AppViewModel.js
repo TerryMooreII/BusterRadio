@@ -1,8 +1,7 @@
 
-define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem', 'models/Song'], function($, ko, Sammy, Show, ShowDetails, PlaylistItem, Song){
+define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem', 'models/Song', 'artistsList'], function($, ko, Sammy, Show, ShowDetails, PlaylistItem, Song){
 
     return AppViewModel = function(){
-
         //Locals
         var self = this;
         var slider = $('#slider');
@@ -19,6 +18,9 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         self.songLength     = ko.observable('0:00');
         self.currentSong    = ko.observable(new Song());
         self.showMute       = ko.observable(false);
+        self.alphabet       = ko.observableArray('ABCDEFGHIJKLMNOPQUSTUVWXWYZ'.split(''));
+        self.artistsStartingWith = ko.observable('');
+        self.allArtistStartingWith = ko.observableArray([])
         var audioElement;
         var playlistPosition = 0;
         var playlistItemPrevious = 0;
@@ -40,14 +42,32 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             search.toLowerCase();
                 
             location.hash = search;
-        }
+        };
 
+        self.setArtistHash = function(data, event){
+            console.log(data)
+         var search = data.replace(/ /gi, '');
+            search.toLowerCase();
+                
+            location.hash = search;   
+        }
 
         self.setShowDetailsHash = function(show){
             var artist = (location.hash.indexOf('/') === -1) ? 1000 :  location.hash.indexOf('/')
             location.hash = location.hash.substring(1, artist) +'/'+ show.identifier
         }
 
+        self.getArtistStartingWith = function(){
+        
+            var temp = [];
+            for (var i=0; i<list.length; i++){
+                if (list[i].substring(0,1) ===  self.artistsStartingWith() ){
+                    temp.push(list[i]);
+                }
+            }
+            
+            self.allArtistStartingWith(temp);
+        };
 
         self.search = function(search){  
 
@@ -56,6 +76,8 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             
             if (xhr)
                 xhr.abort();
+
+            $('#myTab a[href="#search"]').tab('show');
 
             xhr = $.ajax({
                 url: 'http://archive.org/advancedsearch.php',
@@ -106,6 +128,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 
                 $('.loading').hide();
                 xhr = null;
+                
                 console.log('done')
             });
         };

@@ -195,6 +195,19 @@ nav li a:hover{
     color:goldenrod;
     margin-left:20px;
 }
+.playlist ul{
+    margin:0px;
+}
+.playlist li{
+    list-style: none;
+    padding:2px 2px 2px ;
+    border-bottom: 1px solid #eee
+}
+.playlist li:hover{
+    background-color: #efefef;
+}
+
+
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */

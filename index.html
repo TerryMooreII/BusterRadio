@@ -42,12 +42,25 @@
            <div id="left" style="height:100%;overflow:hidden;"> 
                 
                 <ul class="nav nav-tabs" id="myTab">
+                    <li> <a href="#artistList">Artists</a></li>
                     <li class="active"><a href="#search">Search</a></li>
                     <li><a href="#playlists">Playlists</a></li>
                     <li><a href="#settings">Settings</a></li>
                 </ul>
                  
                 <div class="tab-content"style="overflow:hidden;">
+                    <div class="tab-pane" id="artistList">
+                          <div class="form-inline" style="margin:0">
+                            <select data-bind="options: alphabet,optionsCaption:'Artist List...', value:artistsStartingWith"></select>
+                            <button data-bind="click:getArtistStartingWith">Go</button>
+                        </div>
+                        <div class="sideBarList scrollList">
+                            <ul class="listDisplay" data-bind="foreach:allArtistStartingWith">
+                                <li><a data-bind="click:$root.setArtistHash.bind($data)"> <span data-bind="text:$data"></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+ 
                     <div class="tab-pane active" id="search">
                         <div class="form-inline" style="margin:0">
                             <input style="width:200px;" id="searchArtists" type="text" class="input" placeholder="Artist Name" data-bind="value:searchValue">
@@ -92,8 +105,8 @@
                             <input style="width:300px;" type="text" class="input" placeholder="Playlist title">
                             <!-- <button class="btn">Save</button> -->
                         </form>
-                        <div class="sideBarList scrollList">
-                            <ul  data-bind="foreach:playlist">
+                        <div class="sideBarList scrollList playlist">
+                            <ul data-bind="foreach:playlist">
                                 <li>
                                     <a data-bind="attr:{href:song.title, title:song.title + ' by ' + song.creator}, click:$parent.playSongFromPlaylist">
                                         <span data-bind="text:song.title"></span>
@@ -121,7 +134,7 @@
                                     <span class="showDate" data-bind="text:showDetails().date"></span>
                                 </p>  
                                 <p>  
-                                    <span class="venue" data-bind="text:showDetails().venue"></span>  
+                                    <span class="venue" data-bind="text:showDetails().venue"></span>,  
                                     <span class="venue" data-bind="text:showDetails().location"></span>
                                     <span class="venue showStars" data-bind="html:showDetails().starsHtml"></span>
                                 </p>  
