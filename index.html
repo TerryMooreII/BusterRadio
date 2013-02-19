@@ -52,6 +52,7 @@
                     <div class="tab-pane" id="artistList">
                           <div class="form-inline" style="margin:0">
                             <select style="width=150px" data-bind="options: alphabet,optionsCaption:'Artist List...', value:artistsStartingWith, event:{change:getArtistStartingWith}"></select>
+                            <i class="icon-random icon-2x pull-right" data-bind="click:getRandomArtist"></i>
                             <!-- <button data-bind="click:getArtistStartingWith">Go</button> -->
                         </div>
                         <div class="sideBarList scrollList">

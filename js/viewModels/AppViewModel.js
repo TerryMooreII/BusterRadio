@@ -5,7 +5,12 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         //Locals
         var self = this;
         var slider = $('#slider');
-
+        var audioElement;
+        var playlistPosition = 0;
+        var playlistItemPrevious = 0;
+        var volumeState = 1;
+        var xhr = null;
+        
         //Observables
         self.searchValue    = ko.observable('');
         self.searchResults  = ko.observableArray([]);
@@ -22,13 +27,11 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         self.alphabet.push('Other');
         self.artistsStartingWith = ko.observable('');
         self.allArtistStartingWith = ko.observableArray([])
-        var audioElement;
-        var playlistPosition = 0;
-        var playlistItemPrevious = 0;
-        var volumeState = 1;
-        var xhr = null;
+
+
         self.init = function(){
             self.checkForHTML5Audio();
+
         };
 
         self.checkForHTML5Audio = function(){
@@ -46,16 +49,21 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         };
 
         self.setArtistHash = function(data, event){
-            console.log(data)
-         var search = data.replace(/ /gi, '');
+            var search = data.replace(/ /gi, '');
             search.toLowerCase();
                 
             location.hash = search;   
-        }
+        };
 
         self.setShowDetailsHash = function(show){
             var artist = (location.hash.indexOf('/') === -1) ? 1000 :  location.hash.indexOf('/')
             location.hash = location.hash.substring(1, artist) +'/'+ show.identifier
+        };
+
+        self.getRandomArtist = function(){
+
+            var i = Math.floor(Math.random() * list.length);
+            location.hash = list[i].replace(/ /gi, '');;
         }
 
         self.getArtistStartingWith = function(){

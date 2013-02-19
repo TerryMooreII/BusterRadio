@@ -4,7 +4,7 @@
 define(['models/Song', 'models/ShowReview'], function(Song, ShowReview){
 
     return ShowDetails = function(json){
-        console.log(json)
+
         var self = this;
         self.songs = [];
 
