@@ -45,7 +45,8 @@
                     <li> <a href="#artistList">Artists</a></li>
                     <li class="active"><a href="#search">Search</a></li>
                     <li><a href="#playlists">Playlists</a></li>
-                    <li><a href="#settings">Settings</a></li>
+                    <li><a href="#favorites">Favorites</a></li>
+                    <!-- <li><a href="#settings">Settings</a></li> -->
                 </ul>
                  
                 <div class="tab-content"style="overflow:hidden;">
@@ -118,7 +119,16 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="tab-pane" id="settings">Setting  coming soon...</div>
+                    <!-- <div class="tab-pane" id="settings">Setting  coming soon...</div> -->
+                    <div class="tab-pane" id="favorites">
+                        <div class="sideBarList scrollList playlist">
+                            <ul data-bind="foreach:favoriteShows">
+                                <li>
+                                    <a data-bind="click:$parent.viewFavoriteShow"><span data-bind="text:artist + ' on ' + date + ' at ' + venue"></span></a> 
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         
@@ -138,6 +148,7 @@
                                     <span class="venue" data-bind="text:showDetails().venue"></span>,  
                                     <span class="venue" data-bind="text:showDetails().location"></span>
                                     <span class="venue showStars" data-bind="html:showDetails().starsHtml"></span>
+                                    <i class="icon-heart" data-toggle="tooltip" data-original-title="Default tooltip" data-bind="click: addShowToFavorites, tooltips:{title:'Add to Favorites'}"></i>
                                 </p>  
                             </div>
                             

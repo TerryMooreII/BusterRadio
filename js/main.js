@@ -11,7 +11,8 @@ require.config({
     },
     shim: {
         'bootstrap': ['jquery'],
-        'jqueryui': ['jquery']
+        'jqueryui': ['jquery'],
+        'sammyjs': ['jquery']
     }
 });
 
@@ -19,6 +20,33 @@ require.config({
 
 
 require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'artistsList', 'jqueryui'], function($, ko, AppViewModel){
+    
+    ko.bindingHandlers.tooltips = {
+        // init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            
+        //     var value = valueAccessor();
+        //     var defaults = {
+        //         placement:'right',
+        //         title:'missing',
+
+        //     }
+        //     var tooltip = $.extend(defaults, value);
+        //     console.log(tooltip)
+        //     $(element).tooltip(tooltip);
+        // }
+        // ,
+        update:function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            var value = valueAccessor();
+            var defaults = {
+                placement:'right',
+                title:'missing'
+            }
+            var tooltip = $.extend(defaults, value);
+            console.log(tooltip)
+            $(element).tooltip(tooltip)
+
+        }
+    };
     
     var viewModel = new AppViewModel();
     ko.applyBindings(viewModel);

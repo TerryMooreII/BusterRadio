@@ -27,10 +27,11 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         self.alphabet.push('Other');
         self.artistsStartingWith = ko.observable('');
         self.allArtistStartingWith = ko.observableArray([])
-
+        self.favoriteShows  = ko.observableArray([]);
 
         self.init = function(){
             self.checkForHTML5Audio();
+            self.populateFavoriteShows();
 
         };
 
@@ -162,17 +163,10 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
 
             });
         }
-        // no longer used.  This would play a single song with native chrome audio player
-        //below we create our own
-        self.playSong = function(song){
 
-            var song = 'http://archive.org/download/' + song.identifier +'/' + song.file;
-            $('#audio').empty();
-            $('#audio').html('<audio controls autoplay>'
-                                  +   '<source src="' + song  + '" type="audio/mpeg">'
-                                  +   'Your browser does not support the audio tag.'
-                                  + '</audio>');
-        }
+        //***************************************
+        //          Playlist controls
+        //***************************************
         
         self.addToPlaylist = function(song) {
             $('#myTab a[href="#playlists"]').tab('show');
@@ -202,6 +196,11 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             self.resetTime();
             self.play();
         }
+
+        //***************************************
+        //          Music Controls
+        //***************************************
+        
 
         self.play = function(){
             
@@ -363,7 +362,10 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             }
         }
         
-        // Client-side routes    
+        //***************************************
+        //        Client Side Routes
+        //***************************************
+        
         Sammy(function() {
             this.get('#:artist', function() {   
                 self.searchResults([]); //clear previous search 
@@ -388,6 +390,45 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             });
 
         }).run();
+
+        //***************************************
+        //      Storage Function
+        //***************************************
+        
+        self.addShowToFavorites = function(){
+            var hash = window.location.hash.split('/');
+            if (localStorage.favorites){
+                var favorites = JSON.parse(localStorage.favorites);
+                
+            }else{
+                var favorites = {};
+                    favorites.shows = []; 
+            }
+            var details = ko.toJS(self.showDetails)
+            self.favoriteShows.push(details)
+
+            favorites.shows.push(details);
+            localStorage.favorites = JSON.stringify(favorites);
+        };
+
+        self.viewFavoriteShow = function(data, event){
+            window.location.hash = data.artist.replace(/ /gi, '') + '/' + data.identifier
+        };
+
+        self.populateFavoriteShows = function(){
+            if (localStorage.favorites){
+                var obj = JSON.parse(localStorage.favorites);
+                $.each(obj.shows, function(k,v){
+                    self.favoriteShows.push(v);
+                })
+            }
+        };
+       
+
+        
+
+
+
 
     }        
 
