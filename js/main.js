@@ -53,10 +53,31 @@ require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'artistsLi
     viewModel.init();
 
     $('#searchArtists').autocomplete({
-      source: list,
+      source: function( request, response ) {
+        console.log(request)
+        $.ajax({
+          url: "http://archive.org/advancedsearch.php?q=mediatype%3Acollection+AND+TITLE%3A*"+request.term+"*+AND+collection%3Aetree&fl[]=identifier&fl[]=title&sort[]=titleSorter+asc&sort[]=&sort[]=&rows=5000&page=1&callback=callback&save=yes&output=json",
+          dataType: "jsonp",
+          success: function( data ) {
+            console.log(data)
+            response( $.map( data.response.docs, function( item ) {
+              return {
+                label: item.identifier,
+                value: item.title
+              }
+            }));
+          }
+        });
+      },
+      minLength: 2,
       select: function( event, ui ) {
-        //console.log(ui.item)
-        $(this).val(ui.item.label).change(); 
+        window.location.hash = ui.item.label;
+      },
+      open: function() {
+        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+      },
+      close: function() {
+        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
       }
     });
     

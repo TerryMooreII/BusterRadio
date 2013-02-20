@@ -1,5 +1,5 @@
 
-define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem', 'models/Song', 'artistsList'], function($, ko, Sammy, Show, ShowDetails, PlaylistItem, Song){
+define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem', 'models/Song'], function($, ko, Sammy, Show, ShowDetails, PlaylistItem, Song){
 
     return AppViewModel = function(){
         //Locals
@@ -11,6 +11,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         var volumeState = 1;
         var xhr = null;
         
+
         //Observables
         self.searchValue    = ko.observable('');
         self.searchResults  = ko.observableArray([]);
@@ -60,6 +61,22 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             var artist = (location.hash.indexOf('/') === -1) ? 1000 :  location.hash.indexOf('/')
             location.hash = location.hash.substring(1, artist) +'/'+ show.identifier
         };
+
+        self.populateAllArtistsList = function(){
+            $.ajax({
+                url: "http://archive.org/advancedsearch.php?q=mediatype%3Acollection+AND+collection%3Aetree&fl[]=identifier&fl[]=title&sort[]=titleSorter+asc&sort[]=&sort[]=&rows=5000&page=1&callback=callback&save=yes&output=json",
+                dataType: 'jsonp',
+                type: 'GET',
+                beforeSend: function(){
+                }
+            }).done(function(json){
+                
+                $.each(json.response.docs, function(k,v){
+                    allArtistsList.push(v);
+                })
+
+            })
+        }
 
         self.getRandomArtist = function(){
 
