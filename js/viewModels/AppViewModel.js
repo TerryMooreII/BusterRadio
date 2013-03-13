@@ -224,7 +224,6 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             $('body').on('keyup', function(e){
                 if (e.target.tagName.toUpperCase() === 'INPUT') return;
                 
-                console.log(e.keyCode)
                 if ( (e.ctrlKey && e.keyCode === 32) || e.keyCode === 80 ){ //'p' or ctrl+space
                     if (self.showPause())
                         self.pause();
@@ -240,7 +239,6 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
 
                 if (e.keyCode === 77) //'m'
                     self.volumeControl();
-
 
             })
         }
