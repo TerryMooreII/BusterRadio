@@ -33,6 +33,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         self.init = function(){
             self.checkForHTML5Audio();
             self.populateFavoriteShows();
+            self.bindKeycodes()
 
         };
 
@@ -47,7 +48,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             var search = self.searchValue().replace(/ /gi, '');
             search.toLowerCase();
                 
-            location.hash = search;
+            location.hash = search; 
         };
 
         self.setArtistHash = function(data, event){
@@ -218,6 +219,31 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         //          Music Controls
         //***************************************
         
+        self.bindKeycodes = function(){
+
+            $('body').on('keyup', function(e){
+                if (e.target.tagName.toUpperCase() === 'INPUT') return;
+                
+                console.log(e.keyCode)
+                if ( (e.ctrlKey && e.keyCode === 32) || e.keyCode === 80 ){ //'p' or ctrl+space
+                    if (self.showPause())
+                        self.pause();
+                    else
+                        self.play();
+                }
+
+                if ( (e.ctrlKey && e.keyCode === 39) || e.keyCode === 78) //'ctrl+-> or n'
+                    self.next();
+                
+                if ( (e.ctrlKey && e.keyCode === 37) || e.keyCode === 66) //'ctrl+<- or b'
+                    self.previous();
+
+                if (e.keyCode === 77) //'m'
+                    self.volumeControl();
+
+
+            })
+        }
 
         self.play = function(){
             
