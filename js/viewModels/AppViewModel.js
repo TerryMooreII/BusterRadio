@@ -10,7 +10,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         var playlistItemPrevious = 0;
         var volumeState = 1;
         var xhr = null;
-        
+        var apiHostname = 'http://www.archive.org/';
 
         //Observables
         self.searchValue    = ko.observable('');
@@ -65,7 +65,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
 
         self.populateAllArtistsList = function(){
             $.ajax({
-                url: "http://archive.org/advancedsearch.php?q=mediatype%3Acollection+AND+collection%3Aetree&fl[]=identifier&fl[]=title&sort[]=titleSorter+asc&sort[]=&sort[]=&rows=5000&page=1&callback=callback&save=yes&output=json",
+                url: apiHostname + "advancedsearch.php?q=mediatype%3Acollection+AND+collection%3Aetree&fl[]=identifier&fl[]=title&sort[]=titleSorter+asc&sort[]=&sort[]=&rows=5000&page=1&callback=callback&save=yes&output=json",
                 dataType: 'jsonp',
                 type: 'GET',
                 beforeSend: function(){
@@ -100,6 +100,22 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             self.allArtistStartingWith(temp);
         };
 
+        self.getAutocompleteArtists = function(request, response){
+            return $.ajax({
+                url: apiHostname + "advancedsearch.php?q=mediatype%3Acollection+AND+TITLE%3A*"+request.term+"*+AND+collection%3Aetree&fl[]=identifier&fl[]=title&sort[]=titleSorter+asc&sort[]=&sort[]=&rows=5000&page=1&callback=callback&save=yes&output=json",
+                dataType: "jsonp",
+                success: function( data ) {
+                    response( $.map( data.response.docs, function( item ) {
+                        return {
+                            label: item.title,
+                            value: item.title,
+                            hash: item.identifier
+                        }
+                    }));
+                }
+            });
+        };
+
         self.search = function(search){  
 
             if ($('.listDisplay').hasClass('ui-accordion'))
@@ -111,17 +127,15 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             $('#myTab a[href="#search"]').tab('show');
 
             xhr = $.ajax({
-                url: 'http://archive.org/advancedsearch.php',
+                url: apiHostname + 'advancedsearch.php',
                 data: 'q=mediatype:(etree)+AND+collection:(' + search + ')&fl[]=title&fl[]=avg_rating&fl[]=coverage&fl[]=date&fl[]=description&fl[]=downloads&fl[]=identifier&fl[]=mediatype&fl[]=year&sort[]=date+asc&sort[]=&sort[]=&rows=15000&page=1&output=json',
                 dataType: 'jsonp',
                 type: 'GET',
                 beforeSend: function(){
-                    console.log('Loading...');
                     $('.loading').find('span').text('Loading...')
                     $('.loading').show();
                 }
             }).done(function(json){
-                console.log('Begin parse')
                 $('.loading').find('span').text('Parsing...')
                 var year = 0;
                 var flat = []
@@ -160,14 +174,13 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 $('.loading').hide();
                 xhr = null;
                 
-                console.log('done')
             });
         };
 
         self.getShowDetails = function(identifier){  
 
             $.ajax({
-                url: 'http://archive.org/details/' + identifier,
+                url: apiHostname + 'details/' + identifier,
                 data: 'output=json',
                 dataType: 'jsonp',
                 type: 'GET',
@@ -176,7 +189,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 }
 
             }).done(function(json){
-                $('showSongList').show()
+                $('showSongList').show();
                 self.showDetails(new ShowDetails(json));
 
             });
@@ -260,7 +273,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 playlistItem = self.playlist()[playlistPosition];
                 console.log(playlistItem)
                 playlistItemPrevious = playlistItem;
-                var url = 'http://archive.org/download/' + playlistItem.song.identifier +'/' + playlistItem.song.file;
+                var url = apiHostname + 'download/' + playlistItem.song.identifier +'/' + playlistItem.song.file;
 
                 playlistItem.isPlaying(true);
                 
@@ -271,6 +284,28 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 
                 self.getDuration(); //sets the time and binds the slider 
                 self.onSongEnd();
+                //this is a test of these binds
+                $(audioElement).on('waiting', function(e){
+                    console.debug('Audio has triggered the onwaiting event')
+                    console.debug(e);
+                });
+                $(audioElement).on('suspend', function(e){
+                    console.debug('Audio has triggered the onsuspend event')
+                    console.debug(e);
+                });
+                $(audioElement).on('stalled', function(e){
+                    console.debug('Audio has triggered the onstalled event')
+                    console.debug(e);
+                });
+                $(audioElement).on('error', function(e){
+                    console.debug('Audio has triggered the onerror event')
+                    console.debug(e);
+                });
+                $(audioElement).on('emptied', function(e){
+                    console.debug('Audio has triggered the onemptied event')
+                    console.debug(e);
+                });
+                //End test
                 audioElement.volume = volumeState;
             }
             self.showPause(true);
@@ -452,6 +487,16 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             localStorage.favorites = JSON.stringify(favorites);
         };
 
+        self.removeShowFromFavorites = function(index){
+            if (!localStorage.favorites)
+                return;
+
+            var favorites = JSON.parse(localStorage.favorites);
+            self.favoriteShows.splice(index, 1);
+            favorites.shows.splice(index, 1);
+            localStorage.favorites = JSON.stringify(favorites);
+        };
+
         self.viewFavoriteShow = function(data, event){
             window.location.hash = data.artist.replace(/ /gi, '') + '/' + data.identifier
         };
@@ -464,14 +509,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 })
             }
         };
-       
-
-        
-
-
-
-
-    }        
+     }        
 
 
 });

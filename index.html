@@ -54,7 +54,6 @@
                           <div class="form-inline" style="margin:0">
                             <select style="width=150px" data-bind="options: alphabet,optionsCaption:'Artist List...', value:artistsStartingWith, event:{change:getArtistStartingWith}"></select>
                             <i class="icon-random icon-2x pull-right" data-bind="click:getRandomArtist"></i>
-                            <!-- <button data-bind="click:getArtistStartingWith">Go</button> -->
                         </div>
                         <div class="sideBarList scrollList">
                             <ul style="margin:0px" class="listDisplay" data-bind="foreach:allArtistStartingWith">
@@ -68,18 +67,6 @@
                             <input style="width:200px;" id="searchArtists" type="text" class="input" placeholder="Artist Name" data-bind="value:searchValue">
                             <button type="submit" class="btn" data-bind="click:setSearchHash">Search</button>
                         </div>
-                        <!-- Flat show results -->
-                        <!-- <div>
-                            <ul id="artistShowList" class="listDisplay" data-bind="foreach:{data:searchResults}">
-                                <span data-bind="sortDate:$data.year"></span>
-                                <li>
-                                    <a data-bind="attr:{href:identifier, title: title}, click:$parent.getShowDetails.bind($data)">
-                                      <span data-bind="text:date"></span> - <span data-bind="text:venue"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div> -->
-                        <!-- Show results by year -->
                         <div class="well well-transparent loading" style="display:none">
                                 <div style="margin-left;">
                                 <i class="icon-spinner icon-4x icon-spin"></i>
@@ -124,6 +111,7 @@
                         <div class="sideBarList scrollList playlist">
                             <ul data-bind="foreach:favoriteShows">
                                 <li>
+                                    <span class="pull-right mute" data-bind="click:$parent.removeShowFromFavorites"><i class="icon-trash"></i></span>
                                     <a data-bind="click:$parent.viewFavoriteShow"><span data-bind="text:artist + ' on ' + date + ' at ' + venue"></span></a> 
                                 </li>
                             </ul>
