@@ -1,7 +1,8 @@
 BusterRadio
 ===========
 
-<a href='http://busterradio.com/'><Buster Radio</a>
+See and use [Buster Radio here] (http://busterradio.com/) 
+
 
 Buster Radio is a redesigned interface for the live music section of Archive.org.  
 
@@ -11,23 +12,23 @@ On the Artist tab you can click the shuffle icon to have the system randomly sel
 
 Some shows dont have MP3 available, soon it will display a link to download that shows .shn files.  
 
-Site also supports some short hand keys for audio player
-Play/Pause = p
-Next Track = n
-Previous Track = b
-Mute = m
+##Keyboard Shortcuts
+*Play/Pause = p
+*Next Track = n
+*Previous Track = b
+*Mute = m
 
 
-NOTE:
-This only supports the new HTML5 audio element.  I dont have any intension of support a plugin for older browser.  
+##NOTES
+This only supports the HTML5 audio element. Since it streams MP3 and doesn't currently have the OGG fallback it only work with Chrome and the Windows version of Firefox.  
 
+##TODO:
+*Rework the way you play the files so that you don't have to add them to a playlist first. 
+*Save playlists and favorites to a database instead of local storage.
+*Ablitiy to download .shn files.
+*Fix sound control to support more than just mute/unmute.
+*Possible switch to AngularJS.  
+*Split up the functionality.  This was meant as a demo that grew in to a side project without orginization.
 
-TODO:
-Save playlists and favorites to a database instead of local storage.
-Ablitiy to download .shn files.
-Fix sound control to support more than just mute/unmute.
-and much more that I cant think of right now.  
-
-
-Name:
+###Name
 Where does the name come?  Its based off the song title Buster by Moe.   
