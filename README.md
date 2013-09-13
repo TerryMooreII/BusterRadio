@@ -12,17 +12,17 @@ On the Artist tab you can click the shuffle icon to have the system randomly sel
 
 Some shows dont have MP3 available, soon it will display a link to download that shows .shn files.  
 
-##Keyboard Shortcuts
+###Keyboard Shortcuts
 *Play/Pause = p
 *Next Track = n
 *Previous Track = b
 *Mute = m
 
 
-##NOTES
+###NOTES
 This only supports the HTML5 audio element. Since it streams MP3 and doesn't currently have the OGG fallback it only work with Chrome and the Windows version of Firefox.  
 
-##TODO:
+###TODO:
 *Rework the way you play the files so that you don't have to add them to a playlist first. 
 *Save playlists and favorites to a database instead of local storage.
 *Ablitiy to download .shn files.
@@ -30,5 +30,5 @@ This only supports the HTML5 audio element. Since it streams MP3 and doesn't cur
 *Possible switch to AngularJS.  
 *Split up the functionality.  This was meant as a demo that grew in to a side project without orginization.
 
-###Name
+####Name
 Where does the name come?  Its based off the song title Buster by Moe.   
