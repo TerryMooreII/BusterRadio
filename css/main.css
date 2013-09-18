@@ -1,6 +1,7 @@
 /* ==========================================================================
    HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
    ========================================================================== */
+@import url(http://fonts.googleapis.com/css?family=Rock+Salt);
 
 *{
     font-size:12px;
@@ -86,6 +87,7 @@ body {
 
 
 .header-container {
+    background-image: url('../img/dark-grey-tile.png');
     border-bottom:2px #8cc84b solid;
     margin-bottom:15px;
     -webkit-box-shadow: 0 5px 10px #aaa;
@@ -94,6 +96,7 @@ body {
 }
 
 .footer-container{
+    background-image: url('../img/dark-grey-tile.png');
     border-top:2px solid #8cc84b;
     position:fixed; 
     bottom:0px;
@@ -110,6 +113,7 @@ body {
 }
 
 .title {
+    font-family: 'Rock Salt', cursive;
     font-size:20px; 
     color: #8cc84b;
     margin:0;
@@ -138,8 +142,6 @@ nav li{
 }
 nav li a:link, 
 nav li a:visited{
-    border-left:1px solid #46483e;
-    border-right:1px solid #46483e;
     font-size:15px;
     color:#8cc84b;
     line-height:40px;
@@ -148,9 +150,6 @@ nav li a:visited{
 nav li a:hover{
     color:#46483e;
     background-color:#8cc84b;
-    border-bottom:1px solid #46483e;
-    border-left:1px solid #46483e;
-    border-right:1px solid #46483e;
     text-decoration: none;
 }
 

@@ -1,5 +1,6 @@
 
 define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem', 'models/Song'], function($, ko, Sammy, Show, ShowDetails, PlaylistItem, Song){
+    'use strict';
 
     return AppViewModel = function(){
         //Locals
@@ -27,13 +28,13 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         self.alphabet       = ko.observableArray('ABCDEFGHIJKLMNOPQURSTUVWXWYZ'.split(''));
         self.alphabet.push('Other');
         self.artistsStartingWith = ko.observable('');
-        self.allArtistStartingWith = ko.observableArray([])
+        self.allArtistStartingWith = ko.observableArray([]);
         self.favoriteShows  = ko.observableArray([]);
 
         self.init = function(){
             self.checkForHTML5Audio();
             self.populateFavoriteShows();
-            self.bindKeycodes()
+            self.bindKeycodes();
 
         };
 
@@ -42,30 +43,30 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 alert('Your browser doesn\'t support the HTML5 audio tag. \n\n Get a better browser like Google Chrome. \n\n Also I need a better error message' );
                 window.location = 'http://google.com/chrome';
             }
-        }
+        };
 
         self.setSearchHash = function(){
             var search = self.searchValue().replace(/ /gi, '');
             search.toLowerCase();
                 
-            location.hash = search; 
+            location.hash = search;
         };
 
         self.setArtistHash = function(data, event){
             var search = data.replace(/ /gi, '');
             search.toLowerCase();
                 
-            location.hash = search;   
+            location.hash = search;
         };
 
         self.setShowDetailsHash = function(show){
-            var artist = (location.hash.indexOf('/') === -1) ? 1000 :  location.hash.indexOf('/')
-            location.hash = location.hash.substring(1, artist) +'/'+ show.identifier
+            var artist = (location.hash.indexOf('/') === -1) ? 1000 :  location.hash.indexOf('/');
+            location.hash = location.hash.substring(1, artist) +'/'+ show.identifier;
         };
 
         self.populateAllArtistsList = function(){
             $.ajax({
-                url: apiHostname + "advancedsearch.php?q=mediatype%3Acollection+AND+collection%3Aetree&fl[]=identifier&fl[]=title&sort[]=titleSorter+asc&sort[]=&sort[]=&rows=5000&page=1&callback=callback&save=yes&output=json",
+                url: apiHostname + 'advancedsearch.php?q=mediatype%3Acollection+AND+collection%3Aetree&fl[]=identifier&fl[]=title&sort[]=titleSorter+asc&sort[]=&sort[]=&rows=5000&page=1&callback=callback&save=yes&output=json',
                 dataType: 'jsonp',
                 type: 'GET',
                 beforeSend: function(){
@@ -74,16 +75,16 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 
                 $.each(json.response.docs, function(k,v){
                     allArtistsList.push(v);
-                })
+                });
 
-            })
-        }
+            });
+        };
 
         self.getRandomArtist = function(){
 
             var i = Math.floor(Math.random() * list.length);
-            location.hash = list[i].replace(/ /gi, '');;
-        }
+            location.hash = list[i].replace(/ /gi, '');
+        };
 
         self.getArtistStartingWith = function(){
         
@@ -91,7 +92,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             for (var i=0; i<list.length; i++){
                 if (self.artistsStartingWith() === 'Other'){
                     if ( self.alphabet.indexOf(list[i].substring(0,1).toUpperCase()) === -1)
-                        temp.push(list[i]);       
+                        temp.push(list[i]);
                 }else if (list[i].substring(0,1).toUpperCase() ===  self.artistsStartingWith() ){
                     temp.push(list[i]);
                 }
@@ -102,24 +103,24 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
 
         self.getAutocompleteArtists = function(request, response){
             return $.ajax({
-                url: apiHostname + "advancedsearch.php?q=mediatype%3Acollection+AND+TITLE%3A*"+request.term+"*+AND+collection%3Aetree&fl[]=identifier&fl[]=title&sort[]=titleSorter+asc&sort[]=&sort[]=&rows=5000&page=1&callback=callback&save=yes&output=json",
-                dataType: "jsonp",
+                url: apiHostname + 'advancedsearch.php?q=mediatype%3Acollection+AND+TITLE%3A*'+request.term+'*+AND+collection%3Aetree&fl[]=identifier&fl[]=title&sort[]=titleSorter+asc&sort[]=&sort[]=&rows=5000&page=1&callback=callback&save=yes&output=json',
+                dataType: 'jsonp',
                 success: function( data ) {
                     response( $.map( data.response.docs, function( item ) {
                         return {
                             label: item.title,
                             value: item.title,
                             hash: item.identifier
-                        }
+                        };
                     }));
                 }
             });
         };
 
-        self.search = function(search){  
+        self.search = function(search){
 
             if ($('.listDisplay').hasClass('ui-accordion'))
-                $( "#accordion" ).accordion('destroy');
+                $( '#accordion' ).accordion('destroy');
             
             if (xhr)
                 xhr.abort();
@@ -132,13 +133,13 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 dataType: 'jsonp',
                 type: 'GET',
                 beforeSend: function(){
-                    $('.loading').find('span').text('Loading...')
+                    $('.loading').find('span').text('Loading...');
                     $('.loading').show();
                 }
             }).done(function(json){
-                $('.loading').find('span').text('Parsing...')
+                $('.loading').find('span').text('Parsing...');
                 var year = 0;
-                var flat = []
+                var flat = [];
                 var byYear = {};
                 var shows = [];
                 byYear.shows = [];
@@ -166,9 +167,9 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 
                 //self.searchResults(flat);
                 
-                $( "#accordion" ).accordion({
-                  heightStyle: "content",
-                  collapsible: true 
+                $( '#accordion' ).accordion({
+                  heightStyle: 'content',
+                  collapsible: true
                 });
                 
                 $('.loading').hide();
@@ -177,7 +178,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             });
         };
 
-        self.getShowDetails = function(identifier){  
+        self.getShowDetails = function(identifier){
 
             $.ajax({
                 url: apiHostname + 'details/' + identifier,
@@ -185,7 +186,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 dataType: 'jsonp',
                 type: 'GET',
                 beforeSend: function(){
-                    console.log('finding show...')
+                    console.log('finding show...');
                 }
 
             }).done(function(json){
@@ -193,7 +194,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 self.showDetails(new ShowDetails(json));
 
             });
-        }
+        };
 
         //***************************************
         //          Playlist controls
@@ -201,7 +202,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         
         self.addToPlaylist = function(song) {
             $('#myTab a[href="#playlists"]').tab('show');
-            self.playlist.push( new PlaylistItem(song) ); 
+            self.playlist.push( new PlaylistItem(song) );
         };
         
         self.addAll = function(){
@@ -226,7 +227,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             audioElement = null;
             self.resetTime();
             self.play();
-        }
+        };
 
         //***************************************
         //          Music Controls
@@ -253,8 +254,8 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 if (e.keyCode === 77) //'m'
                     self.volumeControl();
 
-            })
-        }
+            });
+        };
 
         self.play = function(){
             
@@ -271,13 +272,13 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 //playListPlayingIndex = self.getSongFromPlaylist(playlistPosition);
                                 
                 playlistItem = self.playlist()[playlistPosition];
-                console.log(playlistItem)
+                console.log(playlistItem);
                 playlistItemPrevious = playlistItem;
                 var url = apiHostname + 'download/' + playlistItem.song.identifier +'/' + playlistItem.song.file;
 
                 playlistItem.isPlaying(true);
                 
-                self.currentSong(playlistItem.song)
+                self.currentSong(playlistItem.song);
                 
                 audioElement = document.createElement('audio');
                 audioElement.setAttribute('src', url);
@@ -286,23 +287,23 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 self.onSongEnd();
                 //this is a test of these binds
                 $(audioElement).on('waiting', function(e){
-                    console.debug('Audio has triggered the onwaiting event')
+                    console.debug('Audio has triggered the onwaiting event');
                     console.debug(e);
                 });
                 $(audioElement).on('suspend', function(e){
-                    console.debug('Audio has triggered the onsuspend event')
+                    console.debug('Audio has triggered the onsuspend event');
                     console.debug(e);
                 });
                 $(audioElement).on('stalled', function(e){
-                    console.debug('Audio has triggered the onstalled event')
+                    console.debug('Audio has triggered the onstalled event');
                     console.debug(e);
                 });
                 $(audioElement).on('error', function(e){
-                    console.debug('Audio has triggered the onerror event')
+                    console.debug('Audio has triggered the onerror event');
                     console.debug(e);
                 });
                 $(audioElement).on('emptied', function(e){
-                    console.debug('Audio has triggered the onemptied event')
+                    console.debug('Audio has triggered the onemptied event');
                     console.debug(e);
                 });
                 //End test
@@ -311,19 +312,19 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             self.showPause(true);
             audioElement.play();
               
-        }
+        };
 
         self.pause = function(){
-            self.showPause(false);            
+            self.showPause(false);
             audioElement.pause();
-        }
+        };
 
         self.resetTime = function(){
 
             self.duration('0:00');
             self.timeLeft('-0:00');
             self.songLength('0:00');
-        }
+        };
 
         self.next = function(){
             
@@ -335,7 +336,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             playlistPosition++;
             self.resetTime();
             self.play();
-        }
+        };
 
         self.previous = function(){
             
@@ -347,7 +348,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             playlistPosition--;
             self.resetTime();
             self.play();
-        }
+        };
 
         self.getDuration = function(){
             
@@ -370,16 +371,16 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             slider.slider({
                 value: 0,
                 step: 0.01,
-                orientation: "horizontal",
-                range: "max",
+                orientation: 'horizontal',
+                range: 'max',
                 max: audioElement.duration,
-                animate: true,          
-                slide: function() {             
+                animate: true,
+                slide: function() {
                     
                 },
-                stop:function(e,ui) {         
+                stop:function(e,ui) {
                     audioElement.currentTime = ui.value;
-                }           
+                }
             });
             self.bindTimeUpdateToSlider();
         };
@@ -401,18 +402,18 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 var durMins = Math.floor(dur/60, 10);
                 var durSecs = dur -durMins * 60;
 
-                if (isNaN(durMins)) { durMins = 0 }
-                if (isNaN(durSecs)) { durSecs = 0 } 
-                if (isNaN(lenMins)) { lenMins = 0 }
-                if (isNaN(lenSecs)) { lenSecs = 0 } 
+                if (isNaN(durMins)) { durMins = 0; }
+                if (isNaN(durSecs)) { durSecs = 0; }
+                if (isNaN(lenMins)) { lenMins = 0; }
+                if (isNaN(lenSecs)) { lenSecs = 0; }
                 
                 //if (isNaN(mins)) { mins = 0 }
                 //if (isNaN(secs)) { secs = 0 } 
 
                 self.duration(durMins + ':' + (durSecs > 9 ? durSecs : '0' + durSecs));
                 //self.timeLeft('-' + mins + ':' + (secs > 9 ? secs : '0' + secs));
-                self.songLength(lenMins + ':' + (lenSecs > 9 ? lenSecs : '0' + lenSecs))
-                slider.slider("value", audioElement.currentTime)
+                self.songLength(lenMins + ':' + (lenSecs > 9 ? lenSecs : '0' + lenSecs));
+                slider.slider('value', audioElement.currentTime);
 
             });
         };
@@ -425,40 +426,40 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
 
         self.volumeControl = function(){
             if (audioElement === null || audioElement === undefined)
-                return true
+                return true;
             
             if (audioElement.volume === 0 ){
                 audioElement.volume = 1;
                 volumeState = 1;
-                self.showMute(false)
+                self.showMute(false);
             }else{
                 audioElement.volume = 0;
                 volumeState = 0;
                 self.showMute(true);
             }
-        }
+        };
         
         //***************************************
         //        Client Side Routes
         //***************************************
         
         Sammy(function() {
-            this.get('#:artist', function() {   
+            this.get('#:artist', function() {
                 self.searchResults([]); //clear previous search 
                 self.searchResultsByYear([]);
                 
-                self.searchValue(this.params.artist)
-                self.search(this.params.artist);    
+                self.searchValue(this.params.artist);
+                self.search(this.params.artist);
             });
 
-            this.get('#:artist/:show', function() {   
+            this.get('#:artist/:show', function() {
                 //if loading from scratch then load both show list and details
                 if (self.searchValue() === '' || self.searchValue === undefined){
-                    self.search(this.params.artist)
-                    self.searchValue(this.params.artist)
+                    self.search(this.params.artist);
+                    self.searchValue(this.params.artist);
                 }
 
-                self.getShowDetails(this.params.show)    
+                self.getShowDetails(this.params.show);
             });
 
             this.get('', function() {
@@ -478,9 +479,9 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 
             }else{
                 var favorites = {};
-                    favorites.shows = []; 
-            }
-            var details = ko.toJS(self.showDetails)
+                    favorites.shows = [];
+                                }
+            var details = ko.toJS(self.showDetails);
             self.favoriteShows.push(details)
 
             favorites.shows.push(details);
@@ -498,7 +499,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         };
 
         self.viewFavoriteShow = function(data, event){
-            window.location.hash = data.artist.replace(/ /gi, '') + '/' + data.identifier
+            window.location.hash = data.artist.replace(/ /gi, '') + '/' + data.identifier;
         };
 
         self.populateFavoriteShows = function(){
@@ -506,11 +507,10 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 var obj = JSON.parse(localStorage.favorites);
                 $.each(obj.shows, function(k,v){
                     self.favoriteShows.push(v);
-                })
+                });
             }
         };
-     }        
-
+     };
 
 });
 
