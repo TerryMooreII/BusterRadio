@@ -229,6 +229,11 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             self.play();
         };
 
+        // Play single song from show list
+        // self.playSong = function(song){
+        //    self.addToPlaylist(song);
+        // };
+
         //***************************************
         //          Music Controls
         //***************************************
