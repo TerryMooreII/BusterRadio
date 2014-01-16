@@ -79,6 +79,7 @@
                             </div>
                         </div>
                         <div style="" class="sideBarList scrollList">
+                            <!-- ko if: searchResultsByYear().length > 0 -->
                             <div class="listDisplay" id="accordion" data-bind="foreach:{data:searchResultsByYear, as: 'list'}"  >
                                 <h3 data-bind="text:list.year"></h3>
                                     <div> 
@@ -91,19 +92,23 @@
                                         </ul>
                                     </div>
                              </div>
+                            <!-- /ko -->
+                          
                         </div>
                     </div>
                     <div class="tab-pane" id="playlists"> 
                         <form class="form-inline" style="margin:0">
                             <span class="pull-right mute" data-bind="click:removeAllFromPlaylist"><i class="icon-trash icon-2x"></i></span>
-                            <input style="width:300px;" type="text" class="input" placeholder="Playlist title">
-                            <!-- <button class="btn">Save</button> -->
+                            <!--<input style="width:300px;" type="text" class="input" placeholder="Playlist title">
+                             <button class="btn">Save</button> -->
                         </form>
                         <div class="sideBarList scrollList playlist">
                             <ul data-bind="foreach:playlist">
                                 <li>
                                     <a data-bind="attr:{href:song.title, title:song.title + ' by ' + song.creator}, click:$parent.playSongFromPlaylist">
                                         <span data-bind="text:song.title"></span>
+
+                                        (<span data-bind="text:song.creator"></span>)
                                     </a>
                                     <span class="pull-right mute" data-bind="click:$parent.removeFromPlaylist"><i class="icon-trash"></i></span>
                                     <span class="pull-right" data-bind="visible:isPlaying"><i class="icon-volume-up"></i></span>
@@ -268,11 +273,6 @@
     <div id="loading">
         <p>Loading ...</p>
     </div>
-        <script type="text/javascript">
-
-
-        </script>
-
         <script>
             var _gaq=[['_setAccount','UA-38185444-1'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
