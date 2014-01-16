@@ -19,7 +19,7 @@ require.config({
 
 
 
-require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'artistsList', 'jqueryui'], function($, ko, AppViewModel){
+require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'jqueryui'], function($, ko, AppViewModel){
     
     ko.bindingHandlers.tooltips = {
         // init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {

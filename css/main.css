@@ -183,6 +183,11 @@ nav li a:hover{
 .sideBarList{
     top:90px;
 }
+
+.sideBarListArtists{
+    top:140px;
+}
+
 .mainList{
     top:110px;
 }
@@ -305,6 +310,25 @@ audio{
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+
+#loading{
+    opacity: 1;
+    position:absolute;
+    top:50%;
+    left: 50%;
+    display: none;
+    height:100px;
+    width: 300px;
+    margin: -50px 0 0 -150px;
+    background-color: #fff;
+    border: 4px solid #ddd;
+    z-index: 100000;
+}
+#loading>p{
+    padding-top:45px;
+    font-size: 20px;
+    text-align: center;
 }
 
 

@@ -12,6 +12,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         var volumeState = 1;
         var xhr = null;
         var apiHostname = 'http://www.archive.org/';
+        var allArtistsList = [];
 
         //Observables
         self.searchValue    = ko.observable('');
@@ -30,12 +31,15 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         self.artistsStartingWith = ko.observable('');
         self.allArtistStartingWith = ko.observableArray([]);
         self.favoriteShows  = ko.observableArray([]);
+        self.artistName = ko.observable('');
 
         self.init = function(){
             self.checkForHTML5Audio();
             self.populateFavoriteShows();
             self.bindKeycodes();
-
+            self.populateAllArtistsList(function(){
+                routes();
+            });
         };
 
         self.checkForHTML5Audio = function(){
@@ -53,68 +57,74 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         };
 
         self.setArtistHash = function(data, event){
-            var search = data.replace(/ /gi, '');
+            self.artistName(data.title);
+            var search = data.identifier.replace(/ /gi, '');
             search.toLowerCase();
                 
             location.hash = search;
         };
 
         self.setShowDetailsHash = function(show){
+            console.log('show...details')
+            console.log(show)
             var artist = (location.hash.indexOf('/') === -1) ? 1000 :  location.hash.indexOf('/');
             location.hash = location.hash.substring(1, artist) +'/'+ show.identifier;
         };
 
-        self.populateAllArtistsList = function(){
+        self.populateAllArtistsList = function(callback){
+            
             $.ajax({
-                url: apiHostname + 'advancedsearch.php?q=mediatype%3Acollection+AND+collection%3Aetree&fl[]=identifier&fl[]=title&sort[]=titleSorter+asc&sort[]=&sort[]=&rows=5000&page=1&callback=callback&save=yes&output=json',
+                url: apiHostname + 'advancedsearch.php?q=mediatype%3Acollection+AND+collection%3Aetree&fl[]=identifier&fl[]=title&sort[]=titleSorter+asc&sort[]=&sort[]=&rows=10000&page=1&callback=callback&save=yes&output=json',
                 dataType: 'jsonp',
                 type: 'GET',
                 beforeSend: function(){
+                    $('#wrapper').css('opacity', '.3');
+                    $('#loading').show();
                 }
             }).done(function(json){
-                
                 $.each(json.response.docs, function(k,v){
                     allArtistsList.push(v);
                 });
-
+                $('#wrapper').css('opacity', '1');
+                $('#loading').hide();
+                callback();
             });
+
         };
 
         self.getRandomArtist = function(){
-
-            var i = Math.floor(Math.random() * list.length);
-            location.hash = list[i].replace(/ /gi, '');
+            var i = Math.floor(Math.random() * allArtistsList.length);
+            location.hash = allArtistsList[i].identifier;
         };
 
         self.getArtistStartingWith = function(){
         
             var temp = [];
-            for (var i=0; i<list.length; i++){
+            for (var i=0; i<allArtistsList.length; i++){
                 if (self.artistsStartingWith() === 'Other'){
-                    if ( self.alphabet.indexOf(list[i].substring(0,1).toUpperCase()) === -1)
-                        temp.push(list[i]);
-                }else if (list[i].substring(0,1).toUpperCase() ===  self.artistsStartingWith() ){
-                    temp.push(list[i]);
+                    if ( self.alphabet.indexOf(allArtistsList[i].title.substring(0,1).toUpperCase()) === -1)
+                        temp.push(allArtistsList[i]);
+                }else if (allArtistsList[i].title.substring(0,1).toUpperCase() ===  self.artistsStartingWith() ){
+                    temp.push(allArtistsList[i]);
                 }
             }
             
             self.allArtistStartingWith(temp);
+            $('.sideBarListArtists').scrollTop(0);
         };
 
         self.getAutocompleteArtists = function(request, response){
-            return $.ajax({
-                url: apiHostname + 'advancedsearch.php?q=mediatype%3Acollection+AND+TITLE%3A*'+request.term+'*+AND+collection%3Aetree&fl[]=identifier&fl[]=title&sort[]=titleSorter+asc&sort[]=&sort[]=&rows=5000&page=1&callback=callback&save=yes&output=json',
-                dataType: 'jsonp',
-                success: function( data ) {
-                    response( $.map( data.response.docs, function( item ) {
+
+            var filtered = allArtistsList.filter(function(el){
+                return el.title.toLowerCase().indexOf(request.term.toLowerCase()) !== -1;
+            })
+            return response( $.map( filtered, function( item ) {
                         return {
                             label: item.title,
                             value: item.title,
                             hash: item.identifier
                         };
                     }));
-                }
-            });
         };
 
         self.search = function(search){
@@ -284,7 +294,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                 playlistItem.isPlaying(true);
                 
                 self.currentSong(playlistItem.song);
-                
+                console.log(self.currentSong())
                 audioElement = document.createElement('audio');
                 audioElement.setAttribute('src', url);
                 
@@ -296,8 +306,8 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                     console.debug(e);
                 });
                 $(audioElement).on('suspend', function(e){
-                    console.debug('Audio has triggered the onsuspend event');
-                    console.debug(e);
+                    //console.debug('Audio has triggered the onsuspend event');
+                    //console.debug(e);
                 });
                 $(audioElement).on('stalled', function(e){
                     console.debug('Audio has triggered the onstalled event');
@@ -448,30 +458,45 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         //        Client Side Routes
         //***************************************
         
-        Sammy(function() {
-            this.get('#:artist', function() {
-                self.searchResults([]); //clear previous search 
-                self.searchResultsByYear([]);
-                
-                self.searchValue(this.params.artist);
-                self.search(this.params.artist);
-            });
+        var getArtistNameFromHash = function(hash){
 
-            this.get('#:artist/:show', function() {
-                //if loading from scratch then load both show list and details
-                if (self.searchValue() === '' || self.searchValue === undefined){
-                    self.search(this.params.artist);
-                    self.searchValue(this.params.artist);
+            $.each(allArtistsList,  function(k,v){
+                if(v.identifier.toLowerCase() === hash.toLowerCase()){
+                    self.artistName(v.title);
+                    return false;
                 }
-
-                self.getShowDetails(this.params.show);
             });
+        }
 
-            this.get('', function() {
-                //do this when there isnt a hash tag
-            });
+        var routes = function(){
+            
+            Sammy(function() {
 
-        }).run();
+                this.get('#:artist', function() {
+                    self.searchResults([]); //clear previous search 
+                    self.searchResultsByYear([]);
+                    getArtistNameFromHash(this.params.artist);
+                    self.search(this.params.artist);
+                });
+
+                this.get('#:artist/:show', function() {
+                    //if loading from scratch then load both show list and details
+                    if (self.artistName() === '' || self.artistName === undefined ){
+                        self.search(this.params.artist);
+                        getArtistNameFromHash(this.params.artist);
+                        
+                    }
+
+                    self.getShowDetails(this.params.show);
+                });
+
+                this.get('', function() {
+                    //do this when there isnt a hash tag
+                });
+
+            }).run();
+
+        }
 
         //***************************************
         //      Storage Function

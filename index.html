@@ -42,31 +42,36 @@
            <div id="left" style="height:100%;overflow:hidden;"> 
                 
                 <ul class="nav nav-tabs" id="myTab">
-                    <li> <a href="#artistList">Artists</a></li>
-                    <li class="active"><a href="#search">Search</a></li>
+                    <li class="active"> <a href="#artistList">Artists</a></li>
+                    <li ><a href="#search">Shows</a></li>
                     <li><a href="#playlists">Playlists</a></li>
-                    <li><a href="#favorites">Favorites</a></li>
+                    <li style="display:none"><a href="#favorites">Favorites</a></li>
                     <!-- <li><a href="#settings">Settings</a></li> -->
                 </ul>
                  
-                <div class="tab-content"style="overflow:hidden;">
-                    <div class="tab-pane" id="artistList">
-                          <div class="form-inline" style="margin:0">
-                            <select style="width=150px" data-bind="options: alphabet,optionsCaption:'Artist List...', value:artistsStartingWith, event:{change:getArtistStartingWith}"></select>
-                            <i class="icon-random icon-2x pull-right" data-bind="click:getRandomArtist"></i>
+                <div class="tab-content " style="overflow:hidden;">
+                    <div class="tab-pane active" id="artistList">
+
+                        <div class="form-inline" style="margin:0">
+                            <input style="width:260px;" id="searchArtists" type="text" class="input" placeholder="Artist Name" data-bind="value:searchValue">
+                            <button type="submit" class="btn" data-bind="click:setSearchHash">Search</button>
                         </div>
-                        <div class="sideBarList scrollList">
+
+                        <div class="form-inline" style="margin:10px 0">
+                            <select style="width=150px" data-bind="options: alphabet,optionsCaption:'Artist List...', value:artistsStartingWith, event:{change:getArtistStartingWith}"></select>
+                            <a href="#" title="Random Artist"><i class="icon-random icon-2x pull-right" data-bind="click:getRandomArtist"></i></a>
+                        </div>
+
+
+                        <div class="sideBarListArtists scrollList">
                             <ul style="margin:0px" class="listDisplay" data-bind="foreach:allArtistStartingWith">
-                                <li><a data-bind="click:$root.setArtistHash.bind($data)"> <span data-bind="text:$data"></span></a></li>
+                                <li><a data-bind="click:$root.setArtistHash.bind($data)"> <span data-bind="text:$data.title"></span></a></li>
                             </ul>
                         </div>
                     </div>
  
-                    <div class="tab-pane active" id="search">
-                        <div class="form-inline" style="margin:0">
-                            <input style="width:200px;" id="searchArtists" type="text" class="input" placeholder="Artist Name" data-bind="value:searchValue">
-                            <button type="submit" class="btn" data-bind="click:setSearchHash">Search</button>
-                        </div>
+                    <div class="tab-pane" id="search">
+                        <span class="artist" style="line-height:normal" data-bind="text:artistName"></span>
                         <div class="well well-transparent loading" style="display:none">
                                 <div style="margin-left;">
                                 <i class="icon-spinner icon-4x icon-spin"></i>
@@ -74,7 +79,7 @@
                             </div>
                         </div>
                         <div style="" class="sideBarList scrollList">
-                            <div class="listDisplay"  id="accordion" data-bind="foreach:{data:searchResultsByYear, as: 'list'}"  >
+                            <div class="listDisplay" id="accordion" data-bind="foreach:{data:searchResultsByYear, as: 'list'}"  >
                                 <h3 data-bind="text:list.year"></h3>
                                     <div> 
                                         <ul data-bind="foreach:{data:shows, as: 'show'}">
@@ -259,6 +264,9 @@
                 </div>                
             </footer>
         </div>
+    </div>
+    <div id="loading">
+        <p>Loading ...</p>
     </div>
         <script type="text/javascript">
 
