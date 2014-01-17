@@ -326,7 +326,9 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
             }
             self.showPause(true);
             audioElement.play();
-              
+            
+            //ENABLE THE AWESOME BARS!!!!
+            bars(audioElement)              
         };
 
         self.pause = function(){
@@ -539,6 +541,63 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
                     self.favoriteShows.push(v);
                 });
             }
+        };
+
+
+        //THis is copy and pasted with very little modification.
+        //Needs cleaned up
+        //http://html5-demos.appspot.com/static/webaudio/createMediaSourceElement.html
+        var bars = function(audioElement) {
+            var canvas = document.getElementById('fft');
+            var ctx = canvas.getContext('2d');
+            canvas.width = document.body.clientWidth / 1.4;
+
+            $('#fft').on('click', function(){
+                $(this).hide();
+            })
+
+            const CANVAS_HEIGHT = canvas.height;
+            const CANVAS_WIDTH = canvas.width;
+
+            // Check for non Web Audio API browsers.
+            if (!window.webkitAudioContext) {
+              alert("Web Audio isn't available in your browser. But...you can still play the HTML5 audio :)");
+              return;
+            }
+
+            var context = new webkitAudioContext();
+            var analyser = context.createAnalyser();
+
+            function rafCallback(time) {
+              window.webkitRequestAnimationFrame(rafCallback, canvas);
+
+              var freqByteData = new Uint8Array(analyser.frequencyBinCount);
+              analyser.getByteFrequencyData(freqByteData); //analyser.getByteTimeDomainData(freqByteData);
+
+              var SPACER_WIDTH = 10;
+              var BAR_WIDTH = 5;
+              var OFFSET = 100;
+              var CUTOFF = 23;
+              var numBars = Math.round(CANVAS_WIDTH / SPACER_WIDTH);
+
+              ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+              ctx.fillStyle = '#8cc84b';
+              ctx.lineCap = 'round';
+
+              // Draw rectangle for each frequency bin.
+              for (var i = 0; i < numBars; ++i) {
+                var magnitude = freqByteData[i + OFFSET] / 2;
+
+                ctx.fillRect(i * SPACER_WIDTH, CANVAS_HEIGHT, BAR_WIDTH, -magnitude);
+                ctx.fillStyle = magnitude < 26 ? '#453' : '#8cc84b';
+              }
+            }
+
+              var source = context.createMediaElementSource(audioElement);
+              source.connect(analyser);
+              analyser.connect(context.destination);
+
+              rafCallback();
         };
      };
 

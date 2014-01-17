@@ -330,7 +330,14 @@ audio{
     font-size: 20px;
     text-align: center;
 }
-
+#fft {
+    position: absolute;
+    height: 30px;
+    width: 500px;
+    left:50%;
+    margin: 0 0 0 -250px;
+    
+}
 
 /* ==========================================================================
    Helper classes
