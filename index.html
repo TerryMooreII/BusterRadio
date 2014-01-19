@@ -62,7 +62,7 @@
 
                         <div class="form-inline" style="margin:10px 0">
                             <select style="width=150px" data-bind="options: alphabet,optionsCaption:'Artist List...', value:artistsStartingWith, event:{change:getArtistStartingWith}"></select>
-                            <a href="#" title="Random Artist"><i class="icon-random icon-2x pull-right" data-bind="click:getRandomArtist"></i></a>
+                            <a href="#" class="randomArtist" title="Random Artist"><i class="icon-random icon-2x pull-right" data-bind="click:getRandomArtist"></i></a>
                         </div>
 
 
@@ -212,7 +212,9 @@
                                     <thead>
                                         <tr>
                                             <th style="width:25px; text-align:center">
-                                                <i class="icon-plus mute" data-bind="click:addAll"></i>
+                                                <a href="#" class="addTrack" title="Add all songs to playlist">
+                                                    <i class="icon-plus mute" data-bind="click:addAll"></i>
+                                                </a>
                                             </th>
                                             <th style="width:50px; text-align:center">Track</th>
                                             <th style="width:350px">Title</th>
@@ -229,7 +231,9 @@
                                     <tbody data-bind="foreach:showDetails().songs">
                                         <tr>
                                             <td  style="text-align:center">
-                                                <i class="icon-plus addSongIcon mute"  data-bind="click:$parent.addToPlaylist.bind($data)" ></i>
+                                                <a href="#" class="addTrack" title="Add songs to playlist">
+                                                    <i class="icon-plus addSongIcon mute"  data-bind="click:$parent.addToPlaylist.bind($data)" ></i>
+                                                </a>
                                             </td>
                                             <td style="text-align:center" class="textCenter"><span data-bind="text:track"></span></td>
                                             <td><span data-bind="text:title"></span></td>

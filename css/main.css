@@ -421,6 +421,24 @@ audio{
     color:red;
     text-decoration: none;
 }
+.addTrack{
+    cursor:pointer;
+    color:#333;
+    text-decoration: none;   
+}
+.addTrack:hover{
+    text-decoration: none;
+}
+
+.randomArtist{
+    cursor:pointer;
+    color:#333;
+    text-decoration: none;   
+}
+.randomArtist:hover{
+    text-decoration: none;   
+}
+
 
 /*****************Over ride jquery ui values*/
 
