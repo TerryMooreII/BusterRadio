@@ -3,6 +3,28 @@
 
 define(['models/Song', 'models/ShowReview'], function(Song, ShowReview){
 
+    var calcTotalTime = function(time){
+            var t = time.split(":");
+            var sec = 0;
+            if (t.length > 0){
+                sec += parseInt(t[0], 10) * 60;
+                sec += parseInt(t[1]);
+            }
+            return sec;
+        }
+
+        var secondsToMinutes = function(time){
+            var hours = Math.floor(time / 3600);
+            time = time - hours * 3600;
+            var min = Math.floor(time/60);
+            var sec = time - min * 60;
+            return addLeadingZero(hours) + ":" + addLeadingZero(min) + ":" + addLeadingZero(sec);
+        }
+
+        var addLeadingZero = function(time){
+            return (time < 9 ? "0" + time : time);
+        }
+
     return ShowDetails = function(json){
 
         var self = this;
@@ -17,6 +39,7 @@ define(['models/Song', 'models/ShowReview'], function(Song, ShowReview){
         self.downloads      = json.item.downloads;
         self.headerImage    = json.misc.header_image;
         self.image          = json.misc.image;
+   
 
         if (json.reviews !== undefined){
             self.stars     = json.reviews.info.avg_rating;
@@ -62,6 +85,7 @@ define(['models/Song', 'models/ShowReview'], function(Song, ShowReview){
         }
 
         self.songs = [];
+        var totalLength = 0;
         if (json.files !== undefined) {
             $.each(json.files, function(k,v){
                 if (v.format.toUpperCase() === "VBR MP3"){
@@ -69,10 +93,21 @@ define(['models/Song', 'models/ShowReview'], function(Song, ShowReview){
                     song.file = k;
                     song.identifier = self.identifier;
                     self.songs.push(song);
+                    if (song.length)
+                        totalLength += calcTotalTime(song.length)
                 }
             });
         }
 
-    };
+
+        self.totalLength = secondsToMinutes(parseInt(totalLength));
+        
+        
+
+    }; //end return
+
+    
+
+
 
 });
