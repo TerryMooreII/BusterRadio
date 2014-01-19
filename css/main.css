@@ -214,6 +214,13 @@ nav li a:hover{
     background-color: #efefef;
 }
 
+.playlist-song{
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    width:250px;
+    display:inline-block;"
+}
 
 /* ==========================================================================
    Author's custom styles
@@ -339,6 +346,8 @@ audio{
     
 }
 
+
+
 /* ==========================================================================
    Helper classes
    ========================================================================== */
@@ -401,7 +410,17 @@ audio{
     *zoom: 1;
 }
 
+.favorite{
+    cursor:pointer;
+    margin-left:10px;
+    color:#333;
+    text-decoration: none;
+}
 
+.favorite:hover{
+    color:red;
+    text-decoration: none;
+}
 
 /*****************Over ride jquery ui values*/
 

@@ -57,6 +57,7 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
         };
 
         self.setArtistHash = function(data, event){
+            
             self.artistName(data.title);
             var search = data.identifier.replace(/ /gi, '');
             search.toLowerCase();
