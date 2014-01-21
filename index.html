@@ -108,14 +108,20 @@
                         <div class="sideBarList scrollList playlist">
                             <ul data-bind="foreach:playlist">
                                 <li>
-                                    <span style="margin-right:5px" class="pull-left" data-bind="visible:isPlaying"><i class="icon-volume-up"></i></span>
+                                    
                                     <span class="playlist-song" >
                                         <a data-bind="attr:{href:song.title, title:song.title + ' by ' + song.creator}, click:$parent.playSongFromPlaylist">
                                             <span data-bind="text:song.title"></span>
                                             <span data-bind="visible:song.creator">(<span data-bind="text:song.creator"></span>)</span>
                                         </a>
                                     </span>
-                                    <span style="margin-left:5px" class="pull-right mute" data-bind="click:$parent.removeFromPlaylist"><i class="icon-trash"></i></span>
+
+                                    <span style="margin-left:5px" class="pull-right" data-bind="visible:isPlaying">
+                                        <i class="icon-volume-up"></i>
+                                    </span>
+                                    <span style="margin-left:5px" class="pull-right mute" data-bind="click:$parent.removeFromPlaylist, visible:isPlaying() == false">
+                                        <i class="icon-trash"></i>
+                                    </span>
                                     <span class="pull-right mute" data-bind="text:song.length"></span>
                                     
                                 </li>

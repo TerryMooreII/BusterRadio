@@ -467,4 +467,25 @@ audio{
 
 
 
+/*
+Starting responsive 
+*/
 
+
+@media (max-width: 1024px) { 
+    #left{
+        display: none;
+    }
+    #right{
+        width: 100%;
+        left: 0px;
+        margin:0px 10px;
+
+    }
+    #slider {
+        display: none;
+    }
+    #showSongList th{
+        width: 10px;
+    }
+ }
