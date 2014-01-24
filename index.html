@@ -265,9 +265,9 @@
                         
                         <span data-bind="text:currentSong().title"></span>
                         <span data-bind="visible:currentSong().title"> by </span>
-                        <span data-bind="text:currentSong().creator"></span>
+                        <span class="show-as-link" data-bind="click:goToArtist, text:currentSong().creator"></span>
                         <br/>
-                        <span data-bind="text:currentSong().album"></span>
+                        <span class="show-as-link" data-bind="click:goToShow, text:currentSong().album"></span>
                     </div>
                     <div id="controls">
                         <i class=" pull-left icon-step-backward icon-2x" style="margin: 2px 15px 0 0" id="previous" data-bind="click:previous"></i>

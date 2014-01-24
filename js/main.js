@@ -7,12 +7,16 @@ require.config({
         'bootstrap': 'vendor/bootstrap.min',
         'knockout': 'vendor/knockout-2.2.1',
         'jqueryui': 'vendor/jquery-ui-1.10.0.custom.min',
-        'sammyjs': 'vendor/sammy-latest.min'
+        'sammyjs': 'vendor/sammy-latest.min',
+        'underscorejs': 'vendor/underscore-min'
     },
     shim: {
         'bootstrap': ['jquery'],
         'jqueryui': ['jquery'],
-        'sammyjs': ['jquery']
+        'sammyjs': ['jquery'],
+        'underscorejs': {
+            exports: '_'
+        }
     }
 });
 

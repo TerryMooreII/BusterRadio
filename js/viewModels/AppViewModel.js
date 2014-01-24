@@ -1,6 +1,6 @@
 
-define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem', 'models/Song'], 
-    function($, ko, Sammy, Show, ShowDetails, PlaylistItem, Song){
+define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem', 'models/Song'], 
+    function($, ko, Sammy, _, Show, ShowDetails, PlaylistItem, Song){
  
     return AppViewModel = function(){
         //Locals
@@ -62,12 +62,24 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
 
         self.setArtistHash = function(data, event){
             
-            self.artistName(data.title);
-            var search = data.identifier.replace(/ /gi, '');
-            search.toLowerCase();
+            // self.artistName(data.title);
+            // var search = data.identifier.replace(/ /gi, '');
+            // search.toLowerCase();
                 
-            location.hash = search;
+            location.hash = getArtistIdentifierFromTitle(data.title);
         };
+
+        var getArtistIdentifierFromTitle = function(title){
+            return _.findWhere(allArtistsList, {title: title }).identifier;
+        }
+
+        self.goToShow = function(){
+            location.hash =  getArtistIdentifierFromTitle( self.currentSong().creator ) + '/' + self.currentSong().identifier;
+        }
+        self.goToArtist = function(){
+            location.hash = getArtistIdentifierFromTitle( self.currentSong().creator );
+        }
+
 
         self.setShowDetailsHash = function(show){
             console.log('show...details')
@@ -276,6 +288,8 @@ define(['jquery', 'knockout', 'sammyjs', 'models/Show', 'models/ShowDetails', 'm
 
             });
         };
+
+
 
         self.play = function(){
             
