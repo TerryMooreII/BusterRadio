@@ -222,6 +222,11 @@ nav li a:hover{
     display:inline-block;"
 }
 
+.playlist-song-playing{
+    font-weight: bold;
+    font-style: italic;
+}
+
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
