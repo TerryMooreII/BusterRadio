@@ -82,7 +82,6 @@ require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'jqueryui'
       $(this).tab('show');
     });
 
-    
     //setup an empty slitder
     $( "#slider" ).slider({
       range: "max",
@@ -91,7 +90,5 @@ require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'jqueryui'
       max: 700
     });
     $('.ui-slider-handle').height(7).width(7);
-
-
 });
 

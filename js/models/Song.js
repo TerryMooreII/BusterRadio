@@ -21,7 +21,7 @@ define(['knockout'], function(ko){
             return;
 
         self.album      = json.album;
-        self.bitrate    = json.bitrate
+        self.bitrate    = json.bitrate;
         self.creator    = json.creator;
         self.format     = json.format;
         self.length     = json.length;

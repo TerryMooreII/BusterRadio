@@ -60,36 +60,38 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             location.hash = search;
         };
 
-        self.setArtistHash = function(data, event){
-            
-            // self.artistName(data.title);
-            // var search = data.identifier.replace(/ /gi, '');
-            // search.toLowerCase();
-                
+        self.setArtistHash = function(data){
             location.hash = getArtistIdentifierFromTitle(data.title);
         };
 
         var getArtistIdentifierFromTitle = function(title){
             return _.findWhere(allArtistsList, {title: title }).identifier;
-        }
+        };
+
+
+        var getArtistNameFromHash = function(hash){
+            $.each(allArtistsList,  function(k,v){
+                if(v.identifier.toLowerCase() === hash.toLowerCase()){
+                    self.artistName(v.title);
+                    return false;
+                }
+            });
+        };
 
         self.goToShow = function(){
             location.hash =  getArtistIdentifierFromTitle( self.currentSong().creator ) + '/' + self.currentSong().identifier;
-        }
+        };
+
         self.goToArtist = function(){
             location.hash = getArtistIdentifierFromTitle( self.currentSong().creator );
-        }
-
+        };
 
         self.setShowDetailsHash = function(show){
-            console.log('show...details')
-            console.log(show)
             var artist = (location.hash.indexOf('/') === -1) ? 1000 :  location.hash.indexOf('/');
             location.hash = location.hash.substring(1, artist) +'/'+ show.identifier;
         };
 
-        self.populateAllArtistsList = function(callback){
-            
+        self.populateAllArtistsList = function(callback){            
             $.ajax({
                 url: apiHostname + 'advancedsearch.php?q=mediatype%3Acollection+AND+collection%3Aetree&fl[]=identifier&fl[]=title&sort[]=titleSorter+asc&sort[]=&sort[]=&rows=10000&page=1&callback=callback&save=yes&output=json',
                 dataType: 'jsonp',
@@ -106,7 +108,6 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                 $('#loading').hide();
                 callback();
             });
-
         };
 
         self.getRandomArtist = function(){
@@ -134,7 +135,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
 
             var filtered = allArtistsList.filter(function(el){
                 return el.title.toLowerCase().indexOf(request.term.toLowerCase()) !== -1;
-            })
+            });
             return response( $.map( filtered, function( item ) {
                         return {
                             label: item.title,
@@ -166,15 +167,10 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             }).done(function(json){
                 $('.loading').find('span').text('Parsing...');
                 var year = 0;
-                var flat = [];
                 var byYear = {};
-                var shows = [];
                 byYear.shows = [];
-                var tot = [];
                 
                 $.each(json.response.docs, function(k,v){
-                    //flat.push(new Show(v));
-                    
                     if ( year !== v.year ){
                     
                         if (byYear.shows.length > 0){
@@ -184,15 +180,11 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                         }
                         year = v.year;
                         byYear.year = year;
-
                     }
                     byYear.shows.push(new Show(v));
-                    
                 });
                 
                 self.searchResultsByYear.push(byYear);
-                
-                //self.searchResults(flat);
                 
                 $( '#accordion' ).accordion({
                   heightStyle: 'content',
@@ -201,25 +193,20 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                 
                 $('.loading').hide();
                 xhr = null;
-                
             });
         };
 
         self.getShowDetails = function(identifier){
-
             $.ajax({
                 url: apiHostname + 'details/' + identifier,
                 data: 'output=json',
                 dataType: 'jsonp',
                 type: 'GET',
                 beforeSend: function(){
-                    console.log('finding show...');
                 }
-
             }).done(function(json){
                 $('showSongList').show();
                 self.showDetails(new ShowDetails(json));
-
             });
         };
 
@@ -289,31 +276,27 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             });
         };
 
-
-
         self.play = function(){
-            
+
             if (self.playlist().length === 0)
                 return;
 
             if (audioElement === null || audioElement === undefined){
-                
+                var playlistItem;
+
                 //reset isPlaying to false for previous song
                 if (self.playlist.indexOf(playlistItemPrevious) !== -1)
                     self.playlist()[self.playlist.indexOf(playlistItemPrevious)].isPlaying(false);
                                 
-
                 //playListPlayingIndex = self.getSongFromPlaylist(playlistPosition);
                                 
                 playlistItem = self.playlist()[playlistPosition];
-                console.log(playlistItem);
                 playlistItemPrevious = playlistItem;
                 var url = apiHostname + 'download/' + playlistItem.song.identifier +'/' + playlistItem.song.file;
 
                 playlistItem.isPlaying(true);
                 
                 self.currentSong(playlistItem.song);
-                console.log(self.currentSong())
                 audioElement = document.createElement('audio');
                 audioElement.setAttribute('src', url);
                 
@@ -322,7 +305,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                 //this is a test of these binds
                 $(audioElement).on('waiting', function(e){
                     console.debug('Audio has triggered the onwaiting event');
-                    console.debug(e);
+                    //console.debug(e);
                 });
                 $(audioElement).on('suspend', function(e){
                     //console.debug('Audio has triggered the onsuspend event');
@@ -330,21 +313,20 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                 });
                 $(audioElement).on('stalled', function(e){
                     console.debug('Audio has triggered the onstalled event');
-                    console.debug(e);
+                    //console.debug(e);
                 });
                 $(audioElement).on('error', function(e){
                     console.debug('Audio has triggered the onerror event');
-                    console.debug(e);
+                    //console.debug(e);
                 });
                 $(audioElement).on('emptied', function(e){
                     console.debug('Audio has triggered the onemptied event');
-                    console.debug(e);
+                    //console.debug(e);
                 });
 
                 $(audioElement).on('canplay', function(e){
-                    console.log('canplay')
                     //ENABLE THE AWESOME BARS!!!!
-                    bars(audioElement);                     
+                    bars(audioElement);
                 });
                 //End test
                 audioElement.volume = volumeState;
@@ -482,16 +464,6 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
         //***************************************
         //        Client Side Routes
         //***************************************
-        
-        var getArtistNameFromHash = function(hash){
-
-            $.each(allArtistsList,  function(k,v){
-                if(v.identifier.toLowerCase() === hash.toLowerCase()){
-                    self.artistName(v.title);
-                    return false;
-                }
-            });
-        }
 
         var routes = function(){
             
@@ -520,25 +492,21 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                 });
 
             }).run();
-
-        }
+        };
 
         //***************************************
         //      Storage Function
         //***************************************
         
         self.addShowToFavorites = function(){
-            var hash = window.location.hash.split('/');
+            var favorites;
             if (localStorage.favorites){
-                var favorites = JSON.parse(localStorage.favorites);
-                
+                favorites = JSON.parse(localStorage.favorites);
             }else{
-                var favorites = {};
-                    favorites.shows = [];
-                                }
+                favorites = {};
+                favorites.shows = [];               }
             var details = ko.toJS(self.showDetails);
-            self.favoriteShows.push(details)
-
+            self.favoriteShows.push(details);
             favorites.shows.push(details);
             localStorage.favorites = JSON.stringify(favorites);
         };
@@ -566,7 +534,6 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             }
         };
 
-
         //THis is copy and pasted with very little modification.
         //Needs cleaned up
         //http://html5-demos.appspot.com/static/webaudio/createMediaSourceElement.html
@@ -577,18 +544,18 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
 
             $('#fft').on('click', function(){
                 $(this).hide();
-            })
+            });
 
             const CANVAS_HEIGHT = canvas.height;
             const CANVAS_WIDTH = canvas.width;
 
             // Check for non Web Audio API browsers.
             if (!window.webkitAudioContext) {
-              alert("Web Audio isn't available in your browser. But...you can still play the HTML5 audio :)");
+              console.log("Web Audio isn't available in your browser. But...you can still play the HTML5 audio :)");
               return;
             }
             var context = null;
-            var context = new webkitAudioContext();
+            context = new webkitAudioContext();
             var analyser = context.createAnalyser();
 
             function rafCallback(time) {
@@ -615,7 +582,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                  gradient.addColorStop(0.50,'#453');
                 gradient.addColorStop(0,'#453');
 
-                ctx.fillStyle = gradient;  
+                ctx.fillStyle = gradient;
 
                 //ctx.fillStyle = '#8cc84b';
                 ctx.lineCap = 'round';

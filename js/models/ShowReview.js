@@ -6,13 +6,13 @@ define([], function(){
         var self = this;
         
         if (json === undefined)
-            return
+            return;
 
-        self.reviewId      = json.review_id
-        self.reviewBody    = json.reviewbody
-        self.reviewDate    = json.reviewdate
-        self.reviewer      = json.reviewer
-        self.reviewTitle   = json.reviewtitle
+        self.reviewId      = json.review_id;
+        self.reviewBody    = json.reviewbody;
+        self.reviewDate    = json.reviewdate;
+        self.reviewer      = json.reviewer;
+        self.reviewTitle   = json.reviewtitle;
         self.stars         = json.stars;
         self.starsHtml     = '';
 
@@ -25,5 +25,5 @@ define([], function(){
         for (var i=self.stars; i<5; i++){
             self.starsHtml += starEmpty;
         }
-    }
+    };
 });
