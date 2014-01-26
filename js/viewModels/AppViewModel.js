@@ -47,8 +47,8 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
         };
 
         self.checkForHTML5Audio = function(){
-            if(!document.createElement('audio').canPlayType){
-                alert('Your browser doesn\'t support the HTML5 audio tag. \n\n Get a better browser like Google Chrome. \n\n Also I need a better error message' );
+            if(!document.createElement('audio').canPlayType('audio/mpeg;')){
+                alert('Current this site only work with Google Chrome, Firefox on Windows, Safari, and Internet Explorer 9+.' );
                 window.location = 'http://google.com/chrome';
             }
         };
