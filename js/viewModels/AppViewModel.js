@@ -582,6 +582,14 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
 
             // Let's check if the user is okay to get some notification
             if (Notification.permission === "granted") {
+                showNotification();
+            }else{
+                console.log('asdfasdf')
+                self.enableNotificationsAction();
+                showNotification();
+            }
+
+            function showNotification(){
                 // If it's okay let's create a notification
                 var notification = new Notification(title, obj);
                 setTimeout(function(){
