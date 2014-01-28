@@ -584,7 +584,6 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             if (Notification.permission === "granted") {
                 showNotification();
             }else{
-                console.log('asdfasdf')
                 self.enableNotificationsAction();
                 showNotification();
             }

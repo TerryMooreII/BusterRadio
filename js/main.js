@@ -9,7 +9,7 @@ require.config({
         'jqueryui': 'vendor/jquery-ui-1.10.0.custom.min',
         'sammyjs': 'vendor/sammy-latest.min',
         'underscorejs': 'vendor/underscore-min'
-        
+
     },
     shim: {
         'bootstrap': ['jquery'],
@@ -47,7 +47,6 @@ require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'jqueryui'
                 title:'missing'
             }
             var tooltip = $.extend(defaults, value);
-            console.log(tooltip)
             $(element).tooltip(tooltip)
 
         }
