@@ -34,6 +34,9 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
         self.favoriteShows  = ko.observableArray([]);
         self.artistName = ko.observable('');
 
+        self.enableNotifications = ko.observable(localStorage.getItem('enableNotifications') ||"No");
+        self.enableDancingBars = ko.observable(localStorage.getItem('enableDancingBars') ||"No");
+
         //Query for latest updates to archive.org
         //https://archive.org/advancedsearch.php?q=collection%3Aetree&fl%5B%5D=avg_rating&fl%5B%5D=call_number&fl%5B%5D=collection&fl%5B%5D=contributor&fl%5B%5D=coverage&fl%5B%5D=creator&fl%5B%5D=date&fl%5B%5D=description&fl%5B%5D=downloads&fl%5B%5D=foldoutcount&fl%5B%5D=format&fl%5B%5D=headerImage&fl%5B%5D=identifier&fl%5B%5D=imagecount&fl%5B%5D=language&fl%5B%5D=licenseurl&fl%5B%5D=mediatype&fl%5B%5D=month&fl%5B%5D=num_reviews&fl%5B%5D=oai_updatedate&fl%5B%5D=publicdate&fl%5B%5D=publisher&fl%5B%5D=rights&fl%5B%5D=scanningcentre&fl%5B%5D=source&fl%5B%5D=subject&fl%5B%5D=title&fl%5B%5D=type&fl%5B%5D=volume&fl%5B%5D=week&fl%5B%5D=year&sort%5B%5D=publicdate+desc&sort%5B%5D=&sort%5B%5D=&rows=10&page=1&output=json&callback=callback&save=yes
 
@@ -51,6 +54,35 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                 alert('Current this site only work with Google Chrome, Firefox on Windows, Safari, and Internet Explorer 9+.' );
                 window.location = 'http://google.com/chrome';
             }
+        };
+
+        self.checkForDesktopNotifications = function(){
+            return !("Notification" in window);
+        }
+
+        self.checkForWebkitAudio = function(){
+            return !("webkitAudioContext" in window);
+        }
+
+        self.enableNotificationsAction = function(){
+            localStorage.setItem('enableNotifications', self.enableNotifications());
+
+            if(self.enableNotifications()=== "Yes" ){
+                Notification.requestPermission(function (permission) {
+                // Whatever the user answers, we make sure Chrome stores the information
+                    console.log(permission)
+                    if(!('permission' in Notification)) {
+                        Notification.permission = permission;
+                    }
+                });
+            }
+
+            return true ;
+        };
+
+        self.enableDancingBarsAction = function(){
+           localStorage.setItem('enableDancingBars', self.enableDancingBars());
+            return true ;
         };
 
         self.setSearchHash = function(){
@@ -326,14 +358,18 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
 
                 $(audioElement).on('canplay', function(e){
                     //ENABLE THE AWESOME BARS!!!!
-                    bars(audioElement);
+                    if(self.enableDancingBars() === "Yes")
+                        bars(audioElement);
                 });
                 //End test
                 audioElement.volume = volumeState;
             }
+
             self.showPause(true);
             audioElement.play();
-            
+
+            if (self.enableNotifications() === "Yes")
+                notify(playlistItem);   
         };
 
         self.pause = function(){
@@ -534,6 +570,26 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             }
         };
 
+
+        var notify = function(currentSong) { 
+            
+            var title = currentSong.song.title + ' by ' + currentSong.song.creator; 
+            var obj = {
+                tag:'song_info',
+                body:currentSong.song.album
+                //icon: "http://ia700202.us.archive.org/17/items/etree/lma.jpg"
+            }
+
+            // Let's check if the user is okay to get some notification
+            if (Notification.permission === "granted") {
+                // If it's okay let's create a notification
+                var notification = new Notification(title, obj);
+                setTimeout(function(){
+                  notification.close();
+                } , 5000);
+            }
+        }
+
         //THis is copy and pasted with very little modification.
         //Needs cleaned up
         //http://html5-demos.appspot.com/static/webaudio/createMediaSourceElement.html
@@ -549,11 +605,6 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             const CANVAS_HEIGHT = canvas.height;
             const CANVAS_WIDTH = canvas.width;
 
-            // Check for non Web Audio API browsers.
-            if (!window.webkitAudioContext) {
-              console.log("Web Audio isn't available in your browser. But...you can still play the HTML5 audio :)");
-              return;
-            }
             var context = null;
             context = new webkitAudioContext();
             var analyser = context.createAnalyser();
@@ -579,7 +630,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
 
                 var gradient = ctx.createLinearGradient(0,0,0,canvas.height);
                 gradient.addColorStop(1,'#8cc84b');
-                 gradient.addColorStop(0.50,'#453');
+                gradient.addColorStop(0.50,'#453');
                 gradient.addColorStop(0,'#453');
 
                 ctx.fillStyle = gradient;

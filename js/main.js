@@ -9,6 +9,7 @@ require.config({
         'jqueryui': 'vendor/jquery-ui-1.10.0.custom.min',
         'sammyjs': 'vendor/sammy-latest.min',
         'underscorejs': 'vendor/underscore-min'
+        
     },
     shim: {
         'bootstrap': ['jquery'],

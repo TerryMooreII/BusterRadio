@@ -49,7 +49,7 @@
                     <li ><a href="#search">Shows</a></li>
                     <li><a href="#playlists">Playlists</a></li>
                     <li><a href="#favorites">Favorites</a></li>
-                    <!-- <li><a href="#settings">Settings</a></li> -->
+                    <li><a href="#settings"><i class="icon-cog"></i></a></li>
                 </ul>
                  
                 <div class="tab-content " style="overflow:hidden;">
@@ -128,7 +128,42 @@
                             </ul>
                         </div>
                     </div>
-                    <!-- <div class="tab-pane" id="settings">Setting  coming soon...</div> -->
+                    
+                    <div class="tab-pane" id="settings">
+                        <div class="sideBarList scrollList playlist">
+                            <ul>
+                                <li>
+                                    <div  class="form-inline" data-bind="visible:checkForDesktopNotifications">
+                                        <span>Show dancing lines</span>
+                                        <span class="pull-right">
+                                            <label class="inline radio">
+                                                    <input type="radio" name="dancingBars" value="Yes" data-bind="checked:enableDancingBars, click:enableDancingBarsAction" /> Yes
+                                                </label>
+                                                <label class="inline radio">
+                                                    <input type="radio" name="dancingBars" value="No" data-bind="checked:enableDancingBars, click:enableDancingBarsAction"/> No
+                                                </label>
+                                        </span>
+
+                                    </div>
+                                </li>
+                                <div class="clearfix"></div>
+                                <li>
+                                    <div class="form-inline" data-bind="visible:checkForWebkitAudio">
+                                        <span>Show desktop notifications</span>
+                                        <span class="pull-right ">
+                                            <label class="inline radio">
+                                                <input type="radio" name="notification" value="Yes" data-bind="checked:enableNotifications, click:enableNotificationsAction"  /> Yes
+                                            </label>
+                                            <label class="inline radio">
+                                                <input type="radio" name="notification" value="No" data-bind="checked:enableNotifications, click:enableNotificationsAction"/> No
+                                            </label>
+                                        </span>
+                                    </div>
+                                </li>   
+                            </ul>
+                        </div>
+                    </div>
+
                     <div class="tab-pane" id="favorites">
                         <div class="sideBarList scrollList playlist">
                             <ul data-bind="foreach:favoriteShows">
