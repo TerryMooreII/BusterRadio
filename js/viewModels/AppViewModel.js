@@ -1,11 +1,12 @@
 
-define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem', 'models/Song'], 
-    function($, ko, Sammy, _, Show, ShowDetails, PlaylistItem, Song){
+define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/ShowDetails', 'models/PlaylistItem', 'models/Song', 'models/ArtistBio'], 
+    function($, ko, Sammy, _, Show, ShowDetails, PlaylistItem, Song, ArtistBio){
  
     return AppViewModel = function(){
         //Locals
         var self = this;
-        var JAMBASE_API = 'zq84kfbfdh6cuh6g9sb7v6q8';
+        var LASTFM_API_URL = 'http://ws.audioscrobbler.com/2.0/';
+        var LASTFM_API_KEY = '748badaa2ec79b0d485e1b7c7a88af96';
         var slider = $('#slider');
         var audioElement;
         var playlistPosition = 0;
@@ -33,6 +34,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
         self.allArtistStartingWith = ko.observableArray([]);
         self.favoriteShows  = ko.observableArray([]);
         self.artistName = ko.observable('');
+        self.artistBio = ko.observable('');
 
         self.enableNotifications = ko.observable(localStorage.getItem('enableNotifications') ||"No");
         self.enableDancingBars = ko.observable(localStorage.getItem('enableDancingBars') ||"No");
@@ -175,6 +177,19 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                             hash: item.identifier
                         };
                     }));
+        };
+
+        self.getArtistBio = function(){
+            $.ajax({
+                url: LASTFM_API_URL + '?method=artist.getinfo&artist=' + self.artistName() + '&api_key=' + LASTFM_API_KEY + '&format=json',
+                dataType: 'jsonp',
+                type: 'GET',
+                beforeSend: function(){
+                }
+            }).done(function(json){
+                console.log(json)
+                self.artistBio(new ArtistBio(json));
+            });
         };
 
         self.search = function(search){
@@ -510,6 +525,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                     self.searchResultsByYear([]);
                     getArtistNameFromHash(this.params.artist);
                     self.search(this.params.artist);
+                    self.getArtistBio();
                 });
 
                 this.get('#:artist/:show', function() {
@@ -517,9 +533,8 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                     if (self.artistName() === '' || self.artistName === undefined ){
                         self.search(this.params.artist);
                         getArtistNameFromHash(this.params.artist);
-                        
                     }
-
+                    self.artistBio('');
                     self.getShowDetails(this.params.show);
                 });
 

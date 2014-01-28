@@ -357,6 +357,31 @@ audio{
     
 }
 
+#bio{
+
+}
+#bio img {
+    margin:0px 20px 20px 0px;
+}
+#bio h1 {
+    font-size:32px;
+}
+#bio p, #bio p a {
+    font-size:20px;
+    line-height:28px;
+    margin-top:10px;
+}
+
+#bio span.tags{
+    border-radius: 5px;
+    background-color: #8cc84b;
+    color:#fff;
+    padding:5px 15px 5px 15px;
+    margin: 0px 5px 5px 0px;
+}
+
+
+/*cadatblue*/
 
 
 /* ==========================================================================

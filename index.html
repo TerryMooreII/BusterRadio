@@ -178,7 +178,26 @@
             </div>
         
             <div id="right">
-                <div data-bind="visible:showDetails().artist">
+                <div id="bio" data-bind="visible:artistBio">
+
+                    <p data-bind="visible:artistBio().error">
+                        Sorry, we are unable to find artist's bio. <!-- <br /> Reason: 
+                        <span class="bio-error" data-bind="html:artistBio().error"></span> -->
+                    </p>
+                    
+                    <div class="pull-left">    
+                        <img data-bind="attr:{ src: artistBio().image }">
+                    </div>
+                    <div>
+                    <div><h1 data-bind="text:artistBio().name"></h1></div>
+                    
+                    <div data-bind="foreach: artistBio().tags">
+                        <span class="tags" data-bind="text:$data"></span>
+                    </div>
+                    <p data-bind="html:artistBio().summary"></p>
+                    </div>
+                </div>
+                <div data-bind="visible:showDetails().artist && artistBio() == ''">
                     <div id="showDetails" style="height:45px;">
                         <div>
                             <img class="pull-right" data-bind="attr:{src:showDetails().headerImage}, visible:showDetails().headerImage" />
