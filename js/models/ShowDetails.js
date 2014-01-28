@@ -22,7 +22,7 @@ define(['models/Song', 'models/ShowReview'], function(Song, ShowReview){
     };
 
     var addLeadingZero = function(time){
-        return (time < 9 ? "0" + time : time);
+        return (time <= 9 ? "0" + time : time);
     };
 
     return ShowDetails = function(json){
