@@ -620,10 +620,6 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             var ctx = canvas.getContext('2d');
             canvas.width = document.body.clientWidth / 1.4;
 
-            $('#fft').on('click', function(){
-                $(this).hide();
-            });
-
             const CANVAS_HEIGHT = canvas.height;
             const CANVAS_WIDTH = canvas.width;
 
