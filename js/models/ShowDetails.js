@@ -57,7 +57,7 @@ define(['models/Song', 'models/ShowReview'], function(Song, ShowReview){
         var starFull = '<i class="icon-star"></i>';
         var starEmpty = '<i class="icon-star-empty"></i>';
         var starHalf = '<i class="icon-star-half"></i>';
-        var i;
+        var i=0;
         for (i=1; i<=self.stars; i++){
             self.starsHtml += starFull;
         }
@@ -65,7 +65,7 @@ define(['models/Song', 'models/ShowReview'], function(Song, ShowReview){
             self.starsHtml += starHalf;
             i++;
         }
-        for (i; i<5; i++){
+        for (i; i<=5; i++){
             self.starsHtml += starEmpty;
         }
 
