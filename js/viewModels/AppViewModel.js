@@ -640,11 +640,6 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                 var numBars = Math.round(CANVAS_WIDTH / SPACER_WIDTH);
 
                 ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-                //   var gradient = ctx.createLinearGradient(0,0,0,canvas.height);
-                //     gradient.addColorStop(1,'#000000');
-                //     gradient.addColorStop(0.75,'#ff0000');
-                //     gradient.addColorStop(0.25,'#ffff00');
-                //     gradient.addColorStop(0,'#ffff00');
 
                 var gradient = ctx.createLinearGradient(0,0,0,canvas.height);
                 gradient.addColorStop(1,'#8cc84b');
@@ -652,15 +647,12 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                 gradient.addColorStop(0,'#453');
 
                 ctx.fillStyle = gradient;
-
-                //ctx.fillStyle = '#8cc84b';
                 ctx.lineCap = 'round';
 
                 // Draw rectangle for each frequency bin.
                 for (var i = 0; i < numBars; ++i) {
                     var magnitude = freqByteData[i + OFFSET] / 2;
                     ctx.fillRect(i * SPACER_WIDTH, CANVAS_HEIGHT, BAR_WIDTH, -magnitude);
-                    //ctx.fillStyle = magnitude < 26 ? '#453' : '#8cc84b';
                 }
             }
 
