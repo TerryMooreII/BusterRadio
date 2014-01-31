@@ -290,7 +290,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             self.play();
         };
 
-        // Play single song from show list
+        //Play single song from show list
         // self.playSong = function(song){
         //    self.addToPlaylist(song);
         // };
@@ -585,7 +585,6 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             }
         };
 
-
         var notify = function(currentSong) { 
             
             var title = currentSong.song.title + ' by ' + currentSong.song.creator; 
@@ -624,8 +623,14 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             const CANVAS_WIDTH = canvas.width;
 
             var context = null;
-            context = new webkitAudioContext();
-            var analyser = context.createAnalyser();
+            //wrapped in try..catch.. becuase of some audio issues on chrome in windows.
+            try{
+                context = new webkitAudioContext();
+                var analyser = context.createAnalyser();
+            }catch(e){
+                console.log("Error with audiocontext: " +e.message);
+                return;
+            }   
 
             function rafCallback(time) {
                 window.webkitRequestAnimationFrame(rafCallback, canvas);
