@@ -26,7 +26,7 @@
     <div id="wrapper">
         <div class="header-container">
             <header class="wrapper clearfix">
-                <h1 class="title">buster rad.io</h1>
+                <h1 class="title"><a href="#">buster rad.io</a></h1>
                 
                 <canvas id="fft"> </canvas>
                 
@@ -178,6 +178,33 @@
             </div>
         
             <div id="right">
+                <div id="latest-shows" data-bind="visible:!showDetails().artist && artistBio() == ''">
+                    
+                    <h1>Buster Radio<h1>
+
+                    <h2>Check out the latest shows!!<h2>
+
+                    <ul data-bind="foreach:latestShows" class="unstyled">
+                        <li>
+                            <p>
+                                <div class="pull-left">
+                                    <a class="latest-show-artist" data-bind="text:$data.artist, attr:{href: '#' + $parent.getArtistIdentifierFromTitle($data.artist)}">
+                                    </a>    
+                                </div>
+                                <div class="pull-right">
+                                    Live at 
+                                    <a data-bind="attr:{href: '#' + $parent.getArtistIdentifierFromTitle($data.artist) + '/' + $data.identifier}">
+                                        <span data-bind="text:$data.venue"></span>
+                                        on <span data-bind="text:$data.date"></span>
+                                    </a>
+                                </div>
+                            </p>
+                            <div class="clearfix"></div>
+                        </li>
+                    </ul>
+
+                </div>
+
                 <div id="bio" data-bind="visible:artistBio">
 
                     <p data-bind="visible:artistBio().error">

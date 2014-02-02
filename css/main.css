@@ -112,7 +112,9 @@ body {
     background-color:#46483e;
 }
 
-.title {
+.title, .title>a {
+    padding:0;
+    text-decoration: none;
     font-family: 'Rock Salt', cursive;
     font-size:20px; 
     color: #8cc84b;
@@ -379,6 +381,49 @@ audio{
     padding:5px 15px 5px 15px;
     margin: 0px 5px 5px 0px;
 }
+
+#latest-shows{
+    width:600px;
+    position: absolute;
+    top:300px;
+
+    left:50%;
+    margin:-300px;
+}
+
+#latest-shows h1{
+    font-family: 'Rock Salt', cursive;
+    font-size:40px; 
+    color: #8cc84b;
+    text-align: center;
+    margin-bottom: 30px
+}
+
+#latest-shows h2{
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+
+.latest-show-artist{
+    font-size: 18px;
+    margin:0 20px;
+    padding: 0;
+
+}
+
+.latest-show-show, .latest-show-show>span{
+    font-size: 14px;
+    margin:0;
+    padding: 0;
+    float: right;
+}
+
+#latest-shows p{
+    margin-bottom: 20px;
+}
+
 
 
 /*cadatblue*/

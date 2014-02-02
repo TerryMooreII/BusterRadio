@@ -36,7 +36,11 @@ define(['models/Song', 'models/ShowReview'], function(Song, ShowReview){
         
         self.dir            = json.dir;
         self.server         = json.server;
-        self.downloads      = json.item.downloads;
+        if (json.item && json.item.downloads)
+            self.downloads      = json.item.downloads || '0';
+        else
+            self.downloads  = '0';
+        
         self.headerImage    = json.misc.header_image;
         self.image          = json.misc.image;
    

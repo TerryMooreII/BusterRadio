@@ -35,13 +35,12 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
         self.favoriteShows  = ko.observableArray([]);
         self.artistName = ko.observable('');
         self.artistBio = ko.observable('');
+        self.latestShows = ko.observableArray([]);
 
         self.enableNotifications = ko.observable(localStorage.getItem('enableNotifications') ||"No");
         self.enableDancingBars = ko.observable(localStorage.getItem('enableDancingBars') ||"No");
 
-        //Query for latest updates to archive.org
-        //https://archive.org/advancedsearch.php?q=collection%3Aetree&fl%5B%5D=avg_rating&fl%5B%5D=call_number&fl%5B%5D=collection&fl%5B%5D=contributor&fl%5B%5D=coverage&fl%5B%5D=creator&fl%5B%5D=date&fl%5B%5D=description&fl%5B%5D=downloads&fl%5B%5D=foldoutcount&fl%5B%5D=format&fl%5B%5D=headerImage&fl%5B%5D=identifier&fl%5B%5D=imagecount&fl%5B%5D=language&fl%5B%5D=licenseurl&fl%5B%5D=mediatype&fl%5B%5D=month&fl%5B%5D=num_reviews&fl%5B%5D=oai_updatedate&fl%5B%5D=publicdate&fl%5B%5D=publisher&fl%5B%5D=rights&fl%5B%5D=scanningcentre&fl%5B%5D=source&fl%5B%5D=subject&fl%5B%5D=title&fl%5B%5D=type&fl%5B%5D=volume&fl%5B%5D=week&fl%5B%5D=year&sort%5B%5D=publicdate+desc&sort%5B%5D=&sort%5B%5D=&rows=10&page=1&output=json&callback=callback&save=yes
-
+        
         self.init = function(){
             self.checkForHTML5Audio();
             self.populateFavoriteShows();
@@ -72,7 +71,6 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             if(self.enableNotifications()=== "Yes" ){
                 Notification.requestPermission(function (permission) {
                 // Whatever the user answers, we make sure Chrome stores the information
-                    console.log(permission)
                     if(!('permission' in Notification)) {
                         Notification.permission = permission;
                     }
@@ -95,10 +93,10 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
         };
 
         self.setArtistHash = function(data){
-            location.hash = getArtistIdentifierFromTitle(data.title);
+            location.hash = self.getArtistIdentifierFromTitle(data.title);
         };
 
-        var getArtistIdentifierFromTitle = function(title){
+        self.getArtistIdentifierFromTitle = function(title){
             return _.findWhere(allArtistsList, {title: title }).identifier;
         };
 
@@ -113,11 +111,11 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
         };
 
         self.goToShow = function(){
-            location.hash =  getArtistIdentifierFromTitle( self.currentSong().creator ) + '/' + self.currentSong().identifier;
+            location.hash =  self.getArtistIdentifierFromTitle( self.currentSong().creator ) + '/' + self.currentSong().identifier;
         };
 
         self.goToArtist = function(){
-            location.hash = getArtistIdentifierFromTitle( self.currentSong().creator );
+            location.hash = self.getArtistIdentifierFromTitle( self.currentSong().creator );
         };
 
         self.setShowDetailsHash = function(show){
@@ -148,6 +146,34 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             var i = Math.floor(Math.random() * allArtistsList.length);
             location.hash = allArtistsList[i].identifier;
         };
+//Query for latest updates to archive.org
+        //https://archive.org/advancedsearch.php?q=collection%3Aetree&fl%5B%5D=avg_rating&fl%5B%5D=call_number&fl%5B%5D=collection&fl%5B%5D=contributor&fl%5B%5D=coverage&fl%5B%5D=creator&fl%5B%5D=date&fl%5B%5D=description&fl%5B%5D=downloads&fl%5B%5D=foldoutcount&fl%5B%5D=format&fl%5B%5D=headerImage&fl%5B%5D=identifier&fl%5B%5D=imagecount&fl%5B%5D=language&fl%5B%5D=licenseurl&fl%5B%5D=mediatype&fl%5B%5D=month&fl%5B%5D=num_reviews&fl%5B%5D=oai_updatedate&fl%5B%5D=publicdate&fl%5B%5D=publisher&fl%5B%5D=rights&fl%5B%5D=scanningcentre&fl%5B%5D=source&fl%5B%5D=subject&fl%5B%5D=title&fl%5B%5D=type&fl%5B%5D=volume&fl%5B%5D=week&fl%5B%5D=year&sort%5B%5D=publicdate+desc&sort%5B%5D=&sort%5B%5D=&rows=10&page=1&output=json&callback=callback&save=yes
+
+        self.getLatestShows = function(number){
+            if (!number || number === undefined)
+                number = 10;
+            else
+                number = parseInt(number, 10);
+
+            $.ajax({
+                url: apiHostname + 'advancedsearch.php?q=collection%3Aetree&fl%5B%5D=avg_rating&fl%5B%5D=call_number&fl%5B%5D=collection&fl%5B%5D=contributor&fl%5B%5D=coverage&fl%5B%5D=creator&fl%5B%5D=date&fl%5B%5D=description&fl%5B%5D=downloads&fl%5B%5D=foldoutcount&fl%5B%5D=format&fl%5B%5D=headerImage&fl%5B%5D=identifier&fl%5B%5D=imagecount&fl%5B%5D=language&fl%5B%5D=licenseurl&fl%5B%5D=mediatype&fl%5B%5D=month&fl%5B%5D=num_reviews&fl%5B%5D=oai_updatedate&fl%5B%5D=publicdate&fl%5B%5D=publisher&fl%5B%5D=rights&fl%5B%5D=scanningcentre&fl%5B%5D=source&fl%5B%5D=subject&fl%5B%5D=title&fl%5B%5D=type&fl%5B%5D=volume&fl%5B%5D=week&fl%5B%5D=year&sort%5B%5D=publicdate+desc&sort%5B%5D=&sort%5B%5D=&rows='+number+'&page=1&output=json&callback=callback&save=yes',
+                dataType: 'jsonp',
+                type: 'GET',
+                beforeSend: function(){
+                }
+            }).done(function(json){
+                if (!json.response || json.response.docs.length === 0)
+                    return;
+
+                var shows = [];
+                $.each(json.response.docs, function(k, v){
+                    shows.push(new Show(v));
+                })
+                
+                self.latestShows(shows);
+                
+            });
+        };      
 
         self.getArtistStartingWith = function(){
         
@@ -540,6 +566,9 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
 
                 this.get('', function() {
                     //do this when there isnt a hash tag
+                    self.getLatestShows(10);
+                    self.artistBio('');
+                    self.showDetails(new ShowDetails());
                 });
 
             }).run();
