@@ -97,6 +97,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
         };
 
         self.getArtistIdentifierFromTitle = function(title){
+            if (!title) return;
             return _.findWhere(allArtistsList, {title: title }).identifier;
         };
 

@@ -284,9 +284,13 @@ audio{
     margin: 3px 0px 3px 0px;
 }
 .artist{
+    color:#333;
     font-size:2em;
     font-weight: bold;
     margin-bottom:5px;
+}
+.artist:hover{
+    color:#333;
 }
 
 .venue{

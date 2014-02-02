@@ -230,7 +230,7 @@
                             <img class="pull-right" data-bind="attr:{src:showDetails().headerImage}, visible:showDetails().headerImage" />
                             <div class="pull-left">
                                 <p>
-                                    <span class="artist" data-bind="text:showDetails().artist"></span>
+                                    <a class="artist" data-bind="text:showDetails().artist, attr:{ href: '#' + $root.getArtistIdentifierFromTitle(showDetails().artist) }"></a>
                                 </p>
                                 <p>
                                     <span class="showDate" data-bind="text:showDetails().date"></span>
