@@ -7,7 +7,7 @@ define(['knockout', 'models/Song'], function(ko, Song){
 
         self.hasBeenPlayed = ko.observable(false);
         self.isPlaying = ko.observable(false);
-
+        
         self.song = song;
 
     };

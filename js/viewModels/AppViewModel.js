@@ -47,6 +47,8 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             self.populateAllArtistsList(function(){
                 routes();
             });
+            //console.log(getSavedPlaylistsCache())
+            //self.playlist(getSavedPlaylistsCache());
         };
 
         self.checkForHTML5Audio = function(){
@@ -288,21 +290,49 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
         self.addToPlaylist = function(song) {
             $('#myTab a[href="#playlists"]').tab('show');
             self.playlist.push( new PlaylistItem(song) );
+            savePlaylistToCache();
         };
         
         self.addAll = function(){
             $.each(self.showDetails().songs, function(index, song){
                 self.addToPlaylist(song);
             });
+            console.log(self.playlist());
+            savePlaylistToCache();
         };
 
         self.removeFromPlaylist = function(data, event){
             self.playlist.remove(data);
+            savePlaylistToCache();
         };
 
         self.removeAllFromPlaylist = function(data, event){
             self.playlist([]);
+            removePlaylistFromCache();
         };
+
+        var getSavedPlaylistsCache = function(){
+
+            var list = JSON.parse(localStorage.getItem('playlist'));
+
+            if (list === undefined)
+                return [];
+
+            var playlist = [];
+            for (var i=0; i<list.length; i++){
+                playlist.push(new PlaylistItem(list[i]))
+            }
+
+            return playlist;
+        }
+
+        var savePlaylistToCache = function(){
+            localStorage.setItem('playlist', JSON.stringify(ko.toJS(self.playlist())));
+        }
+
+        var removePlaylistFromCache = function(){
+            localStorage.removeItem('playlist');   
+        }
 
         self.playSongFromPlaylist = function(playlistItem){
             var index = self.playlist.indexOf(playlistItem);
@@ -365,7 +395,10 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                 playlistItemPrevious = playlistItem;
                 var url = ARCHIVE_ORG_API_URL + 'download/' + playlistItem.song.identifier +'/' + playlistItem.song.file;
 
+                playlistItem.hasBeenPlayed(true);
                 playlistItem.isPlaying(true);
+
+                savePlaylistToCache();
                 
                 self.currentSong(playlistItem.song);
                 audioElement = document.createElement('audio');

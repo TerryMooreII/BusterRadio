@@ -107,7 +107,7 @@
                         </form>
                         <div class="sideBarList scrollList playlist">
                             <ul data-bind="foreach:playlist">
-                                <li data-bind="css:{ 'playlist-song-playing': isPlaying } ">
+                                <li data-bind="css:{ 'playlist-song-playing': isPlaying, 'playlist-song-has-been-played': hasBeenPlayed } ">
                                     
                                     <span class="playlist-song" >
                                         <a data-bind="attr:{href:song.title, title:song.title + ' by ' + song.creator}, click:$parent.playSongFromPlaylist">
