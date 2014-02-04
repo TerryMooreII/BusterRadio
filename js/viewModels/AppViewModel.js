@@ -7,13 +7,13 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
         var self = this;
         var LASTFM_API_URL = 'http://ws.audioscrobbler.com/2.0/';
         var LASTFM_API_KEY = '748badaa2ec79b0d485e1b7c7a88af96';
+        var ARCHIVE_ORG_API_URL = 'http://www.archive.org/';
         var slider = $('#slider');
         var audioElement;
         var playlistPosition = 0;
         var playlistItemPrevious = 0;
         var volumeState = 1;
         var xhr = null;
-        var apiHostname = 'http://www.archive.org/';
         var allArtistsList = [];
 
         //Observables
@@ -36,7 +36,6 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
         self.artistName = ko.observable('');
         self.artistBio = ko.observable('');
         self.latestShows = ko.observableArray([]);
-
         self.enableNotifications = ko.observable(localStorage.getItem('enableNotifications') ||"No");
         self.enableDancingBars = ko.observable(localStorage.getItem('enableDancingBars') ||"No");
 
@@ -126,7 +125,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
 
         self.populateAllArtistsList = function(callback){            
             $.ajax({
-                url: apiHostname + 'advancedsearch.php?q=mediatype%3Acollection+AND+collection%3Aetree&fl[]=identifier&fl[]=title&sort[]=titleSorter+asc&sort[]=&sort[]=&rows=10000&page=1&callback=callback&save=yes&output=json',
+                url: ARCHIVE_ORG_API_URL + 'advancedsearch.php?q=mediatype%3Acollection+AND+collection%3Aetree&fl[]=identifier&fl[]=title&sort[]=titleSorter+asc&sort[]=&sort[]=&rows=10000&page=1&callback=callback&save=yes&output=json',
                 dataType: 'jsonp',
                 type: 'GET',
                 beforeSend: function(){
@@ -147,8 +146,6 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             var i = Math.floor(Math.random() * allArtistsList.length);
             location.hash = allArtistsList[i].identifier;
         };
-//Query for latest updates to archive.org
-        //https://archive.org/advancedsearch.php?q=collection%3Aetree&fl%5B%5D=avg_rating&fl%5B%5D=call_number&fl%5B%5D=collection&fl%5B%5D=contributor&fl%5B%5D=coverage&fl%5B%5D=creator&fl%5B%5D=date&fl%5B%5D=description&fl%5B%5D=downloads&fl%5B%5D=foldoutcount&fl%5B%5D=format&fl%5B%5D=headerImage&fl%5B%5D=identifier&fl%5B%5D=imagecount&fl%5B%5D=language&fl%5B%5D=licenseurl&fl%5B%5D=mediatype&fl%5B%5D=month&fl%5B%5D=num_reviews&fl%5B%5D=oai_updatedate&fl%5B%5D=publicdate&fl%5B%5D=publisher&fl%5B%5D=rights&fl%5B%5D=scanningcentre&fl%5B%5D=source&fl%5B%5D=subject&fl%5B%5D=title&fl%5B%5D=type&fl%5B%5D=volume&fl%5B%5D=week&fl%5B%5D=year&sort%5B%5D=publicdate+desc&sort%5B%5D=&sort%5B%5D=&rows=10&page=1&output=json&callback=callback&save=yes
 
         self.getLatestShows = function(number){
             if (!number || number === undefined)
@@ -157,7 +154,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                 number = parseInt(number, 10);
 
             $.ajax({
-                url: apiHostname + 'advancedsearch.php?q=collection%3Aetree&fl%5B%5D=avg_rating&fl%5B%5D=call_number&fl%5B%5D=collection&fl%5B%5D=contributor&fl%5B%5D=coverage&fl%5B%5D=creator&fl%5B%5D=date&fl%5B%5D=description&fl%5B%5D=downloads&fl%5B%5D=foldoutcount&fl%5B%5D=format&fl%5B%5D=headerImage&fl%5B%5D=identifier&fl%5B%5D=imagecount&fl%5B%5D=language&fl%5B%5D=licenseurl&fl%5B%5D=mediatype&fl%5B%5D=month&fl%5B%5D=num_reviews&fl%5B%5D=oai_updatedate&fl%5B%5D=publicdate&fl%5B%5D=publisher&fl%5B%5D=rights&fl%5B%5D=scanningcentre&fl%5B%5D=source&fl%5B%5D=subject&fl%5B%5D=title&fl%5B%5D=type&fl%5B%5D=volume&fl%5B%5D=week&fl%5B%5D=year&sort%5B%5D=publicdate+desc&sort%5B%5D=&sort%5B%5D=&rows='+number+'&page=1&output=json&callback=callback&save=yes',
+                url: ARCHIVE_ORG_API_URL + 'advancedsearch.php?q=collection%3Aetree&fl%5B%5D=avg_rating&fl%5B%5D=call_number&fl%5B%5D=collection&fl%5B%5D=contributor&fl%5B%5D=coverage&fl%5B%5D=creator&fl%5B%5D=date&fl%5B%5D=description&fl%5B%5D=downloads&fl%5B%5D=foldoutcount&fl%5B%5D=format&fl%5B%5D=headerImage&fl%5B%5D=identifier&fl%5B%5D=imagecount&fl%5B%5D=language&fl%5B%5D=licenseurl&fl%5B%5D=mediatype&fl%5B%5D=month&fl%5B%5D=num_reviews&fl%5B%5D=oai_updatedate&fl%5B%5D=publicdate&fl%5B%5D=publisher&fl%5B%5D=rights&fl%5B%5D=scanningcentre&fl%5B%5D=source&fl%5B%5D=subject&fl%5B%5D=title&fl%5B%5D=type&fl%5B%5D=volume&fl%5B%5D=week&fl%5B%5D=year&sort%5B%5D=publicdate+desc&sort%5B%5D=&sort%5B%5D=&rows='+number+'&page=1&output=json&callback=callback&save=yes',
                 dataType: 'jsonp',
                 type: 'GET',
                 beforeSend: function(){
@@ -230,7 +227,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             $('#myTab a[href="#search"]').tab('show');
 
             xhr = $.ajax({
-                url: apiHostname + 'advancedsearch.php',
+                url: ARCHIVE_ORG_API_URL + 'advancedsearch.php',
                 data: 'q=mediatype:(etree)+AND+collection:(' + search + ')&fl[]=title&fl[]=avg_rating&fl[]=coverage&fl[]=date&fl[]=description&fl[]=downloads&fl[]=identifier&fl[]=mediatype&fl[]=year&sort[]=date+asc&sort[]=&sort[]=&rows=15000&page=1&output=json',
                 dataType: 'jsonp',
                 type: 'GET',
@@ -272,7 +269,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
 
         self.getShowDetails = function(identifier){
             $.ajax({
-                url: apiHostname + 'details/' + identifier,
+                url: ARCHIVE_ORG_API_URL + 'details/' + identifier,
                 data: 'output=json',
                 dataType: 'jsonp',
                 type: 'GET',
@@ -366,7 +363,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                                 
                 playlistItem = self.playlist()[playlistPosition];
                 playlistItemPrevious = playlistItem;
-                var url = apiHostname + 'download/' + playlistItem.song.identifier +'/' + playlistItem.song.file;
+                var url = ARCHIVE_ORG_API_URL + 'download/' + playlistItem.song.identifier +'/' + playlistItem.song.file;
 
                 playlistItem.isPlaying(true);
                 
@@ -615,13 +612,17 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             }
         };
 
+        /******************************************************
+            Desktop notifications
+        ******************************************************/
+
         var notify = function(currentSong) { 
             
             var title = currentSong.song.title + ' by ' + currentSong.song.creator; 
             var obj = {
                 tag:'song_info',
-                body:currentSong.song.album
-                //icon: "http://ia700202.us.archive.org/17/items/etree/lma.jpg"
+                body:currentSong.song.album,
+                icon: location.protocol + '//' +location.host + location.pathname +   "/img/g.gif"
             }
 
             // Let's check if the user is okay to get some notification
