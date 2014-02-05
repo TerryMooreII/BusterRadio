@@ -15,6 +15,8 @@ define(['knockout'], function(ko){
         self.source     = '';
         self.title      = '';
         self.track      = '';
+        self.identifier = '';
+        self.file       = '';
         // self.artist     = '';
 
         if (json === null || json === undefined)
@@ -29,6 +31,8 @@ define(['knockout'], function(ko){
         self.source     = json.source;
         self.title      = json.title || 'n/a';
         self.track      = json.track;
+        self.identifier = json.identifier;
+        self.file       = json.file;
     };
 
 });

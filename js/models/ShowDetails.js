@@ -96,7 +96,7 @@ define(['models/Song', 'models/ShowReview'], function(Song, ShowReview){
                     var song = new Song(v);
                     song.file = k;
                     song.identifier = self.identifier;
-                    self.songs.push(song);
+                    self.songs.push(new Song(song));
                     if (song.length)
                         totalLength += calcTotalTime(song.length);
                 }

@@ -47,8 +47,8 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             self.populateAllArtistsList(function(){
                 routes();
             });
-            //console.log(getSavedPlaylistsCache())
-            //self.playlist(getSavedPlaylistsCache());
+            console.log(getSavedPlaylistsCache())
+            self.playlist(getSavedPlaylistsCache());
         };
 
         self.checkForHTML5Audio = function(){
@@ -213,7 +213,6 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                 beforeSend: function(){
                 }
             }).done(function(json){
-                console.log(json)
                 self.artistBio(new ArtistBio(json));
             });
         };
@@ -386,18 +385,24 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                 var playlistItem;
 
                 //reset isPlaying to false for previous song
-                if (self.playlist.indexOf(playlistItemPrevious) !== -1)
+                if (self.playlist.indexOf(playlistItemPrevious) !== -1){
                     self.playlist()[self.playlist.indexOf(playlistItemPrevious)].isPlaying(false);
-                                
+                    self.playlist()[self.playlist.indexOf(playlistItemPrevious)].hasBeenPlayed(true);
+                
+                }
                 //playListPlayingIndex = self.getSongFromPlaylist(playlistPosition);
                                 
+
+
                 playlistItem = self.playlist()[playlistPosition];
+                console.log('playlistItem %o', playlistItem)
                 playlistItemPrevious = playlistItem;
                 var url = ARCHIVE_ORG_API_URL + 'download/' + playlistItem.song.identifier +'/' + playlistItem.song.file;
 
-                playlistItem.hasBeenPlayed(true);
                 playlistItem.isPlaying(true);
+                playlistItem.hasBeenPlayed(false);
 
+                //update the cache (localstorage)
                 savePlaylistToCache();
                 
                 self.currentSong(playlistItem.song);
@@ -421,7 +426,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                 });
                 $(audioElement).on('error', function(e){
                     console.debug('Audio has triggered the onerror event');
-                    //console.debug(e);
+                    console.debug(e);
                 });
                 $(audioElement).on('emptied', function(e){
                     console.debug('Audio has triggered the onemptied event');

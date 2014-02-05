@@ -5,11 +5,14 @@ define(['knockout', 'models/Song'], function(ko, Song){
 
         var self = this;
 
-        self.hasBeenPlayed = ko.observable(false);
+        self.hasBeenPlayed = ko.observable(song.hasBeenPlayed || false);
         self.isPlaying = ko.observable(false);
-        
-        self.song = song;
 
+
+        if (song.song)
+        	self.song = new Song(song.song);
+        else 
+        	self.song = new Song(song)
     };
 
 });
