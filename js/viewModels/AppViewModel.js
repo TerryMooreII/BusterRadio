@@ -47,7 +47,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             self.populateAllArtistsList(function(){
                 routes();
             });
-            console.log(getSavedPlaylistsCache())
+            //Load playlist from localstorage
             self.playlist(getSavedPlaylistsCache());
         };
 
@@ -314,7 +314,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
 
             var list = JSON.parse(localStorage.getItem('playlist'));
 
-            if (list === undefined)
+            if (list === undefined || list === null)
                 return [];
 
             var playlist = [];

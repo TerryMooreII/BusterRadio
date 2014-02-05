@@ -101,7 +101,7 @@
                     </div>
                     <div class="tab-pane" id="playlists"> 
                         <form class="form-inline" style="margin:0">
-                            <span class="pull-right mute" data-bind="click:removeAllFromPlaylist"><i class="icon-trash icon-2x"></i></span>
+                            <span class="pull-right mute btn btn-small" data-bind="click:removeAllFromPlaylist">Clear Playlist <i class="icon-remove "></i></span>
                             <!--<input style="width:300px;" type="text" class="input" placeholder="Playlist title">
                              <button class="btn">Save</button> -->
                         </form>
@@ -120,7 +120,7 @@
                                         <i class="icon-volume-up"></i>
                                     </span>
                                     <span style="margin-left:5px" class="pull-right mute" data-bind="click:$parent.removeFromPlaylist, visible:isPlaying() == false">
-                                        <i class="icon-trash"></i>
+                                        <i class="icon-remove"></i>
                                     </span>
                                     <span class="pull-right mute" data-bind="text:song.length"></span>
                                     
@@ -290,7 +290,7 @@
                                 </div>
                             </div>
                               <div style="margin-bottom:20px">
-                                <a target="_blank" class="btn btn-info" data-bind="attr:{ href: 'https://archive.org/write-review.php?identifier=' + showDetails().identifier}" >Add Review</a>
+                                <a target="_blank" class="btn btn-info" data-bind="attr:{ href: 'https://archive.org/write-review.php?identifier=' + showDetails().identifier}">Add Review</a>
                             </div>
 
                         </div>
@@ -302,8 +302,8 @@
                                     <thead>
                                         <tr>
                                             <th style="width:25px; text-align:center">
-                                                <a href="#" class="addTrack" title="Add all songs to playlist">
-                                                    <i class="icon-plus mute" data-bind="click:addAll"></i>
+                                                <a href="#" class="addTrack" title="Add all songs to playlist" data-bind="click:addAll">
+                                                    <i class="icon-plus mute"></i>
                                                 </a>
                                             </th>
                                             <th style="width:50px; text-align:center">Track</th>

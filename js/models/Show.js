@@ -18,7 +18,8 @@ define([], function(){
             self.artist = '';
         self.vg_rating = json.vg_rating;
         //coverage: Array[1]
-        self.date = json.date.substring(0,10);
+
+        self.date = json.date !== undefined ? json.date.substring(0,10) : '';
         self.description = json.description;
         self.downloads = json.downloads;
         self.identifier =  json.identifier;
