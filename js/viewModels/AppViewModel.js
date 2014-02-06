@@ -661,7 +661,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             var obj = {
                 tag:'song_info',
                 body:currentSong.song.album,
-                icon: location.protocol + '//' +location.host + location.pathname +   "/img/g.gif"
+                icon: location.protocol + '//' +location.host + (location.pathname==='/' ? location.pathname : location.pathname + "/") + "img/g.gif"
             }
 
             // Let's check if the user is okay to get some notification
