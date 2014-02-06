@@ -233,6 +233,24 @@ nav li a:hover{
     opacity: .6;
 }
 
+#volume-slider-container{
+    float:left;
+    height:40px;
+    margin-top:-8px;
+    background-color:#555;
+}
+
+#volume-slider-container>div>i{
+    display: block;
+    margin:15px 5px 0px 5px;
+    color:white;
+}
+#volume-slider{
+    font-size:0px !important; 
+    width:100px;
+    margin:20px 0px 0px 5px
+}
+
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */

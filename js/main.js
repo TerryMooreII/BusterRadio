@@ -90,5 +90,22 @@ require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'jqueryui'
       max: 700
     });
     $('.ui-slider-handle').height(7).width(7);
+
+    $( "#volume-slider" ).slider({
+      range: "max",
+      value: 0,
+      min: 0,
+      max: 10
+    });
+    $('.ui-slider-handle').height(7).width(7);
+
+    $('#other').on('mouseover', function(){
+      $('#volume-slider-container').show('slide', {direction:"left"}, 300)
+    })
+
+    $('#volume-slider-container').on('mouseleave', function(event){
+      $(this).hide('slide', {direction:"left"}, 300)
+    })
+
 });
 

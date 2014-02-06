@@ -9,6 +9,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
         var LASTFM_API_KEY = '748badaa2ec79b0d485e1b7c7a88af96';
         var ARCHIVE_ORG_API_URL = 'http://www.archive.org/';
         var slider = $('#slider');
+        var volumeSlider = $('#volume-slider');
         var audioElement;
         var playlistPosition = 0;
         var playlistItemPrevious = 0;

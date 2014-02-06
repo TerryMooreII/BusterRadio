@@ -365,8 +365,14 @@
                     <div id="other">
                         <i class="pull-left icon-volume-up icon-2x" style="margin: 1px 15px 0 0" data-bind="click:volumeControl, visible:showMute() == false"></i>
                         <i class="pull-left icon-volume-off icon-2x" style="margin: 1px 15px 0 0" data-bind="click:volumeControl, visible:showMute"></i>
+
                     </div>
-                </div>                
+                </div>  
+                <div id="volume-slider-container"  style="display:none">
+                    <div class="pull-left"><i class="icon-volume-down icon-white"></i></div>
+                    <div class="pull-left" id="volume-slider"></div>              
+                    <div class="pull-left"><i class="icon-volume-up icon-white"></i></div>
+                </div>
             </footer>
         </div>
     </div>
