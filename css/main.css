@@ -261,9 +261,51 @@ nav li a:hover{
     text-align: right;
 }
 
+#audio{
+    margin:0 auto;
+    width:700px;
+    margin-top:2px; 
+    line-height:28px
+}
 
 audio{
     width:100%;
+}
+
+.play-btn{
+    margin:-3px 13px 0px 4px;
+}
+
+.pause-btn{
+    margin:-3px 14px 0px 3px;
+}
+
+.next-btn{
+    margin: 2px 15px 0 0;
+}
+
+.previous-btn{
+    margin: 2px 15px 0 0;
+}
+
+#slider {
+    width:455px; 
+    margin:12px 8px 0px 6px; 
+    font-size:0px !important
+}
+
+.volume-speaker{
+    margin: 1px 15px 0 0;
+}
+
+.song-length{
+    margin:0px 8px 0 0;
+}
+
+#currentSong{
+    height:15px; 
+    width:700px;
+    text-align:center;
 }
 
 /*#playlists .listDisplay{
@@ -386,6 +428,7 @@ audio{
 }
 
 #bio{
+    overflow:auto 
 
 }
 #bio img {
@@ -592,6 +635,7 @@ Starting responsive
     #slider {
         display: none;
     }
+
     #showSongList th{
         width: 10px;
     }

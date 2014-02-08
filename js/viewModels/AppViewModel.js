@@ -631,7 +631,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
         self.removeShowFromFavorites = function(index){
             if (!localStorage.favorites)
                 return;
-
+            
             var favorites = JSON.parse(localStorage.favorites);
             self.favoriteShows.splice(index, 1);
             favorites.shows.splice(index, 1);
