@@ -51,6 +51,20 @@ require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'jqueryui'
 
         }
     };
+
+    ko.bindingHandlers.sliderChange = {
+    init: function(element, valueAccessor) {
+        $(element).on('slidechange', function() {
+            var value = valueAccessor();
+            value($(element).slider('value'));
+        });
+        
+    },
+    update: function(element, valueAccessor) {
+        var value = valueAccessor();
+        
+    }
+};
     
     var viewModel = new AppViewModel();
     ko.applyBindings(viewModel);

@@ -13,7 +13,8 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
         var audioElement;
         var playlistPosition = 0;
         var playlistItemPrevious = 0;
-        var volumeState = 1;
+        var volumeState = 0.7;
+        var volumeStateUnMute;
         var xhr = null;
         var allArtistsList = [];
 
@@ -47,6 +48,7 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             self.bindKeycodes();
             self.populateAllArtistsList(function(){
                 routes();
+                setVolumeSlide(volumeState);
             });
             //Load playlist from localstorage
             self.playlist(getSavedPlaylistsCache());
@@ -565,16 +567,39 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
                 return true;
             
             if (audioElement.volume === 0 ){
-                audioElement.volume = 1;
-                volumeState = 1;
+                audioElement.volume = volumeStateUnMute;
+                
+                volumeState = volumeStateUnMute;
                 self.showMute(false);
             }else{
+                volumeStateUnMute = volumeState;
                 audioElement.volume = 0;
                 volumeState = 0;
                 self.showMute(true);
             }
+            setVolumeSlide(volumeState);
         };
         
+
+        self.updateVolume = function(){
+
+            var vol = volumeSlider.slider('value');
+            volumeState = vol / 10;
+
+            if (!audioElement || audioElement === undefined)
+                return;
+
+            console.log(volumeState)
+            audioElement.volume = volumeState;
+        }
+
+        var setVolumeSlide = function(vol){
+            if (vol === undefined)
+                vol = 0.7;
+
+            volumeSlider.slider('value', vol * 10 );
+        }
+
         //***************************************
         //        Client Side Routes
         //***************************************
