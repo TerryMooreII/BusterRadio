@@ -62,7 +62,6 @@ require(['jquery','knockout', 'viewModels/AppViewModel', 'bootstrap', 'jqueryui'
     },
     update: function(element, valueAccessor) {
         var value = valueAccessor();
-        
     }
 };
     

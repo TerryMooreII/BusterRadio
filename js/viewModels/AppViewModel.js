@@ -568,7 +568,6 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
             
             if (audioElement.volume === 0 ){
                 audioElement.volume = volumeStateUnMute;
-                
                 volumeState = volumeStateUnMute;
                 self.showMute(false);
             }else{
@@ -582,22 +581,20 @@ define(['jquery', 'knockout', 'sammyjs', 'underscorejs', 'models/Show', 'models/
         
 
         self.updateVolume = function(){
-
             var vol = volumeSlider.slider('value');
             volumeState = vol / 10;
 
             if (!audioElement || audioElement === undefined)
                 return;
 
-            console.log(volumeState)
             audioElement.volume = volumeState;
         }
 
         var setVolumeSlide = function(vol){
             if (vol === undefined)
-                vol = 0.7;
+                vol = volumeState;
 
-            volumeSlider.slider('value', vol * 10 );
+            volumeSlider.slider('value', vol * 10 ); //volume is between 0 and 1
         }
 
         //***************************************
