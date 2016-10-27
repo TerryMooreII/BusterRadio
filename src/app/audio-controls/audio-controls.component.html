@@ -1,0 +1,18 @@
+<div class="valign-wrapper controls-wrapper">
+    <div class="valign center" (click)="previous()">
+        <i class="material-icons">skip_previous</i>
+    </div>
+
+    <div class="valign center" (click)="play()" *ngIf="!isPlaying">
+        <i class="material-icons medium">play_circle_filled</i>
+    </div>
+
+    <div class="valign center" (click)="pause()" *ngIf="isPlaying">
+        <i class="material-icons medium">pause_circle_filled</i>
+    </div>
+
+    <div class="valign center" (click)="next()">
+        <i class="material-icons">skip_next</i>
+    </div>
+
+</div>

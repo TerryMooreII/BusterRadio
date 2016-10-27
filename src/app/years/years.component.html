@@ -1,0 +1,6 @@
+<div class="collection with-header">
+    <div class="collection-header">
+        <h4>{{artist}} Shows</h4>
+    </div>
+    <a [routerLink]="[year, 'shows']" class="collection-item" *ngFor="let year of years">{{year}}</a>
+</div>

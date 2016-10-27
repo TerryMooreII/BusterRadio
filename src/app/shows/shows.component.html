@@ -1,0 +1,10 @@
+<div class="collection">
+    <a [routerLink]="[show.identifier]" class="collection-item avatar" *ngFor="let show of shows">
+        <i class="material-icons circle green">library_music</i>
+        <span class="title">{{show.date | date:'yyyy/MM/dd'}}</span>
+        <p>{{parseVenue(show)}} <br>{{show.coverage}}
+        </p>
+        <div class="secondary-content">{{show.downloads}}</div>
+    </a>
+</div>
+

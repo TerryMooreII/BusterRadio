@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-content">
+        <span class="card-title grey-text text-darken-4">
+            Playlist
+        </span>
+    </div>
+
+    <div class="card-action">
+        <a>Clear</a>
+    </div>
+
+    <div class="card-action">
+
+        <div class="valign-wrapper" *ngIf="!playlist || playlist?.length === 0">
+            <h5 class="valign center">Your playlist is empty</h5>
+        </div>
+
+        <div class="row track-row" *ngFor="let playlistItem of playlist; let i = index;">
+            <div class="col s1">
+                <i class="material-icons play-icon" (click)="play(show?.tracks, i)">play_arrow</i>
+                <span class="track-number">{{playlistItem.track.track}}</span>
+            </div>
+            <div class="col s10">
+                {{playlistItem.track.title}}
+            </div>
+            <div class="col s1">{{playlistItem.track.time}}</div>
+        </div>
+    </div>
+</div>

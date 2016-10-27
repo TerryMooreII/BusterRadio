@@ -1,0 +1,45 @@
+
+<div class="card show-card">
+    <div class="card-content">
+        <span class="card-title grey-text text-darken-4">
+            {{show?.title}}
+        </span>
+        <a class="btn-floating btn-large waves-effect waves-light red play-all-btn" (click)="play(show?.tracks, 0)"><i class="material-icons">play_arrow</i></a>
+    </div>
+
+    <div class="card-action">
+        <div class="valign-wrapper" *ngIf="show?.tracks.length === 0">
+            <h5 class="valign">Sorry, There are no Tracks available for this show</h5>
+        </div>
+        <div class="row track-row" *ngFor="let track of show?.tracks; let i = index;">
+            <div class="col s1">
+                <i class="material-icons play-icon" (click)="play(show?.tracks, i)">play_arrow</i>
+                <span class="track-number">{{track.track}}</span>
+            </div>
+            <div class="col s10">
+                {{track.title}}
+            </div>
+            <div class="col s1">{{track.time}}</div>
+        </div>
+    </div>
+    <div class="card-action">
+        <a class="activator">Reviews</a>
+    </div>
+    <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">Show Reviews
+            <i class="material-icons right">close</i>
+        </span>
+
+        <ul class="collection">
+            <li class="collection-item" *ngFor="let review of show?.reviews?.reviews">
+                <span class="title"><strong>{{review.title}} by {{review.reviewer}}</strong></span>
+                <div class="secondary-content">
+                    <br-stars [stars]="review.rating"></br-stars>
+                </div>
+                <p>
+                    {{review.body}}
+                </p>
+            </li>
+        </ul>
+    </div>
+</div>

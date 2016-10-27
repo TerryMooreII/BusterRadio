@@ -1,34 +1,31 @@
-BusterRadio
-===========
+# Busterradio
 
-See and use [Buster Radio here] (http://busterradio.com/) 
+This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.17.
 
+## Development server
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-Buster Radio is a redesigned interface for the live music section of Archive.org.  
+## Code scaffolding
 
-Currently you can search or list all Artists that have submitted shows. After selecting a show you can click on the plus sign next to a song to add it your playlist or click the add all plus sign to add them all.  THere are tab available to read show reviews or detailed show information.  You can click the heart to save the show in your favorites.  
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class`.
 
-On the Artist tab you can click the shuffle icon to have the system randomly select an artist so that you can discover new music.  
+## Build
 
-Some shows dont have MP3 available, soon it will display a link to download that shows .shn files.  
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-###Keyboard Shortcuts
-* Play/Pause = p
-* Next Track = n
-* Previous Track = b
-* Mute = m
+## Running unit tests
 
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-###NOTES
-This only supports the HTML5 audio element. Since it streams MP3 and doesn't currently have the OGG fallback it only work with Chrome and the Windows version of Firefox.  
+## Running end-to-end tests
 
-###TODO:
-* Rework the way you play the files so that you don't have to add them to a playlist first. 
-* Save playlists and favorites to a database instead of local storage.
-* Ablitiy to download .shn files.
-* Fix sound control to support more than just mute/unmute.
-* Possible switch to AngularJS.  
-* Split up the functionality.  This was meant as a demo that grew in to a side project without orginization.
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/). 
+Before running the tests make sure you are serving the app via `ng serve`.
 
-####Name
-Where does the name come?  Its based off the song title Buster by Moe.   
+## Deploying to Github Pages
+
+Run `ng github-pages:deploy` to deploy to Github Pages.
+
+## Further help
+
+To get more help on the `angular-cli` use `ng --help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

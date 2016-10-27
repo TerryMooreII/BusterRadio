@@ -1,0 +1,71 @@
+@import "../node_modules/materialize-css/dist/css/materialize.css";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+body{
+    background: #f5f5f5;
+}
+
+.main {
+    -ms-box-orient: vertical;
+    display: -ms-flex;
+    height: 100%;
+    display: -webkit-box; /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
+    display: -moz-flex;
+    display: -ms-flexbox; /* MID: IE 10 */
+    display: -webkit-flex; /* NEW, Chrome 21+ */
+    display: flex; /* NEW: Opera 12.1, Firefox 22+ */
+
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+.content {
+    -ms-flex: 1 1 auto;
+    -webkit-flex: 1 1 auto;
+    flex: 1 1 auto;
+    overflow: auto;
+    height: 0;
+    min-height: 0;
+    padding-top:50px;
+}
+
+.search {
+    flex: 3;
+    max-width: 500px;
+    padding: 6px 5px 4px 3px !important;
+    background-color: white !important;
+    color: black;
+    border-radius: 3px !important;
+    box-shadow: 0px 0px 10px #ddd !important;
+}
+
+footer {
+    border-top: 1px solid #ddd;
+    box-shadow: -5px 0px 10px #dddddd;
+    margin-top: 0px !important;
+    position: relative;
+    padding: 10px;
+
+
+    input[type="range"] {
+        margin: 0px;
+        position: absolute;
+        top: -2px;
+        right: 0px;
+        left:0px;
+        width: 100%;
+    }
+
+    .row {
+        margin-bottom: 0 !important;
+    }
+}

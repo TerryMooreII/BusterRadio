@@ -1,0 +1,26 @@
+<div class="main">
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">BusterRadio</a>
+
+                <div class="search-box">
+                    <input type="search" placeholder="Search Artists..." name="autoComplete" materialize="autocomplete" [materializeParams]="[{'data': {'apple': null, 'ass hole': null}}]">
+                </div>
+
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a [routerLink]="['/artists']">Artists</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+
+    <div class="content">
+        <div class="container">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+
+    <br-footer></br-footer>
+</div>
