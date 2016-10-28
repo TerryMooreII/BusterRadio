@@ -25,11 +25,10 @@ export class ArtistsComponent implements OnInit {
     getArtists(query) {
         this.artistsList = this.cache.getArtists(query);
 
-        if (this.artistsList.length === 0){
-            this.archiveService.loadArtists().subscribe(data => {
-                this.cache.setArtistsCache(data._body.response.docs);
-                this.artistsList = this.cache.getArtists();
-            });
+        if (!this.artistsList){
+            setTimeout(() =>{
+                this.getArtists(query);
+            }, 100);
         }
     }
 

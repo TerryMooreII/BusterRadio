@@ -1,45 +1,75 @@
-
 <div class="card show-card">
     <div class="card-content">
         <span class="card-title grey-text text-darken-4">
-            {{show?.title}}
+            <h4>{{show?.artist}}</h4>
+            <p>
+            {{show?.date}}<br>
+            {{show?.venue}}<span *ngIf="show?.location">, </span>{{show?.location}}
+            </p>
+
         </span>
-        <a class="btn-floating btn-large waves-effect waves-light red play-all-btn" (click)="play(show?.tracks, 0)"><i class="material-icons">play_arrow</i></a>
+        <a class="btn-floating btn-large waves-effect waves-light red play-all-btn" (click)="play(show?.tracks, 0)"><i
+            class="material-icons">play_arrow</i></a>
     </div>
 
     <div class="card-action">
         <div class="valign-wrapper" *ngIf="show?.tracks.length === 0">
-            <h5 class="valign">Sorry, There are no Tracks available for this show</h5>
+            <h5 class="valign">Sorry, There are no tracks available for this show</h5>
         </div>
         <div class="row track-row" *ngFor="let track of show?.tracks; let i = index;">
             <div class="col s1">
                 <i class="material-icons play-icon" (click)="play(show?.tracks, i)">play_arrow</i>
                 <span class="track-number">{{track.track}}</span>
             </div>
-            <div class="col s10">
+            <div class="col m10 s8">
                 {{track.title}}
             </div>
             <div class="col s1">{{track.time}}</div>
         </div>
     </div>
     <div class="card-action">
-        <a class="activator">Reviews</a>
+        <a class="activator">Show Details & Reviews</a>
     </div>
     <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4">Show Reviews
+        <span class="card-title grey-text text-darken-4">
             <i class="material-icons right">close</i>
         </span>
 
-        <ul class="collection">
-            <li class="collection-item" *ngFor="let review of show?.reviews?.reviews">
-                <span class="title"><strong>{{review.title}} by {{review.reviewer}}</strong></span>
-                <div class="secondary-content">
-                    <br-stars [stars]="review.rating"></br-stars>
+
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs" materialize="tabs">
+                    <li class="tab col s3"><a class="active" href="#details">Show Details</a></li>
+                    <li class="tab col s3"><a href="#reviews">Reviews</a></li>
+                </ul>
+            </div>
+            <div id="details" class="col s12">
+                <p>Downloads: {{show?.downloads}}</p>
+                <p>Source: {{show?.lineage}}</p>
+                <pre>
+                    {{show?.description}}
+                </pre>
+                <pre>
+                    {{show?.notes}}
+                </pre>
+            </div>
+            <div id="reviews" class="col s12">
+
+                <div class="valign-wrapper" *ngIf="!show?.reviews?.reviews || show?.reviews?.reviews?.length === 0">
+                    <h5 class="valign">No Reviews</h5>
                 </div>
-                <p>
-                    {{review.body}}
-                </p>
-            </li>
-        </ul>
+                <blockquote *ngFor="let review of show?.reviews?.reviews">
+                    <span class="title"><strong>{{review.title}} by {{review.reviewer}}</strong></span>
+                    <div class="secondary-content">
+                        <br-stars [stars]="review.rating"></br-stars>
+                    </div>
+                    <p>
+                        {{review.body}}
+                    </p>
+                </blockquote>
+
+            </div>
+        </div>
+
     </div>
 </div>

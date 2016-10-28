@@ -13,10 +13,7 @@ export class JustAddedComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.archiveService.loadArtists().subscribe(data => {
-            this.cache.setArtistsCache(data._body.response.docs);
-            console.log('loaded');
-        });
+
     }
 
 }

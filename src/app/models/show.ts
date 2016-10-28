@@ -14,6 +14,11 @@ export class Show {
     downloads: String;
     tracks:Array<Track>;
     reviews:Reviews;
+    venue:String;
+    location:String;
+
+
+
 
 
     constructor(json: any) {
@@ -28,6 +33,8 @@ export class Show {
         this.lineage = this.metadataExists(json.metadata.lineage);
         this.runtime = this.metadataExists(json.metadata.runtime);
         this.notes = this.metadataExists(json.metadata.notes);
+        this.venue = this.metadataExists(json.metadata.venue);
+        this.location = this.metadataExists(json.metadata.coverage);
         this.image = json.misc.image;
         this.downloads = json.item.downloads;
 

@@ -1,5 +1,5 @@
 <footer class="page-footer white">
-    <input type="range" step=".1" [max]="duration" [value]="currentTime">
+    <input class="deep-orange" type="range" step=".1" [max]="duration" [value]="currentTime">
     <div class="row">
         <div class="col s4">
             <br-now-playing></br-now-playing>
@@ -9,7 +9,7 @@
                                (currentTime)="setCurrentTime($event)"></br-audio-controls>
         </div>
         <div class="col s4">
-            <div class="right-align">
+            <div class="right-align cursor-pointer">
                 <i class="material-icons" routerLink="/playlist">queue_music</i>
             </div>
         </div>

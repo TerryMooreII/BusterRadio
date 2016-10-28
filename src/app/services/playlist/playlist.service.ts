@@ -50,7 +50,6 @@ export class PlaylistService {
 
     next() {
         var total = this.dataStore.playlist.length;
-        console.log(total);
         if (total === 0) {
             return;
         }
@@ -68,15 +67,15 @@ export class PlaylistService {
 
     previous() {
         var total = this.dataStore.playlist.length;
-        console.log(total);
         if (total === 0) {
             return;
         }
+
         this.dataStore.playlist[this.currentPlayingIndex].hasBeenPlayed = true;
         this.dataStore.playlist[this.currentPlayingIndex].isPlaying = false;
 
         this.currentPlayingIndex--;
-        if (this.currentPlayingIndex < -1) {
+        if (this.currentPlayingIndex > -1) {
             this.dataStore.playlist[this.currentPlayingIndex].isPlaying = true;
             this.play(this.dataStore.playlist[this.currentPlayingIndex]);
         }

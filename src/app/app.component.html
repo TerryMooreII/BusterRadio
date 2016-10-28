@@ -1,11 +1,12 @@
+
 <div class="main">
-    <div class="navbar-fixed">
+    <div class="navbar-fixed ">
         <nav>
-            <div class="nav-wrapper">
-                <a href="#" class="brand-logo">BusterRadio</a>
+            <div class="nav-wrapper deep-orange">
+                <a href="#" class="brand-logo hide-on-med-and-down">BusterRadio</a>
 
                 <div class="search-box">
-                    <input type="search" placeholder="Search Artists..." name="autoComplete" materialize="autocomplete" [materializeParams]="[{'data': {'apple': null, 'ass hole': null}}]">
+                    <input type="search" placeholder="Search Artists..." name="autoComplete" [formControl]="search">
                 </div>
 
                 <ul id="nav-mobile" class="right hide-on-med-and-down">

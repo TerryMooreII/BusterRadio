@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class CacheService {
 
-    private artistsCache: any = [];
+    private artistsCache: any = null;
     private showsCache: any = {};
 
     constructor() {
@@ -28,8 +28,12 @@ export class CacheService {
             return this.artistsCache;
         }
 
+        if (!this.artistsCache){
+            return this.artistsCache;
+        }
+
         return this.artistsCache.filter(data => {
-            return data.title.indexOf(query) > -1;
+            return data.title.toLowerCase().indexOf(query.toLowerCase()) > -1;
         });
     }
 
