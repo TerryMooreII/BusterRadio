@@ -10,12 +10,30 @@ export class CacheService {
     }
 
     getArtistByIdentifier(identifier) {
+        if (!this.artistsCache){
+            return;
+        }
+
         var artist = this.artistsCache.filter(item => {
             return item.identifier === identifier;
         });
 
         if (artist.length > 0) {
             return artist[0].title;
+        }
+    }
+
+    getIdentifierByArtist(artist) {
+        if (!this.artistsCache){
+            return;
+        }
+
+        var artist = this.artistsCache.filter(item => {
+            return item.title === artist;
+        });
+
+        if (artist.length > 0) {
+            return artist[0].identifier;
         }
     }
 

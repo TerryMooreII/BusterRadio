@@ -3,10 +3,11 @@
     <div class="navbar-fixed ">
         <nav>
             <div class="nav-wrapper deep-orange">
-                <a href="#" class="brand-logo hide-on-med-and-down">BusterRadio</a>
+                <a href="#" class="brand-logo hide-on-med-and-down">BusterRad.io</a>
 
                 <div class="search-box">
-                    <input type="search" placeholder="Search Artists..." name="autoComplete" [formControl]="search">
+                    <input type="search" placeholder="Search Artists..." name="autoComplete" [formControl]="search" (blur)="clear()">
+                    <i class="material-icons search-icon">search</i>
                 </div>
 
                 <ul id="nav-mobile" class="right hide-on-med-and-down">

@@ -16,19 +16,21 @@ export class AppComponent {
     constructor(private archiveService: ArchiveService, private cache: CacheService, private router: Router) {
         this.search.valueChanges
          .debounceTime(400)
-        // .distinctUntilChanged()
             .subscribe(term => {
-                console.log(term);
-                this.router.navigate(['/artists', {query: term}])
+                if (term){
+                    this.router.navigate(['/artists', {query: term}]);
+                }
+
             })
     }
 
     ngOnInit() {
         this.archiveService.loadArtists().subscribe(data => {
             this.cache.setArtistsCache(data._body.response.docs);
-            console.log('loaded');
         });
+    }
 
-
+    clear(){
+        this.search.setValue(null);
     }
 }

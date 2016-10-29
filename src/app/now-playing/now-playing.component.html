@@ -1,7 +1,7 @@
 <div class="left-align truncate">
-    {{track?.title}}
+    <strong>{{track?.title}}</strong>
     <br>
-    {{track?.creator}}
+    <a [routerLink]="['/artists/', getArtistIdentifier(track?.creator), 'years']">{{track?.creator}}</a>
     <br>
-    {{track?.album}}
+    <a [routerLink]="goToAlbum(track)" class="cursor-pointer">{{track?.album}}</a>
 </div>

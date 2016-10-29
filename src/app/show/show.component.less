@@ -6,9 +6,16 @@
     position: absolute;
     top: -25px;
     right:20px;
+
+    i{
+        font-size:2.9em !important;
+    }
 }
 
 .card-content{
+    h4{
+        margin: 0;
+    }
     p{
         font-size: 18px;
         line-height: 1.4em;
@@ -19,8 +26,14 @@
     display: none;
 }
 
+.play-icon, .equalizer-icon{
+    cursor: pointer;
+    position: absolute;
+    left: 15px;
+}
+
 .track-row:hover {
-    .play-icon{
+    .play-icon, .equalizer-icon{
         display: block;
         cursor: pointer;
         position: absolute;

@@ -31,6 +31,10 @@ export class ShowsComponent implements OnInit {
         }
     }
 
+    getDate(date){
+        return date.substr(0, 10);
+    }
+
     parseVenue(show) {
         if (!show || !show.title) {
             return 'Unknown';

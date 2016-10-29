@@ -19,7 +19,6 @@ export class ShowComponent implements OnInit {
     ngOnInit() {
         this.route.params.forEach((params: Params) => {
             let identifier = params['show'];
-
             this.getShow(identifier);
         });
     }
@@ -27,8 +26,6 @@ export class ShowComponent implements OnInit {
     getShow(identifier) {
         this.archiveService.getShow(identifier).subscribe(response => {
             this.show = new Show(response._body);
-            console.log(this.show)
-            console.log(this.parseTitle(this.show));
         });
     }
 

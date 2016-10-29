@@ -84,8 +84,33 @@ export class PlaylistService {
     }
 
 
+    playPlayListItem(index) {
+        var total = this.dataStore.playlist.length;
+        if (total === 0) {
+            return;
+        }
+
+        this.dataStore.playlist[this.currentPlayingIndex].hasBeenPlayed = true;
+        this.dataStore.playlist[this.currentPlayingIndex].isPlaying = false;
+
+        this.currentPlayingIndex = index;
+        if (this.currentPlayingIndex > -1) {
+            this.dataStore.playlist[this.currentPlayingIndex].isPlaying = true;
+            this.play(this.dataStore.playlist[this.currentPlayingIndex]);
+        }
+
+        this.updatePlaylistSubscribers();
+    }
+
+
     play(item: PlaylistItem) {
         this.player$.next(item);
+    }
+
+    clear(){
+        this.dataStore.playlist = [];
+        this.updatePlaylistSubscribers();
+
     }
 
 

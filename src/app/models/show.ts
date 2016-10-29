@@ -17,10 +17,6 @@ export class Show {
     venue:String;
     location:String;
 
-
-
-
-
     constructor(json: any) {
 
         this.server = json.server;

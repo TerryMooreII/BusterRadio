@@ -1,18 +1,37 @@
+<!--<div class="valign-wrapper controls-wrapper">-->
+    <!--<div class="valign center" (click)="previous()">-->
+        <!--<i class="material-icons">skip_previous</i>-->
+    <!--</div>-->
+
+    <!--<div class="valign center" (click)="play()" *ngIf="!isPlaying">-->
+        <!--<i class="material-icons medium play">play_circle_filled</i>-->
+    <!--</div>-->
+
+    <!--<div class="valign center" (click)="pause()" *ngIf="isPlaying">-->
+        <!--<i class="material-icons medium pause">pause_circle_filled</i>-->
+    <!--</div>-->
+
+    <!--<div class="valign center" (click)="next()">-->
+        <!--<i class="material-icons">skip_next</i>-->
+    <!--</div>-->
+<!--</div>-->
+
+
 <div class="valign-wrapper controls-wrapper">
-    <div class="valign center" (click)="previous()">
-        <i class="material-icons">skip_previous</i>
-    </div>
+    <a class="center waves-effect btn btn-flat btn-floating" (click)="previous()">
+        <i class="material-icons previous">skip_previous</i>
+    </a>
 
-    <div class="valign center" (click)="play()" *ngIf="!isPlaying">
-        <i class="material-icons medium play">play_circle_filled</i>
-    </div>
+    <a class="valign center waves-effect waves-light btn btn-flat btn-floating btn-large deep-orange play" (click)="playPauseToggle()" >
+        <i class="material-icons medium" *ngIf="!isPlaying">play_arrow</i>
+        <i class="material-icons medium" *ngIf="isPlaying">pause</i>
+    </a>
 
-    <div class="valign center" (click)="pause()" *ngIf="isPlaying">
-        <i class="material-icons medium pause">pause_circle_filled</i>
-    </div>
+    <!--<a class="valign center waves-effect waves-light btn btn-flat btn-floating btn-large deep-orange pause" (click)="pause()" >-->
 
-    <div class="valign center" (click)="next()">
-        <i class="material-icons">skip_next</i>
-    </div>
+    <!--</a>-->
 
+    <a class="center waves-effect btn btn-flat btn-floating" (click)="next()">
+        <i class="material-icons next">skip_next</i>
+    </a>
 </div>

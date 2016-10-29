@@ -51,6 +51,10 @@ export class AudioControlsComponent implements OnInit {
         });
     }
 
+    playPauseToggle(){
+        this.isPlaying ? this.pause() : this.play();
+    }
+
     play() {
         this.isPlaying = true;
         this.audioElement.play();
