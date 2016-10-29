@@ -12,6 +12,9 @@ export class PlaylistService {
     private player$: BehaviorSubject<PlaylistItem>;
     private currentPlayingIndex: number;
 
+    private isShuffle:boolean = false;
+    private isRepeat:boolean = false;
+
     constructor() {
         this.dataStore = {playlist: []};
         this.playList$ = <BehaviorSubject<PlaylistItem[]>>new BehaviorSubject();
@@ -53,10 +56,16 @@ export class PlaylistService {
         if (total === 0) {
             return;
         }
+
         this.dataStore.playlist[this.currentPlayingIndex].hasBeenPlayed = true;
         this.dataStore.playlist[this.currentPlayingIndex].isPlaying = false;
 
-        this.currentPlayingIndex++;
+        this.currentPlayingIndex = this.isShuffle ? this.getRandomTrack() : this.currentPlayingIndex + 1;
+
+        if (this.isRepeat && this.currentPlayingIndex === total){
+            this.currentPlayingIndex = 0;
+        }
+
         if (this.currentPlayingIndex < total) {
             this.dataStore.playlist[this.currentPlayingIndex].isPlaying = true;
             this.play(this.dataStore.playlist[this.currentPlayingIndex]);
@@ -74,7 +83,8 @@ export class PlaylistService {
         this.dataStore.playlist[this.currentPlayingIndex].hasBeenPlayed = true;
         this.dataStore.playlist[this.currentPlayingIndex].isPlaying = false;
 
-        this.currentPlayingIndex--;
+        this.currentPlayingIndex = this.isShuffle ? this.getRandomTrack() : this.currentPlayingIndex - 1;
+
         if (this.currentPlayingIndex > -1) {
             this.dataStore.playlist[this.currentPlayingIndex].isPlaying = true;
             this.play(this.dataStore.playlist[this.currentPlayingIndex]);
@@ -94,6 +104,7 @@ export class PlaylistService {
         this.dataStore.playlist[this.currentPlayingIndex].isPlaying = false;
 
         this.currentPlayingIndex = index;
+
         if (this.currentPlayingIndex > -1) {
             this.dataStore.playlist[this.currentPlayingIndex].isPlaying = true;
             this.play(this.dataStore.playlist[this.currentPlayingIndex]);
@@ -110,7 +121,19 @@ export class PlaylistService {
     clear(){
         this.dataStore.playlist = [];
         this.updatePlaylistSubscribers();
+    }
 
+    shuffle(isShuffle){
+        this.isShuffle = isShuffle;
+    }
+
+    repeat(isRepeat){
+        this.isRepeat = isRepeat;
+    }
+
+    getRandomTrack(){
+        var total = this.dataStore.playlist.length;
+        return Math.floor(Math.random() * total);
     }
 
 

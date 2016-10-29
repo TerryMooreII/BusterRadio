@@ -14,6 +14,10 @@ export class AudioControlsComponent implements OnInit {
     audioElement:any;
     isPlaying:boolean;
 
+    isRepeatSingle:boolean;
+    isRepeat:boolean;
+    isShuffle:boolean;
+
     constructor(private playlist: PlaylistService) {
     }
 
@@ -25,7 +29,6 @@ export class AudioControlsComponent implements OnInit {
             this.pause();
             this.setAudioSrc(data);
         });
-
     }
 
     setAudioSrc(item) {
@@ -38,7 +41,6 @@ export class AudioControlsComponent implements OnInit {
     }
 
     timeupdate() {
-
         this.audioElement.addEventListener('timeupdate', () => {
             this.duration.emit(this.audioElement.duration);
            this.currentTime.emit(this.audioElement.currentTime);
@@ -47,7 +49,12 @@ export class AudioControlsComponent implements OnInit {
 
     onSongEnd() {
         this.audioElement.addEventListener('ended', () => {
-            this.next();
+            if (this.isRepeatSingle){
+                this.audioElement.currentTime = 0;
+                this.play();
+            }else{
+                this.next();
+            }
         });
     }
 
@@ -73,6 +80,25 @@ export class AudioControlsComponent implements OnInit {
     previous() {
         this.pause();
         this.playlist.previous();
+    }
+
+    repeatToggle(){
+
+        if(!this.isRepeat && !this.isRepeatSingle){
+            this.isRepeat = true;
+        }else if(this.isRepeat && !this.isRepeatSingle){
+            this.isRepeat = false;
+            this.isRepeatSingle = true;
+        }else{
+            this.isRepeatSingle = false;
+            this.isRepeat = false;
+        }
+        this.playlist.repeat(this.isRepeat);
+    }
+
+    shuffle(){
+        this.isShuffle = !this.isShuffle;
+        this.playlist.shuffle(this.isShuffle);
     }
 
 }
