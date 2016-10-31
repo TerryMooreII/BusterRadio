@@ -16,7 +16,11 @@ export class StarsComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.stars.indexOf('.5') > -1){
+        if (!this.stars) {
+            return;
+        }
+
+        if (this.stars.indexOf('.5') > -1) {
             this.halfStar = true;
         }
 

@@ -1,13 +1,15 @@
 <div class="card show-card">
     <div class="card-content">
+
         <span class="card-title grey-text text-darken-4">
             <h4>{{show?.artist}}</h4>
             <p>
             {{show?.date}}<br>
             {{show?.venue}}<span *ngIf="show?.location">, </span>{{show?.location}}
             </p>
-
         </span>
+
+
         <a class="btn-floating btn-large waves-effect waves-light red play-all-btn deep-orange" (click)="play(show?.tracks, 0)">
             <i class="material-icons">play_arrow</i>
         </a>

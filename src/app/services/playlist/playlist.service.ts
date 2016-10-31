@@ -53,7 +53,7 @@ export class PlaylistService {
 
     next() {
         var total = this.dataStore.playlist.length;
-        if (total === 0) {
+        if (total === 0 || (this.currentPlayingIndex === (total - 1) && !this.isRepeat)) {
             return;
         }
 
@@ -76,7 +76,7 @@ export class PlaylistService {
 
     previous() {
         var total = this.dataStore.playlist.length;
-        if (total === 0) {
+        if (total === 0 || this.currentPlayingIndex === 0) {
             return;
         }
 

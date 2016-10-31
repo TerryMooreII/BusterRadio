@@ -25,6 +25,7 @@ export class ShowsComponent implements OnInit {
 
     getShows(artist: String, year:String) {
         this.shows = this.cache.getShows(artist, year);
+        console.log(this.shows)
 
         if(!this.shows){
             //route to get years

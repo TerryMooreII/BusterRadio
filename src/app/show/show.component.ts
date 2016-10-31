@@ -3,6 +3,7 @@ import {Params, ActivatedRoute} from "@angular/router";
 import {ArchiveService} from "../services/archive/archive.service";
 import {Show} from "../models/show";
 import {PlaylistService} from "../services/playlist/playlist.service";
+import {CacheService} from "../services/cache/cache.service";
 
 @Component({
     selector: 'br-show',
@@ -11,7 +12,7 @@ import {PlaylistService} from "../services/playlist/playlist.service";
 })
 export class ShowComponent implements OnInit {
 
-    constructor(private route: ActivatedRoute, private archiveService: ArchiveService, private playlist: PlaylistService) {
+    constructor(private route: ActivatedRoute, private archiveService: ArchiveService, private playlist: PlaylistService, private cache:CacheService) {
     }
 
     show: Show;
@@ -20,12 +21,14 @@ export class ShowComponent implements OnInit {
         this.route.params.forEach((params: Params) => {
             let identifier = params['show'];
             this.getShow(identifier);
+
         });
     }
 
     getShow(identifier) {
         this.archiveService.getShow(identifier).subscribe(response => {
             this.show = new Show(response._body);
+            this.bandImage();
         });
     }
 
@@ -48,6 +51,17 @@ export class ShowComponent implements OnInit {
 
         }
         return null
+    }
+
+    bandImage(){
+
+        if (!this.show){
+            return ''
+        }
+
+        var url = 'http://archive.org/services/img/' + this.cache.getIdentifierByArtist(this.show.artist);
+        return url;
+
     }
 
 }

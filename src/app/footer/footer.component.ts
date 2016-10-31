@@ -7,8 +7,8 @@ import {Component, OnInit} from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-    currentTime:number = 0;
-    duration:number = 0;
+    currentTime: number = 0;
+    duration: number = 0;
 
     constructor() {
     }
@@ -16,12 +16,19 @@ export class FooterComponent implements OnInit {
     ngOnInit() {
     }
 
-    setDuration(time){
+    setDuration(time) {
         this.duration = time;
     }
 
-    setCurrentTime(time){
+    setCurrentTime(time) {
         this.currentTime = time;
+    }
+
+    percent() {
+        if (!this.currentTime || !this.duration) {
+            return 0;
+        }
+        return (this.currentTime / this.duration * 100) + '%';
     }
 
 }

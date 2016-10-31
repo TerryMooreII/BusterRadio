@@ -1,7 +1,11 @@
-<div class="left-align truncate">
+
+<div class="left-align truncate track-info">
     <strong>{{track?.title}}</strong>
     <br>
     <a [routerLink]="['/artists/', getArtistIdentifier(track?.creator), 'years']">{{track?.creator}}</a>
     <br>
     <a [routerLink]="goToAlbum(track)" class="cursor-pointer">{{track?.album}}</a>
+</div>
+<div class="artist-image">
+    <img [src]="bandImage(track?.creator)" alt="">
 </div>

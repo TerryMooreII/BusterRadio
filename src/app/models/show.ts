@@ -18,7 +18,7 @@ export class Show {
     location:String;
 
     constructor(json: any) {
-
+        console.log(json);
         this.server = json.server;
         this.dir = json.dir;
         this.identifier = this.metadataExists(json.metadata.identifier);

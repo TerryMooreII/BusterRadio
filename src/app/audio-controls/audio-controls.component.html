@@ -1,4 +1,4 @@
-<div class="valign-wrapper controls-wrapper">
+<div class="valign-wrapper controls-wrapper center-controls-container">
 
     <a class="center waves-effect btn btn-flat btn-floating" (click)="repeatToggle()">
         <i class="material-icons previous" [ngClass]="{'deep-orange-text': isRepeat}" *ngIf="!isRepeatSingle || !isRepeatSingle">repeat</i>
@@ -21,5 +21,4 @@
     <a class="center waves-effect btn btn-flat btn-floating" (click)="shuffle()">
         <i class="material-icons previous" [ngClass]="{'deep-orange-text': isShuffle}">shuffle</i>
     </a>
-
 </div>

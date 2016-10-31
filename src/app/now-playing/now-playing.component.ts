@@ -13,7 +13,7 @@ export class NowPlayingComponent implements OnInit {
 
     track: Track;
 
-    constructor(private playlist: PlaylistService, private cache:CacheService, private router:Router) {
+    constructor(private playlist: PlaylistService, private cache:CacheService) {
     }
 
     ngOnInit() {
@@ -40,7 +40,7 @@ export class NowPlayingComponent implements OnInit {
         }
 
         return ['/artists', this.getArtistIdentifier(track.creator), 'years', year, 'shows', track.identifier];
-        //[routerLink]="['/artists/', getArtistIdentifier(track?.creator), 'years']
+
     }
 
     private getYear(album){
@@ -48,5 +48,15 @@ export class NowPlayingComponent implements OnInit {
             return null;
         }
         return album.substr(0, 4);
+    }
+
+    bandImage(artist){
+
+        if (!artist){
+            return ''
+        }
+        var url = 'http://archive.org/services/img/' + this.cache.getIdentifierByArtist(artist);
+        return url;
+
     }
 }
