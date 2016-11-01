@@ -4,12 +4,14 @@ import {ArchiveService} from "../services/archive/archive.service";
 import {Show} from "../models/show";
 import {PlaylistService} from "../services/playlist/playlist.service";
 import {CacheService} from "../services/cache/cache.service";
+import {Response} from "@angular/http";
 
 @Component({
     selector: 'br-show',
     templateUrl: './show.component.html',
     styleUrls: ['./show.component.less']
 })
+
 export class ShowComponent implements OnInit {
 
     constructor(private route: ActivatedRoute, private archiveService: ArchiveService, private playlist: PlaylistService, private cache:CacheService) {
@@ -38,7 +40,7 @@ export class ShowComponent implements OnInit {
 
     parseTitle(show) {
         if (!show || !show.title) {
-            return 'Unknown';
+            return null;
         }
 
         let rep = new RegExp("(.*?) Live at (.*?) on (.*)").exec(show.title);
@@ -54,14 +56,10 @@ export class ShowComponent implements OnInit {
     }
 
     bandImage(){
-
         if (!this.show){
             return ''
         }
-
-        var url = 'http://archive.org/services/img/' + this.cache.getIdentifierByArtist(this.show.artist);
-        return url;
-
+        return 'http://archive.org/services/img/' + this.cache.getIdentifierByArtist(this.show.artist);;
     }
 
 }

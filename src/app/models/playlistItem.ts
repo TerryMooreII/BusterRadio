@@ -5,8 +5,7 @@ export class PlaylistItem{
     hasBeenPlayed:boolean;
     track:Track;
 
-    constructor(track, play?){
-
+    constructor(track?, play?){
         this.isPlaying = play || false;
         this.hasBeenPlayed = false;
         this.track = track;

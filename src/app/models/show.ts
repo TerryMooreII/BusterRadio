@@ -18,21 +18,20 @@ export class Show {
     location:String;
 
     constructor(json: any) {
-        console.log(json);
         this.server = json.server;
         this.dir = json.dir;
-        this.identifier = this.metadataExists(json.metadata.identifier);
-        this.date = this.metadataExists(json.metadata.date);
-        this.title = this.metadataExists(json.metadata.title);
-        this.artist = this.metadataExists(json.metadata.creator) || json.misc['collection-title'];
-        this.description = this.metadataExists(json.metadata.description);
-        this.lineage = this.metadataExists(json.metadata.lineage);
-        this.runtime = this.metadataExists(json.metadata.runtime);
-        this.notes = this.metadataExists(json.metadata.notes);
-        this.venue = this.metadataExists(json.metadata.venue);
-        this.location = this.metadataExists(json.metadata.coverage);
+        this.identifier = this.arrayItemExists(json.metadata.identifier);
+        this.date = this.arrayItemExists(json.metadata.date);
+        this.title = this.arrayItemExists(json.metadata.title);
+        this.artist = this.arrayItemExists(json.metadata.creator) || json.misc['collection-title'];
+        this.description = this.arrayItemExists(json.metadata.description);
+        this.lineage = this.arrayItemExists(json.metadata.lineage);
+        this.runtime = this.arrayItemExists(json.metadata.runtime);
+        this.notes = this.arrayItemExists(json.metadata.notes);
+        this.venue = this.arrayItemExists(json.metadata.venue);
+        this.location = this.arrayItemExists(json.metadata.coverage);
         this.image = json.misc.image;
-        this.downloads = json.item.downloads;
+        this.downloads = this.arrayItemExists(json.item.downloads);
 
         this.tracks = [];
 
@@ -48,7 +47,7 @@ export class Show {
 
     }
 
-    metadataExists(data){
+    arrayItemExists(data){
         return data && data[0] ? data[0] : null;
     }
 }

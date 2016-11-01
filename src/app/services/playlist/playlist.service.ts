@@ -9,7 +9,7 @@ export class PlaylistService {
     private dataStore: {
         playlist: PlaylistItem[]
     };
-    private player$: BehaviorSubject<PlaylistItem>;
+    private player$: Subject<PlaylistItem>;
     private currentPlayingIndex: number;
 
     private isShuffle:boolean = false;
@@ -17,8 +17,8 @@ export class PlaylistService {
 
     constructor() {
         this.dataStore = {playlist: []};
-        this.playList$ = <BehaviorSubject<PlaylistItem[]>>new BehaviorSubject();
-        this.player$ = new Subject();
+        this.playList$ = <BehaviorSubject<PlaylistItem[]>>new BehaviorSubject(new Array(new PlaylistItem()));
+        this.player$ = new Subject<PlaylistItem>();
     }
 
 

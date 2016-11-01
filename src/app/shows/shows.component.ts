@@ -11,6 +11,7 @@ import {CacheService} from "../services/cache/cache.service";
 export class ShowsComponent implements OnInit {
     shows: Array<any>;
     years: any;
+    artist:String;
 
     constructor(private archiveService: ArchiveService, private route: ActivatedRoute, private cache: CacheService) {
     }
@@ -18,14 +19,15 @@ export class ShowsComponent implements OnInit {
     ngOnInit() {
         this.route.params.forEach((params: Params) => {
             let artist = params['artist'];
+
             let year = params['year'];
             this.getShows(artist, year);
+            this.artist = this.cache.getArtistByIdentifier(artist);
         });
     }
 
     getShows(artist: String, year:String) {
         this.shows = this.cache.getShows(artist, year);
-        console.log(this.shows)
 
         if(!this.shows){
             //route to get years

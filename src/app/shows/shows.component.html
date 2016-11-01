@@ -1,4 +1,7 @@
-<div class="collection">
+<div class="collection with-header">
+    <div class="collection-header">
+        <h4>{{artist}}</h4>
+    </div>
     <a [routerLink]="[show.identifier]" class="collection-item avatar" *ngFor="let show of shows">
         <i class="material-icons circle green">library_music</i>
         <span class="title">{{getDate(show.date)}}</span>

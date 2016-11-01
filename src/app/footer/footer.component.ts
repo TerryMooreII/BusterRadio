@@ -24,9 +24,9 @@ export class FooterComponent implements OnInit {
         this.currentTime = time;
     }
 
-    percent() {
+    percent():String {
         if (!this.currentTime || !this.duration) {
-            return 0;
+            return '0';
         }
         return (this.currentTime / this.duration * 100) + '%';
     }

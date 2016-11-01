@@ -24,7 +24,6 @@ export class YearsComponent implements OnInit {
             let year = params['year'];
             this.getShows(artist);
             this.artist = this.cache.getArtistByIdentifier(artist);
-            console.log(this.artist);
         });
     }
 

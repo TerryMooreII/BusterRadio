@@ -1,25 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PlaylistService} from "../services/playlist/playlist.service";
 import {PlaylistItem} from "../models/playlistItem";
 import {CacheService} from "../services/cache/cache.service";
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'br-playlist',
     templateUrl: './playlist.component.html',
-    styleUrls: ['./playlist.component.less']
+    styleUrls: ['./playlist.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaylistComponent implements OnInit {
 
-    playlist:Array<PlaylistItem>;
+    playlist:Observable<Array<PlaylistItem>>;
 
     constructor(private playlistService: PlaylistService, private cache:CacheService) {
-        this.playlist = [];
     }
 
     ngOnInit() {
-        this.playlistService.getPlaylist().subscribe(data => {
-            this.playlist = data;
-        })
+        this.playlist = this.playlistService.getPlaylist();
     }
 
     play(index) {
@@ -56,8 +55,9 @@ export class PlaylistComponent implements OnInit {
     }
 
     parseTitle(show) {
+        console.log('parsetitie');
         if (!show || !show.title) {
-            return 'Unknown';
+            return null;
         }
 
         let rep = new RegExp("(.*?) Live at (.*?) on (.*)").exec(show.title);
