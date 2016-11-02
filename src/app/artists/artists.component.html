@@ -1,11 +1,10 @@
-
-
 <div class="collection with-header">
     <div class="collection-header">
         <h4>
             {{artistsList?.length}} Artists
         </h4>
     </div>
-    <a [routerLink]="['/artists/' + artist.identifier, 'years']" class="collection-item" *ngFor="let artist of artistsList">{{artist.title}}</a>
+    <a [routerLink]="['/artists/' + artist.identifier, 'years']" class="collection-item"
+       *ngFor="let artist of artistsList">{{artist.title}}</a>
 
 </div>

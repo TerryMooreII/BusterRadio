@@ -33,11 +33,7 @@ export class ArtistsComponent implements OnInit {
     }
 
     bandImage(artist){
-
-
-        var url = 'http://archive.org/services/img/' + artist;
-        return url;
-
+        return 'http://archive.org/services/img/' + artist;
     }
 
 }

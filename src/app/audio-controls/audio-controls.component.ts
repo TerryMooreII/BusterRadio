@@ -74,15 +74,10 @@ export class AudioControlsComponent implements OnInit {
     }
 
     next() {
-        setTimeout(()=> {
-            this.pause();
-            this.playlist.next();
-        }, 200);
-
+        this.playlist.next();
     }
 
     previous() {
-        this.pause();
         this.playlist.previous();
     }
 

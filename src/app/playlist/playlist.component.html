@@ -11,7 +11,7 @@
 
     <div class="card-action">
 
-        <div class="valign-wrapper" *ngIf="!playlist || playlist?.length === 0">
+        <div class="valign-wrapper" *ngIf="(playlist | async).length === 0">
             <h5 class="valign center no-results">Your playlist is empty</h5>
         </div>
 
@@ -27,7 +27,7 @@
                 <br>
                 <a [routerLink]="goToAlbum(playlistItem?.track)" class="cursor-pointer">{{playlistItem?.track?.album}}</a>
             </div>
-            <div class="col s1">{{playlistItem?.track.time}}</div>
+            <div class="col s1">{{playlistItem?.track?.time}}</div>
         </div>
     </div>
 </div>

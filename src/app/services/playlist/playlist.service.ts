@@ -17,7 +17,7 @@ export class PlaylistService {
 
     constructor() {
         this.dataStore = {playlist: []};
-        this.playList$ = <BehaviorSubject<PlaylistItem[]>>new BehaviorSubject(new Array(new PlaylistItem()));
+        this.playList$ = <BehaviorSubject<PlaylistItem[]>>new BehaviorSubject([]);
         this.player$ = new Subject<PlaylistItem>();
     }
 
