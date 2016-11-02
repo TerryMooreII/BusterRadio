@@ -1,5 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {ArchiveService} from "../services/archive/archive.service";
+import {Component, OnInit} from "@angular/core";
 import {Params, ActivatedRoute} from "@angular/router";
 import {CacheService} from "../services/cache/cache.service";
 
@@ -11,8 +10,9 @@ import {CacheService} from "../services/cache/cache.service";
 export class ArtistsComponent implements OnInit {
 
     artistsList: any;
+    num:number = 20;
 
-    constructor(private archiveService: ArchiveService, private route: ActivatedRoute, private cache: CacheService) {
+    constructor(private route: ActivatedRoute, private cache: CacheService) {
     }
 
     ngOnInit() {
@@ -30,6 +30,10 @@ export class ArtistsComponent implements OnInit {
                 this.getArtists(query);
             }, 100);
         }
+    }
+
+    currentPos(pos){
+        this.num = this.num + 20;
     }
 
     bandImage(artist){

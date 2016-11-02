@@ -12,9 +12,9 @@ import {Observable} from "rxjs";
 })
 export class PlaylistComponent implements OnInit {
 
-    playlist:Observable<Array<PlaylistItem>>;
+    playlist: Observable<Array<PlaylistItem>>;
 
-    constructor(private playlistService: PlaylistService, private cache:CacheService) {
+    constructor(private playlistService: PlaylistService, private cache: CacheService) {
     }
 
     ngOnInit() {
@@ -25,50 +25,32 @@ export class PlaylistComponent implements OnInit {
         this.playlistService.playPlayListItem(index);
     }
 
-    clear(){
+    clear() {
         this.playlistService.clear();
     }
 
-    getArtistIdentifier(artist){
+    getArtistIdentifier(artist) {
         return this.cache.getIdentifierByArtist(artist);
     }
 
-    goToAlbum(track){
-        if (!track){
+    goToAlbum(track) {
+        if (!track) {
             return;
         }
 
         var year = this.getYear(track.album);
 
-        if (!year){
+        if (!year) {
             return ['/artists', this.getArtistIdentifier(track.creator), 'years'];
         }
 
         return ['/artists', this.getArtistIdentifier(track.creator), 'years', year, 'shows', track.identifier];
     }
 
-    private getYear(album){
-        if (!album){
+    private getYear(album) {
+        if (!album) {
             return null;
         }
         return album.substr(0, 4);
-    }
-
-    parseTitle(show) {
-        console.log('parsetitie');
-        if (!show || !show.title) {
-            return null;
-        }
-
-        let rep = new RegExp("(.*?) Live at (.*?) on (.*)").exec(show.title);
-        if (rep && rep.length && rep.length >= 1) {
-            return {
-                artist: rep[1],
-                venue: rep[2],
-                date: rep[3]
-            }
-
-        }
-        return null
     }
 }

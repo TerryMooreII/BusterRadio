@@ -1,3 +1,44 @@
 .round{
     border-radius: 50%;
+    height:180px;
+    width:180px;
+    border:8px solid white;
+    outline: #dddddd;
+    overflow: hidden;
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+    transition: box-shadow 0.28s cubic-bezier(0.4,0,0.2,1);
+    margin-bottom: 20px;
+
+    img {
+        height:100%;
+        min-width:100%;
+    }
+}
+
+.round:hover{
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2),0 6px 10px 0 rgba(0,0,0,0.3);
+}
+
+.artist-container{
+    width:190px;
+    margin:30px;
+    text-align: center;
+}
+
+.flex-container {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap:wrap;
+}
+.artist-row {
+    width: 100%;
 }

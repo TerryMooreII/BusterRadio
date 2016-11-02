@@ -1,10 +1,24 @@
-<div class="collection with-header">
-    <div class="collection-header">
-        <h4>
-            {{artistsList?.length}} Artists
-        </h4>
+<!--<div class="collection with-header" track-scroll (pageYPositionChange)="currentPos($event)">-->
+    <!--<div class="collection-header">-->
+        <!--<h4>-->
+            <!--{{artistsList?.length}} Artists-->
+        <!--</h4>-->
+    <!--</div>-->
+<div track-scroll (pageYPositionChange)="currentPos($event)">
+    <div class="flex-container">
+
+            <div class="artist-container" *ngFor="let artist of artistsList | slice:0:num">
+                <a [routerLink]="['/artists/' + artist.identifier, 'years']">
+                    <div class="round">
+                        <img [src]="bandImage(artist.identifier)" alt="">
+                    </div>
+                    <div class="center-align">{{artist.title}}</div>
+                </a>
+            </div>
+
     </div>
-    <a [routerLink]="['/artists/' + artist.identifier, 'years']" class="collection-item"
-       *ngFor="let artist of artistsList">{{artist.title}}</a>
 
 </div>
+
+
+<!--</div>-->
