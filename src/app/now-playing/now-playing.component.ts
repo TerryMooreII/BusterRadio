@@ -51,7 +51,6 @@ export class NowPlayingComponent implements OnInit {
     }
 
     bandImage(artist){
-
         if (!artist){
             return ''
         }

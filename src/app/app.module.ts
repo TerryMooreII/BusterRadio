@@ -20,6 +20,7 @@ import {NowPlayingComponent} from "./now-playing/now-playing.component";
 import {FooterComponent} from "./footer/footer.component";
 import {SpinnerComponent} from "./spinner/spinner.component";
 import {TrackScrollDirective} from "./track-scroll/track-scroll.directive";
+import { NotificationDirective } from './notification/notification.directive';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import {TrackScrollDirective} from "./track-scroll/track-scroll.directive";
         FooterComponent,
         SpinnerComponent,
         TrackScrollDirective,
-        TrackScrollDirective
+        TrackScrollDirective,
+        NotificationDirective
     ],
     imports: [
         BrowserModule,
