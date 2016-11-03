@@ -31,7 +31,7 @@ export class Show {
         this.venue = this.arrayItemExists(json.metadata.venue);
         this.location = this.arrayItemExists(json.metadata.coverage);
         this.image = json.misc.image;
-        this.downloads = this.arrayItemExists(json.item.downloads);
+        this.downloads = json.item ? this.arrayItemExists(json.item.downloads) : '0';
 
         this.tracks = [];
 

@@ -12,8 +12,8 @@ export class PlaylistService {
     private player$: Subject<PlaylistItem>;
     private currentPlayingIndex: number;
 
-    private isShuffle:boolean = false;
-    private isRepeat:boolean = false;
+    private isShuffle: boolean = false;
+    private isRepeat: boolean = false;
 
     constructor() {
         this.dataStore = {playlist: []};
@@ -30,23 +30,31 @@ export class PlaylistService {
         return this.player$.asObservable();
     }
 
-    add(tracks, playIndex) {
-        this.currentPlayingIndex = playIndex;
+    add(tracks, playIndex?) {
+        if (playIndex != null) {
+            this.currentPlayingIndex = playIndex;
+        }
+
         if (Array.isArray(tracks)) {
 
-            this.dataStore.playlist = tracks.map((track, index) => {
-                let play = index === this.currentPlayingIndex ? true : false;
+            let list = tracks.map((track, index) => {
+                let play = index === this.currentPlayingIndex && playIndex != null ? true : false;
                 var playlistItem = new PlaylistItem(track, play);
-                if (play) {
+                if (play && playIndex != null) {
                     this.play(playlistItem);
                 }
 
                 return playlistItem;
-
             });
 
+            if (playIndex != null) {
+                this.dataStore.playlist = list;
+            } else {
+                this.dataStore.playlist = this.dataStore.playlist.concat(list);
+            }
+
         } else {
-            this.dataStore.playlist.push(new PlaylistItem(tracks));
+            this.dataStore.playlist.push(new PlaylistItem(tracks, false));
         }
         this.updatePlaylistSubscribers();
     }
@@ -62,7 +70,7 @@ export class PlaylistService {
 
         this.currentPlayingIndex = this.isShuffle ? this.getRandomTrack() : this.currentPlayingIndex + 1;
 
-        if (this.isRepeat && this.currentPlayingIndex === total){
+        if (this.isRepeat && this.currentPlayingIndex === total) {
             this.currentPlayingIndex = 0;
         }
 
@@ -100,8 +108,10 @@ export class PlaylistService {
             return;
         }
 
-        this.dataStore.playlist[this.currentPlayingIndex].hasBeenPlayed = true;
-        this.dataStore.playlist[this.currentPlayingIndex].isPlaying = false;
+        if (this.currentPlayingIndex != null) {
+            this.dataStore.playlist[this.currentPlayingIndex].hasBeenPlayed = true;
+            this.dataStore.playlist[this.currentPlayingIndex].isPlaying = false;
+        }
 
         this.currentPlayingIndex = index;
 
@@ -118,20 +128,20 @@ export class PlaylistService {
         this.player$.next(item);
     }
 
-    clear(){
+    clear() {
         this.dataStore.playlist = [];
         this.updatePlaylistSubscribers();
     }
 
-    shuffle(isShuffle){
+    shuffle(isShuffle) {
         this.isShuffle = isShuffle;
     }
 
-    repeat(isRepeat){
+    repeat(isRepeat) {
         this.isRepeat = isRepeat;
     }
 
-    getRandomTrack(){
+    getRandomTrack() {
         var total = this.dataStore.playlist.length;
         return Math.floor(Math.random() * total);
     }

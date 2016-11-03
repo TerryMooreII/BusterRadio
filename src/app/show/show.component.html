@@ -3,10 +3,16 @@
 
         <span class="card-title grey-text text-darken-4">
             <h4>{{show?.artist}}</h4>
+             <span materialize="dropdown" href='#' class="cursor-pointer right" data-activates="playlist-more" data-alignment="right" data-constrainwidth="false"><i class="material-icons right">more_vert</i></span>
+            <!-- Dropdown Structure -->
+                <ul id="playlist-more" class="dropdown-content">
+                    <li><span class="cursor-pointer" (click)="addToPlaylist(show?.tracks)">Add Show to Playlist</span></li>
+                </ul>
             <p>
             {{show?.date}}<br>
             {{show?.venue}}<span *ngIf="show?.location">, </span>{{show?.location}}
             </p>
+
         </span>
 
 
@@ -24,10 +30,17 @@
                 <i class="material-icons play-icon" (click)="play(show?.tracks, i)">play_arrow</i>
                 <span class="track-number">{{track.track}}</span>
             </div>
-            <div class="col m10 s8">
+            <div class="col m9 s7">
                 {{track.title}}
             </div>
-            <div class="col s1">{{track.time}}</div>
+            <div class="col s1 right-align">{{track.time}}</div>
+            <div class="col s1">
+                <span materialize="dropdown" href='#' class="more-activator cursor-pointer" data-activates="more" data-alignment="right" data-constrainwidth="false"><i class="material-icons right">more_vert</i></span>
+                <!-- Dropdown Structure -->
+                <ul id="more" class="dropdown-content">
+                    <li><span class="cursor-pointer" (click)="addToPlaylist(track)">Add to Playlist</span></li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="card-action">

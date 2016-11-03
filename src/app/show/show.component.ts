@@ -38,6 +38,10 @@ export class ShowComponent implements OnInit {
         this.playlist.add(tracks, playIndex);
     }
 
+    addToPlaylist(track){
+        this.playlist.add(track);
+    }
+
     parseTitle(show) {
         if (!show || !show.title) {
             return null;
