@@ -16,9 +16,10 @@ export class PlaylistService {
     private isRepeat: boolean = false;
 
     constructor() {
-        this.dataStore = {playlist: []};
+        this.dataStore = {playlist: this.getSavedPlaylist()};
         this.playList$ = <BehaviorSubject<PlaylistItem[]>>new BehaviorSubject([]);
         this.player$ = new Subject<PlaylistItem>();
+        this.updatePlaylistSubscribers();
     }
 
 
@@ -149,6 +150,26 @@ export class PlaylistService {
 
     private updatePlaylistSubscribers() {
         this.playList$.next(this.dataStore.playlist);
+        this.savePlaylist(this.dataStore.playlist);
+    }
+
+    savePlaylist(playList){
+        localStorage.setItem('playlist', JSON.stringify(playList));
+    }
+
+    getSavedPlaylist(){
+        let pl = localStorage.getItem('playlist');
+
+        if (pl){
+            try{
+                return JSON.parse(pl).map((data) => {
+                    data.isPlaying = false;
+                    return data;
+                });
+            }catch(e){
+                return [];
+            }
+        }
     }
 
 }

@@ -1,4 +1,11 @@
+
+<ul class="pagination center-align" *ngIf="showLetters">
+    <li class="waves-effect"><a routerLink="/artists">All</a></li>
+    <li class="waves-effect" *ngFor="let letter of letters"><a [routerLink]="[{starts: letter}]">{{letter}}</a></li>
+</ul>
+
 <div track-scroll (pageYPositionChange)="currentPos($event)">
+
     <div class="flex-container">
         <div class="artist-container" *ngFor="let artist of artistsList | slice:0:num">
             <a [routerLink]="['/artists/' + artist.identifier, 'years']">
@@ -9,6 +16,5 @@
             </a>
         </div>
     </div>
-
 </div>
 

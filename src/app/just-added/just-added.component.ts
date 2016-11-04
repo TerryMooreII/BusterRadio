@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ArchiveService} from "../services/archive/archive.service";
 import {CacheService} from "../services/cache/cache.service";
+import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
     selector: 'br-just-added',
@@ -10,16 +11,22 @@ import {CacheService} from "../services/cache/cache.service";
 export class JustAddedComponent implements OnInit {
 
     shows: any;
+    currentType:string;
 
-    constructor(private archiveService: ArchiveService, private cache: CacheService) {
+    constructor(private archiveService: ArchiveService, private cache: CacheService, private route:ActivatedRoute) {
     }
 
     ngOnInit() {
 
-        this.archiveService.getNewestShows(32)
-            .subscribe((response) => {
-                this.shows = response._body.response.docs;
-            });
+        this.route.params.forEach((params: Params) => {
+            let sort = params['sort'];
+
+            if (sort === 'date'){
+                this.getLatest('date');
+            }else{
+                this.getLatest('publicdate');
+            }
+        });
     }
 
     bandImage(artist) {
@@ -31,5 +38,18 @@ export class JustAddedComponent implements OnInit {
 
     showRoute(show) {
         return ['/artists/', this.cache.getIdentifierByArtist(show.creator), 'years', show.year, 'shows', show.identifier]
+    }
+
+    getLatest(type){
+        if (this.currentType === type){
+            return;
+        }
+
+        this.currentType = type;
+        this.archiveService.getNewestShows(32, type)
+            .subscribe((response) => {
+                this.shows = response._body.response.docs;
+            });
+
     }
 }

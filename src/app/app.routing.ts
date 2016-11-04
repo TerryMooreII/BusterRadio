@@ -9,7 +9,9 @@ import {PlaylistComponent} from "./playlist/playlist.component";
 
 export const routes: Routes = [
     {path: '', component: JustAddedComponent},
+    {path: 'new', component: JustAddedComponent},
     {path: 'artists', component: ArtistsComponent},
+    {path: 'artists/top/:count', component: ArtistsComponent},
     {path: 'artists/:artist/years', component: YearsComponent},
     {path: 'artists/:artist/years/:year/shows', component: ShowsComponent},
     {path: 'artists/:artist/years/:year/shows/:show', component: ShowComponent},

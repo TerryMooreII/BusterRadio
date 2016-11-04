@@ -1,18 +1,17 @@
-
 <div class="main" brNotification>
     <div class="navbar-fixed ">
         <nav>
             <div class="nav-wrapper deep-orange">
-                <a href="#" class="brand-logo hide-on-med-and-down">BusterRad.io</a>
+                <a href="#" materialize="sideNav" [materializeParams]="[{edge:'left'}]" href="#"
+                   data-activates="slide-out" class="button-collapse show-on-large"><i
+                    class="material-icons">menu</i></a>
+                <a href="#" class="brand-logo hide-on-med-and-down">Buster Radio</a>
 
                 <div class="search-box">
-                    <input type="search" placeholder="Search Artists..." name="autoComplete" [formControl]="search" (blur)="clear()">
+                    <input type="search" placeholder="Search Artists..." name="autoComplete" [formControl]="search"
+                           (blur)="clear()">
                     <i class="material-icons search-icon">search</i>
                 </div>
-
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a [routerLink]="['/artists']">Artists</a></li>
-                </ul>
             </div>
         </nav>
     </div>
@@ -24,4 +23,48 @@
     </div>
 
     <br-footer></br-footer>
+
+
+    <ul id="slide-out" class="side-nav">
+        <li class="center-align deep-orange-text" [style.fontSize]="'26px'">
+            Buster Radio
+            <!--<div class="userView">-->
+            <!--<div class="background">-->
+            <!--<img src="https://treysguitarrig.files.wordpress.com/2016/10/featured-image.png?w=400&h=200&crop=1">-->
+            <!--</div>-->
+            <!--<a href="#!user"><img class="circle" src="images/yuna.jpg"></a>-->
+            <!--<a href="#!name"><span class="white-text name">BusterRad.io</span></a>-->
+            <!--<a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>-->
+            <!--</div>-->
+        </li>
+        <li>
+            <div class="divider"></div>
+        </li>
+
+        <li><a class="waves-effect" routerLink="/artists"><i class="material-icons">speaker</i>Artists</a></li>
+        <li><a class="waves-effect" routerLink="/artists/top/100"><i class="material-icons">supervisor_account</i>Top Played Artists</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a class="waves-effect" routerLink="/new"><i class="material-icons">library_music</i>Newest Added Shows</a></li>
+        <li><a class="waves-effect" [routerLink]="['new', {sort:'date'}]"><i class="material-icons">library_music</i>Newest shows by Date</a></li>
+        <!--<li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>-->
+        <!--<li>-->
+            <!--<div class="divider"></div>-->
+        <!--</li>-->
+        <!--<li><a class="subheader">Subheader</a></li>-->
+        <!--<li><a class="waves-effect" href="#!">Third Link With Waves</a></li>-->
+        <!--<li>-->
+            <!--<div class="divider"></div>-->
+        <!--</li>-->
+
+        <!--<li class="center-align">-->
+            <!--<div class="userView">-->
+                <!--Made with &hearts; -->
+                <!--by <a href="https://twitter.com/terrymooreii" target="_blank">Terry Moore II</a>-->
+            <!--</div>-->
+        <!--</li>-->
+    </ul>
+
+
 </div>

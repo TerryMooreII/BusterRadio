@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {Params, ActivatedRoute} from "@angular/router";
 import {ArchiveService} from "../services/archive/archive.service";
 import {CacheService} from "../services/cache/cache.service";
-import {cache} from "rxjs/operator/cache";
 
 @Component({
   selector: 'br-years',
