@@ -9,7 +9,7 @@
             <div class="card-content">
                 <span class="card-title activator grey-text text-darken-4"><i class="material-icons right">more_vert</i>{{show.creator}}</span>
                 <br>
-                {{show.date.split('T')[0]}}
+                {{show.date ? show.date.split('T')[0] : ''}}
                 <br>
                 {{show.coverage}}
             </div>

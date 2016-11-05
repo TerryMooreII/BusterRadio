@@ -33,4 +33,21 @@ export class AppComponent {
     clear(){
         this.search.setValue(null);
     }
+
+    randomShow(){
+        let artists = this.cache.getArtists();
+        let artist = artists[Math.floor(Math.random() * artists.length)];
+
+        this.archiveService.getShows(artist.identifier).subscribe((response) =>{
+            let shows = response._body.response.docs;
+            if (shows.length === 0){
+                this.randomShow();
+                return;
+            }
+            let show = shows[Math.floor(Math.random() * shows.length)];
+            this.router.navigate(['/artists', artist.identifier, 'years', show.year, 'shows', show.identifier]);
+
+        })
+    }
+
 }
