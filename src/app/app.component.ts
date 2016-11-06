@@ -11,17 +11,7 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
 
-    search: FormControl = new FormControl();
-
     constructor(private archiveService: ArchiveService, private cache: CacheService, private router: Router) {
-        this.search.valueChanges
-         .debounceTime(400)
-            .subscribe(term => {
-                if (term){
-                    this.router.navigate(['/artists', {query: term}]);
-                }
-
-            })
     }
 
     ngOnInit() {
@@ -30,12 +20,9 @@ export class AppComponent {
         });
     }
 
-    clear(){
-        this.search.setValue(null);
-    }
-
     randomShow(){
         let artists = this.cache.getArtists();
+
         let artist = artists[Math.floor(Math.random() * artists.length)];
 
         this.archiveService.getShows(artist.identifier).subscribe((response) =>{
@@ -49,5 +36,4 @@ export class AppComponent {
 
         })
     }
-
 }

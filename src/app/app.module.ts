@@ -21,6 +21,8 @@ import {FooterComponent} from "./footer/footer.component";
 import {SpinnerComponent} from "./spinner/spinner.component";
 import {TrackScrollDirective} from "./track-scroll/track-scroll.directive";
 import { NotificationDirective } from './notification/notification.directive';
+import { SideNavMenuComponent } from './side-nav-menu/side-nav-menu.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
     declarations: [
@@ -38,7 +40,9 @@ import { NotificationDirective } from './notification/notification.directive';
         SpinnerComponent,
         TrackScrollDirective,
         TrackScrollDirective,
-        NotificationDirective
+        NotificationDirective,
+        SideNavMenuComponent,
+        SearchComponent
     ],
     imports: [
         BrowserModule,
