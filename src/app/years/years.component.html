@@ -2,5 +2,8 @@
     <div class="collection-header">
         <h4>{{artist}} Shows</h4>
     </div>
+    <div class="valign-wrapper" *ngIf="years?.length === 0">
+        <h5 class="valign">Sorry, There are no shows for this artist</h5>
+    </div>
     <a [routerLink]="[year, 'shows']" class="collection-item" *ngFor="let year of years">{{year}}</a>
 </div>

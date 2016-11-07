@@ -2,6 +2,11 @@
     <div class="collection-header">
         <h4>{{artist}}</h4>
     </div>
+{{shows?.length}}
+    <div class="valign-wrapper" *ngIf="shows?.length === 0">
+        <h5 class="valign">Sorry, There are shows available for this artist</h5>
+    </div>
+
     <a [routerLink]="[show.identifier]" class="collection-item avatar" *ngFor="let show of shows">
         <i class="material-icons circle green">library_music</i>
         <span class="title">{{getDate(show.date)}}</span>
