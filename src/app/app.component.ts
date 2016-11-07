@@ -11,29 +11,12 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
 
-    constructor(private archiveService: ArchiveService, private cache: CacheService, private router: Router) {
+    constructor(private archiveService: ArchiveService, private cache: CacheService) {
     }
 
     ngOnInit() {
         this.archiveService.loadArtists().subscribe(data => {
             this.cache.setArtistsCache(data._body.response.docs);
         });
-    }
-
-    randomShow(){
-        let artists = this.cache.getArtists();
-
-        let artist = artists[Math.floor(Math.random() * artists.length)];
-
-        this.archiveService.getShows(artist.identifier).subscribe((response) =>{
-            let shows = response._body.response.docs;
-            if (shows.length === 0){
-                this.randomShow();
-                return;
-            }
-            let show = shows[Math.floor(Math.random() * shows.length)];
-            this.router.navigate(['/artists', artist.identifier, 'years', show.year, 'shows', show.identifier]);
-
-        })
     }
 }

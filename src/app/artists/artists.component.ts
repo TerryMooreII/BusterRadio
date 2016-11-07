@@ -19,6 +19,8 @@ export class ArtistsComponent implements OnInit {
     }
 
     ngOnInit() {
+
+
         this.route.params.forEach((params: Params) => {
             let query = params['query'];
             let starts = params['starts'];
