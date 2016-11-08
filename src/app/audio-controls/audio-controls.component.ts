@@ -13,6 +13,7 @@ export class AudioControlsComponent implements OnInit {
 
     audioElement: any;
     isPlaying: boolean;
+    isDisabled: boolean = true;
 
     isRepeatSingle: boolean;
     isRepeat: boolean;
@@ -35,9 +36,12 @@ export class AudioControlsComponent implements OnInit {
     }
 
     setAudioSrc(item) {
+        this.isDisabled = item ? false: true;
+
         let track = item.track;
         let url = 'http://www.archive.org/download/' + track.identifier + track.fileName;
         this.audioElement.setAttribute('src', url);
+
         this.play();
     }
 

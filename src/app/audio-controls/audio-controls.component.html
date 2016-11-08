@@ -1,24 +1,24 @@
 <div class="valign-wrapper controls-wrapper center-controls-container">
 
-    <a class="center waves-effect btn btn-flat btn-floating" (click)="repeatToggle()">
+    <button class="center waves-effect btn btn-flat btn-floating" (click)="repeatToggle()">
         <i class="material-icons previous" [ngClass]="{'deep-orange-text': isRepeat}" *ngIf="!isRepeatSingle || !isRepeatSingle">repeat</i>
         <i class="material-icons previous deep-orange-text" *ngIf="!isRepeat">repeat_one</i>
-    </a>
+    </button>
 
-    <a class="center waves-effect btn btn-flat btn-floating" (click)="previous()">
+    <button class="center waves-effect btn btn-flat btn-floating disabled" (click)="previous()" [disabled]="isDisabled">
         <i class="material-icons previous">skip_previous</i>
-    </a>
+    </button>
 
-    <a class="valign center waves-effect waves-light btn btn-flat btn-floating btn-large deep-orange play" (click)="playPauseToggle()" >
+    <button class="valign center waves-effect waves-light btn btn-flat btn-floating btn-large deep-orange play" (click)="playPauseToggle()" [disabled]="isDisabled">
         <i class="material-icons medium" *ngIf="!isPlaying">play_arrow</i>
         <i class="material-icons medium" *ngIf="isPlaying">pause</i>
-    </a>
+    </button>
 
-    <a class="center waves-effect btn btn-flat btn-floating" (click)="next()">
+    <button class="center waves-effect btn btn-flat btn-floating disabled" (click)="next()" [disabled]="isDisabled">
         <i class="material-icons next">skip_next</i>
-    </a>
+    </button>
 
-    <a class="center waves-effect btn btn-flat btn-floating" (click)="shuffle()">
+    <button class="center waves-effect btn btn-flat btn-floating" (click)="shuffle()">
         <i class="material-icons previous" [ngClass]="{'deep-orange-text': isShuffle}">shuffle</i>
-    </a>
+    </button>
 </div>

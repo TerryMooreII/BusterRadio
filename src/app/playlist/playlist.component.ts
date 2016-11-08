@@ -47,6 +47,15 @@ export class PlaylistComponent implements OnInit {
         return ['/artists', this.getArtistIdentifier(track.creator), 'years', year, 'shows', track.identifier];
     }
 
+    bandImage(artist){
+        if (!artist){
+            return ''
+        }
+        var url = 'http://archive.org/services/img/' + this.cache.getIdentifierByArtist(artist);
+        return url;
+
+    }
+
     private getYear(album) {
         if (!album) {
             return null;

@@ -12,6 +12,17 @@
     margin-right: 20px;
 }
 
+.disabled {
+    background-color: white !important;
+}
+
+.disabled[disabled] {
+    background-color: transparent !important;
+    i {
+        color: #DFDFDF !important;
+    }
+}
+
 .play {
     i {
         font-size: 2.9em;
@@ -23,11 +34,11 @@
     margin-bottom: 5px;
 }
 
-.center-controls-container{
-    margin:0 50% !important;
+.center-controls-container {
+    margin: 0 50% !important;
 }
 
-:host{
+:host {
     display: flex;
     align-items: center;
     justify-content: center;
