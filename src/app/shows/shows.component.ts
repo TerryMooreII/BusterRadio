@@ -11,7 +11,7 @@ import {CacheService} from "../services/cache/cache.service";
 export class ShowsComponent implements OnInit {
     shows: Array<any>;
     years: any;
-    artist:String;
+    artist: String;
 
     constructor(private archiveService: ArchiveService, private route: ActivatedRoute, private cache: CacheService) {
     }
@@ -26,15 +26,22 @@ export class ShowsComponent implements OnInit {
         });
     }
 
-    getShows(artist: String, year:String) {
+    getShows(artist: String, year: String) {
         this.shows = this.cache.getShows(artist, year);
 
-        if(!this.shows){
-            //route to get years
+
+        if (!this.shows) {
+            this.archiveService.getShows(artist).subscribe(data => {
+                this.shows = data._body.response.docs;
+                this.years = new Set(this.shows.map(item => item.year));
+                this.cache.setShows(artist, this.shows);
+                this.cache.setYears(artist, this.years);
+            });
         }
+
     }
 
-    getDate(date){
+    getDate(date) {
         return date.substr(0, 10);
     }
 

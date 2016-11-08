@@ -53,4 +53,20 @@ export class ArchiveService {
         );
     };
 
+    getTotalArtists(){
+        let url = this.ARCHIVE_ORG_API_URL + 'advancedsearch.php?q=collection%3Detree&fl%5B%5D=creator&sort%5B%5D=&sort%5B%5D=&sort%5B%5D=&rows=0&page=1&output=json&callback=JSONP_CALLBACK';
+
+        return this.jsonp.get(url).map((response: any) =>
+            response
+        );
+    };
+
+    getTotalShows(){
+        let url = this.ARCHIVE_ORG_API_URL + 'advancedsearch.php?q=mediatype%3A%28etree%29&fl%5B%5D=creator&sort%5B%5D=&sort%5B%5D=&sort%5B%5D=&rows=0&page=1&output=json&callback=JSONP_CALLBACK';
+
+        return this.jsonp.get(url).map((response: any) =>
+            response
+        );
+    };
+
 }
