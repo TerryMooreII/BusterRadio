@@ -10,7 +10,7 @@
         </div>
         <div class="col s4 center">
             <br-audio-controls (duration)="setDuration($event)"
-                               (currentTime)="setCurrentTime($event)"></br-audio-controls>
+                               (currentTime)="setCurrentTime($event)" [newCurrentTime]="newCurrentTime"></br-audio-controls>
         </div>
         <div class="col s4">
             <div class="right-align cursor-pointer" style="padding: 10px 0">

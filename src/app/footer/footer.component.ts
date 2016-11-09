@@ -1,4 +1,5 @@
-import {Component, OnInit, ElementRef} from '@angular/core';
+import {Component, OnInit, ElementRef, EventEmitter} from '@angular/core';
+import {Output} from "@angular/core/src/metadata/directives";
 
 @Component({
     selector: 'br-footer',
@@ -7,11 +8,12 @@ import {Component, OnInit, ElementRef} from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
+    @Output() newCurrentTime = new EventEmitter<number>();
+
     currentTime: number = 0;
     duration: number = 0;
-    userSetting:number;
 
-    constructor(private el:ElementRef) {
+    constructor(private el: ElementRef) {
     }
 
     ngOnInit() {
@@ -25,33 +27,24 @@ export class FooterComponent implements OnInit {
         this.currentTime = time;
     }
 
-    percent():String {
-        // if (this.userSetting){
-        //     return this.userSetting + '%';
-        // }
-
+    percent(): String {
         if (!this.currentTime || !this.duration) {
             return '0';
         }
         return (this.currentTime / this.duration * 100) + '%';
     }
 
-    dotPercent():String {
-        // if (this.userSetting){
-        //     return this.userSetting + '%';
-        // }
+    dotPercent(): String {
         if (!this.currentTime || !this.duration) {
             return '0';
         }
         return (((this.currentTime - 1) / this.duration) * 100) + '%';
     }
 
-    getPosition(event){
-        return;
-        // var elWidth = this.el.nativeElement.offsetWidth;
-        // var clicked = (event.offsetX);
-        // this.userSetting = clicked / elWidth * 100;
+    getPosition(event) {
+        var elWidth = this.el.nativeElement.offsetWidth;
+        var clicked = (event.offsetX);
+        var pos = ((clicked / elWidth * 100) / 100) * this.duration;
+        this.newCurrentTime.emit(pos);
     }
-
-
 }

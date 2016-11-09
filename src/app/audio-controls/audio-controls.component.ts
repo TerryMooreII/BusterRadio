@@ -1,5 +1,6 @@
-import {Component, OnInit, EventEmitter, Output} from '@angular/core';
+import {Component, OnInit, EventEmitter, Output} from "@angular/core";
 import {PlaylistService} from "../services/playlist/playlist.service";
+import {Input} from "@angular/core/src/metadata/directives";
 
 @Component({
     selector: 'br-audio-controls',
@@ -10,6 +11,8 @@ export class AudioControlsComponent implements OnInit {
 
     @Output() duration = new EventEmitter<any>();
     @Output() currentTime = new EventEmitter<any>();
+
+    @Input() newCurrentTime:EventEmitter<number>;
 
     audioElement: any;
     isPlaying: boolean;
@@ -33,6 +36,9 @@ export class AudioControlsComponent implements OnInit {
             this.pause();
             this.setAudioSrc(data);
         });
+
+        //Watch for newCurrentTime updates and set current time
+        this.newCurrentTime.subscribe((data) => this.audioElement.currentTime = data);
     }
 
     setAudioSrc(item) {
