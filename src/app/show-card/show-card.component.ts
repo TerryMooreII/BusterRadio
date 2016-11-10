@@ -22,7 +22,7 @@ export class ShowCardComponent implements OnInit {
     }
 
     bandImage(artist) {
-        return this.archiveService.bandImage(artist);
+        return this.archiveService.bandImage(this.cache.getIdentifierByArtist(artist));
     }
 
 
