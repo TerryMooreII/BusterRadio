@@ -32,17 +32,6 @@ export class JustAddedComponent implements OnInit {
         });
     }
 
-    bandImage(artist) {
-        if (!artist) {
-            return ''
-        }
-        return 'http://archive.org/services/img/' + this.cache.getIdentifierByArtist(artist);
-    }
-
-    showRoute(show) {
-        return ['/artists/', this.cache.getIdentifierByArtist(show.creator), 'years', show.year, 'shows', show.identifier]
-    }
-
     getLatest(type){
         if (this.currentType === type){
             return;
