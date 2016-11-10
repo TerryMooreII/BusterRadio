@@ -23,6 +23,9 @@ import {TrackScrollDirective} from "./track-scroll/track-scroll.directive";
 import { NotificationDirective } from './notification/notification.directive';
 import { SideNavMenuComponent } from './side-nav-menu/side-nav-menu.component';
 import { SearchComponent } from './search/search.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
+import { ShowCardComponent } from './show-card/show-card.component';
+import { ArtistCardComponent } from './artist-card/artist-card.component';
 
 @NgModule({
     declarations: [
@@ -42,7 +45,10 @@ import { SearchComponent } from './search/search.component';
         TrackScrollDirective,
         NotificationDirective,
         SideNavMenuComponent,
-        SearchComponent
+        SearchComponent,
+        SearchResultsComponent,
+        ShowCardComponent,
+        ArtistCardComponent
     ],
     imports: [
         BrowserModule,

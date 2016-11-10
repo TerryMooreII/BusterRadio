@@ -6,10 +6,12 @@ import {ShowsComponent} from "./shows/shows.component";
 import {YearsComponent} from "./years/years.component";
 import {ShowComponent} from "./show/show.component";
 import {PlaylistComponent} from "./playlist/playlist.component";
+import {SearchResultsComponent} from "./search-results/search-results.component";
 
 export const routes: Routes = [
     {path: '', component: JustAddedComponent},
     {path: 'new', component: JustAddedComponent},
+    {path: 'search', component: SearchResultsComponent},
     {path: 'artists', component: ArtistsComponent},
     {path: 'artists/top/:count', component: ArtistsComponent},
     {path: 'artists/:artist/years', component: YearsComponent},

@@ -1,0 +1,14 @@
+
+<h2 class="content-title">Artists<small>({{artistList?.length || 0}})</small></h2>
+<div class="flex-container">
+    <div *ngFor="let artist of artistsList">
+        <br-artist-card [artist]="artist"></br-artist-card>
+    </div>
+</div>
+
+<h2 class="content-title">Shows at Venue<small>({{shows?.length}})</small></h2>
+<div class=" flex-container">
+    <div *ngFor="let show of shows">
+    <br-show-card [show]="show"></br-show-card>
+    </div>
+</div>

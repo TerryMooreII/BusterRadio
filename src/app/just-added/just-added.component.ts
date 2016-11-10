@@ -12,6 +12,7 @@ export class JustAddedComponent implements OnInit {
 
     shows: any;
     currentType:string;
+    title:string;
 
     constructor(private archiveService: ArchiveService, private cache: CacheService, private route:ActivatedRoute) {
     }
@@ -23,8 +24,10 @@ export class JustAddedComponent implements OnInit {
 
             if (sort === 'date'){
                 this.getLatest('date');
+                this.title = 'Newest Shows by Date';
             }else{
                 this.getLatest('publicdate');
+                this.title = 'Newest Added Shows';
             }
         });
     }

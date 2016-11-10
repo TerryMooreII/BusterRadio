@@ -16,7 +16,7 @@ export class SearchComponent implements OnInit {
             .debounceTime(400)
             .subscribe(term => {
                 if (term){
-                    this.router.navigate(['/artists', {query: term}]);
+                    this.router.navigate(['/search', {query: term}]);
                 }
             })
     }

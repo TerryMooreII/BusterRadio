@@ -1,0 +1,15 @@
+<a [routerLink]="showRoute(show)" class="card show-card" >
+    <div class="card-image">
+        <img [src]="bandImage(show.creator)">
+    </div>
+    <div class="card-content">
+        <span class="card-title grey-text text-darken-4">{{show.creator}}</span>
+        <br>
+        {{show.date ? show.date.split('T')[0] : ''}}
+        <br>
+        {{show.title.split(' at ')[1].split(' on ')[0]}}
+        <br>
+        {{show.coverage}}
+    </div>
+    <a class="btn-floating btn-sm waves-effect waves-light deep-orange show-play-btn"><i class="material-icons">play_arrow</i></a>
+</a>

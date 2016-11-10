@@ -4,13 +4,15 @@ import {Jsonp, RequestOptions} from "@angular/http";
 @Injectable()
 export class ArchiveService {
 
-
-    private allArtists: Array<any>;
     private ARCHIVE_ORG_API_URL = 'http://www.archive.org/';
 
 
     constructor(private jsonp: Jsonp) {
 
+    }
+
+    bandImage(artist) {
+        return 'http://archive.org/services/img/' + artist;
     }
 
     loadArtists() {
@@ -52,6 +54,13 @@ export class ArchiveService {
             response
         );
     };
+
+    getVenues(query){
+        let url = this.ARCHIVE_ORG_API_URL + 'advancedsearch.php?q=collection%3A%28etree%29+AND+venue%3A%28'+ query +'%29&fl%5B%5D=avg_rating&fl%5B%5D=coverage&fl%5B%5D=collection&fl%5B%5D=contributor&fl%5B%5D=creator&fl%5B%5D=date&fl%5B%5D=description&fl%5B%5D=downloads&fl%5B%5D=headerImage&fl%5B%5D=identifier&fl%5B%5D=num_reviews&fl%5B%5D=publicdate&fl%5B%5D=title&fl%5B%5D=year&sort%5B%5D=date+desc&sort%5B%5D=&sort%5B%5D=&rows=1000&page=1&output=json&callback=JSONP_CALLBACK';
+        return this.jsonp.get(url).map((response: any) =>
+            response
+        );
+    }
 
     getTotalArtists(){
         let url = this.ARCHIVE_ORG_API_URL + 'advancedsearch.php?q=collection%3Detree&fl%5B%5D=creator&sort%5B%5D=&sort%5B%5D=&sort%5B%5D=&rows=0&page=1&output=json&callback=JSONP_CALLBACK';

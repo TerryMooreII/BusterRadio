@@ -1,0 +1,44 @@
+
+.show-row {
+    width: 100%;
+}
+
+.show-card {
+    display: block;
+    width: 193px;
+    margin: 15px;
+    min-height: 254px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+    transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+
+    img {
+        height: 140px !important;
+
+    }
+
+    .card-content {
+        line-height: 1.2em !important;
+        color: #AAAAAA;
+
+    }
+
+    .card-title {
+        line-height: .7em !important;
+        font-size: 1.1em;
+        font-weight: 400;
+    }
+    .show-play-btn {
+        position: absolute;
+        top: 122px;
+        right: 5px;
+        display: none;
+    }
+}
+
+.show-card:hover {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+
+    .show-play-btn {
+        display: block;
+    }
+}

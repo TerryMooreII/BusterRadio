@@ -7,14 +7,8 @@
 <div track-scroll (pageYPositionChange)="currentPos($event)">
 
     <div class="flex-container">
-        <div class="artist-container" *ngFor="let artist of artistsList | slice:0:num">
-            <a [routerLink]="['/artists/' + artist.identifier, 'years']">
-                <div class="round">
-                    <img [src]="bandImage(artist.identifier)" alt="">
-                </div>
-
-                <div class="center-align title">{{artist.title}}</div>
-            </a>
+        <div *ngFor="let artist of artistsList | slice:0:num">
+            <br-artist-card [artist]="artist"></br-artist-card>
         </div>
     </div>
 </div>

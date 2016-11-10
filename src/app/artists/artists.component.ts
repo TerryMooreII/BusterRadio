@@ -52,8 +52,6 @@ export class ArtistsComponent implements OnInit {
                 this.artistsList = this.cache.getArtists(query);
             }
         }
-
-
     }
 
     getTopDownloadedArtists(count) {
