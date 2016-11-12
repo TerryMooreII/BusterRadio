@@ -13,6 +13,7 @@ export class YearsComponent implements OnInit {
     shows: Array<any>;
     artist:String;
     years: any;
+    isLoading: boolean = false;
 
     constructor(private archiveService: ArchiveService, private route: ActivatedRoute, private cache: CacheService) {
     }
@@ -27,6 +28,7 @@ export class YearsComponent implements OnInit {
     }
 
     getShows(artist: String) {
+        this.isLoading = true;
         this.years = this.cache.getYears(artist);
 
         if (!this.years) {
@@ -35,6 +37,7 @@ export class YearsComponent implements OnInit {
                 this.years = new Set(this.shows.map(item => item.year));
                 this.cache.setShows(artist, this.shows);
                 this.cache.setYears(artist, this.years);
+                this.isLoading = false;
             });
         }
     }

@@ -42,6 +42,10 @@ export class ShowComponent implements OnInit {
         this.playlist.add(track);
     }
 
+    getIdentifierByArtist(artist){
+        return this.cache.getIdentifierByArtist(artist);
+    }
+
     parseTitle(show) {
         if (!show || !show.title) {
             return null;
