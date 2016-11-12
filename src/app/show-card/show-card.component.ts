@@ -25,5 +25,18 @@ export class ShowCardComponent implements OnInit {
         return this.archiveService.bandImage(this.cache.getIdentifierByArtist(artist));
     }
 
+    getVenue(title){
+        if (!title){
+            return '';
+        }
+
+        var venue = title.split(' at ');
+
+        if (venue.length > 0){
+            return ''
+        }
+
+        return venue[1].split(' on ')[0];
+    }
 
 }
