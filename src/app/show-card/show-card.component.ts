@@ -32,7 +32,7 @@ export class ShowCardComponent implements OnInit {
 
         var venue = title.split(' at ');
 
-        if (venue.length > 0){
+        if (venue.length < 1){
             return ''
         }
 
