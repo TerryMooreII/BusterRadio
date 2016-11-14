@@ -1,0 +1,25 @@
+<div class="main" brNotification>
+    <div class="navbar-fixed ">
+        <nav>
+            <div class="nav-wrapper deep-orange">
+                <a href="#" materialize="sideNav"
+                   [materializeParams]="[{edge:'left', closeOnClick:true, draggable:true}]" href="#"
+                   data-activates="slide-out" class="button-collapse show-on-large"><i
+                    class="material-icons">menu</i></a>
+                <a href="#" class="brand-logo hide-on-med-and-down">Buster Radio</a>
+
+                <br-search></br-search>
+            </div>
+        </nav>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+
+    <br-footer></br-footer>
+    <br-side-nav-menu></br-side-nav-menu>
+
+</div>

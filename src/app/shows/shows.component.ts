@@ -29,16 +29,15 @@ export class ShowsComponent implements OnInit {
     getShows(artist: String, year: String) {
         this.shows = this.cache.getShows(artist, year);
 
-
         if (!this.shows) {
             this.archiveService.getShows(artist).subscribe(data => {
-                this.shows = data._body.response.docs;
-                this.years = new Set(this.shows.map(item => item.year));
-                this.cache.setShows(artist, this.shows);
-                this.cache.setYears(artist, this.years);
+                let shows = data._body.response.docs;
+                let years = new Set(shows.map(item => item.year));
+                this.cache.setShows(artist, shows);
+                this.cache.setYears(artist, years);
+                this.shows = this.cache.getShows(artist, year);
             });
         }
-
     }
 
     getDate(date) {

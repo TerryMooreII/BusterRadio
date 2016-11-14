@@ -1,25 +1,17 @@
-<div class="main" brNotification>
-    <div class="navbar-fixed ">
-        <nav>
-            <div class="nav-wrapper deep-orange">
-                <a href="#" materialize="sideNav"
-                   [materializeParams]="[{edge:'left', closeOnClick:true, draggable:true}]" href="#"
-                   data-activates="slide-out" class="button-collapse show-on-large"><i
-                    class="material-icons">menu</i></a>
-                <a href="#" class="brand-logo hide-on-med-and-down">Buster Radio</a>
 
-                <br-search></br-search>
+<router-outlet></router-outlet>
+
+<div class="row loader valign-wrapper" *ngIf="show">
+    <div class="col s7 offset-s3 valign center-align">
+        <h5>
+            <span class="title deep-orange-text">Buster Radio</span>
+            <div class="progress grey lighten-2">
+                <div class="indeterminate deep-orange"></div>
             </div>
-        </nav>
-    </div>
+            <span class="sub-title grey-text">Loading Music Library</span>
+        </h5>
+</div></div>
 
-    <div class="content">
-        <div class="container">
-            <router-outlet></router-outlet>
-        </div>
-    </div>
 
-    <br-footer></br-footer>
-    <br-side-nav-menu></br-side-nav-menu>
 
-</div>
+

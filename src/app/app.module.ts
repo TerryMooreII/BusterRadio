@@ -20,12 +20,14 @@ import {NowPlayingComponent} from "./now-playing/now-playing.component";
 import {FooterComponent} from "./footer/footer.component";
 import {SpinnerComponent} from "./spinner/spinner.component";
 import {TrackScrollDirective} from "./track-scroll/track-scroll.directive";
-import { NotificationDirective } from './notification/notification.directive';
-import { SideNavMenuComponent } from './side-nav-menu/side-nav-menu.component';
-import { SearchComponent } from './search/search.component';
-import { SearchResultsComponent } from './search-results/search-results.component';
-import { ShowCardComponent } from './show-card/show-card.component';
-import { ArtistCardComponent } from './artist-card/artist-card.component';
+import {NotificationDirective} from "./notification/notification.directive";
+import {SideNavMenuComponent} from "./side-nav-menu/side-nav-menu.component";
+import {SearchComponent} from "./search/search.component";
+import {SearchResultsComponent} from "./search-results/search-results.component";
+import {ShowCardComponent} from "./show-card/show-card.component";
+import {ArtistCardComponent} from "./artist-card/artist-card.component";
+import {IsLoadedGuardService} from "./services/guards/is-loaded-guard.service";
+import {MainComponent} from "./main/main.component";
 
 @NgModule({
     declarations: [
@@ -48,7 +50,8 @@ import { ArtistCardComponent } from './artist-card/artist-card.component';
         SearchComponent,
         SearchResultsComponent,
         ShowCardComponent,
-        ArtistCardComponent
+        ArtistCardComponent,
+        MainComponent
     ],
     imports: [
         BrowserModule,
@@ -62,7 +65,8 @@ import { ArtistCardComponent } from './artist-card/artist-card.component';
     providers: [
         ArchiveService,
         CacheService,
-        PlaylistService
+        PlaylistService,
+        IsLoadedGuardService
     ],
     bootstrap: [AppComponent]
 })

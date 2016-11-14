@@ -1,4 +1,4 @@
-import {Component, ChangeDetectorRef} from '@angular/core';
+import {Component, ChangeDetectorRef, OnInit} from '@angular/core';
 import {CacheService} from "./services/cache/cache.service";
 import {ArchiveService} from "./services/archive/archive.service";
 import {FormControl} from "@angular/forms";
@@ -10,14 +10,21 @@ import {Observable} from "rxjs";
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.less']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-    constructor(private archiveService: ArchiveService, private cache: CacheService) {
+    show: boolean = true;
+
+    constructor(private cache: CacheService) {
     }
 
     ngOnInit() {
-        this.archiveService.loadArtists().subscribe(data => {
-            this.cache.setArtistsCache(data._body.response.docs);
-        });
+        //Checks to see if the CanActivate call is completed.
+        var interval;
+        interval = setInterval(() => {
+                if (this.cache.getArtists()) {
+                    this.show = false;
+                    clearInterval(interval);
+                }
+            },100);
     }
 }
