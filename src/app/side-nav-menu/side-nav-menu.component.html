@@ -17,11 +17,12 @@
 
     <li><a class="waves-effect" routerLink="/artists"><i class="material-icons">speaker</i>Artists</a></li>
     <li><a class="waves-effect" routerLink="/artists/top/100"><i class="material-icons">supervisor_account</i>Top Played Artists</a></li>
+    <li><a class="waves-effect" routerLink="/genres"><i class="material-icons">recent_actors</i>Genres</a></li>
     <li>
         <div class="divider"></div>
     </li>
-    <li><a class="waves-effect" routerLink="/new"><i class="material-icons">library_music</i>Newest Added Shows</a></li>
-    <li><a class="waves-effect" [routerLink]="['new', {sort:'date'}]"><i class="material-icons">library_music</i>Newest Shows by Date</a></li>
+    <li><a class="waves-effect" routerLink="/new"><i class="material-icons">filter_list</i>Newest Added Shows</a></li>
+    <li><a class="waves-effect" [routerLink]="['new', {sort:'date'}]"><i class="material-icons">sort</i>Newest Shows by Date</a></li>
 
     <li><a class="waves-effect" (click)="randomShow()"><i class="material-icons">shuffle</i>Random Show</a></li>
 

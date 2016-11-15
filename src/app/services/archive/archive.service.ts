@@ -16,7 +16,7 @@ export class ArchiveService {
     }
 
     loadArtists() {
-        let url = this.ARCHIVE_ORG_API_URL + 'advancedsearch.php?q=mediatype%3Acollection+AND+collection%3Aetree&fl[]=identifier&fl[]=title&sort[]=titleSorter+asc&sort[]=&sort[]=&rows=10000&page=1&callback=JSONP_CALLBACK&save=yes&output=json';
+        let url = this.ARCHIVE_ORG_API_URL + 'advancedsearch.php?q=mediatype%3Acollection+AND+collection%3Aetree&fl[]=identifier&fl[]=subject&fl[]=title&sort[]=titleSorter+asc&sort[]=&sort[]=&rows=10000&page=1&callback=JSONP_CALLBACK&save=yes&output=json';
         return this.jsonp.get(url).map((response: any) =>
             response
         );

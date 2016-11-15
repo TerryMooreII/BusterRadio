@@ -4,6 +4,10 @@
     <li class="waves-effect" *ngFor="let letter of letters"><a [routerLink]="[{starts: letter}]">{{letter}}</a></li>
 </ul>
 
+<h2 class="content-title" *ngIf="title">
+    {{title}}
+</h2>
+
 <div track-scroll (pageYPositionChange)="currentPos($event)">
 
     <div class="flex-container">

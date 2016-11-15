@@ -14,6 +14,7 @@ export class ArtistsComponent implements OnInit {
     num: number = 20;
     letters: Array<string> = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
     showLetters: boolean = true;
+    title:string;
 
     constructor(private route: ActivatedRoute, private cache: CacheService, private archiveService: ArchiveService) {
     }
@@ -25,10 +26,20 @@ export class ArtistsComponent implements OnInit {
             let query = params['query'];
             let starts = params['starts'];
             let count = params['count'];
+            let genre = params['genre'];
 
             if (count) {
+                if (isNaN(count)){
+                    count = 100;
+                }
                 this.getTopDownloadedArtists(count);
                 this.showLetters = false;
+                this.title = `Top ${count} played artists`;
+                return;
+            }else if (genre){
+                this.getAristsByGenres(genre);
+                this.showLetters = false;
+                this.title = `${genre} Artists`;
                 return;
             }
             this.getArtists(query, starts);
@@ -55,9 +66,22 @@ export class ArtistsComponent implements OnInit {
     }
 
     getTopDownloadedArtists(count) {
-        //count = !isNan(count) || 50;
         this.archiveService.topDownloadedArtists(count).subscribe((data)=> {
             this.artistsList = data.splice(1);
+        });
+    }
+
+    getAristsByGenres(genre){
+        genre = genre.toLowerCase();
+
+        this.artistsList = this.cache.getArtists().filter((g) => {
+            if (!g.subject){
+                return false;
+            }
+
+            let artistGenres = Array.isArray(g.subject) ? g.subject.join() : g.subject;
+
+            return artistGenres.toLowerCase().indexOf(genre) > -1;
         });
     }
 

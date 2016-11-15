@@ -28,6 +28,7 @@ import {ShowCardComponent} from "./show-card/show-card.component";
 import {ArtistCardComponent} from "./artist-card/artist-card.component";
 import {IsLoadedGuardService} from "./services/guards/is-loaded-guard.service";
 import {MainComponent} from "./main/main.component";
+import { GenresComponent } from './genres/genres.component';
 
 @NgModule({
     declarations: [
@@ -51,7 +52,8 @@ import {MainComponent} from "./main/main.component";
         SearchResultsComponent,
         ShowCardComponent,
         ArtistCardComponent,
-        MainComponent
+        MainComponent,
+        GenresComponent
     ],
     imports: [
         BrowserModule,
