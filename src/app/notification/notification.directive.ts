@@ -37,14 +37,18 @@ export class NotificationDirective implements OnInit {
 
     }
 
+    private hasData(data){
+        return data ? data : ' ';
+    }
+
     notify(item) {
 
         if (Notification.permission !== "granted")
             Notification.requestPermission();
         else {
-            var notification = new Notification(item.track.title, {
+            var notification = new Notification(this.hasData(item.track.title), {
                 icon: this.bandImage(item.track.creator),
-                body: item.track.creator + ' - ' + item.track.album ,
+                body: this.hasData(item.track.creator) + ' ' + this.hasData(item.track.album)
             });
 
             setTimeout(() =>{
