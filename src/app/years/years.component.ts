@@ -28,10 +28,11 @@ export class YearsComponent implements OnInit {
     }
 
     getShows(artist: String) {
-        this.isLoading = true;
+
         this.years = this.cache.getYears(artist);
 
         if (!this.years) {
+            this.isLoading = true;
             this.archiveService.getShows(artist).subscribe(data => {
                 this.shows = data._body.response.docs;
                 this.years = new Set(this.shows.map(item => item.year));

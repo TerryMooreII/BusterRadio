@@ -12,6 +12,7 @@ export class ShowsComponent implements OnInit {
     shows: Array<any>;
     years: any;
     artist: String;
+    isLoading:boolean;
 
     constructor(private archiveService: ArchiveService, private route: ActivatedRoute, private cache: CacheService) {
     }
@@ -30,12 +31,14 @@ export class ShowsComponent implements OnInit {
         this.shows = this.cache.getShows(artist, year);
 
         if (!this.shows) {
+            this.isLoading = true;
             this.archiveService.getShows(artist).subscribe(data => {
                 let shows = data._body.response.docs;
                 let years = new Set(shows.map(item => item.year));
                 this.cache.setShows(artist, shows);
                 this.cache.setYears(artist, years);
                 this.shows = this.cache.getShows(artist, year);
+                this.isLoading = false;
             });
         }
     }

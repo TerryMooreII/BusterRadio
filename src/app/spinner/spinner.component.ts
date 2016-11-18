@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnChanges, SimpleChanges} from '@angular/core';
 import {Input} from "@angular/core/src/metadata/directives";
 
 @Component({
@@ -9,6 +9,5 @@ import {Input} from "@angular/core/src/metadata/directives";
 export class SpinnerComponent{
 
     @Input() show = false;
-
 
 }

@@ -14,7 +14,7 @@ export class ArtistsComponent implements OnInit {
     num: number = 20;
     letters: Array<string> = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
     showLetters: boolean = true;
-    title:string;
+    title:string = 'Artists';
 
     constructor(private route: ActivatedRoute, private cache: CacheService, private archiveService: ArchiveService) {
     }
@@ -86,7 +86,7 @@ export class ArtistsComponent implements OnInit {
     }
 
     currentPos(pos) {
-        this.num = this.num + 20;
+        this.num = this.num + 50;
     }
 
     bandImage(artist) {

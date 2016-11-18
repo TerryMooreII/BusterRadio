@@ -1,6 +1,6 @@
 <div class="card show-card">
     <div class="card-content">
-
+    <br-spinner [show]="isLoading"></br-spinner>
         <span class="card-title grey-text text-darken-4">
             <h4><a [routerLink]="['/artists', getIdentifierByArtist(show?.artist), 'years']">{{show?.artist}}</a></h4>
              <span materialize="dropdown" href='#' class="cursor-pointer right" data-activates="playlist-more" data-alignment="right" data-constrainwidth="false"><i class="material-icons right">more_vert</i></span>

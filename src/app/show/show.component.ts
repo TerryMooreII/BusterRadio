@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {Params, ActivatedRoute} from "@angular/router";
 import {ArchiveService} from "../services/archive/archive.service";
 import {Show} from "../models/show";
 import {PlaylistService} from "../services/playlist/playlist.service";
 import {CacheService} from "../services/cache/cache.service";
-import {Response} from "@angular/http";
 
 @Component({
     selector: 'br-show',
@@ -18,6 +17,7 @@ export class ShowComponent implements OnInit {
     }
 
     show: Show;
+    isLoading:boolean = false;
 
     ngOnInit() {
         this.route.params.forEach((params: Params) => {
@@ -28,9 +28,11 @@ export class ShowComponent implements OnInit {
     }
 
     getShow(identifier) {
+        this.isLoading = true;
         this.archiveService.getShow(identifier).subscribe(response => {
             this.show = new Show(response._body);
             this.bandImage();
+            this.isLoading = false;
         });
     }
 
