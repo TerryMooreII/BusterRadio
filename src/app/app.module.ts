@@ -29,6 +29,7 @@ import {ArtistCardComponent} from "./artist-card/artist-card.component";
 import {IsLoadedGuardService} from "./services/guards/is-loaded-guard.service";
 import {MainComponent} from "./main/main.component";
 import { GenresComponent } from './genres/genres.component';
+import { PlayTimeComponent } from './play-time/play-time.component';
 
 @NgModule({
     declarations: [
@@ -53,7 +54,8 @@ import { GenresComponent } from './genres/genres.component';
         ShowCardComponent,
         ArtistCardComponent,
         MainComponent,
-        GenresComponent
+        GenresComponent,
+        PlayTimeComponent
     ],
     imports: [
         BrowserModule,

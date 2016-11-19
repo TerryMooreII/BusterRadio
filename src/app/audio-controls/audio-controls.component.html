@@ -5,7 +5,7 @@
         <i class="material-icons previous deep-orange-text" *ngIf="!isRepeat">repeat_one</i>
     </button>
 
-    <button class="center waves-effect btn btn-flat btn-floating disabled" (click)="previous()" [disabled]="isDisabled">
+    <button class="center waves-effect btn btn-flat btn-floating" (click)="previous()" [disabled]="isDisabled" [class.disabled]="isDisabled">
         <i class="material-icons previous">skip_previous</i>
     </button>
 
@@ -14,7 +14,7 @@
         <i class="material-icons medium" *ngIf="isPlaying">pause</i>
     </button>
 
-    <button class="center waves-effect btn btn-flat btn-floating disabled" (click)="next()" [disabled]="isDisabled">
+    <button class="center waves-effect btn btn-flat btn-floating" (click)="next()" [disabled]="isDisabled" [class.disabled]="isDisabled">
         <i class="material-icons next">skip_next</i>
     </button>
 
