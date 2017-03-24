@@ -1,6 +1,6 @@
 import { BusterradioPage } from './app.po';
 
-describe('busterradio App', function() {
+describe('busterradio App', () => {
   let page: BusterradioPage;
 
   beforeEach(() => {
@@ -9,6 +9,6 @@ describe('busterradio App', function() {
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('br works!');
   });
 });

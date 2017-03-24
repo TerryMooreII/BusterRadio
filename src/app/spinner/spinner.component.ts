@@ -1,5 +1,4 @@
-import {Component, OnInit, OnChanges, SimpleChanges} from '@angular/core';
-import {Input} from "@angular/core/src/metadata/directives";
+import {Component, Input} from "@angular/core";
 
 @Component({
     selector: 'br-spinner',

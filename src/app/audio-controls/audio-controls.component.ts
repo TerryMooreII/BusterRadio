@@ -1,6 +1,6 @@
-import {Component, OnInit, EventEmitter, Output} from "@angular/core";
+import {Component, OnInit, EventEmitter, Output, Input} from "@angular/core";
 import {PlaylistService} from "../services/playlist/playlist.service";
-import {Input} from "@angular/core/src/metadata/directives";
+
 
 @Component({
     selector: 'br-audio-controls',

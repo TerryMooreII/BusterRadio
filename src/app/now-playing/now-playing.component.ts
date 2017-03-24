@@ -2,7 +2,6 @@ import {Component, OnInit} from "@angular/core";
 import {PlaylistService} from "../services/playlist/playlist.service";
 import {Track} from "../models/show";
 import {CacheService} from "../services/cache/cache.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'br-now-playing',

@@ -1,6 +1,5 @@
 
-import {Directive, Output, HostListener} from "@angular/core/src/metadata/directives";
-import {OnDestroy, EventEmitter} from "@angular/core";
+import {OnDestroy, EventEmitter, Directive, Output, HostListener} from "@angular/core";
 @Directive({
     selector: '[track-scroll]'
 })

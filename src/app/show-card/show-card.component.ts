@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ArchiveService} from "../services/archive/archive.service";
 import {CacheService} from "../services/cache/cache.service";
-import {Input} from "@angular/core/src/metadata/directives";
+
 
 @Component({
     selector: 'br-show-card',

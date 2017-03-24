@@ -1,5 +1,5 @@
-import {Component, OnInit, ElementRef, EventEmitter} from '@angular/core';
-import {Output} from "@angular/core/src/metadata/directives";
+import {Component, OnInit, ElementRef, EventEmitter, Output} from '@angular/core';
+
 
 @Component({
     selector: 'br-footer',

@@ -22,7 +22,6 @@ export class PlaylistService {
         this.updatePlaylistSubscribers();
     }
 
-
     getPlaylist() {
         return this.playList$.asObservable();
     }
@@ -153,20 +152,20 @@ export class PlaylistService {
         this.savePlaylist(this.dataStore.playlist);
     }
 
-    savePlaylist(playList){
+    savePlaylist(playList) {
         localStorage.setItem('playlist', JSON.stringify(playList));
     }
 
-    getSavedPlaylist(){
+    getSavedPlaylist() {
         let pl = localStorage.getItem('playlist');
 
-        if (pl){
-            try{
+        if (pl) {
+            try {
                 return JSON.parse(pl).map((data) => {
                     data.isPlaying = false;
                     return data;
                 });
-            }catch(e){
+            } catch (e) {
                 return [];
             }
         }

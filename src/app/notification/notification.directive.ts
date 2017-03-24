@@ -12,7 +12,7 @@ export class NotificationDirective implements OnInit {
 
     constructor(private playlist: PlaylistService, private cache:CacheService) {
         if (!Notification) {
-            alert('Desktop notifications not available in your browser. Try Chromium.');
+            alert('Desktop notifications not available in your browser. Try Google Chrome.');
             return;
         }
 
