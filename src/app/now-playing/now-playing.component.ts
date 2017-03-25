@@ -51,7 +51,7 @@ export class NowPlayingComponent implements OnInit {
 
     bandImage(artist){
         if (!artist){
-            return ''
+            return '';
         }
         var url = 'http://archive.org/services/img/' + this.cache.getIdentifierByArtist(artist);
         return url;

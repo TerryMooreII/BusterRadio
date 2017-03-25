@@ -37,9 +37,9 @@ export class PlaylistService {
 
         if (Array.isArray(tracks)) {
 
-            let list = tracks.map((track, index) => {
-                let play = index === this.currentPlayingIndex && playIndex != null ? true : false;
-                var playlistItem = new PlaylistItem(track, play);
+            const list = tracks.map((track, index) => {
+                const play = index === this.currentPlayingIndex && playIndex != null ? true : false;
+                const playlistItem = new PlaylistItem(track, play);
                 if (play && playIndex != null) {
                     this.play(playlistItem);
                 }
@@ -60,7 +60,7 @@ export class PlaylistService {
     }
 
     next() {
-        var total = this.dataStore.playlist.length;
+        const total = this.dataStore.playlist.length;
         if (total === 0 || (this.currentPlayingIndex === (total - 1) && !this.isRepeat)) {
             return;
         }
@@ -83,7 +83,7 @@ export class PlaylistService {
     }
 
     previous() {
-        var total = this.dataStore.playlist.length;
+        const total = this.dataStore.playlist.length;
         if (total === 0 || this.currentPlayingIndex === 0) {
             return;
         }
@@ -103,7 +103,7 @@ export class PlaylistService {
 
 
     playPlayListItem(index) {
-        var total = this.dataStore.playlist.length;
+        const total = this.dataStore.playlist.length;
         if (total === 0) {
             return;
         }
@@ -142,7 +142,7 @@ export class PlaylistService {
     }
 
     getRandomTrack() {
-        var total = this.dataStore.playlist.length;
+        const total = this.dataStore.playlist.length;
         return Math.floor(Math.random() * total);
     }
 
@@ -157,7 +157,7 @@ export class PlaylistService {
     }
 
     getSavedPlaylist() {
-        let pl = localStorage.getItem('playlist');
+        const pl = localStorage.getItem('playlist');
 
         if (pl) {
             try {

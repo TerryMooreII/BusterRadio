@@ -4,5 +4,12 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase:{
+    apiKey: 'AIzaSyB-4aj5Nu7VvdyXaXt2B6IV27OMW89FWjg',
+    authDomain: 'busterradio-2c254.firebaseapp.com',
+    databaseURL: 'https://busterradio-2c254.firebaseio.com',
+    storageBucket: 'busterradio-2c254.appspot.com',
+    messagingSenderId: '348951168415'
+  }
 };

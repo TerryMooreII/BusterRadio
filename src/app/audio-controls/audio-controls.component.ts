@@ -1,5 +1,7 @@
 import {Component, OnInit, EventEmitter, Output, Input} from "@angular/core";
 import {PlaylistService} from "../services/playlist/playlist.service";
+import {AngularFire} from "angularfire2";
+import {LiveService} from "../services/live/live.service";
 
 
 @Component({
@@ -12,7 +14,7 @@ export class AudioControlsComponent implements OnInit {
     @Output() duration = new EventEmitter<any>();
     @Output() currentTime = new EventEmitter<any>();
 
-    @Input() newCurrentTime:EventEmitter<number>;
+    @Input() newCurrentTime: EventEmitter<number>;
 
     audioElement: any;
     isPlaying: boolean;
@@ -22,8 +24,9 @@ export class AudioControlsComponent implements OnInit {
     isRepeat: boolean;
     isShuffle: boolean;
 
-    constructor(private playlist: PlaylistService) {
-    }
+    live: any;
+
+    constructor(private playlist: PlaylistService, private liveService: LiveService) {}
 
     ngOnInit() {
         this.audioElement = document.createElement('audio');
@@ -37,15 +40,17 @@ export class AudioControlsComponent implements OnInit {
             this.setAudioSrc(data);
         });
 
-        //Watch for newCurrentTime updates and set current time
+        // Watch for newCurrentTime updates and set current time
         this.newCurrentTime.subscribe((data) => this.audioElement.currentTime = data);
     }
 
     setAudioSrc(item) {
-        this.isDisabled = item ? false: true;
+        this.isDisabled = !item;
+        const track = item.track;
+        const url = 'http://www.archive.org/download/' + track.identifier + track.fileName;
 
-        let track = item.track;
-        let url = 'http://www.archive.org/download/' + track.identifier + track.fileName;
+        this.liveService.add(track);
+
         this.audioElement.setAttribute('src', url);
 
         this.play();
@@ -75,6 +80,7 @@ export class AudioControlsComponent implements OnInit {
 
     play() {
         this.isPlaying = true;
+
         this.audioElement.play();
     }
 

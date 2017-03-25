@@ -30,6 +30,11 @@ import {IsLoadedGuardService} from "./services/guards/is-loaded-guard.service";
 import {MainComponent} from "./main/main.component";
 import {GenresComponent} from "./genres/genres.component";
 import {PlayTimeComponent} from "./play-time/play-time.component";
+import {AngularFireModule} from "angularfire2";
+import {environment} from "../environments/environment";
+import { LiveComponent } from './live/live.component';
+import { ReversePipe } from './pipes/reverse/reverse.pipe';
+import {LiveService} from "app/services/live/live.service";
 
 @NgModule({
     declarations: [
@@ -55,7 +60,9 @@ import {PlayTimeComponent} from "./play-time/play-time.component";
         ArtistCardComponent,
         MainComponent,
         GenresComponent,
-        PlayTimeComponent
+        PlayTimeComponent,
+        LiveComponent,
+        ReversePipe
     ],
     imports: [
         BrowserModule,
@@ -64,13 +71,15 @@ import {PlayTimeComponent} from "./play-time/play-time.component";
         JsonpModule,
         ReactiveFormsModule,
         MaterializeModule,
+        AngularFireModule.initializeApp(environment.firebase),
         appRouting
     ],
     providers: [
         ArchiveService,
         CacheService,
         PlaylistService,
-        IsLoadedGuardService
+        IsLoadedGuardService,
+        LiveService
     ],
     bootstrap: [AppComponent]
 })

@@ -10,6 +10,7 @@ import {SearchResultsComponent} from "./search-results/search-results.component"
 import {IsLoadedGuardService} from "./services/guards/is-loaded-guard.service";
 import {MainComponent} from "./main/main.component";
 import {GenresComponent} from "./genres/genres.component";
+import {LiveComponent} from "./live/live.component";
 
 export const routes: Routes = [
     {
@@ -26,7 +27,8 @@ export const routes: Routes = [
             {path: 'artists/:artist/years/:year/shows', component: ShowsComponent},
             {path: 'artists/:artist/years/:year/shows/:show', component: ShowComponent},
             {path: 'playlist', component: PlaylistComponent},
-            {path: 'genres', component: GenresComponent}
+            {path: 'genres', component: GenresComponent},
+            {path: 'live', component: LiveComponent}
         ]
     }
 ];

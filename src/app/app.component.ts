@@ -1,9 +1,9 @@
-import {Component, ChangeDetectorRef, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {CacheService} from "./services/cache/cache.service";
-import {ArchiveService} from "./services/archive/archive.service";
-import {FormControl} from "@angular/forms";
-import {Router} from "@angular/router";
-import {Observable} from "rxjs";
+import {NavigationEnd, Router} from "@angular/router";
+
+
+declare let ga: Function;
 
 @Component({
     selector: 'app-root',
@@ -12,19 +12,25 @@ import {Observable} from "rxjs";
 })
 export class AppComponent implements OnInit {
 
-    show: boolean = true;
+    show = true;
 
-    constructor(private cache: CacheService) {
+    constructor(private cache: CacheService, public router: Router) {
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                ga('set', 'page', event.urlAfterRedirects);
+                ga('send', 'pageview');
+            }
+        });
     }
 
     ngOnInit() {
-        //Checks to see if the CanActivate call is completed.
-        var interval;
+        // Checks to see if the CanActivate call is completed.
+        let interval;
         interval = setInterval(() => {
-                if (this.cache.getArtists()) {
-                    this.show = false;
-                    clearInterval(interval);
-                }
-            },100);
+            if (this.cache.getArtists()) {
+                this.show = false;
+                clearInterval(interval);
+            }
+        }, 100);
     }
 }

@@ -38,7 +38,7 @@ export class PlaylistComponent implements OnInit {
             return;
         }
 
-        var year = this.getYear(track.album);
+        let year = this.getYear(track.album);
 
         if (!year) {
             return ['/artists', this.getArtistIdentifier(track.creator), 'years'];
@@ -49,9 +49,9 @@ export class PlaylistComponent implements OnInit {
 
     bandImage(artist){
         if (!artist){
-            return ''
+            return '';
         }
-        var url = 'http://archive.org/services/img/' + this.cache.getIdentifierByArtist(artist);
+        let url = 'http://archive.org/services/img/' + this.cache.getIdentifierByArtist(artist);
         return url;
 
     }
