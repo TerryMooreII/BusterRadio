@@ -12,12 +12,13 @@ export class LiveComponent implements OnInit {
 
     tracks: any;
 
-    constructor(private liveService: LiveService, private cache: CacheService) {
+    constructor(private liveService: LiveService, private cache: CacheService, private af:AngularFire) {
     }
 
 
     ngOnInit() {
         this.tracks = this.liveService.list().map((array) => array.reverse()) as FirebaseListObservable<any[]>;
+        this.af.auth.asObservable().subscribe(data => console.log(data))
     }
 
     bandImage(artist) {

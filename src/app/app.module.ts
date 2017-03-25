@@ -30,11 +30,18 @@ import {IsLoadedGuardService} from "./services/guards/is-loaded-guard.service";
 import {MainComponent} from "./main/main.component";
 import {GenresComponent} from "./genres/genres.component";
 import {PlayTimeComponent} from "./play-time/play-time.component";
-import {AngularFireModule} from "angularfire2";
+import {AngularFireModule, AuthMethods, AuthProviders} from "angularfire2";
 import {environment} from "../environments/environment";
 import { LiveComponent } from './live/live.component';
 import { ReversePipe } from './pipes/reverse/reverse.pipe';
 import {LiveService} from "app/services/live/live.service";
+import { LoginComponent } from './login/login.component';
+
+const myFirebaseAuthConfig = {
+    provider: AuthProviders.Google,
+    method: AuthMethods.Popup
+};
+
 
 @NgModule({
     declarations: [
@@ -62,7 +69,8 @@ import {LiveService} from "app/services/live/live.service";
         GenresComponent,
         PlayTimeComponent,
         LiveComponent,
-        ReversePipe
+        ReversePipe,
+        LoginComponent
     ],
     imports: [
         BrowserModule,
@@ -71,7 +79,7 @@ import {LiveService} from "app/services/live/live.service";
         JsonpModule,
         ReactiveFormsModule,
         MaterializeModule,
-        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireModule.initializeApp(environment.firebase, myFirebaseAuthConfig),
         appRouting
     ],
     providers: [
