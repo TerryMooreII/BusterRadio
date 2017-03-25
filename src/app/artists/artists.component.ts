@@ -90,7 +90,7 @@ export class ArtistsComponent implements OnInit {
     }
 
     bandImage(artist) {
-        return 'http://archive.org/services/img/' + artist;
+        return '//archive.org/services/img/' + artist;
     }
 
 }

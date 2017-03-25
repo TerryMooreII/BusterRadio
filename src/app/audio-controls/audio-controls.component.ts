@@ -47,7 +47,7 @@ export class AudioControlsComponent implements OnInit {
     setAudioSrc(item) {
         this.isDisabled = !item;
         const track = item.track;
-        const url = 'http://www.archive.org/download/' + track.identifier + track.fileName;
+        const url = '//www.archive.org/download/' + track.identifier + track.fileName;
 
         this.liveService.add(track);
 

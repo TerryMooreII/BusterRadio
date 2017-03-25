@@ -53,7 +53,7 @@ export class NowPlayingComponent implements OnInit {
         if (!artist){
             return '';
         }
-        var url = 'http://archive.org/services/img/' + this.cache.getIdentifierByArtist(artist);
+        var url = '//archive.org/services/img/' + this.cache.getIdentifierByArtist(artist);
         return url;
 
     }

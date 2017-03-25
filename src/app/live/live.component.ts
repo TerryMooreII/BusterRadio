@@ -25,7 +25,7 @@ export class LiveComponent implements OnInit {
         if (!artist) {
             return '';
         }
-        const url = 'http://archive.org/services/img/' + this.cache.getIdentifierByArtist(artist);
+        const url = '//archive.org/services/img/' + this.cache.getIdentifierByArtist(artist);
         return url;
 
     }

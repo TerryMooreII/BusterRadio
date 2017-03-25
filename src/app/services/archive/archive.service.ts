@@ -4,7 +4,7 @@ import {Jsonp, RequestOptions} from "@angular/http";
 @Injectable()
 export class ArchiveService {
 
-    private ARCHIVE_ORG_API_URL = 'http://www.archive.org/';
+    private ARCHIVE_ORG_API_URL = '//www.archive.org/';
 
 
     constructor(private jsonp: Jsonp) {
@@ -12,7 +12,7 @@ export class ArchiveService {
     }
 
     bandImage(artist) {
-        return 'http://archive.org/services/img/' + artist;
+        return '//archive.org/services/img/' + artist;
     }
 
     loadArtists() {

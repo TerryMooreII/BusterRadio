@@ -69,7 +69,7 @@ export class ShowComponent implements OnInit {
         if (!this.show){
             return ''
         }
-        return 'http://archive.org/services/img/' + this.cache.getIdentifierByArtist(this.show.artist);;
+        return '//archive.org/services/img/' + this.cache.getIdentifierByArtist(this.show.artist);;
     }
 
 }
