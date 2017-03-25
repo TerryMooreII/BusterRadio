@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {PlaylistItem} from "../../models/playlistItem";
-import {Subject, BehaviorSubject} from "rxjs";
+import {Subject, BehaviorSubject, Observable} from "rxjs";
+import {AngularFire, FirebaseListObservable} from "angularfire2";
+import {NullifyService} from "../nullify/nullify.service";
 
 @Injectable()
 export class PlaylistService {
@@ -15,11 +17,16 @@ export class PlaylistService {
     private isShuffle: boolean = false;
     private isRepeat: boolean = false;
 
-    constructor() {
+    private user;
+
+    constructor(private af: AngularFire, private nullify: NullifyService) {
         this.dataStore = {playlist: this.getSavedPlaylist()};
         this.playList$ = <BehaviorSubject<PlaylistItem[]>>new BehaviorSubject([]);
         this.player$ = new Subject<PlaylistItem>();
         this.updatePlaylistSubscribers();
+
+
+        this.af.auth.asObservable().subscribe(user => this.user = user);
     }
 
     getPlaylist() {
@@ -170,5 +177,13 @@ export class PlaylistService {
             }
         }
     }
+
+    newPlaylist(playlist) {
+        playlist.type = 'named';
+        playlist.uid = this.user.uid;
+
+        this.af.database.list('/playlists').push(this.nullify.nullify(playlist));
+    }
+
 
 }

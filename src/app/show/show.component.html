@@ -6,7 +6,8 @@
              <span materialize="dropdown" href='#' class="cursor-pointer right" data-activates="playlist-more" data-alignment="right" data-constrainwidth="false"><i class="material-icons right">more_vert</i></span>
             <!-- Dropdown Structure -->
                 <ul id="playlist-more" class="dropdown-content">
-                    <li><span class="cursor-pointer" (click)="addToPlaylist(show?.tracks)">Add Show to Playlist</span></li>
+                    <li><span class="cursor-pointer" (click)="addToPlaylist(show?.tracks)">Add Show to Queue</span></li>
+                    <li><span class="cursor-pointer" (click)="newPlaylist(show)">Create Playlist of Show</span></li>
                 </ul>
             <p>
             {{show?.date}}<br>

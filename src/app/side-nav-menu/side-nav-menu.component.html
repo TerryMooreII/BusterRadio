@@ -1,17 +1,7 @@
 <ul id="slide-out" class="side-nav">
-    <li class="center-align deep-orange-text" [style.fontSize]="'26px'">
-        Buster Radio
-        <!--<div class="userView">-->
-        <!--<div class="background">-->
-        <!--<img src="https://treysguitarrig.files.wordpress.com/2016/10/featured-image.png?w=400&h=200&crop=1">-->
-        <!--</div>-->
-        <!--<a href="#!user"><img class="circle" src="images/yuna.jpg"></a>-->
-        <!--<a href="#!name"><span class="white-text name">BusterRad.io</span></a>-->
-        <!--<a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>-->
-        <!--</div>-->
-    </li>
     <li>
-        <div class="divider"></div>
+        <br-user-header></br-user-header>
+
     </li>
 
     <li><a class="waves-effect" routerLink="/artists"><i class="material-icons">speaker</i>Artists</a></li>
@@ -22,7 +12,8 @@
         <div class="divider"></div>
     </li>
     <li><a class="waves-effect" routerLink="/new"><i class="material-icons">filter_list</i>Newest Added Shows</a></li>
-    <li><a class="waves-effect" [routerLink]="['/new', {sort:'date'}]"><i class="material-icons">sort</i>Newest Shows by Date</a></li>
+    <li><a class="waves-effect" [routerLink]="['/new', {sort:'date'}]"><i class="material-icons">sort</i>Newest Shows by
+        Date</a></li>
 
     <li><a class="waves-effect" (click)="randomShow()"><i class="material-icons">shuffle</i>Random Show</a></li>
     <li>
@@ -33,7 +24,7 @@
     <li>
         <div class="divider"></div>
     </li>
-    <br-login></br-login>
+
 
     <!--<li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>-->
     <!--<li>-->
@@ -52,5 +43,5 @@
         </div>
     </li>
 
-
+    <br-login></br-login>
 </ul>

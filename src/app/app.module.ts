@@ -36,6 +36,9 @@ import { LiveComponent } from './live/live.component';
 import { ReversePipe } from './pipes/reverse/reverse.pipe';
 import {LiveService} from "app/services/live/live.service";
 import { LoginComponent } from './login/login.component';
+import { UserHeaderComponent } from './user-header/user-header.component';
+import { SideNavPlaylistComponent } from './side-nav-playlist/side-nav-playlist.component';
+import {NullifyService} from "./services/nullify/nullify.service";
 
 const myFirebaseAuthConfig = {
     provider: AuthProviders.Google,
@@ -70,7 +73,9 @@ const myFirebaseAuthConfig = {
         PlayTimeComponent,
         LiveComponent,
         ReversePipe,
-        LoginComponent
+        LoginComponent,
+        UserHeaderComponent,
+        SideNavPlaylistComponent
     ],
     imports: [
         BrowserModule,
@@ -87,7 +92,8 @@ const myFirebaseAuthConfig = {
         CacheService,
         PlaylistService,
         IsLoadedGuardService,
-        LiveService
+        LiveService,
+        NullifyService
     ],
     bootstrap: [AppComponent]
 })

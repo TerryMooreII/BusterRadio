@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {AngularFire} from "angularfire2";
 
 @Component({
-    selector: 'br-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.less']
+    selector: 'br-user-header',
+    templateUrl: './user-header.component.html',
+    styleUrls: ['./user-header.component.less']
 })
-export class LoginComponent implements OnInit {
+export class UserHeaderComponent implements OnInit {
 
     user: any;
 
@@ -15,28 +15,16 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.af.auth.asObservable().subscribe(user => {
-            if (!user){
+            if (!user) {
                 this.user = null;
                 return;
             }
 
-            if (user.google){
+            if (user.google) {
                 this.user = user.google;
-            }else if(user.facebook){
+            } else if (user.facebook) {
                 this.user = user.facebook;
             }
         });
     }
-
-    login() {
-        this.af.auth.login();
-
-    }
-
-    logout() {
-        this.user = null;
-        this.af.auth.logout();
-    }
-
-
 }

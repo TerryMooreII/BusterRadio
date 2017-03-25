@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {AngularFire, FirebaseListObservable} from "angularfire2";
+import {NullifyService} from "../nullify/nullify.service";
 
 @Injectable()
 export class LiveService {
 
     private live: FirebaseListObservable<object>;
 
-    constructor(private af: AngularFire) {
+    constructor(private af: AngularFire, private nullify:NullifyService) {
         this.live = this.af.database.list('live', {
             query: {
                 limitToLast: 50
-
             }
         });
     }
@@ -27,7 +27,7 @@ export class LiveService {
 
         data.createdAt = Date.now();
 
-        this.live.push(data);
+        this.live.push(this.nullify.nullify(data));
     }
 
 }

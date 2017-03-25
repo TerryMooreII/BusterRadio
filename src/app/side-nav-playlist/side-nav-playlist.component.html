@@ -1,0 +1,36 @@
+<ul id="slide-out-playlist" class="side-nav">
+
+    <li>
+        <a class="subheader">
+            Playlists
+        </a>
+    </li>
+    <li><div class="divider"></div></li>
+
+    <li *ngFor="let item of playlists | async" class="playlist-item">
+        <a href="#!">{{item.title}}</a>
+    </li>
+
+    <li><div class="divider"></div></li>
+    <li class="no-padding">
+        <ul class="collapsible collapsible-accordion"  materialize="collapsible">
+            <li>
+                <a class="collapsible-header">Favorite Artists<i class="material-icons">arrow_drop_down</i></a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a href="#!">First</a></li>
+                        <li><a href="#!">Second</a></li>
+                        <li><a href="#!">Third</a></li>
+                        <li><a href="#!">Fourth</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <div *ngIf="!user">
+        <li class="register-message center-align">
+            Register/Login to save favorite shows, playlists, and/or artists.
+        </li>
+        <br-login></br-login>
+    </div>
+</ul>

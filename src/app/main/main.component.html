@@ -2,14 +2,26 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper deep-orange">
+
                 <a href="#" materialize="sideNav"
                    [materializeParams]="[{edge:'left', closeOnClick:true, draggable:true}]" href="#"
                    data-activates="slide-out" class="button-collapse show-on-large"><i
                     class="material-icons">menu</i></a>
+
                 <a href="#" class="brand-logo hide-on-med-and-down">Buster Radio</a>
 
                 <br-search></br-search>
+                <div class="right">
+
+                        <a href="#" materialize="sideNav"
+                            [materializeParams]="[{edge:'right', closeOnClick:true, draggable:true}]" href="#"
+                            data-activates="slide-out-playlist" class="button-collapse show-on-large">
+                            <i class="material-icons">playlist_play</i>
+                        </a>
+
+                </div>
             </div>
+
         </nav>
     </div>
 
@@ -21,5 +33,5 @@
 
     <br-footer></br-footer>
     <br-side-nav-menu></br-side-nav-menu>
-
+    <br-side-nav-playlist></br-side-nav-playlist>
 </div>
