@@ -10,6 +10,7 @@ export class LiveService {
         this.live = this.af.database.list('live', {
             query: {
                 limitToLast: 50
+
             }
         });
     }
