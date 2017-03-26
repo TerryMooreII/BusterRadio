@@ -5,6 +5,6 @@
         <img [src]="bandImage(track.creator)" alt="" class="circle">
         <strong class="title">{{track.title}}</strong>
         <p>{{track.creator}}at {{track.album}}</p>
-        <a href="#!" class="secondary-content"><i class="material-icons">playlist_add</i></a>
+        <a (click)="addToPlaylist(track)" class="secondary-content deep-orange-text cursor-pointer"><i class="material-icons">playlist_add</i></a>
     </li>
 </ul>
