@@ -39,6 +39,7 @@ import { LoginComponent } from './login/login.component';
 import { UserHeaderComponent } from './user-header/user-header.component';
 import { SideNavPlaylistComponent } from './side-nav-playlist/side-nav-playlist.component';
 import {NullifyService} from "./services/nullify/nullify.service";
+import {FavoriteService} from "./services/favorite/favorite.service";
 
 const myFirebaseAuthConfig = {
     provider: AuthProviders.Google,
@@ -93,7 +94,8 @@ const myFirebaseAuthConfig = {
         PlaylistService,
         IsLoadedGuardService,
         LiveService,
-        NullifyService
+        NullifyService,
+        FavoriteService
     ],
     bootstrap: [AppComponent]
 })

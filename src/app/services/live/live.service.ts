@@ -10,7 +10,8 @@ export class LiveService {
     constructor(private af: AngularFire, private nullify:NullifyService) {
         this.live = this.af.database.list('live', {
             query: {
-                limitToLast: 50
+                limitToLast: 50,
+                orderBy: '-createdAt'
             }
         });
     }

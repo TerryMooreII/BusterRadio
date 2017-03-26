@@ -1,7 +1,7 @@
 
 <ul class="collection with-header">
     <li class="collection-header"><h4>Now Playing From Around the World</h4></li>
-    <li class="collection-item avatar" *ngFor="let track of tracks | async">
+    <li class="collection-item avatar" *ngFor="let track of tracks | async | reverse">
         <img [src]="bandImage(track.creator)" alt="" class="circle">
         <strong class="title">{{track.title}}</strong>
         <p>{{track.creator}}at {{track.album}}</p>

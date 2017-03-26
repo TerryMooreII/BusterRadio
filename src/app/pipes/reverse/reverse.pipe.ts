@@ -7,7 +7,7 @@ export class ReversePipe implements PipeTransform {
 
     transform(value: any, args?: any): any {
         if (value){
-            return value.reverse();
+            return value.slice().reverse();
         }
         return value;
 

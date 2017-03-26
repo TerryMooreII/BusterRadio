@@ -4,6 +4,8 @@ import {ArchiveService} from "../services/archive/archive.service";
 import {Show} from "../models/show";
 import {PlaylistService} from "../services/playlist/playlist.service";
 import {CacheService} from "../services/cache/cache.service";
+import {FavoriteService} from "../services/favorite/favorite.service";
+import {MaterializeAction} from "angular2-materialize";
 
 @Component({
     selector: 'br-show',
@@ -13,17 +15,20 @@ import {CacheService} from "../services/cache/cache.service";
 
 export class ShowComponent implements OnInit {
 
-    constructor(private route: ActivatedRoute, private archiveService: ArchiveService, private playlist: PlaylistService, private cache:CacheService) {
-    }
-
     show: Show;
-    isLoading:boolean = false;
+    isLoading: boolean = false;
+
+    constructor(private route: ActivatedRoute,
+                private archiveService: ArchiveService,
+                private playlist: PlaylistService,
+                private cache: CacheService,
+                private favorite: FavoriteService) {
+    }
 
     ngOnInit() {
         this.route.params.forEach((params: Params) => {
             let identifier = params['show'];
             this.getShow(identifier);
-
         });
     }
 
@@ -40,15 +45,15 @@ export class ShowComponent implements OnInit {
         this.playlist.add(tracks, playIndex);
     }
 
-    addToPlaylist(track){
+    addToPlaylist(track) {
         this.playlist.add(track);
     }
 
-    newPlaylist(show){
-        this.playlist.newPlaylist(show);
+    favoriteShow(show) {
+        this.favorite.addFavoriteShow(show);
     }
 
-    getIdentifierByArtist(artist){
+    getIdentifierByArtist(artist) {
         return this.cache.getIdentifierByArtist(artist);
     }
 
@@ -63,17 +68,18 @@ export class ShowComponent implements OnInit {
                 artist: rep[1],
                 venue: rep[2],
                 date: rep[3]
-            }
+            };
 
         }
-        return null
+        return null;
     }
 
-    bandImage(){
-        if (!this.show){
-            return ''
+    bandImage() {
+        if (!this.show) {
+            return '';
         }
-        return '//archive.org/services/img/' + this.cache.getIdentifierByArtist(this.show.artist);;
+        return '//archive.org/services/img/' + this.cache.getIdentifierByArtist(this.show.artist);
+        ;
     }
 
 }

@@ -177,13 +177,4 @@ export class PlaylistService {
             }
         }
     }
-
-    newPlaylist(playlist) {
-        playlist.type = 'named';
-        playlist.uid = this.user.uid;
-
-        this.af.database.list('/playlists').push(this.nullify.nullify(playlist));
-    }
-
-
 }

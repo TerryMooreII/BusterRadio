@@ -7,7 +7,7 @@
             <!-- Dropdown Structure -->
                 <ul id="playlist-more" class="dropdown-content">
                     <li><span class="cursor-pointer" (click)="addToPlaylist(show?.tracks)">Add Show to Queue</span></li>
-                    <li><span class="cursor-pointer" (click)="newPlaylist(show)">Create Playlist of Show</span></li>
+                    <li><span class="cursor-pointer" (click)="favoriteShow(show)">Add as Favorite Show</span></li>
                 </ul>
             <p>
             {{show?.date}}<br>

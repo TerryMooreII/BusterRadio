@@ -24,7 +24,7 @@ export class SideNavPlaylistComponent implements OnInit {
                 return;
             }
             this.user = user;
-            this.playlists = this.af.database.list('/playlists', {
+            this.playlists = this.af.database.list('/favorite-show', {
                 query: {
                     orderByChild: 'uid',
                     equalTo: user.uid
