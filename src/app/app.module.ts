@@ -41,6 +41,7 @@ import { SideNavPlaylistComponent } from './side-nav-playlist/side-nav-playlist.
 import {NullifyService} from "./services/nullify/nullify.service";
 import {FavoriteService} from "./services/favorite/favorite.service";
 import {ToasterService} from "./services/toster/toaster.service";
+import { RegisterComponent } from './register/register.component';
 
 const myFirebaseAuthConfig = {
     provider: AuthProviders.Google,
@@ -77,7 +78,8 @@ const myFirebaseAuthConfig = {
         ReversePipe,
         LoginComponent,
         UserHeaderComponent,
-        SideNavPlaylistComponent
+        SideNavPlaylistComponent,
+        RegisterComponent
     ],
     imports: [
         BrowserModule,

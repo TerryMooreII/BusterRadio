@@ -1,3 +1,3 @@
-<a class="waves-effect waves-light btn deep-orange darken-4" *ngIf="!user" (click)="login()">Login</a>
-<a class="waves-effect waves-light btn deep-orange darken-4"*ngIf="user" (click)="logout()">Logout</a>
-<a class="waves-effect waves-light btn-flat center-align" *ngIf="!user" (click)="login()">Register</a>
+<a class="waves-effect waves-light btn deep-orange darken-4" *ngIf="!isLoggedIn" [routerLink]="['/register']">Login</a>
+<a class="waves-effect waves-light btn deep-orange darken-4"*ngIf="isLoggedIn" (click)="logout()">Logout</a>
+<a class="waves-effect waves-light btn-flat center-align" *ngIf="!isLoggedIn" [routerLink]="['/register']">Register</a>

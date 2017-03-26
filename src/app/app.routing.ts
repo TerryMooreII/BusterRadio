@@ -11,6 +11,7 @@ import {IsLoadedGuardService} from "./services/guards/is-loaded-guard.service";
 import {MainComponent} from "./main/main.component";
 import {GenresComponent} from "./genres/genres.component";
 import {LiveComponent} from "./live/live.component";
+import {RegisterComponent} from "app/register/register.component";
 
 export const routes: Routes = [
     {
@@ -28,7 +29,8 @@ export const routes: Routes = [
             {path: 'artists/:artist/years/:year/shows/:show', component: ShowComponent},
             {path: 'playlist', component: PlaylistComponent},
             {path: 'genres', component: GenresComponent},
-            {path: 'live', component: LiveComponent}
+            {path: 'live', component: LiveComponent},
+            {path: 'register', component: RegisterComponent}
         ]
     }
 ];

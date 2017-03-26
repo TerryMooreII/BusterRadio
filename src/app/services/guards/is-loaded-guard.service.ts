@@ -15,11 +15,10 @@ export class IsLoadedGuardService implements CanActivate, CanActivateChild {
     }
 
     canActivate() {
-
         return this.archiveService.loadArtists().map((data) => {
             this.cache.setArtistsCache(data._body.response.docs);
-            return true
-        }).first()
+            return true;
+        }).first();
 
     }
 }

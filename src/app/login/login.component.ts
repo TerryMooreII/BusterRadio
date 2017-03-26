@@ -8,7 +8,7 @@ import {AngularFire} from "angularfire2";
 })
 export class LoginComponent implements OnInit {
 
-    user: any;
+    isLoggedIn: any;
 
     constructor(private af: AngularFire) {
     }
@@ -16,25 +16,15 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
         this.af.auth.asObservable().subscribe(user => {
             if (!user){
-                this.user = null;
+                this.isLoggedIn = false
                 return;
             }
-
-            if (user.google){
-                this.user = user.google;
-            }else if(user.facebook){
-                this.user = user.facebook;
-            }
+            this.isLoggedIn = true;
         });
     }
 
-    login() {
-        this.af.auth.login();
-
-    }
-
     logout() {
-        this.user = null;
+        this.isLoggedIn = false;
         this.af.auth.logout();
     }
 
