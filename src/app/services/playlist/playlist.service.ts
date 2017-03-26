@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {PlaylistItem} from "../../models/playlistItem";
-import {Subject, BehaviorSubject, Observable} from "rxjs";
-import {AngularFire, FirebaseListObservable} from "angularfire2";
-import {NullifyService} from "../nullify/nullify.service";
+import {PlaylistItem} from '../../models/playlistItem';
+import {BehaviorSubject, Subject} from 'rxjs';
+import {AngularFire} from 'angularfire2';
+import {NullifyService} from '../nullify/nullify.service';
+import {RecentService} from '../recent/recent.service';
 
 @Injectable()
 export class PlaylistService {
@@ -14,19 +15,16 @@ export class PlaylistService {
     private player$: Subject<PlaylistItem>;
     private currentPlayingIndex: number;
 
-    private isShuffle: boolean = false;
-    private isRepeat: boolean = false;
+    private isShuffle = false;
+    private isRepeat = false;
 
     private user;
 
-    constructor(private af: AngularFire, private nullify: NullifyService) {
+    constructor(private recentService:RecentService) {
         this.dataStore = {playlist: this.getSavedPlaylist()};
         this.playList$ = <BehaviorSubject<PlaylistItem[]>>new BehaviorSubject([]);
         this.player$ = new Subject<PlaylistItem>();
         this.updatePlaylistSubscribers();
-
-
-        this.af.auth.asObservable().subscribe(user => this.user = user);
     }
 
     getPlaylist() {
@@ -45,7 +43,7 @@ export class PlaylistService {
         if (Array.isArray(tracks)) {
 
             const list = tracks.map((track, index) => {
-                const play = index === this.currentPlayingIndex && playIndex != null ? true : false;
+                const play = index === this.currentPlayingIndex && playIndex != null;
                 const playlistItem = new PlaylistItem(track, play);
                 if (play && playIndex != null) {
                     this.play(playlistItem);
@@ -133,6 +131,7 @@ export class PlaylistService {
 
     play(item: PlaylistItem) {
         this.player$.next(item);
+        this.recentService.addRecentTrack(item);
     }
 
     clear() {

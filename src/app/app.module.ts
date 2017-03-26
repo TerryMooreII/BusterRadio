@@ -42,6 +42,7 @@ import {NullifyService} from "./services/nullify/nullify.service";
 import {FavoriteService} from "./services/favorite/favorite.service";
 import {ToasterService} from "./services/toster/toaster.service";
 import { RegisterComponent } from './register/register.component';
+import {RecentService} from './services/recent/recent.service';
 
 const myFirebaseAuthConfig = {
     provider: AuthProviders.Google,
@@ -99,7 +100,8 @@ const myFirebaseAuthConfig = {
         LiveService,
         NullifyService,
         FavoriteService,
-        ToasterService
+        ToasterService,
+        RecentService
     ],
     bootstrap: [AppComponent]
 })

@@ -1,7 +1,7 @@
-import {Component, OnInit, EventEmitter, Output, Input} from "@angular/core";
-import {PlaylistService} from "../services/playlist/playlist.service";
-import {AngularFire} from "angularfire2";
-import {LiveService} from "../services/live/live.service";
+import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
+import {PlaylistService} from '../services/playlist/playlist.service';
+import {AngularFire} from 'angularfire2';
+import {LiveService} from '../services/live/live.service';
 
 
 @Component({
@@ -26,7 +26,8 @@ export class AudioControlsComponent implements OnInit {
 
     live: any;
 
-    constructor(private playlist: PlaylistService, private liveService: LiveService) {}
+    constructor(private playlist: PlaylistService, private liveService: LiveService) {
+    }
 
     ngOnInit() {
         this.audioElement = document.createElement('audio');
