@@ -1,29 +1,38 @@
-import {Component, OnInit} from "@angular/core";
-import {Params, ActivatedRoute} from "@angular/router";
-import {ArchiveService} from "../services/archive/archive.service";
-import {CacheService} from "../services/cache/cache.service";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Params} from '@angular/router';
+import {ArchiveService} from '../services/archive/archive.service';
+import {CacheService} from '../services/cache/cache.service';
 
 @Component({
-  selector: 'br-years',
-  templateUrl: './years.component.html',
-  styleUrls: ['./years.component.less']
+    selector: 'br-years',
+    templateUrl: './years.component.html',
+    styleUrls: ['./years.component.less']
 })
 export class YearsComponent implements OnInit {
 
     shows: Array<any>;
-    artist:String;
+    artist: string;
+    artistObj: any;
     years: any;
-    isLoading: boolean = false;
+    isLoading = false;
 
-    constructor(private archiveService: ArchiveService, private route: ActivatedRoute, private cache: CacheService) {
+    constructor(private archiveService: ArchiveService,
+                private route: ActivatedRoute,
+                private cache: CacheService) {
     }
 
     ngOnInit() {
         this.route.params.forEach((params: Params) => {
-            let artist = params['artist'];
-            let year = params['year'];
-            this.getShows(artist);
-            this.artist = this.cache.getArtistByIdentifier(artist);
+            const artistId = params['artist'];
+            const year = params['year'];
+            this.getShows(artistId);
+            this.artist = this.cache.getArtistByIdentifier(artistId);
+
+            this.artistObj = {
+                title: this.artist,
+                identifier: artistId
+            };
+
         });
     }
 

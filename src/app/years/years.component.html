@@ -1,7 +1,10 @@
 <div class="collection with-header">
     <div class="collection-header">
         <br-spinner [show]="isLoading" class="right"></br-spinner>
-        <h4>{{artist}} Shows</h4>
+
+        <h4>{{artist}}
+            <br-favorite-artist [artist]="artistObj" *ngIf="!isLoading"></br-favorite-artist>
+        </h4>
 
     </div>
     <div class="valign-wrapper" *ngIf="years?.length === 0">

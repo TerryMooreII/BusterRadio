@@ -43,6 +43,7 @@ import {FavoriteService} from "./services/favorite/favorite.service";
 import {ToasterService} from "./services/toster/toaster.service";
 import { RegisterComponent } from './register/register.component';
 import {RecentService} from './services/recent/recent.service';
+import { FavoriteArtistComponent } from './favorite-artist/favorite-artist.component';
 
 const myFirebaseAuthConfig = {
     provider: AuthProviders.Google,
@@ -80,7 +81,8 @@ const myFirebaseAuthConfig = {
         LoginComponent,
         UserHeaderComponent,
         SideNavPlaylistComponent,
-        RegisterComponent
+        RegisterComponent,
+        FavoriteArtistComponent
     ],
     imports: [
         BrowserModule,

@@ -1,0 +1,4 @@
+<div class="right cursor-pointer">
+    <i class="material-icons right" *ngIf="!isFavoriteArtist" (click)="addFavoriteArtist()">favorite_border</i>
+    <i class="material-icons right" *ngIf="isFavoriteArtist" (click)="removeFavoriteArtist()">favorite</i>
+</div>

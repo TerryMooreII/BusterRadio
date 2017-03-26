@@ -1,12 +1,12 @@
-import {Component, OnInit} from "@angular/core";
-import {Params, ActivatedRoute} from "@angular/router";
-import {ArchiveService} from "../services/archive/archive.service";
-import {Show} from "../models/show";
-import {PlaylistService} from "../services/playlist/playlist.service";
-import {CacheService} from "../services/cache/cache.service";
-import {FavoriteService} from "../services/favorite/favorite.service";
-import {MaterializeAction} from "angular2-materialize";
-import {ToasterService} from "../services/toster/toaster.service";
+import {Component, OnInit} from '@angular/core';
+import {Params, ActivatedRoute} from '@angular/router';
+import {ArchiveService} from '../services/archive/archive.service';
+import {Show} from '../models/show';
+import {PlaylistService} from '../services/playlist/playlist.service';
+import {CacheService} from '../services/cache/cache.service';
+import {FavoriteService} from '../services/favorite/favorite.service';
+import {MaterializeAction} from 'angular2-materialize';
+import {ToasterService} from '../services/toster/toaster.service';
 
 @Component({
     selector: 'br-show',
@@ -18,6 +18,7 @@ export class ShowComponent implements OnInit {
 
     show: Show;
     isLoading: boolean = false;
+    isFavoriteShow = false;
 
     constructor(private route: ActivatedRoute,
                 private archiveService: ArchiveService,
@@ -40,6 +41,11 @@ export class ShowComponent implements OnInit {
             this.show = new Show(response._body);
             this.bandImage();
             this.isLoading = false;
+            const obs$ = this.favorite.isFavoriteShow(this.show);
+            if (obs$) {
+                obs$.subscribe(data => this.isFavoriteShow = data.length > 0);
+            }
+
         });
     }
 
@@ -58,31 +64,20 @@ export class ShowComponent implements OnInit {
         this.toaster.toast(message);
     }
 
-    favoriteShow(show) {
-        this.favorite.addFavoriteShow(show);
-        this.toaster.toast('Show added to favorites');
+    addFavoriteShow(show) {
+        if (this.favorite.addFavoriteShow(show)) {
+            this.toaster.toast('Show added to favorites');
+        }
+    }
+
+    removeFavoriteShow(show) {
+        this.favorite.removeFavoriteShow(show);
+        this.toaster.toast('Remove show from favorites');
     }
 
     getIdentifierByArtist(artist) {
         return this.cache.getIdentifierByArtist(artist);
     }
-
-    // parseTitle(show) {
-    //     if (!show || !show.title) {
-    //         return null;
-    //     }
-    //
-    //     const rep = new RegExp("(.*?) Live at (.*?) on (.*)").exec(show.title);
-    //     if (rep && rep.length && rep.length >= 1) {
-    //         return {
-    //             artist: rep[1],
-    //             venue: rep[2],
-    //             date: rep[3]
-    //         };
-    //
-    //     }
-    //     return null;
-    // }
 
     bandImage() {
         if (!this.show) {

@@ -7,7 +7,8 @@
             <!-- Dropdown Structure -->
                 <ul id="playlist-more" class="dropdown-content">
                     <li><span class="cursor-pointer" (click)="addToPlaylist(show?.tracks)">Add Show to Queue</span></li>
-                    <li><span class="cursor-pointer" (click)="favoriteShow(show)">Add as Favorite Show</span></li>
+                    <li *ngIf="!isFavoriteShow"><span class="cursor-pointer" (click)="addFavoriteShow(show)">Add as Favorite Show</span></li>
+                    <li *ngIf="isFavoriteShow"><span class="cursor-pointer" (click)="removeFavoriteShow(show)">Remove from Favorite Shows</span></li>
                 </ul>
             <p>
             {{show?.date}}<br>

@@ -13,17 +13,21 @@ export class ShowsComponent implements OnInit {
     years: any;
     artist: String;
     isLoading:boolean;
+    artistObj;
 
     constructor(private archiveService: ArchiveService, private route: ActivatedRoute, private cache: CacheService) {
     }
 
     ngOnInit() {
         this.route.params.forEach((params: Params) => {
-            let artist = params['artist'];
-
-            let year = params['year'];
-            this.getShows(artist, year);
-            this.artist = this.cache.getArtistByIdentifier(artist);
+            const artistId = params['artist'];
+            const year = params['year'];
+            this.getShows(artistId, year);
+            this.artist = this.cache.getArtistByIdentifier(artistId);
+            this.artistObj = {
+                title: this.artist,
+                identifier: artistId
+            };
         });
     }
 
