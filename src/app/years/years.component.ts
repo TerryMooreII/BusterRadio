@@ -44,7 +44,13 @@ export class YearsComponent implements OnInit {
             this.isLoading = true;
             this.archiveService.getShows(artist).subscribe(data => {
                 this.shows = data._body.response.docs;
-                this.years = new Set(this.shows.map(item => item.year));
+                this.years = new Set(this.shows.map(item => {
+                    if (item.year.length === 4){
+                        return item.year;
+                    }
+                    return false;
+                }));
+                this.years.delete(false);
                 this.cache.setShows(artist, this.shows);
                 this.cache.setYears(artist, this.years);
                 this.isLoading = false;
