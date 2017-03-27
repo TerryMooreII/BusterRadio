@@ -1,6 +1,6 @@
 <div class="valign-wrapper controls-wrapper center-controls-container">
 
-    <button class="center waves-effect btn btn-flat btn-floating" (click)="repeatToggle()">
+    <button class="center waves-effect btn btn-flat btn-floating hide-on-small-only" (click)="repeatToggle()">
         <i class="material-icons previous" [ngClass]="{'deep-orange-text': isRepeat}" *ngIf="!isRepeatSingle || !isRepeatSingle">repeat</i>
         <i class="material-icons previous deep-orange-text" *ngIf="!isRepeat">repeat_one</i>
     </button>
@@ -14,11 +14,11 @@
         <i class="material-icons medium" *ngIf="isPlaying">pause</i>
     </button>
 
-    <button class="center waves-effect btn btn-flat btn-floating" (click)="next()" [disabled]="isDisabled" [class.disabled]="isDisabled">
+    <button class="center waves-effect btn btn-flat btn-floating " (click)="next()" [disabled]="isDisabled" [class.disabled]="isDisabled">
         <i class="material-icons next">skip_next</i>
     </button>
 
-    <button class="center waves-effect btn btn-flat btn-floating" (click)="shuffle()">
+    <button class="center waves-effect btn btn-flat btn-floating hide-on-small-only" (click)="shuffle()">
         <i class="material-icons previous" [ngClass]="{'deep-orange-text': isShuffle}">shuffle</i>
     </button>
 </div>

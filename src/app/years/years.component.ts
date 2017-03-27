@@ -11,8 +11,7 @@ import {CacheService} from '../services/cache/cache.service';
 export class YearsComponent implements OnInit {
 
     shows: Array<any>;
-    artist: string;
-    artistObj: any;
+    artist;
     years: any;
     isLoading = false;
 
@@ -26,10 +25,10 @@ export class YearsComponent implements OnInit {
             const artistId = params['artist'];
             const year = params['year'];
             this.getShows(artistId);
-            this.artist = this.cache.getArtistByIdentifier(artistId);
+            const title = this.cache.getArtistByIdentifier(artistId);
 
-            this.artistObj = {
-                title: this.artist,
+            this.artist = {
+                title: title,
                 identifier: artistId
             };
 

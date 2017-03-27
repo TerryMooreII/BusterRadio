@@ -23,7 +23,7 @@
                     <div class="collapsible-body">
                         <ul>
                             <li *ngFor="let artist of artists | async">
-                                <a class="cursor-pointer" [routerLink]="['artists', artist.identifier, 'years']">{{artist.title}}</a>
+                                <a class="cursor-pointer" [routerLink]="['/artists/' + artist.identifier + '/years']">{{artist.title}}</a>
                             </li>
                         </ul>
                     </div>
@@ -33,7 +33,7 @@
     </div>
     <div *ngIf="!user">
         <li class="register-message center-align">
-            <h5>Register/Login to save favorite shows, playlists, and/or artists.</h5>
+            <h5>Login to save favorite shows, playlists, and/or artists.</h5>
         </li>
         <br-login></br-login>
     </div>

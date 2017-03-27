@@ -2,8 +2,8 @@
     <div class="collection-header">
         <br-spinner [show]="isLoading" class="right"></br-spinner>
 
-        <h4>{{artist}}
-            <br-favorite-artist [artist]="artistObj" *ngIf="!isLoading"></br-favorite-artist>
+        <h4>{{artist.title}}
+            <br-favorite-artist [artist]="artist" *ngIf="!isLoading"></br-favorite-artist>
         </h4>
     </div>
     <div class="valign-wrapper" *ngIf="shows?.length === 0">

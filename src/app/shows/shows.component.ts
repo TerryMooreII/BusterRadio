@@ -11,9 +11,8 @@ import {CacheService} from "../services/cache/cache.service";
 export class ShowsComponent implements OnInit {
     shows: Array<any>;
     years: any;
-    artist: String;
-    isLoading:boolean;
-    artistObj;
+    artist;
+    isLoading;
 
     constructor(private archiveService: ArchiveService, private route: ActivatedRoute, private cache: CacheService) {
     }
@@ -23,9 +22,9 @@ export class ShowsComponent implements OnInit {
             const artistId = params['artist'];
             const year = params['year'];
             this.getShows(artistId, year);
-            this.artist = this.cache.getArtistByIdentifier(artistId);
-            this.artistObj = {
-                title: this.artist,
+            const name = this.cache.getArtistByIdentifier(artistId);
+            this.artist = {
+                title: name,
                 identifier: artistId
             };
         });
@@ -37,8 +36,8 @@ export class ShowsComponent implements OnInit {
         if (!this.shows) {
             this.isLoading = true;
             this.archiveService.getShows(artist).subscribe(data => {
-                let shows = data._body.response.docs;
-                let years = new Set(shows.map(item => item.year));
+                const shows = data._body.response.docs;
+                const years = new Set(shows.map(item => item.year));
                 this.cache.setShows(artist, shows);
                 this.cache.setYears(artist, years);
                 this.shows = this.cache.getShows(artist, year);
@@ -60,6 +59,6 @@ export class ShowsComponent implements OnInit {
         if (rep && rep.length && rep.length >= 1) {
             return rep[1];
         }
-        return 'Unknown'
+        return 'Unknown';
     }
 }

@@ -6,6 +6,6 @@
     <br>
     <a [routerLink]="goToAlbum(track)" class="cursor-pointer">{{track?.album}}</a>
 </div>
-<div class="artist-image">
+<div class="artist-image hide-on-small-only">
     <img [src]="bandImage(track?.creator)" alt="">
 </div>
