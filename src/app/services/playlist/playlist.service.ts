@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {PlaylistItem} from '../../models/playlistItem';
-import {BehaviorSubject, Subject} from 'rxjs';
-import {AngularFire} from 'angularfire2';
-import {NullifyService} from '../nullify/nullify.service';
+import {BehaviorSubject, Subject, Subscription} from 'rxjs';
 import {RecentService} from '../recent/recent.service';
+import {AngularFire} from 'angularfire2';
 
 @Injectable()
 export class PlaylistService {
@@ -18,13 +17,23 @@ export class PlaylistService {
     private isShuffle = false;
     private isRepeat = false;
 
-    private user;
+    private afQueue;
+    private afQueueObs$: Subscription;
 
-    constructor(private recentService:RecentService) {
-        this.dataStore = {playlist: this.getSavedPlaylist()};
+    constructor(private recentService: RecentService, private af: AngularFire) {
+
         this.playList$ = <BehaviorSubject<PlaylistItem[]>>new BehaviorSubject([]);
         this.player$ = new Subject<PlaylistItem>();
-        this.updatePlaylistSubscribers();
+
+
+        this.af.auth.subscribe(user => {
+            if (!user && this.afQueueObs$) {
+                this.afQueue = null;
+                this.afQueueObs$.unsubscribe();
+            }
+
+            this.getSavedPlaylist(user);
+        });
     }
 
     getPlaylist() {
@@ -159,21 +168,45 @@ export class PlaylistService {
     }
 
     savePlaylist(playList) {
-        localStorage.setItem('playlist', JSON.stringify(playList));
+        if (this.afQueue) {
+            this.afQueue.set({playlist: playList});
+        } else {
+            localStorage.setItem('playlist', JSON.stringify(playList));
+        }
     }
 
-    getSavedPlaylist() {
+    getSavedPlaylistFromLocalStorage() {
         const pl = localStorage.getItem('playlist');
-
+        let data;
         if (pl) {
             try {
-                return JSON.parse(pl).map((data) => {
+                data = JSON.parse(pl).map((data) => {
                     data.isPlaying = false;
                     return data;
                 });
             } catch (e) {
-                return [];
+                data = [];
             }
         }
+        this.dataStore = {playlist: data};
+        this.updatePlaylistSubscribers();
     }
+
+    getSavePlayListFromDatabase(user) {
+
+        this.afQueue = this.af.database.object('/queue/' + user.uid);
+        this.afQueueObs$ = this.afQueue.subscribe(data => {
+            this.dataStore = {playlist: data.playlist || []};
+            this.updatePlaylistSubscribers();
+        });
+    }
+
+    getSavedPlaylist(user) {
+        if (!user) {
+            this.getSavedPlaylistFromLocalStorage();
+        } else {
+            this.getSavePlayListFromDatabase(user);
+        }
+    }
+
 }
