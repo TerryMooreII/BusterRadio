@@ -10,7 +10,7 @@
         </li>
 
         <li *ngFor="let item of playlists | async" class="playlist-item">
-            <a [routerLink]="[item.route]"><i class="material-icons">mic</i> {{item.title}}</a>
+            <a [routerLink]="[item.route]" class="fav-shows"><i class="material-icons">mic</i> {{item.title}}</a>
         </li>
 
         <li>
@@ -23,6 +23,7 @@
                     <div class="collapsible-body">
                         <ul>
                             <li *ngFor="let artist of artists | async">
+                                <img [src]="bandImage(artist)" alt="" class="artist-image circle">
                                 <a class="cursor-pointer" [routerLink]="['/artists/' + artist.identifier + '/years']">{{artist.title}}</a>
                             </li>
                         </ul>

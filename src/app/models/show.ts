@@ -1,21 +1,21 @@
 export class Show {
 
-    server: String;
-    dir: String;
-    identifier: String;
-    date: String;
-    title: String;
-    artist: String;
-    description: String;
-    lineage: String;
-    runtime: String;
-    notes: String;
-    image: String;
-    downloads: String;
-    tracks:Array<Track>;
-    reviews:Reviews;
-    venue:String;
-    location:String;
+    server: string;
+    dir: string;
+    identifier: string;
+    date: string;
+    title: string;
+    artist: string;
+    description: string;
+    lineage: string;
+    runtime: string;
+    notes: string;
+    image: string;
+    downloads: string;
+    tracks: Array<Track>;
+    reviews: Reviews;
+    venue: string;
+    location: string;
 
     constructor(json: any) {
         this.server = json.server;
@@ -36,31 +36,31 @@ export class Show {
         this.tracks = [];
 
         Object.keys(json.files).forEach((key) => {
-            if (key.indexOf('.mp3') > -1){
+            if (key.indexOf('.mp3') > -1) {
                 this.tracks.push(new Track(key, this.identifier, json.files[key]));
             }
         });
 
-        if (json.reviews){
+        if (json.reviews) {
             this.reviews = new Reviews(json.reviews);
         }
 
     }
 
-    arrayItemExists(data){
+    arrayItemExists(data) {
         return data && data[0] ? data[0] : null;
     }
 }
 
 
 export class Track {
-    fileName: String;
-    track: String;
-    title: String;
-    time:String;
-    creator:String;
-    album:String;
-    identifier:String;
+    fileName: string;
+    track: string;
+    title: string;
+    time: string;
+    creator: string;
+    album: string;
+    identifier: string;
 
     constructor(fileName, identifier, json) {
         this.fileName = fileName;
@@ -76,28 +76,28 @@ export class Track {
 export class Reviews {
 
 
-    number:number;
-    avgRating:String;
-    reviews:Array<Review> = [];
+    number: number;
+    avgRating: string;
+    reviews: Array<Review> = [];
 
     constructor(json) {
         this.number = json.number;
         this.avgRating = json.avgRating;
 
-        json.reviews.forEach(review =>{
+        json.reviews.forEach(review => {
             this.reviews.push(new Review(review));
         })
     }
 }
 
 export class Review {
-    body:String;
-    title:String;
-    reviewer:String;
-    date:Date;
-    rating:String;
+    body: string;
+    title: string;
+    reviewer: string;
+    date: Date;
+    rating: string;
 
-    constructor (json){
+    constructor(json) {
         this.body = json.reviewbody;
         this.title = json.reviewtitle;
         this.reviewer = json.reviewer;

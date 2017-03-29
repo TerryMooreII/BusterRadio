@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {AngularFire, FirebaseAuthState} from 'angularfire2';
+import {ArchiveService} from '../services/archive/archive.service';
 
 @Component({
     selector: 'br-side-nav-playlist',
@@ -13,7 +14,7 @@ export class SideNavPlaylistComponent implements OnInit {
     artists: Observable<any>;
     user: FirebaseAuthState;
 
-    constructor(private af: AngularFire) {
+    constructor(private af: AngularFire, private archive:ArchiveService) {
 
     }
 
@@ -30,4 +31,9 @@ export class SideNavPlaylistComponent implements OnInit {
             this.artists = this.af.database.list('/favorite-artist/' + this.user.uid);
         });
     }
+
+    bandImage(artist){
+        return this.archive.bandImage(artist.identifier);
+    }
+
 }
