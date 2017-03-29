@@ -4,7 +4,12 @@
 
     </li>
 
-    <li><a class="waves-effect" routerLink="/artists"><i class="material-icons">speaker</i>Artists</a></li>
+    <li>
+        <a class="waves-effect" routerLink="/artists">
+            <i class="material-icons">speaker</i>
+            <span class="new badge blue" data-badge-caption="total">{{totalArtists}}</span>Artists
+        </a>
+    </li>
     <li><a class="waves-effect" routerLink="/artists/top/100"><i class="material-icons">supervisor_account</i>Top Played
         Artists</a></li>
     <li><a class="waves-effect" routerLink="/genres"><i class="material-icons">recent_actors</i>Genres</a></li>
