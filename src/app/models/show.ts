@@ -86,7 +86,7 @@ export class Reviews {
 
         json.reviews.forEach(review => {
             this.reviews.push(new Review(review));
-        })
+        });
     }
 }
 

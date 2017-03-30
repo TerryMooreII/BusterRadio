@@ -3,6 +3,7 @@ import {PlaylistItem} from '../../models/playlistItem';
 import {BehaviorSubject, Subject, Subscription} from 'rxjs';
 import {RecentService} from '../recent/recent.service';
 import {AngularFire} from 'angularfire2';
+import {NullifyService} from '../nullify/nullify.service';
 
 @Injectable()
 export class PlaylistService {
@@ -20,7 +21,7 @@ export class PlaylistService {
     private afQueue;
     private afQueueObs$: Subscription;
 
-    constructor(private recentService: RecentService, private af: AngularFire) {
+    constructor(private recentService: RecentService, private af: AngularFire, private nullify:NullifyService) {
 
         this.playList$ = <BehaviorSubject<PlaylistItem[]>>new BehaviorSubject([]);
         this.player$ = new Subject<PlaylistItem>();
@@ -169,7 +170,7 @@ export class PlaylistService {
 
     savePlaylist(playList) {
         if (this.afQueue) {
-            this.afQueue.set({playlist: playList});
+            this.afQueue.set({playlist: this.nullify.nullify(playList)});
         } else {
             localStorage.setItem('playlist', JSON.stringify(playList));
         }

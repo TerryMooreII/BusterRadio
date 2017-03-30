@@ -7,7 +7,7 @@ export class NullifyService {
 
 
     isObject(val) {
-        if (val === null) {
+        if (val === null || !val) {
             return false;
         }
         return ( (typeof val === 'function') || (typeof val === 'object') );
@@ -20,10 +20,11 @@ export class NullifyService {
                 newObj[key] = null;
             } else if (this.isObject(obj[key])) {
                 newObj[key] = this.nullify(obj[key]);
-            }else{
+            }else {
                 newObj[key] = obj[key];
             }
         });
+        
         return newObj;
     }
 }
