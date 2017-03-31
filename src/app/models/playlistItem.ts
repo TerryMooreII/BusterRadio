@@ -1,11 +1,11 @@
-import {Track} from "./show";
-export class PlaylistItem{
+import {Track} from './show';
+export class PlaylistItem {
 
-    isPlaying:boolean;
-    hasBeenPlayed:boolean;
-    track:Track;
+    isPlaying: boolean;
+    hasBeenPlayed: boolean;
+    track: Track;
 
-    constructor(track?, play?){
+    constructor(track?, play?) {
         this.isPlaying = play || false;
         this.hasBeenPlayed = false;
         this.track = track;
