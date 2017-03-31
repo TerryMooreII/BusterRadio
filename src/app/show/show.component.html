@@ -2,7 +2,7 @@
     <div class="card-content">
     <br-spinner [show]="isLoading"></br-spinner>
         <span class="card-title grey-text text-darken-4">
-            <img [src]="bandImage()" alt="Band image" class="show-image hide-on-small-and-down">
+            <img [src]="bandImage()" alt="Band image" class="show-image hide-on-small-and-down" *ngIf="bandImage()">
             <h4><a [routerLink]="['/artists', getIdentifierByArtist(show?.artist), 'years']">{{show?.artist}}</a></h4>
              <span materialize="dropdown" href='#' class="cursor-pointer right" data-activates="playlist-more" data-alignment="right" data-constrainwidth="false"><i class="material-icons right">more_vert</i></span>
             <!-- Dropdown Structure -->
