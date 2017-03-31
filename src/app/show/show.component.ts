@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Params, ActivatedRoute} from '@angular/router';
 import {ArchiveService} from '../services/archive/archive.service';
 import {Show} from '../models/show';
@@ -14,7 +14,7 @@ import {ToasterService} from '../services/toster/toaster.service';
     styleUrls: ['./show.component.less']
 })
 
-export class ShowComponent implements OnInit {
+export class ShowComponent implements OnInit, OnDestroy {
 
     show: Show;
     isLoading: boolean = false;
@@ -35,12 +35,31 @@ export class ShowComponent implements OnInit {
         });
     }
 
+    ngOnDestroy(){
+        // need to clean this up
+        document.getElementById('image').style.background = '';
+        document.getElementById('image').style.backgroundSize = '';
+        document.querySelector('nav').style.backgroundColor = '';
+        document.querySelector('nav').style.opacity = '1';
+        document.querySelector('nav').classList.add('deep-orange');
+
+    }
+
     getShow(identifier) {
         this.isLoading = true;
         this.archiveService.getShow(identifier).subscribe(response => {
             this.show = new Show(response._body);
             this.bandImage();
             this.isLoading = false;
+
+            // need to clean this up
+            document.getElementById('image').style.background = 'url(' + this.show.image + ')  no-repeat center center fixed';
+            document.getElementById('image').style.backgroundSize = 'cover';
+            document.querySelector('nav').classList.remove('deep-orange');
+            document.querySelector('nav').style.backgroundColor = '#333';
+            document.querySelector('nav').style.opacity = '.3';
+
+
             const obs$ = this.favorite.isFavoriteShow(this.show);
             if (obs$) {
                 obs$.subscribe(data => this.isFavoriteShow = data.length > 0);
