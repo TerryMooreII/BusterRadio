@@ -3,6 +3,7 @@ import {PlaylistService} from "../services/playlist/playlist.service";
 import {PlaylistItem} from "../models/playlistItem";
 import {CacheService} from "../services/cache/cache.service";
 import {Observable} from "rxjs";
+import {QueueManagerService} from '../services/queue-manager/queue-manager.service';
 
 @Component({
     selector: 'br-playlist',
@@ -13,16 +14,26 @@ import {Observable} from "rxjs";
 export class PlaylistComponent implements OnInit {
 
     playlist: Observable<Array<PlaylistItem>>;
+    currentTrack: any;
 
-    constructor(private playlistService: PlaylistService, private cache: CacheService) {
+    constructor(private playlistService: PlaylistService, private cache: CacheService, private queueManager:QueueManagerService) {
     }
 
     ngOnInit() {
         this.playlist = this.playlistService.getPlaylist();
+        this.currentTrack = this.queueManager.getCurrentTrack();
     }
 
     play(index) {
         this.playlistService.playPlayListItem(index);
+    }
+
+    pause() {
+       this.queueManager.isPlaying(false);
+    }
+
+    resume() {
+        this.queueManager.isPlaying(true);
     }
 
     clear() {
@@ -38,7 +49,7 @@ export class PlaylistComponent implements OnInit {
             return;
         }
 
-        let year = this.getYear(track.album);
+        const year = this.getYear(track.album);
 
         if (!year) {
             return ['/artists', this.getArtistIdentifier(track.creator), 'years'];

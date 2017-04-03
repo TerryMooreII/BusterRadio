@@ -1,15 +1,29 @@
 
 
-.play-icon{
+.play-icon, .pause-icon, .resume-icon{
+    cursor: pointer;
+    position: absolute;
+    font-size:3.2em;
+}
+
+.play-icon {
+    display: none;
+}
+
+.pause-icon{
     display: none;
 }
 
 .track-row:hover {
-    .play-icon{
+    .equalizer-icon{
+        display: none;
+    }
+
+    .pause-icon{
         display: block;
-        cursor: pointer;
-        position: absolute;
-        font-size:3.2em;
+    }
+    .play-icon, .pause-icon, .resume-icon{
+        display: block;
     }
     .track-number{
         display: none;

@@ -18,8 +18,23 @@
         <div class="row track-row" *ngFor="let playlistItem of playlist | async; let i = index;">
             <div class="col s1">
 
-                <i class="material-icons play-icon" (click)="play(i)" *ngIf="!playlistItem.isPlaying">play_arrow</i>
-                <img src="/assets/equalizer.gif" alt="equalizer" class="now-playing-equalizer-lg" *ngIf="playlistItem.isPlaying">
+
+                <i class="material-icons play-icon"
+                   (click)="play(i)"
+                   *ngIf="((currentTrack | async)?.track?.fileName !== playlistItem.track.fileName || ((currentTrack | async)?.track?.fileName === playlistItem.track.fileName && !(currentTrack | async)?.isPlaying))">play_arrow</i>
+
+
+                <i class="material-icons resume-icon"
+                   (click)="resume()"
+                   *ngIf="(currentTrack | async)?.track?.fileName === playlistItem.track.fileName && !(currentTrack | async)?.isPlaying">play_arrow</i>
+
+
+                <i class="material-icons pause-icon" *ngIf="(currentTrack | async)?.isPlaying && (currentTrack | async)?.track?.fileName === playlistItem.track.fileName" (click)="pause()">pause</i>
+
+                <img src="/assets/equalizer.gif" alt="equalizer" class="now-playing-equalizer-lg equalizer-icon"  *ngIf="(currentTrack | async)?.isPlaying && (currentTrack | async)?.track?.fileName === playlistItem.track.fileName">
+
+
+
             </div>
             <div class="col s10 track-row-info">
                 <strong>{{playlistItem.track?.title}}</strong>

@@ -29,18 +29,23 @@
     }
 }
 
-.play-icon {
+.play-icon, .pause-icon {
     display: none;
 }
 
-.play-icon, .equalizer-icon {
+
+.play-icon, .pause-icon, .equalizer-icon,  .resume-icon {
     cursor: pointer;
     position: absolute;
     left: 15px;
 }
 
 .track-row:hover {
-    .play-icon, .equalizer-icon {
+    .equalizer-icon{
+        display: none;
+    }
+
+    .play-icon, .pause-icon {
         display: block;
         cursor: pointer;
         position: absolute;

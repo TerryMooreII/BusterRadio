@@ -2,6 +2,7 @@ import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
 import {PlaylistService} from '../services/playlist/playlist.service';
 import {AngularFire} from 'angularfire2';
 import {LiveService} from '../services/live/live.service';
+import {QueueManagerService} from '../services/queue-manager/queue-manager.service';
 
 
 @Component({
@@ -26,7 +27,9 @@ export class AudioControlsComponent implements OnInit {
 
     live: any;
 
-    constructor(private playlist: PlaylistService, private liveService: LiveService) {
+    constructor(private playlist: PlaylistService, private liveService: LiveService, private queueManager: QueueManagerService) {
+
+
     }
 
     ngOnInit() {
@@ -41,6 +44,13 @@ export class AudioControlsComponent implements OnInit {
             this.setAudioSrc(data);
         });
 
+        this.queueManager.getCurrentTrack().subscribe(current => {
+            if (current.isPlaying) {
+                this.play();
+            } else {
+                this.pause();
+            }
+        });
         // Watch for newCurrentTime updates and set current time
         this.newCurrentTime.subscribe((data) => this.audioElement.currentTime = data);
     }
@@ -48,13 +58,14 @@ export class AudioControlsComponent implements OnInit {
     setAudioSrc(item) {
         this.isDisabled = !item;
         const track = item.track;
+        this.queueManager.setTrack(track);
         const url = '//www.archive.org/download/' + track.identifier + track.fileName;
 
         this.liveService.add(track);
 
         this.audioElement.setAttribute('src', url);
 
-        this.play();
+        this.queueManager.isPlaying(true);
     }
 
     timeupdate() {
@@ -68,7 +79,7 @@ export class AudioControlsComponent implements OnInit {
         this.audioElement.addEventListener('ended', () => {
             if (this.isRepeatSingle) {
                 this.audioElement.currentTime = 0;
-                this.play();
+                this.queueManager.isPlaying(true);
             } else {
                 this.next();
             }
@@ -76,7 +87,7 @@ export class AudioControlsComponent implements OnInit {
     }
 
     playPauseToggle() {
-        this.isPlaying ? this.pause() : this.play();
+        this.isPlaying ? this.queueManager.isPlaying(false) : this.queueManager.isPlaying(true);
     }
 
     play() {

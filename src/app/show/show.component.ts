@@ -7,6 +7,7 @@ import {CacheService} from '../services/cache/cache.service';
 import {FavoriteService} from '../services/favorite/favorite.service';
 import {MaterializeAction} from 'angular2-materialize';
 import {ToasterService} from '../services/toster/toaster.service';
+import {QueueManagerService} from '../services/queue-manager/queue-manager.service';
 
 @Component({
     selector: 'br-show',
@@ -20,12 +21,15 @@ export class ShowComponent implements OnInit, OnDestroy {
     isLoading: boolean = false;
     isFavoriteShow = false;
 
+    currentTrack;
+
     constructor(private route: ActivatedRoute,
                 private archiveService: ArchiveService,
                 private playlist: PlaylistService,
                 private cache: CacheService,
                 private favorite: FavoriteService,
-                private toaster: ToasterService) {
+                private toaster: ToasterService,
+                private queueManager: QueueManagerService) {
     }
 
     ngOnInit() {
@@ -33,6 +37,8 @@ export class ShowComponent implements OnInit, OnDestroy {
             let identifier = params['show'];
             this.getShow(identifier);
         });
+
+        this.queueManager.getCurrentTrack().subscribe(current => this.currentTrack = current);
     }
 
     ngOnDestroy(){
@@ -70,6 +76,14 @@ export class ShowComponent implements OnInit, OnDestroy {
 
     play(tracks, playIndex) {
         this.playlist.add(tracks, playIndex);
+    }
+
+    pause(){
+        this.queueManager.isPlaying(false);
+    }
+
+    resume(){
+        this.queueManager.isPlaying(true);
     }
 
     addToPlaylist(track) {

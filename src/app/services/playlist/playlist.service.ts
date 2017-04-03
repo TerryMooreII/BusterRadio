@@ -21,7 +21,7 @@ export class PlaylistService {
     private afQueue;
     private afQueueObs$: Subscription;
 
-    constructor(private recentService: RecentService, private af: AngularFire, private nullify:NullifyService) {
+    constructor(private recentService: RecentService, private af: AngularFire, private nullify: NullifyService) {
 
         this.playList$ = <BehaviorSubject<PlaylistItem[]>>new BehaviorSubject([]);
         this.player$ = new Subject<PlaylistItem>();
@@ -81,7 +81,7 @@ export class PlaylistService {
         }
 
         this.dataStore.playlist[this.currentPlayingIndex].hasBeenPlayed = true;
-        this.dataStore.playlist[this.currentPlayingIndex].isPlaying = false;
+        this.dataStore.playlist[this.currentPlayingIndex].isCurrent = false;
 
         this.currentPlayingIndex = this.isShuffle ? this.getRandomTrack() : this.currentPlayingIndex + 1;
 
@@ -90,7 +90,7 @@ export class PlaylistService {
         }
 
         if (this.currentPlayingIndex < total) {
-            this.dataStore.playlist[this.currentPlayingIndex].isPlaying = true;
+            this.dataStore.playlist[this.currentPlayingIndex].isCurrent = true;
             this.play(this.dataStore.playlist[this.currentPlayingIndex]);
         }
 
@@ -104,12 +104,12 @@ export class PlaylistService {
         }
 
         this.dataStore.playlist[this.currentPlayingIndex].hasBeenPlayed = true;
-        this.dataStore.playlist[this.currentPlayingIndex].isPlaying = false;
+        this.dataStore.playlist[this.currentPlayingIndex].isCurrent = false;
 
         this.currentPlayingIndex = this.isShuffle ? this.getRandomTrack() : this.currentPlayingIndex - 1;
 
         if (this.currentPlayingIndex > -1) {
-            this.dataStore.playlist[this.currentPlayingIndex].isPlaying = true;
+            this.dataStore.playlist[this.currentPlayingIndex].isCurrent = true;
             this.play(this.dataStore.playlist[this.currentPlayingIndex]);
         }
 
@@ -125,13 +125,13 @@ export class PlaylistService {
 
         if (this.currentPlayingIndex != null) {
             this.dataStore.playlist[this.currentPlayingIndex].hasBeenPlayed = true;
-            this.dataStore.playlist[this.currentPlayingIndex].isPlaying = false;
+            this.dataStore.playlist[this.currentPlayingIndex].isCurrent = false;
         }
 
         this.currentPlayingIndex = index;
 
         if (this.currentPlayingIndex > -1) {
-            this.dataStore.playlist[this.currentPlayingIndex].isPlaying = true;
+            this.dataStore.playlist[this.currentPlayingIndex].isCurrent = true;
             this.play(this.dataStore.playlist[this.currentPlayingIndex]);
         }
 
@@ -182,7 +182,7 @@ export class PlaylistService {
         if (pl) {
             try {
                 data = JSON.parse(pl).map((data) => {
-                    data.isPlaying = false;
+                    data.isCurrent = false;
                     return data;
                 });
             } catch (e) {
@@ -211,3 +211,4 @@ export class PlaylistService {
     }
 
 }
+

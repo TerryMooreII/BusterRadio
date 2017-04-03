@@ -30,8 +30,21 @@
         </div>
         <div class="row track-row" *ngFor="let track of show?.tracks; let i = index;">
             <div class="col s1">
-                <i class="material-icons play-icon" (click)="play(show?.tracks, i)">play_arrow</i>
-                <span class="track-number">{{track.track}}</span>
+
+                <i class="material-icons play-icon"
+                   (click)="play(show?.tracks, i)"
+                   *ngIf="currentTrack?.track?.fileName !== track.fileName || (currentTrack?.track?.fileName === track.fileName && !currentTrack?.isPlaying)">play_arrow</i>
+
+
+                <i class="material-icons resume-icon"
+                   (click)="resume()"
+                   *ngIf="currentTrack?.track?.fileName === track.fileName && !currentTrack?.isPlaying">play_arrow</i>
+
+
+                <i class="material-icons pause-icon" *ngIf="currentTrack?.isPlaying && currentTrack?.track?.fileName === track.fileName" (click)="pause()">pause</i>
+                <img src="/assets/equalizer.gif" alt="equalizer" class="now-playing-equalizer-sm equalizer-icon"  *ngIf="currentTrack?.isPlaying && currentTrack?.track?.fileName === track.fileName">
+
+                <span class="track-number" *ngIf="currentTrack?.track?.fileName !== track.fileName">{{track.track}}</span>
             </div>
             <div class="col m9 s7">
                 {{track.title}}
