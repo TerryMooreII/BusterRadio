@@ -1,8 +1,8 @@
 import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {PlaylistService} from "../services/playlist/playlist.service";
-import {PlaylistItem} from "../models/playlistItem";
-import {CacheService} from "../services/cache/cache.service";
-import {Observable} from "rxjs";
+import {PlaylistService} from '../services/playlist/playlist.service';
+import {PlaylistItem} from '../models/playlistItem';
+import {CacheService} from '../services/cache/cache.service';
+import {Observable} from 'rxjs/Observable';
 import {QueueManagerService} from '../services/queue-manager/queue-manager.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class PlaylistComponent implements OnInit {
     playlist: Observable<Array<PlaylistItem>>;
     currentTrack: any;
 
-    constructor(private playlistService: PlaylistService, private cache: CacheService, private queueManager:QueueManagerService) {
+    constructor(private playlistService: PlaylistService, private cache: CacheService, private queueManager: QueueManagerService) {
     }
 
     ngOnInit() {
@@ -29,7 +29,7 @@ export class PlaylistComponent implements OnInit {
     }
 
     pause() {
-       this.queueManager.isPlaying(false);
+        this.queueManager.isPlaying(false);
     }
 
     resume() {
@@ -58,8 +58,8 @@ export class PlaylistComponent implements OnInit {
         return ['/artists', this.getArtistIdentifier(track.creator), 'years', year, 'shows', track.identifier];
     }
 
-    bandImage(artist){
-        if (!artist){
+    bandImage(artist) {
+        if (!artist) {
             return '';
         }
         let url = 'http://archive.org/services/img/' + this.cache.getIdentifierByArtist(artist);

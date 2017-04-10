@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Jsonp, RequestOptions} from '@angular/http';
+import {Jsonp} from '@angular/http';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ArchiveService {

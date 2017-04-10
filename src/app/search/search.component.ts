@@ -1,11 +1,12 @@
-import {Component, OnInit} from "@angular/core";
-import {FormControl} from "@angular/forms";
-import {Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {Router} from '@angular/router';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
-  selector: 'br-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.less']
+    selector: 'br-search',
+    templateUrl: './search.component.html',
+    styleUrls: ['./search.component.less']
 })
 export class SearchComponent implements OnInit {
 
@@ -15,7 +16,7 @@ export class SearchComponent implements OnInit {
         this.search.valueChanges
             .debounceTime(400)
             .subscribe(term => {
-                if (term){
+                if (term) {
                     this.router.navigate(['/search', {query: term}]);
                 }
             })
@@ -25,7 +26,7 @@ export class SearchComponent implements OnInit {
 
     }
 
-    clear(){
+    clear() {
         this.search.setValue(null);
     }
 

@@ -1,7 +1,7 @@
-import {Component, OnInit} from "@angular/core";
-import {Params, ActivatedRoute} from "@angular/router";
-import {CacheService} from "../services/cache/cache.service";
-import {ArchiveService} from "../services/archive/archive.service";
+import {Component, OnInit} from '@angular/core';
+import {Params, ActivatedRoute} from '@angular/router';
+import {CacheService} from '../services/cache/cache.service';
+import {ArchiveService} from '../services/archive/archive.service';
 
 @Component({
     selector: 'br-artists',
@@ -14,7 +14,7 @@ export class ArtistsComponent implements OnInit {
     num: number = 20;
     letters: Array<string> = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
     showLetters: boolean = true;
-    title:string = 'Artists';
+    title: string = 'Artists';
 
     constructor(private route: ActivatedRoute, private cache: CacheService, private archiveService: ArchiveService) {
     }
@@ -29,14 +29,14 @@ export class ArtistsComponent implements OnInit {
             let genre = params['genre'];
 
             if (count) {
-                if (isNaN(count)){
+                if (isNaN(count)) {
                     count = 100;
                 }
                 this.getTopDownloadedArtists(count);
                 this.showLetters = false;
                 this.title = `Top ${count} played artists`;
                 return;
-            }else if (genre){
+            } else if (genre) {
                 this.getAristsByGenres(genre);
                 this.showLetters = false;
                 this.title = `${genre} Artists`;
@@ -53,7 +53,7 @@ export class ArtistsComponent implements OnInit {
             setTimeout(() => {
                 this.getArtists(query, starts);
             }, 100);
-        }else{
+        } else {
 
             if (starts) {
                 this.artistsList = this.cache.getArtists().filter((data) => {
@@ -66,16 +66,16 @@ export class ArtistsComponent implements OnInit {
     }
 
     getTopDownloadedArtists(count) {
-        this.archiveService.topDownloadedArtists(count).subscribe((data)=> {
+        this.archiveService.topDownloadedArtists(count).subscribe((data) => {
             this.artistsList = data.splice(1);
         });
     }
 
-    getAristsByGenres(genre){
+    getAristsByGenres(genre) {
         genre = genre.toLowerCase();
 
         this.artistsList = this.cache.getArtists().filter((g) => {
-            if (!g.subject){
+            if (!g.subject) {
                 return false;
             }
 

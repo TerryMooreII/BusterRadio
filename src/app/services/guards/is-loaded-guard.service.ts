@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {CanActivateChild, CanActivate} from "@angular/router";
-import {ArchiveService} from "../archive/archive.service";
-import {CacheService} from "../cache/cache.service";
-import {Observable} from "rxjs";
+import {CanActivate, CanActivateChild} from '@angular/router';
+import {ArchiveService} from '../archive/archive.service';
+import {CacheService} from '../cache/cache.service';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class IsLoadedGuardService implements CanActivate, CanActivateChild {
