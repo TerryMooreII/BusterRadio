@@ -1,11 +1,16 @@
 <template>
-  <div class="flex-none text-grey-darker px-8 w-240 py-10 border-grey-light border-r border-solid sidenav ">
-    <ul class="list-reset">
-      <li class="text-xs antialiased uppercase border-b border-solid border-grey pb-2 mb-2 text-grey-darkest">
+  <div class="flex-none text-grey-darker px-8 w-240 pt-4 border-grey-light border-r border-solid bg-blue-dark">
+    <div class="flex items-center flex-no-shrink text-white mr-6 tracking-wide">
+      <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
+      <span class="font-semibold text-xl tracking-tight tracking-normal">BusterRadio</span>
+    </div>
+    
+    <ul class="list-reset mt-10">
+      <li class="text-xs antialiased uppercase border-b border-solid border-grey pb-2 mb-2 text-grey-lightest">
          Getting started
       </li> 
       <li class="text-sm py-1" v-for="item of links" :key="item.name">
-        <a v-href="item.link" class="antialiased text-grey-dark hover:text-grey-darkest no-underline cursor-pointer">
+        <a v-href="item.link" class="antialiased text-grey-lightest hover:text-grey no-underline cursor-pointer">
           {{item.name}}
         </a>
       </li>       
@@ -35,7 +40,7 @@ export default {
           link: ''
         },
         {
-          name: 'New Added Shows',
+          name: 'Lastest Uploaded Shows',
           link: ''
         },
         {

@@ -1,7 +1,7 @@
 <template>
-   <div class="flex flex-grow">
+   <div class="flex justify-end">
     <VolumeDown v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2'" />
-    <div class="h-1 bg-grey-lighter w-2/3 rounded relative">
+    <div class="h-1 bg-grey-lighter w-1/2 rounded relative">
       <div class="rounded bg-blue h-1" style="width: 50%;"></div>
     </div>
    </div>

@@ -1,17 +1,20 @@
 <template>
-  <footer class="w-screen border-t border-solid border-black h-24 pin-b fixed flex">
-    <div class="flex-grow text-grey-darker text-center px-4 py-2">
-
+  <footer class="w-screen border-t border-solid border-grey-light h-24 pin-b fixed flex">
+    <div class="flex-none text-grey-darker px-4 py-2 w-1/3">
+      asdfasd
     </div>
 
-    <div class="flex-none pt-3 w-1/2 flex-no-shrink">
+    <div class="flex-none pt-3 w-1/3 flex-no-shrink">
       <AudioControls />
     </div>
 
-    <div class="flex-none text-grey-darker text-center px-4 py-2 w-240 self-center ">
-      <div class="flex flex-row justify-center">
-        <MusicPlaylist v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mr-4 -mt-2'"/>
-        <VolumeControl />
+    <div class="text-grey-darker pr-20 py-2 w-1/3 self-center">
+      <div class="flex justify-end">
+        
+        <div class="w-2/5">
+          <VolumeControl />
+        </div>
+        <MusicPlaylist v-bind:cssClass="' h-5 w-5 fill-current text-grey-dark inline-block ml-6 -mt-2'"/>
       </div>
     </div>
 

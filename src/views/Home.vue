@@ -1,9 +1,12 @@
 <template>
   <div>
-    <Navbar />
-   <div class="flex pt-20 pb-24 h-screen">
+    
+   <div class="flex  pb-24 h-screen">
     <Sidenav /> 
+    <!-- Router Goes here -->
+    
     <div class="flex-grow px-24 py-2 overflow-scroll">
+      <h2 class="antialiased text-grey-darkest py-6">Lastest Uploaded Shows</h2>
       <div class="flex items-stretch flex-wrap justify-center">
         <show v-for="show of shows" :key="show.identifier" :show="show"/>
       </div>
