@@ -12,8 +12,8 @@
       <div class="flex justify-center mt-3  cursor-pointer">
         <div class="mr-4 text-xs -mt-1 text-grey-darker">0:00</div>
         <div class="h-1 bg-grey-lighter w-2/3 rounded relative slider">
-          <div class="rounded bg-blue h-1" style="width: 10%;"></div>
-          <div class="rounded-full h-2 w-2 bg-grey-dark absolute dot invisible"></div>
+          <div class="rounded bg-blue h-1" style="width: 12%;"></div>
+          <div class="rounded-full h-4 w-4 bg-grey-dark absolute dot invisible"></div>
         </div>
         <span class="ml-4 text-xs -mt-1 text-grey-darker">16:23</span>
       </div>
@@ -53,12 +53,17 @@ export default {
     left: 10px;
   }
   .dot {
-    top: -2px;
+    top: -6px;
     left: 10%;
+    visibility: hidden;
+    opacity: 0;
+    transition: hidden 0s linear 200ms, opacity 200ms;  
   }
   .slider:hover {
     .dot {
-      visibility: visible !important;
+      visibility: visible;
+      opacity: 1;
+      transition: visibility 2000s linear 0s, opacity 200ms;
     }
   }
 </style>

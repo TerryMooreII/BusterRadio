@@ -10,9 +10,10 @@
          Getting started
       </li> 
       <li class="text-sm py-1" v-for="item of links" :key="item.name">
-        <a v-href="item.link" class="antialiased text-grey-lightest hover:text-grey no-underline cursor-pointer">
+        <!-- <router-link :to="{ name: 'user', params: { userId: 123 }}">User</router-link> -->
+        <router-link :to="{name: item.link}" class="antialiased text-grey-lightest hover:text-grey no-underline cursor-pointer">
           {{item.name}}
-        </a>
+        </router-link>
       </li>       
     </ul>
   </div>
@@ -29,7 +30,7 @@ export default {
       links: [
         {
           name: 'Artists',
-          link: ''
+          link: 'artists'
         },
         {
           name: 'Top Played Artist',
@@ -41,7 +42,7 @@ export default {
         },
         {
           name: 'Lastest Uploaded Shows',
-          link: ''
+          link: 'newest'
         },
         {
           name: 'Newest Shows By Date',

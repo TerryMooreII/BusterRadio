@@ -1,7 +1,7 @@
 <template>
   <footer class="w-screen border-t border-solid border-grey-light h-24 pin-b fixed flex">
-    <div class="flex-none text-grey-darker px-4 py-2 w-1/3">
-      asdfasd
+    <div class="flex-none text-grey-darker w-1/3">
+      <NowPlaying />
     </div>
 
     <div class="flex-none pt-3 w-1/3 flex-no-shrink">
@@ -25,14 +25,16 @@
 import icons from '../icons';
 import AudioControls from './AudioControls';
 import VolumeControl from './VolumeControl';
+import NowPlaying from './NowPlaying';
 
 export default {
   name: 'Footer',
   components: {
     MusicPlaylist: icons.MusicPlaylist,
+    VolumeDown: icons.VolumeDown,
     AudioControls,
     VolumeControl,
-    VolumeDown: icons.VolumeDown,
+    NowPlaying,
   },
   props: {
   },
