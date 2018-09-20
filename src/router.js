@@ -4,6 +4,8 @@ import Home from './views/Home.vue';
 import Artists from './views/Artists.vue';
 import LatestShows from './views/LatestShows.vue';
 import Years from './views/Years.vue';
+import Shows from './views/Shows.vue';
+import Show from './views/Show.vue';
 
 Vue.use(Router);
 
@@ -25,6 +27,16 @@ export default new Router({
           path: '/:artistId',
           component: Years,
           name: 'years'
+        },
+        {
+          path: '/:artistId/:year',
+          component: Shows,
+          name: 'shows'
+        },
+        {
+          path: '/:artistId/:year/:showId',
+          component: Show,
+          name: 'show'
         },
         {
           path: 'newest',

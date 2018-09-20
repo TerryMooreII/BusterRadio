@@ -5,24 +5,23 @@
       <div class="text-grey-darkest antialiased font-bold">Eyes Of the World</div>
       <div class="text-grey-dark antialiased text-sm">Grateful Dead</div>
       <div class="text-grey-dark antialiased text-sm">Ervin J. Nutter Center</div> 
-    </div>
+    </div> 
   </div>
 
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'NowPlaying',
   props: {
     song: Object,
   },
-  data () {
-    return {
-      
-    }
-  },
-  methods: {
-
+  computed: {
+    ...mapGetters('playlist', {
+      // currentSong: 'currentSong'
+    })
   }
 };
 </script>

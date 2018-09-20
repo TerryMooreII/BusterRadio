@@ -13,11 +13,10 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
 
 import ArchiveApi from '../api/archive';
 export default {
-  name: 'Show',
+  name: 'ShowCard',
   props: {
     show: Object,
   },

@@ -11,6 +11,7 @@
     "axios": "^0.18.0",
     "axios-jsonp-pro": "^1.1.4",
     "install": "^0.12.1",
+    "moment": "^2.22.2",
     "npm": "^6.4.1",
     "register-service-worker": "^1.0.0",
     "uikit": "^3.0.0-rc.14",

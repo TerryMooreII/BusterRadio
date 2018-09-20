@@ -30,7 +30,7 @@ class Show {
     this.venue = this.sanitize(show.metadata.venue);
     this.year = this.sanitize(show.metadata.year);
     this.artist = this.sanitize(show.metadata.creator);
-    this.tracks = this.getTracks(show.files, this.identifier);
+    this.tracks = this.getTracks(show.files);
     this.images = this.getImages(show.files);
   }
   sanitize = (item) => {
@@ -38,19 +38,30 @@ class Show {
   };
 
   getImages = files => Object.keys(files).filter(file => file.endsWith('.jpg'));
-  getTracks = (files, identifier) => {
+  getTracks = (files) => {
     const tracks = {};
     const trackTypes = ['mp3', 'flac', 'ogg'];
     trackTypes.forEach((trackType) => {
       tracks[trackType] = Object.keys(files)
         .filter(file => file.endsWith(trackType) === true)
-        .map(file => Object.assign(files[file], { identifier }));
+        .map(file => Object.assign(files[file], {
+          file,
+          server: this.server,
+          artist: this.artist,
+          dir: this.dir
+        }));
     });
     return tracks;
   }
 }
 
 export default {
+  trackUrl({ server, dir, file }){
+    console.log({ server, dir, file });
+    const a = `//${server}${dir}/${file}`;
+    console.log(a);
+    return a;
+  },
   getAllArtists() {
     const query = [
       'fl[]=identifier',
@@ -88,18 +99,18 @@ export default {
       .then(response => new Show(response));
   },
   getMediaUrl(dir, file) {
-    return `//www.archive.org/download/${dir}${file}`;
+    return `//www.archive.org/download/${dir}/${file}`;
   },
-  getShows(artist){
+  getShows(artistId, year){
     const query = [
-      'fl[]=title',
+      //'fl[]=title',
       'fl[]=avg_rating',
       'fl[]=coverage',
       'fl[]=date',
-      'fl[]=description',
+      //'fl[]=description',
       'fl[]=downloads',
       'fl[]=identifier',
-      'fl[]=mediatype',
+      'fl[]=venue',
       'fl[]=year',
       'sort[]=year+desc',
       'desc[]=',
@@ -107,10 +118,47 @@ export default {
       'rows=15000',
       'page=1'
     ];
-    const url = `${URL}/advancedsearch.php?q=mediatype:(etree)+AND+collection:(${artist})&${query.join('&')}&${JSONP}`;
+    const url = `${URL}/advancedsearch.php?q=mediatype:(etree)+AND+collection:(${artistId})+AND+year:(${year})&${query.join('&')}&${JSONP}`;
+    return axios.jsonp(url)
+      .then(response => response.response.docs)
+      .then(shows => {
+        const grouped = {};
+        shows.sort((a, b) => new Date(a.date) - new Date(b.date));
+        shows.forEach(show => {
+          if(!grouped[show.date]) {
+            grouped[show.date] = Object.assign(show, {count: 1});
+          } else if (grouped[show.date] && (show.avg_rating > grouped[show.date].avg_rating) || !grouped[show.date].avg_rating)  {
+            const count = grouped[show.date].count++;
+            grouped[show.date] = Object.assign(show, {count});
+          } else {
+            grouped[show.date].count++;
+          }
+        });
+        return grouped;
+      });
+  },
+  getShowsByDate(artistId, date) {
+    const query = [
+      //'fl[]=source',
+      'fl[]=avg_rating',
+      'fl[]=coverage',
+      'fl[]=date',
+      //'fl[]=description',
+      'fl[]=downloads',
+      'fl[]=identifier',
+      'fl[]=venue',
+      'fl[]=year',
+      'sort[]=avg_rating+desc',
+      'desc[]=',
+      'sort[]=',
+      'rows=15000',
+      'page=1'
+    ];
+    const url = `${URL}/advancedsearch.php?q=mediatype:(etree)+AND+collection:(${artistId})+AND+date:(${date})&${query.join('&')}&${JSONP}`;
     console.log(url);
     return axios.jsonp(url)
       .then(response => response.response.docs);
+      
   },
   getYears(artist) {
     const query = [
@@ -123,7 +171,6 @@ export default {
     const url = `${URL}/advancedsearch.php?q=mediatype:(etree)+AND+collection:(${artist})&${query.join('&')}&${JSONP}`;
     return axios.jsonp(url)
       .then(response => response.response.docs)
-      //.then(response => Array.from(new Set(response.map(items => items.year))).sort());
       .then(response => {
         const obj = {};
         response.forEach(show => {
@@ -142,7 +189,7 @@ export default {
             year, total
           })
         })
-        return ret.sort((a, b) => b.year - a.year );
+        return ret.sort((a, b) => a.year - b.year );
       });
   }
 };

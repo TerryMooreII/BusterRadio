@@ -12,6 +12,7 @@ import VolumeUp from './VolumeUp.vue';
 import VolumeDown from './VolumeDown.vue';
 import VolumeOff from './VolumeOff.vue';
 import VolumeMute from './VolumeMute.vue';
+import Calendar from './Calendar.vue';
 
 export default {
   Play,
@@ -28,5 +29,6 @@ export default {
   VolumeDown,
   VolumeOff,
   VolumeMute,
+  Calendar,
 };
 

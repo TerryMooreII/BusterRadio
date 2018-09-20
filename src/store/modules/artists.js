@@ -11,8 +11,8 @@ const getters = {
   all(state) {
     return state.all;
   },
-  artist: (state) => (identifier) => state.all.find(artist => { 
-    return artist.title === identifier
+  artist: (state) => (search) => state.all.find(artist => { 
+    return artist.title === search || artist.identifier === search
   })
 };
 
