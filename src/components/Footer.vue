@@ -14,7 +14,10 @@
         <div class="w-2/5">
           <VolumeControl />
         </div>
-        <MusicPlaylist v-bind:cssClass="' h-5 w-5 fill-current text-grey-dark inline-block ml-6 -mt-2'"/>
+        <button @click="queue()">
+          <MusicPlaylist v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block ml-6 -mt-2'"/>
+        </button>
+        
       </div>
     </div>
 
@@ -36,14 +39,11 @@ export default {
     VolumeControl,
     NowPlaying,
   },
-  props: {
-  },
-  data () {
-    return {
-    }
-  },
   methods: {
-
+    queue() {
+      console.log('jere')
+      this.$router.push('/queue');
+    }
   }
 };
 </script>
@@ -52,5 +52,8 @@ export default {
 
   .w-240 {
     width: 240px;
+  }
+   button:focus {
+    outline: 0 !important;
   }
 </style>

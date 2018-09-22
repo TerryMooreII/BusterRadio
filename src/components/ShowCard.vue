@@ -1,6 +1,6 @@
 <template>
-  <div class="show overflow-hidden mx-4 my-4">
-    <img class="" v-bind:src="imageUrl" @click="getShow(show)">
+  <div class="show overflow-hidden mx-4 my-4 cursor-pointer">
+    <ArtistImage :artist="artist" @click="getShow(show)" />
     <div class="p-1">
       <div class="antialiased font-bold text-sm mb-1">{{show.creator}}</div>
       <p class="text-sm leading-tight">
@@ -15,8 +15,13 @@
 <script>
 
 import ArchiveApi from '../api/archive';
+import ArtistImage from './ArtistImage';
+
 export default {
   name: 'ShowCard',
+  components: {
+    ArtistImage
+  },
   props: {
     show: Object,
   },
@@ -27,19 +32,14 @@ export default {
       }
       return this.show.date.split('T')[0];
     },
-    imageUrl() {
-      const artist = this.$store.getters['artists/artist'](this.show.creator);
-      if (artist){
-        return 'https://archive.org/services/img/' + artist.identifier;
-      }
-      // undefined will just return a default image
-      return 'https://archive.org/services/img/undefined';
+    artist() {
+      return this.$store.getters['artists/artist'](this.show.creator);
     }
   },
   methods: {
     getShow(show) {
-      ArchiveApi.getShow(show.identifier)
-        .then(show => console.log(show));
+      console.log(show);
+      this.$router.push(`${this.artist.identifier}/${show.year}/${show.identifier}`)
     }
   }
 };

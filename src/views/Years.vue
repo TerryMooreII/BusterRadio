@@ -2,7 +2,7 @@
   <div class="flex-grow px-24 py-2 overflow-scroll width-full antialiased pt-10">
     <div class="flex flex-wrap flex-col  p-4">
       <div class="flex flex-col items-center width-full border-b border-solid border-grey mb-2">
-        <img v-bind:src="imageUrl" alt="" class="rounded-full border border-solid border-grey p-2 ">
+         <ArtistImage classes="rounded-full border border-solid border-grey p-2 artist-image" :artist="artist" />
         <h1 class="py-4 ">{{artist.title}}</h1>
       </div>
       
@@ -24,16 +24,13 @@
 <script>
 import icons from '../icons';
 import ArchiveApi from '../api/archive';
+import ArtistImage from '../components/ArtistImage';
 
 export default {
   name: 'years',
   components: {
-    Calendar: icons.Calendar
-  },
-  computed: {
-    imageUrl() {
-      return 'https://archive.org/services/img/' + this.artist.identifier;
-    }
+    Calendar: icons.Calendar,
+    ArtistImage
   },
   data() {
     return {
@@ -53,8 +50,8 @@ export default {
 };
 </script>
 
-<style>
-  img { 
+<style >
+  .artist-image { 
     height: 200px;
     width: 200px;
     background: white;

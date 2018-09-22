@@ -3,7 +3,6 @@ import ArchiveApi from '../api/archive';
 
 
 class Player {
-  isMuted = false;
   isLoop = false;
   volume = .8;
 
@@ -12,20 +11,21 @@ class Player {
     
     this.audio.addEventListener('loadeddata', () => {
       store.dispatch('playlist/duration', this.audio.duration);
-      this.audio.volume = this.volume;
-      this.audio.muted = this.isMuted;
+      this.audio.volume = store.state.volume.level;
+      this.audio.muted =  store.state.volume.isMuted;
       this.play();
     });
 
     this.audio.addEventListener('progress', () => {
       const endBuf = this.audio.buffered.end(0);
       const soFar = parseInt(((endBuf / this.audio.duration) * 100));
-      console.log('Buffered: ' + soFar);
+      //console.log('Buffered: ' + soFar);
     });
 
     this.audio.addEventListener('ended', () => {
-      //get next song from vuex 
-
+      if (store.getters['playlist/nextTrackIndex']) {
+        store.dispatch('playlist/next');
+      }
     })
 
     this.audio.addEventListener('timeupdate', () => {
@@ -60,8 +60,7 @@ class Player {
     this.audio.currentTime = 0.0;
   }
 
-  mute(val = !this.isMuted) {
-    this.isMuted = val;
+  mute(val) {
     this.audio.muted = val;
   }
 
@@ -76,7 +75,7 @@ class Player {
 
   setVolume(level) {
     this.volume = level;
-    this.mute(false);
+    store.dispatch('volume/unmute');
     this.audio.volume = level;
   }
 }

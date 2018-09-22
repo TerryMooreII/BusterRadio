@@ -2,22 +2,32 @@
   <div>
     <div class="flex justify-center">
         <Replay v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mr-4 hover:text-grey-darkest cursor-pointer'"/>
-        <StepBack v-bind:cssClass="'h-6 w-6 fill-current text-grey-dark inline-block self-center hover:text-grey-darkest cursor-pointer'"/>
+        <button @click="previous()">
+          <StepBack v-bind:cssClass="'h-6 w-6 fill-current text-grey-dark inline-block self-center hover:text-grey-darkest cursor-pointer'"/>
+        </button>
         <div class="rounded-full h-12 w-12 border-solid border-line bg-blue flex self-center mx-4 hover:bg-blue-dark cursor-pointer"
              @click="play()"
              v-if="!isPlaying">
           <Play v-bind:cssClass="'h-8 w-8 fill-current text-white inline-block play'"/>
         </div>
-        <StepForward v-bind:cssClass="'h-6 w-6 fill-current text-grey-dark inline-block self-center hover:text-grey-darkest cursor-pointer'"/>
+        <div class="rounded-full h-12 w-12 border-solid border-line bg-blue flex self-center mx-4 hover:bg-blue-dark cursor-pointer"
+             @click="pause()"
+             v-if="isPlaying">
+          <Pause v-bind:cssClass="'h-8 w-8 fill-current text-white inline-block pause'"/>
+        </div>
+        <button @click="next()">
+          <StepForward v-bind:cssClass="'h-6 w-6 fill-current text-grey-dark self-center hover:text-grey-darkest cursor-pointer'"/>
+        </button>
+        
         <Shuffle v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center ml-4 hover:text-grey-darkest cursor-pointer'"/>
       </div>
       <div class="flex justify-center mt-3  cursor-pointer">
-        <div class="mr-4 text-xs -mt-1 text-grey-darker">{{currentTime}}</div>
+        <div class="mr-4 text-xs -mt-1 text-grey-darker">{{formatTime(currentTime)}}</div>
         <div class="h-1 bg-grey-lighter w-2/3 rounded relative slider">
-          <div class="rounded bg-blue h-1" v-bind:style="{width: percent}"></div>
-          <div class="rounded-full h-4 w-4 bg-grey-dark absolute dot invisible"></div>
+          <div class="rounded bg-blue h-1 slider" v-bind:style="{width: percent}"></div>
+          <div class="rounded-full h-4 w-4 bg-grey-dark absolute dot invisible" v-bind:style="{left: percent}"></div>
         </div>
-        <span class="ml-4 text-xs -mt-1 text-grey-darker">{{duration}}</span>
+        <span class="ml-4 text-xs -mt-1 text-grey-darker">{{formatTime(duration)}}</span>
       </div> 
   </div>
 </template>
@@ -32,6 +42,7 @@ export default {
   name: 'AudioControls',
   components: {
     Play: icons.Play,
+    Pause: icons.Pause,
     StepForward: icons.StepForward,
     StepBack: icons.StepBack,
     Replay: icons.Replay,
@@ -49,7 +60,8 @@ export default {
     ...mapState('playlist', {
       isPlaying: 'isPlaying',
       duration: 'duration',
-      currentTime: 'currentTime'
+      currentTime: 'currentTime',
+      nextTrackIndex: 'nextTrackIndex'
     }),
     percent() {
       return `${(this.currentTime / this.duration) * 100}%`
@@ -58,6 +70,24 @@ export default {
   methods: {
     play() {
       this.$store.dispatch('playlist/play');
+    },
+    pause() {
+      this.$store.dispatch('playlist/pause');
+    },
+    next() {
+      this.$store.dispatch('playlist/next');
+    },
+    previous() {
+      this.$store.dispatch('playlist/previous');
+    },
+    formatTime(time){
+      var value = parseInt(time, 10);
+      var lenMins = Math.floor(value/60);
+      var lenSecs = value - lenMins * 60;
+      if (isNaN(lenMins)) { lenMins = 0; }
+      if (isNaN(lenSecs)) { lenSecs = 0; }
+
+      return lenMins + ':' + (lenSecs > 9 ? lenSecs : '0' + lenSecs);
     }
   }
 };
@@ -69,9 +99,13 @@ export default {
     top: 8px;
     left: 10px;
   }
+  .pause {
+    position: relative;
+    top: 8px;
+    left: 8px;
+  }
   .dot {
     top: -6px;
-    left: 10%;
     visibility: hidden;
     opacity: 0;
     transition: hidden 0s linear 200ms, opacity 200ms;  
@@ -82,5 +116,16 @@ export default {
       opacity: 1;
       transition: visibility 2000s linear 0s, opacity 200ms;
     }
+  }
+
+  .slider {
+    transition: width .2s ease-in-out;
+    transition-timing-function: linear;
+    -webkit-transition: .2s ease-in-out;
+    -webkit-transition-timing-function: linear;
+  }
+
+  button:focus {
+    outline: 0 !important;
   }
 </style>

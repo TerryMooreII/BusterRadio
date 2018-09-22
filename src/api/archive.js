@@ -46,9 +46,13 @@ class Show {
         .filter(file => file.endsWith(trackType) === true)
         .map(file => Object.assign(files[file], {
           file,
+          identifier: this.identifier,
           server: this.server,
           artist: this.artist,
-          dir: this.dir
+          dir: this.dir,
+          venue: this.venue,
+          artist: this.artist,
+          year: this.year
         }));
     });
     return tracks;
@@ -57,9 +61,7 @@ class Show {
 
 export default {
   trackUrl({ server, dir, file }){
-    console.log({ server, dir, file });
-    const a = `//${server}${dir}/${file}`;
-    console.log(a);
+    const a = `//${server}${dir}${file}`;
     return a;
   },
   getAllArtists() {

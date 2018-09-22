@@ -1,33 +1,59 @@
 <template>
-  <div class="flex">
-   <img class="img -mt-px" src="https://archive.org/services/img/StringCheeseIncident" alt="">
-    <div class="leading-normal ml-2 mt-3 overflow-hidden">
-      <div class="text-grey-darkest antialiased font-bold">Eyes Of the World</div>
-      <div class="text-grey-dark antialiased text-sm">Grateful Dead</div>
-      <div class="text-grey-dark antialiased text-sm">Ervin J. Nutter Center</div> 
-    </div> 
+  <div class="flex" v-if="currentTrack">
+   <ArtistImage classes="img -mt-px artist-image" :artist="artist" />
+    <div class="leading-normal ml-2 mt-3 overflow-hidden ">
+      <div class="text-grey-darkest antialiased font-bold truncate">
+        {{currentTrack.title}}
+      </div>
+      <div class="truncate">
+        <router-link :to="{ name: 'years', params: { artistId }}"
+            class="text-grey-dark antialiased text-sm no-underline hover:underline">
+            {{currentTrack.artist}}
+        </router-link>
+      </div>
+      <div class="truncate">
+        <router-link 
+            :to="{ name: 'show', params: { year: currentTrack.year, artistId, showId: currentTrack.identifier }}"
+            class="text-grey-dark antialiased text-sm no-underline hover:underline">
+          {{currentTrack.album}}
+        </router-link>
+      </div>
+    </div>
   </div>
 
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import ArtistImage from '../components/ArtistImage';
 
 export default {
   name: 'NowPlaying',
-  props: {
-    song: Object,
+  components: {
+    ArtistImage
   },
   computed: {
     ...mapGetters('playlist', {
-      // currentSong: 'currentSong'
-    })
+      currentTrack: 'currentTrack'
+    }),
+    ...mapGetters('artists', {
+      artist: 'artist'
+    }),
+    artistId () {
+      if (this.currentTrack && this.currentTrack.artist) {
+        const artist = this.artist(this.currentTrack.artist)
+        if (artist) {
+          return artist.identifier;
+        }
+      }
+      return 
+    }
   }
 };
 </script>
 
 <style scoped lang="less">
-  img {
+  .artist-image {
     height: 97px;
     width: 97px;
   }

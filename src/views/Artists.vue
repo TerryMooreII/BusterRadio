@@ -35,7 +35,6 @@ export default {
       }
     },
     handleScroll () {
-
       if(this.el.scrollHeight - this.el.scrollTop === this.el.clientHeight) {
         this.getArtists();
       }      

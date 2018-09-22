@@ -1,25 +1,21 @@
 <template>
   <div class="show overflow-hidden mx-4 my-4">
-    <img class="rounded-full border border-solid border-grey p-1" v-bind:src="imageUrl" @click="getYears(artist.identifier)">
+    <ArtistImage classes="rounded-full border border-solid border-grey p-1 cursor-pointer" :artist="artist" @click="getYears(artist.identifier)"/>
     <div class="p-1">
       <div class="antialiased font-bold text-sm mb-1 text-center text-grey-darkest">{{artist.title}}</div>
     </div>
   </div>
-
-
-  
 </template>
 
 <script>
+import ArtistImage from './ArtistImage'
 export default {
   name: 'List',
+  components: {
+    ArtistImage
+  },
   props: {
     artist: Object,
-  },
-  computed: {
-    imageUrl() {
-      return 'https://archive.org/services/img/' + this.artist.identifier;
-    }
   },
   methods: {
     getYears(identifier) {
