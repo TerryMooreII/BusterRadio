@@ -12,7 +12,7 @@
             <PauseIcon class="pause-icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block ml-1'" v-if="track.file === currentTrack.file && !isPlaying" />
             <img src="/img/equalizer.gif" alt="equalizer" class="h-4 w-4" v-if="track.file === currentTrack.file && isPlaying">
           </div>
-          <div class="w-full">
+          <div class="w-full truncate">
             {{track.title}} <br>
             <span class="text-grey-dark text-sm italic">{{track.creator}} :: {{track.album}}</span>
           </div>

@@ -41,7 +41,6 @@ export default {
   },
   methods: {
     queue() {
-      console.log('jere')
       this.$router.push('/queue');
     }
   }

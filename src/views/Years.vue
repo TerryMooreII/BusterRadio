@@ -5,7 +5,7 @@
          <ArtistImage classes="rounded-full border border-solid border-grey p-2 artist-image" :artist="artist" />
         <h1 class="py-4 ">{{artist.title}}</h1>
       </div>
-      
+      <Loading v-if="!years.length" />
       <div v-for="year of years" 
            :key="year.year" 
            class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center"
@@ -25,12 +25,14 @@
 import icons from '../icons';
 import ArchiveApi from '../api/archive';
 import ArtistImage from '../components/ArtistImage';
+import Loading from '../components/Loading';
 
 export default {
   name: 'years',
   components: {
     Calendar: icons.Calendar,
-    ArtistImage
+    ArtistImage,
+    Loading
   },
   data() {
     return {

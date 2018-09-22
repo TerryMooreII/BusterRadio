@@ -23,7 +23,7 @@
       </div>
       <div class="flex justify-center mt-3  cursor-pointer">
         <div class="mr-4 text-xs -mt-1 text-grey-darker">{{formatTime(currentTime)}}</div>
-        <div class="h-1 bg-grey-lighter w-2/3 rounded relative slider">
+        <div class="h-1 bg-grey-light w-2/3 rounded relative slider">
           <div class="rounded bg-blue h-1 slider" v-bind:style="{width: percent}"></div>
           <div class="rounded-full h-4 w-4 bg-grey-dark absolute dot invisible" v-bind:style="{left: percent}"></div>
         </div>
@@ -47,11 +47,6 @@ export default {
     StepBack: icons.StepBack,
     Replay: icons.Replay,
     Shuffle: icons.Shuffle,
-  },
-  data() {
-    return {
-    //  player: new Player()
-    }
   },
   computed: {
     ...mapGetters('playlist', {

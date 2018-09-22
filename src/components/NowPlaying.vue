@@ -15,7 +15,7 @@
         <router-link 
             :to="{ name: 'show', params: { year: currentTrack.year, artistId, showId: currentTrack.identifier }}"
             class="text-grey-dark antialiased text-sm no-underline hover:underline">
-          {{currentTrack.album}}
+          {{currentTrack.album || currentTrack.venue}}
         </router-link>
       </div>
     </div>

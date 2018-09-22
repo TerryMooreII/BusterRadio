@@ -9,9 +9,9 @@
         v-if="level >= 70"/>
     </div>
     <div v-if="isMuted" @click="unmute()" class="-mt-px">
-      <VolumeOff v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2'" />      
+      <VolumeOff v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2'" /> 
     </div>
-    <div class="h-1 bg-grey-lighter w-1/2 rounded relative volumebar">
+    <div class="h-1 bg-grey-light w-1/2 rounded relative volumebar">
       <div class="rounded bg-blue h-1" v-bind:style="{width: levelPercent}"></div>
     </div>
    </div>
@@ -77,9 +77,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-  .dot {
-    top: -1px;
-  }
   .volumebar {
     transition: width .2s ease-in-out;
     transition-timing-function: linear;

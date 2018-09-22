@@ -51,6 +51,19 @@ const actions = {
     commit('setqIdx', state.queue.length - 1);
   },
 
+  addTrackToQueue({ commit, state }, track ) {
+    commit('add', [...state.queue, track]);
+  },
+
+  addTracksToQueue({ commit, state }, tracks ) {
+    commit('add', [...state.queue, ...tracks]);
+  },
+
+  addTrackToQueuePlayNext({ commit, state }, track ) {
+    const q = state.queue.splice(state.qId, 1, track);
+    commit('add', [...q]);
+  },
+
   play({ commit, state }) {
     if (state.queue.length && state.qIdx === null) {
       player.load(state.queue[0]);

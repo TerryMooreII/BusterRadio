@@ -5,7 +5,7 @@
         <ArtistImage classes="rounded-full border border-solid border-grey p-2" :artist="artist" />
         <h1 class="py-4 ">{{artist.title}}</h1>
       </div>
-      
+      <Loading v-if="!shows" />
       <div v-for="show of shows" 
            :key="show.identifier" 
            class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center"
@@ -30,12 +30,14 @@ import moment from 'moment';
 import icons from '../icons';
 import ArchiveApi from '../api/archive';
 import ArtistImage from '../components/ArtistImage';
+import Loading from '../components/Loading';
 
 export default {
   name: 'shows',
   components: {
     Calendar: icons.Calendar,
-    ArtistImage
+    ArtistImage,
+    Loading
   },
   data() {
     return {

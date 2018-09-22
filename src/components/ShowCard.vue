@@ -38,7 +38,6 @@ export default {
   },
   methods: {
     getShow(show) {
-      console.log(show);
       this.$router.push(`${this.artist.identifier}/${show.year}/${show.identifier}`)
     }
   }
