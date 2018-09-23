@@ -15,6 +15,7 @@ import Navbar from '@/components/Navbar.vue'
 import Sidenav from '@/components/Sidenav.vue'
 import Footer from '@/components/Footer.vue'
 import { mapState, mapActions } from 'vuex'
+import store from '../store';
 
 
 export default {
@@ -31,11 +32,14 @@ export default {
   computed: mapState({
     artists: state => state.artists.all
   }),
-  created () {
+  beforeRouteEnter: function (to, from, next) {
     if (!localStorage.artists) {
-      this.$store.dispatch('artists/getArtists');
+      store.dispatch('artists/getArtists')
+        .then(() => next());
+    }else {
+      next();
     }
-  }
+  },
 };
 </script>
 

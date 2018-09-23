@@ -6,7 +6,7 @@
         <div class="flex flex-col w-full">
         <h1 class="font-hairline mb-1">{{artist.title}}</h1>
         <p class="leading-normal">
-          <span class="italic text-grey-darkest">{{date(show.date)}}</span>
+          <span class="italic text-grey-darkest">{{show.date | dateformat}}</span>
           <br>
           {{show.venue}} in
           {{show.location}}
@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import moment from 'moment';
 import { mapGetters, mapActions } from 'vuex'
 import icons from '../icons';
 import ArchiveApi from '../api/archive';
@@ -68,9 +67,6 @@ export default {
   methods: {
     getShowsByDate(date) { //This is for a list of other sources for this show
       ArchiveApi.getShowsByDate(this.artist.identifier, date).then(data => console.log(data));
-    },
-    date(date) {
-      return moment(date).format('LL');
     },
     ...mapActions('playlist', [
       'addTrack',

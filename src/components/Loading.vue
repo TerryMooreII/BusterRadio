@@ -1,10 +1,10 @@
 <template>
   <div class="spinner">
-  <div class="rect1"></div>
-  <div class="rect2"></div>
-  <div class="rect3"></div>
-  <div class="rect4"></div>
-  <div class="rect5"></div>
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
 </div>
 </template>
 
@@ -24,10 +24,11 @@ export default {
 }
 
 .spinner > div {
-  background-color: #2779bd;
+  background-color: #6cb2eb;
   height: 100%;
   width: 6px;
   display: inline-block;
+  margin-left:3px;
   
   -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
   animation: sk-stretchdelay 1.2s infinite ease-in-out;

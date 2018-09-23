@@ -13,6 +13,8 @@ import VolumeDown from './VolumeDown.vue';
 import VolumeOff from './VolumeOff.vue';
 import VolumeMute from './VolumeMute.vue';
 import Calendar from './Calendar.vue';
+import Star from './Star.vue';
+import Sort from './Sort.vue';
 
 export default {
   Play,
@@ -30,5 +32,7 @@ export default {
   VolumeOff,
   VolumeMute,
   Calendar,
+  Star,
+  Sort
 };
 

@@ -22,9 +22,6 @@
 <script>
 export default {
   name: 'Sidenav',
-  props: {
-
-  },
   data () {
     return {
       links: [
@@ -32,30 +29,30 @@ export default {
           name: 'Artists',
           link: 'artists'
         },
+        // {
+        //   name: 'Top Played Artist',
+        //   link: ''
+        // },
+        // {
+        //   name: 'Genres',
+        //   link: ''
+        // },
         {
-          name: 'Top Played Artist',
-          link: ''
-        },
-        {
-          name: 'Genres',
-          link: ''
-        },
-        {
-          name: 'Lastest Uploaded Shows',
+          name: 'Lastest Shows',
           link: 'newest'
         },
-        {
-          name: 'Newest Shows By Date',
-          link: ''
-        },
-        {
-          name: 'Play Random Show',
-          link: ''
-        },
-        {
-          name: 'What\'s Playing Now',
-          link: ''
-        },
+        // {
+        //   name: 'Search',
+        //   link: 'search'
+        // },
+        // {
+        //   name: 'Play Random Show',
+        //   link: ''
+        // },
+        // {
+        //   name: 'What\'s Playing Now',
+        //   link: ''
+        // },
       ]
     }
   },

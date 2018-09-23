@@ -75,6 +75,12 @@ const actions = {
     }
   },
 
+  playQueueTrack({ commit, state }, index) {
+      player.load(state.queue[index]);
+      commit('isPlaying', true);
+      commit('setqIdx', index);
+  },
+
   pause({ commit, state }) {
     if (state.isPlaying){
       player.pause();

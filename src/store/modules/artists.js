@@ -19,7 +19,7 @@ const getters = {
 // actions
 const actions = {
   getArtists({ commit }) {
-    ArchiveApi.getAllArtists()
+    return ArchiveApi.getAllArtists()
       .then(artists => {
         localStorage.setItem(ARTISTS, JSON.stringify(artists));
         commit('setArtists', { artists })

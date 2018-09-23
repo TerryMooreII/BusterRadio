@@ -5,7 +5,8 @@
       <div v-if="queue">
         <div v-for="(track, index) in queue" 
              :key="track.file" 
-             class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row">
+             class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row"
+             @click="playQueueTrack(index)">
           <div class="w-10 text-center">
             <span class="track-number" v-if="track.file !== currentTrack.file">{{index + 1}}</span>
             <PlayIcon class="play-icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block ml-2'" v-if="track.file !== currentTrack.file"/>
@@ -37,11 +38,6 @@ export default {
     PlayIcon: icons.Play,
     PauseIcon: icons.Pause
   },
-  data() {
-    return {
-    
-    }
-  },
   computed: {
     ...mapState({
       artists: state => state.artists.all,
@@ -53,13 +49,9 @@ export default {
     })
   },
   methods: {
-    
-  },
-  mounted() {
-  },
-  created () {
-  },
-  destroyed () {
+    ...mapActions('playlist', [
+      'playQueueTrack'
+    ])
   }
 };
 </script>

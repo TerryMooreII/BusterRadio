@@ -75,7 +75,7 @@ export default {
     return axios.jsonp(`${URL}${COLLECTION_AND_MEDIATYPE}${query.join('&')}&${JSONP}`)
       .then(response => response.response.docs);
   },
-  getLatestShows() {
+  getLatestShows(orderby = 'publicdate') {
     const query = [
       'fl[]=avg_rating',
       'fl[]=collection',
@@ -86,7 +86,7 @@ export default {
       'fl[]=title',
       'fl[]=year',
       'fl[]=venue',
-      'sort[]=publicdate desc',
+      `sort[]=${orderby} desc`,
       'sort[]=',
       'sort[]=',
       'rows=32',
@@ -105,7 +105,7 @@ export default {
   },
   getShows(artistId, year){
     const query = [
-      //'fl[]=title',
+      'fl[]=source',
       'fl[]=avg_rating',
       'fl[]=coverage',
       'fl[]=date',
@@ -114,26 +114,41 @@ export default {
       'fl[]=identifier',
       'fl[]=venue',
       'fl[]=year',
-      'sort[]=year+desc',
-      'desc[]=',
+      'sort[]=date+asc',
       'sort[]=',
       'rows=15000',
       'page=1'
     ];
     const url = `${URL}/advancedsearch.php?q=mediatype:(etree)+AND+collection:(${artistId})+AND+year:(${year})&${query.join('&')}&${JSONP}`;
+    
+    const isSoundboard = (show) => {
+      if (show.source && (show.source.toLowerCase().includes('soundoard') || show.source.toLowerCase().includes('sbd'))) {
+        return true;
+      }
+      return false;
+    }
+
     return axios.jsonp(url)
       .then(response => response.response.docs)
       .then(shows => {
         const grouped = {};
-        shows.sort((a, b) => new Date(a.date) - new Date(b.date));
         shows.forEach(show => {
-          if(!grouped[show.date]) {
-            grouped[show.date] = Object.assign(show, {count: 1});
+          Object.assign(show, { soundboard: isSoundboard(show) });
+
+          if (!grouped[show.date]) {
+            grouped[show.date] = Object.assign(show, { count: 1 });
+          } else if (grouped[show.date] && show.soundboard && !grouped[show.soundboard])  {
+            const count = grouped[show.date].count + 1;
+            grouped[show.date] = Object.assign(show, {count});
+          } else if (grouped[show.date] && show.soundboard && !grouped[show.soundboard] && (show.avg_rating > grouped[show.date].avg_rating) || !grouped[show.date].avg_rating)  {
+            const count = grouped[show.date].count + 1;
+            grouped[show.date] = Object.assign(show, {count});
           } else if (grouped[show.date] && (show.avg_rating > grouped[show.date].avg_rating) || !grouped[show.date].avg_rating)  {
-            const count = grouped[show.date].count++;
+            const count = grouped[show.date].count + 1;
             grouped[show.date] = Object.assign(show, {count});
           } else {
-            grouped[show.date].count++;
+            const count = grouped[show.date].count + 1;
+            grouped[show.date] = Object.assign(show, {count});
           }
         });
         return grouped;
@@ -141,25 +156,24 @@ export default {
   },
   getShowsByDate(artistId, date) {
     const query = [
-      //'fl[]=source',
+      'fl[]=source',
       'fl[]=avg_rating',
-      'fl[]=coverage',
+      'fl[]=publicdate',
       'fl[]=date',
-      //'fl[]=description',
+      'fl[]=publisher',
+      'fl[]=contributor',
       'fl[]=downloads',
       'fl[]=identifier',
       'fl[]=venue',
       'fl[]=year',
       'sort[]=avg_rating+desc',
-      'desc[]=',
-      'sort[]=',
       'rows=15000',
       'page=1'
     ];
     const url = `${URL}/advancedsearch.php?q=mediatype:(etree)+AND+collection:(${artistId})+AND+date:(${date})&${query.join('&')}&${JSONP}`;
-    console.log(url);
     return axios.jsonp(url)
-      .then(response => response.response.docs);
+      .then(response => response.response.docs)
+      .then(shows => shows.sort((a, b) => b.avg_rating - a.avg_rating).sort((a, b) => b.downloads - a.downloads));
       
   },
   getYears(artist) {
