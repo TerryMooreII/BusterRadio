@@ -17,7 +17,7 @@ export default {
       return 'artist'
     },
     imageUrl() {
-      if (this.artist){
+      if (this.artist) {
         return 'https://archive.org/services/img/' + this.artist.identifier 
       }
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex" v-if="currentTrack">
+  <div class="flex" v-if="currentTrack.identifier">
    <ArtistImage classes="img -mt-px artist-image" :artist="artist" />
     <div class="leading-normal ml-2 mt-3 overflow-hidden ">
       <div class="text-grey-darkest antialiased font-bold truncate">

@@ -68,6 +68,7 @@ export default {
     const query = [
       'fl[]=identifier',
       'fl[]=title',
+      'fl[]=downloads',
       'sort[]=titleSorter+asc',
       'rows=10000',
       'page=1'];
@@ -89,7 +90,7 @@ export default {
       `sort[]=${orderby} desc`,
       'sort[]=',
       'sort[]=',
-      'rows=32',
+      'rows=50',
       'page=1'
     ];
 
@@ -115,7 +116,7 @@ export default {
       'fl[]=venue',
       'fl[]=year',
       'sort[]=date+asc',
-      'sort[]=',
+      'sort[]=avg_rating+desc',
       'rows=15000',
       'page=1'
     ];
@@ -137,18 +138,18 @@ export default {
 
           if (!grouped[show.date]) {
             grouped[show.date] = Object.assign(show, { count: 1 });
-          } else if (grouped[show.date] && show.soundboard && !grouped[show.soundboard])  {
+          } else if (grouped[show.date] && show.soundboard && !grouped[show.date].soundboard)  {
             const count = grouped[show.date].count + 1;
             grouped[show.date] = Object.assign(show, {count});
-          } else if (grouped[show.date] && show.soundboard && !grouped[show.soundboard] && (show.avg_rating > grouped[show.date].avg_rating) || !grouped[show.date].avg_rating)  {
+          } else if (grouped[show.date] && show.soundboard && !grouped[show.date].soundboard && (show.avg_rating > grouped[show.date].avg_rating) || !grouped[show.date].avg_rating)  {
             const count = grouped[show.date].count + 1;
             grouped[show.date] = Object.assign(show, {count});
-          } else if (grouped[show.date] && (show.avg_rating > grouped[show.date].avg_rating) || !grouped[show.date].avg_rating)  {
+          } else if (grouped[show.date] && (show.avg_rating > grouped[show.date].avg_rating || 0) )  {
             const count = grouped[show.date].count + 1;
             grouped[show.date] = Object.assign(show, {count});
           } else {
             const count = grouped[show.date].count + 1;
-            grouped[show.date] = Object.assign(show, {count});
+            grouped[show.date] = Object.assign( grouped[show.date] , {count});
           }
         });
         return grouped;

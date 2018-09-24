@@ -14,7 +14,7 @@
         <div class="w-3/4 text-grey-darkest px-5 leading-normal text-sm">
           <!-- <Calendar v-bind:cssClass="'h-4 w-4 fill-current text-grey-dark inline-block self-center mr-6 mt-px'"/> -->
           <span class="text-grey-darkest italic">{{show.date | dateformat}} </span>
-          <span class="text-white text-xs bg-blue-dark px-1 py-px rounded" v-if="show.soundboard">Soundboard</span>
+          <span class="text-white text-xs bg-blue-dark px-1 py-px rounded ml-3" v-if="show.soundboard">Soundboard</span>
           <br />
           <span class="text-grey-darker mr-2 text-lg">{{show.venue}}</span> <br>
           <span class="text-grey-darker text-sm">{{show.coverage}}</span>

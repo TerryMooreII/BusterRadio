@@ -9,8 +9,6 @@
         <router-link to="/newest?orderby=publicdate" class="text-grey-darker text-sm  no-underline hover:underline" v-if="orderby === 'date'">Sort By Publish Date</router-link>
       </div>
     </div>
-    
-    
     <div class="flex items-stretch flex-wrap justify-center">
       <Loading v-if="!shows.length" />
       <ShowCard v-for="show of shows" :key="show.identifier" :show="show"/>

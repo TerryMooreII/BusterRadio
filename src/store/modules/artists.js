@@ -13,7 +13,10 @@ const getters = {
   },
   artist: (state) => (search) => state.all.find(artist => { 
     return artist.title === search || artist.identifier === search
-  })
+  }),
+  artistsByDownloads (state) { 
+    return [...state.all.slice().sort((a, b) => b.downloads - a.downloads)]
+  }
 };
 
 // actions

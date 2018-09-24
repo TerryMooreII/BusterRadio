@@ -3,7 +3,7 @@
     <ArtistImage :artist="artist" @click="getShow(show)" classes="cursor-pointer"/>
     <div class="p-1">
       
-      <router-link :to="{name: 'years', params: {artistId: artist.identifier}}"
+      <router-link :to="{name: 'years', params: {artistId: artist.identifier}}" v-if="artist.identifier"
                   class="antialiased font-bold text-sm mb-1 text-black no-underline hover:underline"
                   >{{show.creator}}</router-link>
       <p class="text-sm leading-tight">
