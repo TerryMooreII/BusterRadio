@@ -8,7 +8,6 @@ const state = {
   currentTime: 0
 };
 
-
 const getters = {
   queue(state) {
     return state.queue;
@@ -37,6 +36,10 @@ const getters = {
 
 // actions
 const actions = {
+  clear({ commit } ) {
+    commit('clear');
+  },
+
   addTracks({ commit }, tracks ) {
     commit('add', tracks);
     player.load(state.queue[0]);
@@ -115,6 +118,10 @@ const actions = {
 
 // mutations
 const mutations = {
+  clear (state) {
+    state.queue = [];
+  },
+
   add (state, track) {
     state.queue = track;
   },

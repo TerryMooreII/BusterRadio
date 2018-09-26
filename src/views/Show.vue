@@ -33,6 +33,12 @@
           <div class="w-24 text-right pr-2">
             {{track.length}}
           </div>
+          <div class="w-16">
+            <button title="Add to Queue" @click.stop="addTrackToQueue(track)">
+              <ListAdd class="add-queue" v-bind:cssClass="'h-4 w-4 fill-current inline-block ml-1 cursor-pointer'"/>
+            </button>
+            
+          </div>
         </div>
        </div>
       </div>
@@ -50,6 +56,7 @@ export default {
   components: {
     PlayIcon: icons.Play,
     PauseIcon: icons.Pause,
+    ListAdd: icons.ListAdd,
     ArtistImage
   },
   computed: {
@@ -65,12 +72,10 @@ export default {
     }
   },
   methods: {
-    getShowsByDate(date) { //This is for a list of other sources for this show
-      ArchiveApi.getShowsByDate(this.artist.identifier, date).then(data => console.log(data));
-    },
     ...mapActions('playlist', [
       'addTrack',
-      'addTracks'
+      'addTracks',
+      'addTrackToQueue'
     ])
   },
   mounted() {
@@ -89,12 +94,18 @@ export default {
   .play-icon{
     display: none;
   }
+  .add-queue {
+    display: none
+  }
   .track-row:hover {
-    & > div > .play-icon {
+    .play-icon {
       display: block;
     }
-    & > div >  .track-number {
+    .track-number {
       display: none;
+    }
+    .add-queue {
+      display: block
     }
   }
 </style>

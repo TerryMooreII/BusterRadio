@@ -15,6 +15,8 @@ import VolumeMute from './VolumeMute.vue';
 import Calendar from './Calendar.vue';
 import Star from './Star.vue';
 import Sort from './Sort.vue';
+import Search from './Search.vue';
+import ListAdd from './ListAdd.vue';
 
 export default {
   Play,
@@ -33,6 +35,8 @@ export default {
   VolumeMute,
   Calendar,
   Star,
-  Sort
+  Sort,
+  Search,
+  ListAdd
 };
 

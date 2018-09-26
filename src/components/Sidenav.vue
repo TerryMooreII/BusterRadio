@@ -7,7 +7,10 @@
     
     <ul class="list-reset mt-10">
       <li class="text-xs antialiased uppercase border-b border-solid border-grey pb-2 mb-2 text-grey-lightest">
-         Getting started
+        <router-link :to="{name: 'search'}" class="antialiased text-grey-lightest hover:text-grey no-underline cursor-pointer">
+          <Search v-bind:cssClass="'h-3 w-3 fill-current text-white inline-block self-center mr-1 -mt-2'" /> 
+          Search
+        </router-link>
       </li> 
       <li class="text-sm py-1" v-for="item of links" :key="item.name">
         <!-- <router-link :to="{ name: 'user', params: { userId: 123 }}">User</router-link> -->
@@ -20,8 +23,13 @@
 </template>
 
 <script>
+import icons from '../icons';
+
 export default {
   name: 'Sidenav',
+  components: {
+    Search: icons.Search
+  },
   data () {
     return {
       links: [
@@ -41,10 +49,7 @@ export default {
           name: 'Lastest Shows',
           link: 'newest'
         },
-        // {
-        //   name: 'Search',
-        //   link: 'search'
-        // },
+
         // {
         //   name: 'Play Random Show',
         //   link: ''

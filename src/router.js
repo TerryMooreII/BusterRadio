@@ -7,6 +7,7 @@ import Years from './views/Years.vue';
 import Shows from './views/Shows.vue';
 import Show from './views/Show.vue';
 import Queue from './views/Queue.vue';
+import Search from './views/Search.vue';
 
 Vue.use(Router);
 
@@ -14,11 +15,10 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   scrollBehavior (to, from, savedPosition) {
-    return { x: 0, y: 0 }
     if (savedPosition) {
       return savedPosition
     } else {
-      
+      return { x: 0, y: 0 }
     }
   },
   routes: [
@@ -32,12 +32,18 @@ export default new Router({
           name: 'artists'
         },
         {
-          path: 'newest',
+          path: '/search',
+          component: Search,
+          name: 'search'
+        },
+        {
+          path: '/newest',
           component: LatestShows,
           name: 'newest'
         },
+        
         {
-          path: 'queue',
+          path: '/queue',
           component: Queue,
           name: 'a'
         },
