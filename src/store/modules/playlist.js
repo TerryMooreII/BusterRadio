@@ -1,4 +1,4 @@
-import player from "../../services/player";
+import player from '../../services/player';
 
 const state = {
   queue: [],
@@ -13,56 +13,56 @@ const getters = {
     return state.queue;
   },
   currentTrack(state) {
-    return state.qIdx != null ? state.queue[state.qIdx] : {}
+    return state.qIdx != null ? state.queue[state.qIdx] : {};
   },
   nextTrackIndex(state) {
     if (state.qIdx !== null) {
       const idx = state.qIdx + 1;
       return idx < state.queue.length ? idx : null;
-    } 
+    }
     return null;
   },
-  previousTrackIndex(state){
-    if (state.qIdx !== null){
+  previousTrackIndex(state) {
+    if (state.qIdx !== null) {
       const idx = state.qIdx - 1;
       return idx >= 0 ? idx : null;
     }
     return null;
   },
   isPlaying(state) {
-    return state.isPlaying
+    return state.isPlaying;
   }
 };
 
 // actions
 const actions = {
-  clear({ commit } ) {
+  clear({ commit }) {
     commit('clear');
   },
 
-  addTracks({ commit }, tracks ) {
+  addTracks({ commit }, tracks) {
     commit('add', tracks);
     player.load(state.queue[0]);
     commit('isPlaying', true);
     commit('setqIdx', 0);
   },
 
-  addTrack({ commit, state }, track ) {
+  addTrack({ commit, state }, track) {
     commit('add', [...state.queue, track]);
     player.load(state.queue[state.queue.length - 1]);
     commit('isPlaying', true);
     commit('setqIdx', state.queue.length - 1);
   },
 
-  addTrackToQueue({ commit, state }, track ) {
+  addTrackToQueue({ commit, state }, track) {
     commit('add', [...state.queue, track]);
   },
 
-  addTracksToQueue({ commit, state }, tracks ) {
+  addTracksToQueue({ commit, state }, tracks) {
     commit('add', [...state.queue, ...tracks]);
   },
 
-  addTrackToQueuePlayNext({ commit, state }, track ) {
+  addTrackToQueuePlayNext({ commit, state }, track) {
     const q = state.queue.splice(state.qId, 1, track);
     commit('add', [...q]);
   },
@@ -79,13 +79,13 @@ const actions = {
   },
 
   playQueueTrack({ commit, state }, index) {
-      player.load(state.queue[index]);
-      commit('isPlaying', true);
-      commit('setqIdx', index);
+    player.load(state.queue[index]);
+    commit('isPlaying', true);
+    commit('setqIdx', index);
   },
 
   pause({ commit, state }) {
-    if (state.isPlaying){
+    if (state.isPlaying) {
       player.pause();
       commit('isPlaying', false);
     }
@@ -107,22 +107,22 @@ const actions = {
     }
   },
 
-  duration({ commit }, duration){
+  duration({ commit }, duration) {
     commit('setDuration', duration);
   },
 
-  currentTime({ commit }, currentTime){
+  currentTime({ commit }, currentTime) {
     commit('setCurrentTime', currentTime);
   }
- };
+};
 
 // mutations
 const mutations = {
-  clear (state) {
+  clear(state) {
     state.queue = [];
   },
 
-  add (state, track) {
+  add(state, track) {
     state.queue = track;
   },
 
@@ -133,15 +133,15 @@ const mutations = {
   isPlaying(state, value) {
     state.isPlaying = value;
   },
-  
-  setDuration(state, duration){
+
+  setDuration(state, duration) {
     state.duration = duration;
   },
 
-  setCurrentTime(state, currentTime){
+  setCurrentTime(state, currentTime) {
     state.currentTime = currentTime;
   }
-}
+};
 
 
 export default {
@@ -150,4 +150,4 @@ export default {
   getters,
   actions,
   mutations
-}
+};

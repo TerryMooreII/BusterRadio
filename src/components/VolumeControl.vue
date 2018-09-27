@@ -1,15 +1,15 @@
 <template>
    <div class="flex justify-end">
     <div v-if="!isMuted" @click="mute()" class="-mt-px">
-      <VolumeMute v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2'" 
-        v-if="level < 40"/> 
-      <VolumeDown v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2'" 
+      <VolumeMute v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2'"
+        v-if="level < 40"/>
+      <VolumeDown v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2'"
         v-if="level >= 40 && level < 70"/>
-      <VolumeUp v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2'" 
+      <VolumeUp v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2'"
         v-if="level >= 70"/>
     </div>
     <div v-if="isMuted" @click="unmute()" class="-mt-px">
-      <VolumeOff v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2'" /> 
+      <VolumeOff v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2'" />
     </div>
     <div class="h-1 bg-grey-light w-1/2 rounded relative volumebar">
       <div class="rounded bg-blue h-1" v-bind:style="{width: levelPercent}"></div>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex';
 import icons from '../icons';
 
 export default {
@@ -29,21 +29,21 @@ export default {
     VolumeMute: icons.VolumeMute,
     VolumeOff: icons.VolumeOff
   },
-  data () {
+  data() {
     return {
       percent: '0%',
       el: null
-    }
+    };
   },
   computed: {
     level() {
       return this.$store.state.volume.level * 100 || 0;
     },
     levelPercent() {
-      return `${this.level}%`
+      return `${this.level}%`;
     },
     isMuted() {
-      return this.$store.state.volume.isMuted; 
+      return this.$store.state.volume.isMuted;
     }
   },
   methods: {
@@ -58,7 +58,6 @@ export default {
     mouseup() {
       this.el.removeEventListener('mousemove', this.mousemove, false);
       window.removeEventListener('mouseup', this.mousemove, false);
-
     },
     mousedown(e) {
       this.$store.dispatch('volume/setLevel', e.offsetX / this.el.clientWidth);
@@ -67,10 +66,10 @@ export default {
 
   },
   mounted() {
-    this.el = document.querySelector('.volumebar')
+    this.el = document.querySelector('.volumebar');
     this.el.addEventListener('mousedown', this.mousedown, false);
   },
-  beforeDestroy() { 
+  beforeDestroy() {
     this.el.removeEventListener('mousedown', this.mousedown, false);
   }
 };

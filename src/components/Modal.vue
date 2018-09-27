@@ -20,16 +20,28 @@ export default {
     header: String,
     dismiss: {
       type: [Function, Object],
-      default: () => { console.log('dissmiss')}
+      default: () => { console.log('dissmiss'); }
     }
   },
-  data () {
+  data() {
     return {
-      
-    }
+      div: null
+    };
   },
-  methods: {
+  beforeMount() {
+    this.div = document.createElement('div');
+    this.div.style.position = 'fixed';
+    this.div.style.backgroundColor = 'black';
+    this.div.style.opacity = 0.3;
+    this.div.style.top = 0;
+    this.div.style.bottom = 0;
+    this.div.style.right = 0;
+    this.div.style.left = 0;
 
+    document.body.appendChild(this.div);
+  },
+  beforeDestroy() {
+    document.body.removeChild(this.div);
   }
 };
 </script>
@@ -41,6 +53,6 @@ export default {
   .modal {
     max-height: calc(100vh - 200px);
     min-height: calc(100vh - 200px);
-   
+   z-index: 100;
   }
 </style>

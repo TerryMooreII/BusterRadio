@@ -5,17 +5,17 @@
         <h2>Play Queue</h2>
       </div>
       <div class="text-right w-1/3">
-        <button type="button" 
+        <button type="button"
                 class="text-sm py-1 px-2 text-red rounded border border-solid border-red hover:text-white hover:bg-red"
                 @click="clear()">
                 Clear
         </button>
       </div>
     </div>
-    
+
       <div v-if="queue">
-        <div v-for="(track, index) in queue" 
-             :key="track.file" 
+        <div v-for="(track, index) in queue"
+             :key="track.file"
              class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row"
              @click="playQueueTrack(index)">
           <div class="w-10 text-center">
@@ -34,11 +34,11 @@
         </div>
        </div>
     </div>
-   
+
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex'
+import { mapGetters, mapActions, mapState } from 'vuex';
 import icons from '../icons';
 import Artist from '../components/Artist.vue';
 
@@ -82,6 +82,6 @@ export default {
   }
   button{
     transition: background-color 0.5s ease;
-    
+
   }
 </style>

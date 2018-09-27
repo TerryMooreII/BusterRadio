@@ -33,9 +33,7 @@ class Show {
     this.tracks = this.getTracks(show.files);
     this.images = this.getImages(show.files);
   }
-  sanitize = (item) => {
-    return item && Array.isArray(item) && item.length > 0 ? item[0] : null;
-  };
+  sanitize = item => (item && Array.isArray(item) && item.length > 0 ? item[0] : null);
 
   getImages = files => Object.keys(files).filter(file => file.endsWith('.jpg'));
   getTracks = (files) => {
@@ -60,7 +58,7 @@ class Show {
 }
 
 export default {
-  trackUrl({ server, dir, file }){
+  trackUrl({ server, dir, file }) {
     const a = `//${server}${dir}${file}`;
     return a;
   },
@@ -104,13 +102,13 @@ export default {
   getMediaUrl(dir, file) {
     return `//www.archive.org/download/${dir}/${file}`;
   },
-  getShows(artistId, year){
+  getShows(artistId, year) {
     const query = [
       'fl[]=source',
       'fl[]=avg_rating',
       'fl[]=coverage',
       'fl[]=date',
-      //'fl[]=description',
+      // 'fl[]=description',
       'fl[]=downloads',
       'fl[]=identifier',
       'fl[]=venue',
@@ -121,35 +119,35 @@ export default {
       'page=1'
     ];
     const url = `${URL}/advancedsearch.php?q=mediatype:(etree)+AND+collection:(${artistId})+AND+year:(${year})&${query.join('&')}&${JSONP}`;
-    
+
     const isSoundboard = (show) => {
       if (show.source && (show.source.toLowerCase().includes('soundoard') || show.source.toLowerCase().includes('sbd'))) {
         return true;
       }
       return false;
-    }
+    };
 
     return axios.jsonp(url)
       .then(response => response.response.docs)
-      .then(shows => {
+      .then((shows) => {
         const grouped = {};
-        shows.forEach(show => {
+        shows.forEach((show) => {
           Object.assign(show, { soundboard: isSoundboard(show) });
 
           if (!grouped[show.date]) {
             grouped[show.date] = Object.assign(show, { count: 1 });
-          } else if (grouped[show.date] && show.soundboard && !grouped[show.date].soundboard)  {
+          } else if (grouped[show.date] && show.soundboard && !grouped[show.date].soundboard) {
             const count = grouped[show.date].count + 1;
-            grouped[show.date] = Object.assign(show, {count});
-          } else if (grouped[show.date] && show.soundboard && !grouped[show.date].soundboard && (show.avg_rating > grouped[show.date].avg_rating) || !grouped[show.date].avg_rating)  {
+            grouped[show.date] = Object.assign(show, { count });
+          } else if (grouped[show.date] && show.soundboard && !grouped[show.date].soundboard && (show.avg_rating > grouped[show.date].avg_rating) || !grouped[show.date].avg_rating) {
             const count = grouped[show.date].count + 1;
-            grouped[show.date] = Object.assign(show, {count});
-          } else if (grouped[show.date] && (show.avg_rating > grouped[show.date].avg_rating || 0) )  {
+            grouped[show.date] = Object.assign(show, { count });
+          } else if (grouped[show.date] && (show.avg_rating > grouped[show.date].avg_rating || 0)) {
             const count = grouped[show.date].count + 1;
-            grouped[show.date] = Object.assign(show, {count});
+            grouped[show.date] = Object.assign(show, { count });
           } else {
             const count = grouped[show.date].count + 1;
-            grouped[show.date] = Object.assign( grouped[show.date] , {count});
+            grouped[show.date] = Object.assign(grouped[show.date], { count });
           }
         });
         return grouped;
@@ -175,7 +173,6 @@ export default {
     return axios.jsonp(url)
       .then(response => response.response.docs)
       .then(shows => shows.sort((a, b) => b.avg_rating - a.avg_rating).sort((a, b) => b.downloads - a.downloads));
-      
   },
   getYears(artist) {
     const query = [
@@ -188,25 +185,25 @@ export default {
     const url = `${URL}/advancedsearch.php?q=mediatype:(etree)+AND+collection:(${artist})&${query.join('&')}&${JSONP}`;
     return axios.jsonp(url)
       .then(response => response.response.docs)
-      .then(response => {
+      .then((response) => {
         const obj = {};
-        response.forEach(show => {
-          if(obj[show.year]){
+        response.forEach((show) => {
+          if (obj[show.year]) {
             obj[show.year].push(show.date);
-          }else {
+          } else {
             obj[show.year] = [show.date];
           }
         });
 
         const ret = [];
-        Object.keys(obj).forEach(year => {
-          const total = Array.from(new Set(obj[year])).length
-          obj[year] = total
+        Object.keys(obj).forEach((year) => {
+          const total = Array.from(new Set(obj[year])).length;
+          obj[year] = total;
           ret.push({
             year, total
-          })
-        })
-        return ret.sort((a, b) => a.year - b.year );
+          });
+        });
+        return ret.sort((a, b) => a.year - b.year);
       });
   }
 };

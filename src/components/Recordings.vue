@@ -39,27 +39,27 @@ export default {
   },
   props: {
     recordings: {
-      type: Object, 
+      type: Object,
       default: {}
     },
     artist: {
-      type: Object, 
+      type: Object,
       default: {}
     }
   },
-  data () {
+  data() {
     return {
       shows: []
-    }
+    };
   },
   methods: {
-    getShow(identifier){
-      this.$router.push(`${this.$route.params.year}/${identifier}`)
+    getShow(identifier) {
+      this.$router.push(`${this.$route.params.year}/${identifier}`);
     }
   },
   mounted() {
     ArchiveApi.getShowsByDate(this.artist.identifier, this.recordings.date)
-      .then (shows => this.shows = shows);
+      .then(shows => this.shows = shows);
   }
 };
 </script>

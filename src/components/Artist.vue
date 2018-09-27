@@ -8,14 +8,15 @@
 </template>
 
 <script>
-import ArtistImage from './ArtistImage'
+import ArtistImage from './ArtistImage';
+
 export default {
   name: 'List',
   components: {
     ArtistImage
   },
   props: {
-    artist: Object,
+    artist: Object
   },
   methods: {
     getYears(identifier) {
@@ -26,7 +27,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-img { 
+img {
     height: 155px;
     width: 155px;
   }

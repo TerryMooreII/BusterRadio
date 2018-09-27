@@ -1,6 +1,6 @@
 <template>
   <div>
-   
+
   </div>
 </template>
 
@@ -8,12 +8,12 @@
 export default {
   name: 'List',
   props: {
-    msg: String,
+    msg: String
   },
-  data () {
+  data() {
     return {
-      
-    }
+
+    };
   },
   methods: {
 

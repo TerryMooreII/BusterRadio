@@ -5,7 +5,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import './registerServiceWorker';
-import filters from './filters'
+import filters from './filters';
 
 
 // loads the Icon plugin
@@ -14,10 +14,9 @@ UIkit.use(Icons);
 Vue.config.productionTip = false;
 
 
-
-filters.forEach(f => {
-   Vue.filter(f.name, f.execute)
-})
+filters.forEach((f) => {
+  Vue.filter(f.name, f.execute);
+});
 
 new Vue({
   router,

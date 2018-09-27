@@ -10,14 +10,14 @@
 
     <div class="text-grey-darker pr-20 py-2 w-1/3 self-center">
       <div class="flex justify-end">
-        
+
         <div class="w-2/5">
           <VolumeControl />
         </div>
         <button @click="queue()">
           <MusicPlaylist v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block ml-6 -mt-2'"/>
         </button>
-        
+
       </div>
     </div>
 
@@ -37,7 +37,7 @@ export default {
     VolumeDown: icons.VolumeDown,
     AudioControls,
     VolumeControl,
-    NowPlaying,
+    NowPlaying
   },
   methods: {
     queue() {

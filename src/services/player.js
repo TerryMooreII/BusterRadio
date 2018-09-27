@@ -1,36 +1,36 @@
-import store  from '../store';
+import store from '../store';
 import ArchiveApi from '../api/archive';
 
 
 class Player {
   isLoop = false;
-  volume = .8;
+  volume = 0.8;
 
-  constructor(){
+  constructor() {
     this.audio = new Audio();
-    
+
     this.audio.addEventListener('loadeddata', () => {
       store.dispatch('playlist/duration', this.audio.duration);
       this.audio.volume = store.state.volume.level;
-      this.audio.muted =  store.state.volume.isMuted;
+      this.audio.muted = store.state.volume.isMuted;
       this.play();
     });
 
     this.audio.addEventListener('progress', () => {
       const endBuf = this.audio.buffered.end(0);
       const soFar = parseInt(((endBuf / this.audio.duration) * 100));
-      //console.log('Buffered: ' + soFar);
+      // console.log('Buffered: ' + soFar);
     });
 
     this.audio.addEventListener('ended', () => {
       if (store.getters['playlist/nextTrackIndex']) {
         store.dispatch('playlist/next');
       }
-    })
+    });
 
     this.audio.addEventListener('timeupdate', () => {
       store.dispatch('playlist/currentTime', this.audio.currentTime);
-    })
+    });
 
     this.audio.addEventListener('volumechanged', () => {
       console.log('volumed changed');
@@ -38,9 +38,7 @@ class Player {
 
     this.audio.addEventListener('error', () => {
       console.log('Audio Error');
-
-    })
-
+    });
   }
 
   load(track) {
@@ -48,7 +46,7 @@ class Player {
   }
 
   play() {
-    this.audio.play()
+    this.audio.play();
   }
 
   pause() {
@@ -64,11 +62,11 @@ class Player {
     this.audio.muted = val;
   }
 
-  seek(time){
+  seek(time) {
     this.audio.currentTime = time;
   }
 
-  loop () {
+  loop() {
     this.isLoop = !this.isLoop;
     this.audio.loop = this.isLoop;
   }

@@ -14,12 +14,11 @@ Vue.use(Router);
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-      return savedPosition
-    } else {
-      return { x: 0, y: 0 }
+      return savedPosition;
     }
+    return { x: 0, y: 0 };
   },
   routes: [
     {
@@ -41,7 +40,7 @@ export default new Router({
           component: LatestShows,
           name: 'newest'
         },
-        
+
         {
           path: '/queue',
           component: Queue,
@@ -70,7 +69,7 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     }
   ]
 });

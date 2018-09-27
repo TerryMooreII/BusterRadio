@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex';
 import Artist from '../components/Artist.vue';
 
 export default {
@@ -29,7 +29,7 @@ export default {
       index: 0,
       artistsList: [],
       el: null
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -41,35 +41,34 @@ export default {
   },
   methods: {
     getArtists() {
-      
-      if (this.$route.query.orderby === 'downloads'){
-        this.getOrderByDownloads()
-      }else {
-        this.getArtistAlphabetized()
+      if (this.$route.query.orderby === 'downloads') {
+        this.getOrderByDownloads();
+      } else {
+        this.getArtistAlphabetized();
       }
     },
-    getArtistAlphabetized(){
+    getArtistAlphabetized() {
       const count = 100;
-      if (this.artistsList.length <= this.artists.length){
+      if (this.artistsList.length <= this.artists.length) {
         this.artistsList.push(...this.artists.slice().splice(this.index, count));
         this.index = this.index + count;
       }
     },
-    getOrderByDownloads(){
+    getOrderByDownloads() {
       const count = 100;
-      if (this.artistsList.length <= this.artistsByDownloads.length){
+      if (this.artistsList.length <= this.artistsByDownloads.length) {
         this.artistsList.push(...this.artistsByDownloads.slice().splice(this.index, count));
         this.index = this.index + count;
       }
     },
-    handleScroll () {
-      if(this.el.scrollHeight - this.el.scrollTop === this.el.clientHeight) {
+    handleScroll() {
+      if (this.el.scrollHeight - this.el.scrollTop === this.el.clientHeight) {
         this.getArtists();
-      }      
+      }
     }
   },
   watch: {
-    '$route.query.orderby'() {
+    '$route.query.orderby': function () {
       this.artistsList = [];
       this.index = 0;
       this.getArtists();
@@ -78,10 +77,10 @@ export default {
   mounted() {
     this.getArtists();
     this.el = document.querySelector('div#artists');
-     window.addEventListener('wheel', this.handleScroll);
-     window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('wheel', this.handleScroll);
+    window.addEventListener('scroll', this.handleScroll);
   },
-  destroyed () {
+  destroyed() {
     window.removeEventListener('wheel', this.handleScroll);
     window.removeEventListener('scroll', this.handleScroll);
   }

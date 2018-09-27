@@ -11,14 +11,14 @@ export default {
   },
   computed: {
     altTag() {
-      if (this.artist){
-        return this.artist.identifier
+      if (this.artist) {
+        return this.artist.identifier;
       }
-      return 'artist'
+      return 'artist';
     },
     imageUrl() {
       if (this.artist) {
-        return 'https://archive.org/services/img/' + this.artist.identifier 
+        return `https://archive.org/services/img/${this.artist.identifier}`;
       }
     }
   }

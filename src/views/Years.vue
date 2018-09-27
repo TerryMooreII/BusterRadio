@@ -6,10 +6,10 @@
         <h1 class="py-4 ">{{artist.title}}</h1>
       </div>
       <Loading v-if="!years.length" />
-      <div v-for="year of years" 
-           :key="year.year" 
+      <div v-for="year of years"
+           :key="year.year"
            class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center"
-           @click="getShows(year.year)"> 
+           @click="getShows(year.year)">
         <div class="w-1/2 text-grey-darkest px-5">
           <Calendar v-bind:cssClass="'h-4 w-4 fill-current text-grey-dark inline-block self-center mr-6 mt-px'"/> {{year.year}}
         </div>
@@ -38,11 +38,11 @@ export default {
     return {
       years: [],
       artist: {}
-    }
+    };
   },
   methods: {
-    getShows(year){
-      this.$router.push(`${this.$route.params.artistId}/${year}`)
+    getShows(year) {
+      this.$router.push(`${this.$route.params.artistId}/${year}`);
     }
   },
   mounted() {
@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style >
-  .artist-image { 
+  .artist-image {
     height: 200px;
     width: 200px;
     background: white;

@@ -6,24 +6,26 @@
           Search for Artists and Venues
         </h2>
           <div class="flex">
-            <input type="text" 
-                   class="flex-auto border-none h-24 flex-auto text-grey-darkest" 
-                   placeholder="Start typing..." 
+            <input type="text"
+                   class="flex-auto border-none h-24 flex-auto text-grey-darkest"
+                   placeholder="Start typing..."
                    v-model="q" />
           </div>
       </div>
-      
     </div>
     <div class="flex items-stretch flex-wrap justify-center">
       <Artist v-for="artist in results" :key="artist.identifer" :artist="artist" />
     </div>
-   
+
+    <h2 v-if="results.length === 0 &&  q && q.length > 2" class="flex justify-center pt-8 text-grey-darkest italic">
+        No Results.  Try Searching Again.
+      </h2>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import Artist from '../components/Artist'
+import { mapGetters, mapActions } from 'vuex';
+import Artist from '../components/Artist';
 import icons from '../icons';
 
 export default {
@@ -36,31 +38,33 @@ export default {
     return {
       q: null,
       results: []
-    }
+    };
   },
   computed: {
     ...mapGetters('artists', {
-      search: 'search' 
+      search: 'search'
     })
   },
   watch: {
-    '$route.query.q'(val) {
+    '$route.query.q': function (val) {
       this.q = val;
-      this.submit()
+      this.submit();
     },
-    'q'() {
+    q() {
       this.$router.push(`/search?q=${this.q}`);
     }
   },
   methods: {
-    submit(){
-      if (this.q.length >= 3 ){
-        this.results = this.search(this.q);
+    submit() {
+      if (this.q.length >= 3) {
+        this.results = this.search(this.q).splice(0, 30);
+      } else if (this.q.length === 0) {
+        this.results = [];
       }
-    },
+    }
   },
   mounted() {
-    if (this.$route.query.q){
+    if (this.$route.query.q) {
       this.q = this.$route.query.q;
       this.submit();
     }

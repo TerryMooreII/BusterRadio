@@ -18,7 +18,7 @@
         <button @click="next()">
           <StepForward v-bind:cssClass="'h-6 w-6 fill-current text-grey-dark self-center hover:text-grey-darkest cursor-pointer'"/>
         </button>
-        
+
         <Shuffle v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center ml-4 hover:text-grey-darkest cursor-pointer'"/>
       </div>
       <div class="flex justify-center mt-3  cursor-pointer">
@@ -28,12 +28,12 @@
           <div class="rounded-full h-4 w-4 bg-grey-dark absolute dot invisible" v-bind:style="{left: percent}"></div>
         </div>
         <span class="ml-4 text-xs -mt-1 text-grey-darker">{{formatTime(duration)}}</span>
-      </div> 
+      </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex'
+import { mapGetters, mapActions, mapState } from 'vuex';
 
 import icons from '../icons';
 import Player from '../services/player';
@@ -46,11 +46,11 @@ export default {
     StepForward: icons.StepForward,
     StepBack: icons.StepBack,
     Replay: icons.Replay,
-    Shuffle: icons.Shuffle,
+    Shuffle: icons.Shuffle
   },
   computed: {
     ...mapGetters('playlist', {
-      
+
     }),
     ...mapState('playlist', {
       isPlaying: 'isPlaying',
@@ -59,7 +59,7 @@ export default {
       nextTrackIndex: 'nextTrackIndex'
     }),
     percent() {
-      return `${(this.currentTime / this.duration) * 100}%`
+      return `${(this.currentTime / this.duration) * 100}%`;
     }
   },
   methods: {
@@ -75,14 +75,14 @@ export default {
     previous() {
       this.$store.dispatch('playlist/previous');
     },
-    formatTime(time){
-      var value = parseInt(time, 10);
-      var lenMins = Math.floor(value/60);
-      var lenSecs = value - lenMins * 60;
+    formatTime(time) {
+      const value = parseInt(time, 10);
+      let lenMins = Math.floor(value / 60);
+      let lenSecs = value - lenMins * 60;
       if (isNaN(lenMins)) { lenMins = 0; }
       if (isNaN(lenSecs)) { lenSecs = 0; }
 
-      return lenMins + ':' + (lenSecs > 9 ? lenSecs : '0' + lenSecs);
+      return `${lenMins}:${lenSecs > 9 ? lenSecs : `0${lenSecs}`}`;
     }
   }
 };
@@ -103,7 +103,7 @@ export default {
     top: -6px;
     visibility: hidden;
     opacity: 0;
-    transition: hidden 0s linear 200ms, opacity 200ms;  
+    transition: hidden 0s linear 200ms, opacity 200ms;
   }
   .slider:hover {
     .dot {

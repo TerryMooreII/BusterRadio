@@ -31,13 +31,13 @@ export default {
   },
   props: {
   },
- data() {
+  data() {
     return {
       shows: [],
       orderby: 'publicdate'
-    }
+    };
   },
-  methods:{
+  methods: {
     query() {
       this.orderby = this.$route.query.orderby || 'publicdate';
       this.shows = [];
@@ -45,8 +45,8 @@ export default {
     }
   },
   watch: {
-    '$route.query.orderby'() {
-        this.query();
+    '$route.query.orderby': function () {
+      this.query();
     }
   },
   mounted() {

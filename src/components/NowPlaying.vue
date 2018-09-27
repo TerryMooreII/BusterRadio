@@ -1,6 +1,6 @@
 <template>
   <div class="flex" v-if="currentTrack && currentTrack.identifier">
-   <ArtistImage classes="img -mt-px artist-image" :artist="artist" />
+   <ArtistImage classes="img -mt-px artist-image" :artist="artistId" />
     <div class="leading-normal ml-2 mt-3 overflow-hidden ">
       <div class="text-grey-darkest antialiased font-bold truncate">
         {{currentTrack.title}}
@@ -12,7 +12,7 @@
         </router-link>
       </div>
       <div class="truncate">
-        <router-link 
+        <router-link
             :to="{ name: 'show', params: { year: currentTrack.year, artistId, showId: currentTrack.identifier }}"
             class="text-grey-dark antialiased text-sm no-underline hover:underline">
           {{currentTrack.album || currentTrack.venue}}
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex';
 import ArtistImage from '../components/ArtistImage';
 
 export default {
@@ -39,14 +39,15 @@ export default {
     ...mapGetters('artists', {
       artist: 'artist'
     }),
-    artistId () {
-      if (this.currentTrack && this.currentTrack.artist) {
-        const artist = this.artist(this.currentTrack.artist)
+    artistId() {
+      console.log(this.currentTrack);
+      if (this.currentTrack) {
+        const artist = this.artist(this.currentTrack.artist);
+        console.log(artist);
         if (artist) {
-          return artist.identifier;
+          return artist;
         }
       }
-      return 
     }
   }
 };
