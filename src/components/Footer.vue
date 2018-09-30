@@ -1,23 +1,21 @@
 <template>
-  <footer class="w-screen border-t border-solid border-grey-light h-24 pin-b fixed flex">
-    <div class="flex-none text-grey-darker w-1/3">
+  <footer class="w-screen border-t border-solid border-grey-light h-24 pin-b fixed flex justify-center">
+    <div class="flex-none text-grey-darker w-1/3 hidden sm:block">
       <NowPlaying />
     </div>
 
-    <div class="flex-none pt-3 w-1/3 flex-no-shrink">
+    <div class="flex-none pt-3 sm:w-1/3 flex-no-shrink w-full">
       <AudioControls />
     </div>
 
-    <div class="text-grey-darker pr-20 py-2 w-1/3 self-center">
+    <div class="text-grey-darker pr-20 py-2 w-full sm:w-1/3 self-center hidden sm:block">
       <div class="flex justify-end">
-
         <div class="w-2/5">
           <VolumeControl />
         </div>
         <button @click="queue()">
           <MusicPlaylist v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block ml-6 -mt-2'"/>
         </button>
-
       </div>
     </div>
 

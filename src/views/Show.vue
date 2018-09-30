@@ -1,8 +1,8 @@
 <template>
-  <div class="flex-grow px-24 py-2 overflow-scroll width-full antialiased pt-10">
-    <div class="flex flex-wrap flex-col p-4">
-      <div class="flex width-full border-b border-solid border-grey bg-white sticky pin-t mb-4">
-        <ArtistImage classes="mr-4 artist" :artist="artist" />
+  <div class="flex-grow px-0 sm:px-24 py-2 overflow-scroll width-full antialiased pt-10">
+    <div class="flex flex-wrap flex-col p-4 px-2 sm:px-0">
+      <div class="flex flex-col sm:flex-row width-full border-b border-solid border-grey bg-white sticky pin-t mb-4 text-center sm:text-left">
+        <ArtistImage classes="mr-0 sm:mr-4 artist self-center" :artist="artist" />
         <div class="flex flex-col w-full">
         <h1 class="font-hairline mb-1">{{artist.title}}</h1>
         <p class="leading-normal">
@@ -11,17 +11,17 @@
           {{show.venue}} in
           {{show.location}}
         </p>
-        <button class="rounded-full bg-blue text-white w-100 py-3 font-bold mt-3 px-5 ml-auto" type="button" @click="addTracks(show.tracks.mp3)">
+        <button class="rounded bg-blue text-white w-100 py-3 font-bold mt-3 px-5 ml-auto mb-3 sm:mb-0" type="button" @click="addTracks(show.tracks.mp3)">
           Play Show
         </button>
         </div>
       </div>
-      <h2 v-if="show.tracks && !show.tracks.mp3.length" class="flex justify-center pt-8 text-grey-darkest italic">
-        No MP3 tracks for this show.
+      <h2 v-if="show.tracks && !show.tracks[trackFileType].length" class="flex justify-center pt-8 text-grey-darkest italic">
+        No {{trackFileType}} tracks for this show.
       </h2>
       <Loading v-if="!show.tracks" />
-      <div v-if="show.tracks && show.tracks.mp3.length">
-        <div v-for="(track, index) in show.tracks.mp3"
+      <div v-if="show.tracks && show.tracks[trackFileType].length">
+        <div v-for="(track, index) in show.tracks[trackFileType]"
              :key="track.file"
              @click="addTrack(track)"
              class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row">
@@ -53,6 +53,12 @@ import ArchiveApi from '../api/archive';
 import ArtistImage from '../components/ArtistImage';
 import Loading from '../components/Loading';
 
+const TRACK_FILE_TYPE = {
+  MP3: 'mp3',
+  FLAC: 'flac',
+  OGG: 'ogg'
+};
+
 export default {
   name: 'show',
   components: {
@@ -71,7 +77,8 @@ export default {
   data() {
     return {
       show: {},
-      artist: {}
+      artist: {},
+      trackFileType: TRACK_FILE_TYPE.MP3
     };
   },
   methods: {
@@ -82,6 +89,11 @@ export default {
     ])
   },
   mounted() {
+    const supportedFileTypes = Object.values(TRACK_FILE_TYPE);
+    const search = this.$route.query.type;
+    if (search && supportedFileTypes.some(val => search.toLowerCase() === val)) {
+      this.trackFileType = TRACK_FILE_TYPE[search.toUpperCase()];
+    }
     ArchiveApi.getShow(this.$route.params.showId,).then(data => this.show = data);
     this.artist = this.$store.getters['artists/artist'](this.$route.params.artistId);
   }

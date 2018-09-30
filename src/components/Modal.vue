@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute w-2/3 min-h-screen modal mt-6 border border-grey-light border-solid shadow-lg rounded p-4 bg-white overflow-auto">
+  <div class="absolute sm:w-2/3 min-h-screen modal mt-6 border border-grey-light border-solid shadow-lg rounded p-4 bg-white overflow-auto mr-2 ">
       <div class="flex mb-4 pin-t sticky bg-white pt-4">
        <slot name="header"></slot>
         <button class="ml-auto text-xl cursor-pointer h-4 w-4 -mt-2 -mr-2" @click="$emit('dismiss')">
@@ -53,6 +53,6 @@ export default {
   .modal {
     max-height: calc(100vh - 200px);
     min-height: calc(100vh - 200px);
-   z-index: 100;
+    z-index: 100;
   }
 </style>

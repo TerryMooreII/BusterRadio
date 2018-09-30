@@ -1,7 +1,7 @@
 <template>
-  <div class="flex-grow px-24 py-2 overflow-scroll width-full antialiased pt-10">
-    <div class="flex flex-wrap flex-col  p-4">
-      <div class="flex flex-col items-center width-full border-b border-solid border-grey mb-2">
+  <div class="flex-grow px-0 sm:px-24 py-2 overflow-scroll width-full antialiased pt-10">
+    <div class="flex flex-wrap flex-col px-2 sm:px-0 p-4">
+      <div class="flex flex-col items-center width-full border-b border-solid border-grey mb-2 sticky pin-t bg-white">
          <ArtistImage classes="rounded-full border border-solid border-grey p-2 artist-image" :artist="artist" />
         <h1 class="py-4 ">{{artist.title}}</h1>
       </div>
