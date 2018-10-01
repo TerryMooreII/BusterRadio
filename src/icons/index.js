@@ -17,6 +17,8 @@ import Star from './Star.vue';
 import Sort from './Sort.vue';
 import Search from './Search.vue';
 import ListAdd from './ListAdd.vue';
+import Menu from './Menu.vue';
+import Close from './Close.vue';
 
 export default {
   Play,
@@ -37,6 +39,8 @@ export default {
   Star,
   Sort,
   Search,
-  ListAdd
+  ListAdd,
+  Menu,
+  Close
 };
 

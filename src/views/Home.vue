@@ -2,7 +2,11 @@
   <div>
 
    <div class="flex pb-24 h-screen">
-    <Sidenav />
+    <button class="z-50 fixed block sm:hidden mt-2 ml-3 " @click="show = !show">
+       <Menu v-if="!show" v-bind:cssClass="'h-6 w-6 fill-current text-grey-dark inline-block self-center'"/>
+       <Close v-if="show" v-bind:cssClass="'h-6 w-6 fill-current text-white inline-block self-center'"/>
+    </button>
+    <Sidenav :show="show"  @close="() => this.show = false"/>
      <transition
         name="fade"
         mode="out-in">
@@ -20,17 +24,20 @@ import Sidenav from '@/components/Sidenav.vue';
 import Footer from '@/components/Footer.vue';
 import { mapState, mapActions } from 'vuex';
 import store from '../store';
-
+import icons from '../icons';
 
 export default {
   name: 'home',
   components: {
     Navbar,
     Sidenav,
-    Footer
+    Footer,
+    Menu: icons.Menu,
+    Close: icons.Close
   },
   data() {
     return {
+      show: false
     };
   },
   computed: mapState({

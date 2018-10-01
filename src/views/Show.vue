@@ -2,18 +2,18 @@
   <div class="flex-grow px-0 sm:px-24 py-2 overflow-scroll width-full antialiased pt-10">
     <div class="flex flex-wrap flex-col p-4 px-2 sm:px-0">
       <div class="flex flex-col sm:flex-row width-full border-b border-solid border-grey bg-white sticky pin-t mb-4 text-center sm:text-left">
-        <ArtistImage classes="mr-0 sm:mr-4 artist self-center" :artist="artist" />
+        <ArtistImage classes="mr-0 sm:mr-4 artist self-center hidden sm:block" :artist="artist" />
         <div class="flex flex-col w-full">
-        <h1 class="font-hairline mb-1">{{artist.title}}</h1>
-        <p class="leading-normal">
-          <span class="italic text-grey-darkest">{{show.date | dateformat}}</span>
-          <br>
-          {{show.venue}} in
-          {{show.location}}
-        </p>
-        <button class="rounded bg-blue text-white w-100 py-3 font-bold mt-3 px-5 ml-auto mb-3 sm:mb-0" type="button" @click="addTracks(show.tracks.mp3)">
-          Play Show
-        </button>
+          <h1 class="font-hairline mb-1">{{artist.title}}</h1>
+          <p class="leading-normal">
+            <span class="italic text-grey-darkest">{{show.date | dateformat}}</span>
+            <br>
+            {{show.venue}} in
+            {{show.location}}
+          </p>
+          <button class="rounded bg-blue text-white w-100 py-3 font-bold mt-3 px-5 ml-auto mb-3 sm:mb-0" type="button" @click="addTracks(show.tracks.mp3)">
+            Play Show
+          </button>
         </div>
       </div>
       <h2 v-if="show.tracks && !show.tracks[trackFileType].length" class="flex justify-center pt-8 text-grey-darkest italic">
