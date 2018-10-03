@@ -43,7 +43,6 @@ export default {
       console.log(this.currentTrack);
       if (this.currentTrack) {
         const artist = this.artist(this.currentTrack.artist);
-        console.log(artist);
         if (artist) {
           return artist;
         }

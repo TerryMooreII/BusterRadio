@@ -89,7 +89,7 @@ export default {
 
       &.invisible {
         left:-270px;
-        position: absolute;
+        position: fixed !important;
       }
     }
   }

@@ -63,8 +63,9 @@ const actions = {
   },
 
   addTrackToQueuePlayNext({ commit, state }, track) {
-    const q = state.queue.splice(state.qId, 1, track);
-    commit('add', [...q]);
+    const newQ = [...state.queue];
+    newQ.splice(state.qIdx + 1, 0, track);
+    commit('add', [...newQ]);
   },
 
   play({ commit, state }) {

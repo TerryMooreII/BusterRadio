@@ -19,6 +19,7 @@ import Search from './Search.vue';
 import ListAdd from './ListAdd.vue';
 import Menu from './Menu.vue';
 import Close from './Close.vue';
+import DotsVertical from './DotsVertical.vue';
 
 export default {
   Play,
@@ -41,6 +42,7 @@ export default {
   Search,
   ListAdd,
   Menu,
-  Close
+  Close,
+  DotsVertical
 };
 
