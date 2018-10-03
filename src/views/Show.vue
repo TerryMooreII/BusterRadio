@@ -38,7 +38,7 @@
             {{track.length}}
           </div>
           <div class="w-16 text-center">
-             <button class="cursor-pointer h-4 w-4" @click.stop.prevent="openPopover = index" type="button">
+             <button class="cursor-pointer h-4 w-4" @click.stop.prevent="openPopover = openPopover !== null ? null : index" type="button">
               <DotsVertical v-bind:cssClass="'h-4 w-4 fill-current inline-block cursor-pointer'"/>
             </button>
             <Popover :right="true" width="195px" v-if="openPopover === index" @close="close">
@@ -92,7 +92,7 @@ export default {
       show: {},
       artist: {},
       trackFileType: TRACK_FILE_TYPE.MP3,
-      openPopover: false
+      openPopover: null
     };
   },
   methods: {
