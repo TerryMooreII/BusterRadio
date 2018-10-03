@@ -24,3 +24,12 @@ export default {
   }
 };
 </script>
+
+<style lang="less" scoped>
+  img {
+    height: 150px;
+    width: 150px;
+    background: white;
+  }
+</style>
+

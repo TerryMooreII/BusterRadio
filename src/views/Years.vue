@@ -51,11 +51,3 @@ export default {
   }
 };
 </script>
-
-<style >
-  .artist-image {
-    height: 200px;
-    width: 200px;
-    background: white;
-  }
-</style>

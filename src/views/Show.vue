@@ -1,7 +1,7 @@
 <template>
   <div class="flex-grow px-0 sm:px-24 py-2 overflow-scroll width-full antialiased pt-10">
     <div class="flex flex-wrap flex-col p-4 px-2 sm:px-0">
-      <div class="flex flex-col sm:flex-row width-full bg-white sticky pin-t mb-4 pb-4 text-center sm:text-left">
+      <div class="flex flex-col sm:flex-row width-full bg-white sticky pin-t pt-8 sm:pt-0 mb-4 pb-4 text-center sm:text-left">
         <ArtistImage classes="mr-0 sm:mr-4 artist self-center hidden sm:block" :artist="artist" />
         <div class="flex flex-col w-full">
           <h1 class="font-hairline mb-1">{{artist.title}}</h1>
@@ -42,13 +42,11 @@
               <DotsVertical v-bind:cssClass="'h-4 w-4 fill-current inline-block cursor-pointer'"/>
             </button>
             <Popover :right="true" width="195px" v-if="openPopover === index" @close="close">
-                <ul class="list-reset text-sm text-left popover">
-                  <li class="py-2 px-2 hover:bg-grey-light rounded" @click.stop="addTrackToQueue(track);close()">Add to Queue</li>
-                  <li class="py-2 px-2 rounded hover:bg-grey-light" @click.stop="addTrackToQueuePlayNext(track);close()">Add to Queue Play Next</li>
-                </ul>
-              </Popover>
-            
-            <!-- <ListAdd class="add-queue" v-bind:cssClass="'h-4 w-4 fill-current inline-block cursor-pointer ml-3'"/> -->
+              <ul class="list-reset text-sm text-left popover">
+                <li class="py-2 px-2 hover:bg-grey-light rounded" @click.stop="addTrackToQueue(track);close()">Add to Queue</li>
+                <li class="py-2 px-2 rounded hover:bg-grey-light" @click.stop="addTrackToQueuePlayNext(track);close()">Add to Queue Play Next</li>
+              </ul>
+            </Popover>
           </div>
         </div>
        </div>

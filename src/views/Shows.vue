@@ -63,11 +63,3 @@ export default {
   }
 };
 </script>
-
-<style>
-  img {
-    height: 200px;
-    width: 200px;
-    background: white;
-  }
-</style>
