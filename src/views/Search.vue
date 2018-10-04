@@ -17,9 +17,11 @@
       <Artist v-for="artist in results" :key="artist.identifer" :artist="artist" />
     </div>
 
-    <h2 v-if="results.length === 0 &&  q && q.length > 2" class="flex justify-center pt-8 text-grey-darkest italic">
-        No Results.  Try Searching Again.
-      </h2>
+      <NoResults v-if="results.length === 0 &&  q && q.length > 2" width="362px">
+        <Search v-bind:cssClass="'h-24 w-24 fill-current block ml-2'" slot="icon"/>
+        <p> No Results Found.</p><br>
+        <p>Try Searching Again.</p>
+    </NoResults>
   </div>
 </template>
 
@@ -27,11 +29,14 @@
 import { mapGetters, mapActions } from 'vuex';
 import Artist from '../components/Artist';
 import icons from '../icons';
+import NoResults from '../components/NoResults';
+
 
 export default {
   name: 'search',
   components: {
     Artist,
+    NoResults,
     Search: icons.Search
   },
   data() {
