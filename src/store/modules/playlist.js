@@ -1,7 +1,11 @@
 import player from '../../services/player';
 
+const LOCALSTORAGE = {
+  QUEUE: 'queue'
+}
+
 const state = {
-  queue: JSON.parse(localStorage.getItem('queue')) || [],
+  queue: JSON.parse(localStorage.getItem(LOCALSTORAGE.QUEUE)) || [],
   qIdx: null,
   isPlaying: false,
   duration: 0,
@@ -37,6 +41,7 @@ const getters = {
 // actions
 const actions = {
   clear({ commit }) {
+    localStorage.removeItem(LOCALSTORAGE.QUEUE);
     commit('clear');
   },
 
@@ -136,7 +141,7 @@ const mutations = {
 
   add(state, track) {
     state.queue = track;
-    localStorage.setItem('queue', JSON.stringify(state.queue));
+    localStorage.setItem(LOCALSTORAGE.QUEUE, JSON.stringify(state.queue));
   },
 
   setqIdx(state, index) {

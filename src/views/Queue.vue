@@ -13,6 +13,19 @@
       </div>
     </div>
 
+    <div v-if="queue.length === 0" class="flex justify-center mt-24">
+      <div class="border border-solid border-grey-light rounded text-xl p-4 sm:w-2/5 w-4/5 text-grey-dark flex  shadow-md">
+        <div class="w-1/3 self-center">
+           <MusicPlaylist v-bind:cssClass="'h-24 w-24 fill-current block ml-2'" />
+        </div>
+        <div class="w-2/3 pl-8 self-center text-center">
+          Your queue is empty. <br> <br> 
+          Go add some tracks!
+        </div>
+        
+      </div>
+    </div>
+
     <div v-if="queue">
       <div v-for="(track, index) in queue"
             :key="track.file + index"
@@ -47,7 +60,8 @@ export default {
   components: {
     Artist,
     PlayIcon: icons.Play,
-    PauseIcon: icons.Pause
+    PauseIcon: icons.Pause,
+    MusicPlaylist: icons.MusicPlaylist
   },
   computed: {
     ...mapState({

@@ -9,7 +9,7 @@
             <input type="text"
                    class="flex-auto border-none h-24 flex-auto text-grey-darkest"
                    placeholder="Start typing..."
-                   v-model="q" />
+                   v-model="q" autofocus />
           </div>
       </div>
     </div>
