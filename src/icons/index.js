@@ -20,6 +20,8 @@ import ListAdd from './ListAdd.vue';
 import Menu from './Menu.vue';
 import Close from './Close.vue';
 import DotsVertical from './DotsVertical.vue';
+import ChevronUp from './ChevronUp.vue';
+import ChevronDown from './ChevronDown.vue';
 
 export default {
   Play,
@@ -43,6 +45,8 @@ export default {
   ListAdd,
   Menu,
   Close,
-  DotsVertical
+  DotsVertical,
+  ChevronDown,
+  ChevronUp
 };
 

@@ -44,7 +44,7 @@ export default new Router({
         {
           path: '/queue',
           component: Queue,
-          name: 'a'
+          name: 'queue'
         },
         {
           path: '/:artistId',

@@ -6,14 +6,14 @@
         {{currentTrack.title}}
       </div>
       <div class="truncate">
-        <router-link :to="{ name: 'years', params: { artistId }}"
+        <router-link :to="{ name: 'years', params: { artistId: artistId.identifier }}"
             class="text-grey-dark antialiased text-sm no-underline hover:underline">
             {{currentTrack.artist}}
         </router-link>
       </div>
       <div class="truncate">
         <router-link
-            :to="{ name: 'show', params: { year: currentTrack.year, artistId, showId: currentTrack.identifier }}"
+            :to="{ name: 'show', params: { year: currentTrack.year, artistId: artistId.identifier, showId: currentTrack.identifier }}"
             class="text-grey-dark antialiased text-sm no-underline hover:underline">
           {{currentTrack.album || currentTrack.venue}}
         </router-link>
@@ -40,7 +40,6 @@ export default {
       artist: 'artist'
     }),
     artistId() {
-      console.log(this.currentTrack);
       if (this.currentTrack) {
         const artist = this.artist(this.currentTrack.artist);
         if (artist) {

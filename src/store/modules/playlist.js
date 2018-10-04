@@ -114,13 +114,24 @@ const actions = {
 
   currentTime({ commit }, currentTime) {
     commit('setCurrentTime', currentTime);
+  },
+
+  seek({ commit }, time) {
+    player.seek(time);
+    commit('setCurrentTime', time);
   }
 };
 
 // mutations
 const mutations = {
   clear(state) {
-    state.queue = [];
+    if (state.isPlaying) {
+      const playing = state.queue[state.qIdx];
+      state.queue = [playing];
+      state.qIdx = 0;
+    } else {
+      state.queue = [];
+    }
   },
 
   add(state, track) {

@@ -5,15 +5,16 @@
       <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
         <path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/>
       </svg>
+      <!-- <img src="/img/pig-lg-grey.png" alt="logo" class="h-8 w-12"> -->
       <span class="font-semibold text-xl tracking-tight tracking-normal">BusterRadio</span>
     </div>
 
     <ul class="list-reset mt-6 border-t border-solid border-grey pt-4">
       <li class="text-sm py-2" v-for="item of links" :key="item.name">
         <router-link :to="{name: item.link}" 
-                     class="antialiased text-grey-lightest hover:text-grey no-underline cursor-pointer text-lg">
+                     class="antialiased text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
           <div @click="$emit('close')">
-            <component v-bind:is="item.icon" v-bind:cssClass="'h-4 w-4 fill-current text-white inline-block self-center mr-2 -mt-2'" /> 
+            <component v-bind:is="item.icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" /> 
             {{item.name}}
           </div>
         </router-link>
@@ -30,7 +31,8 @@ export default {
   components: {
     Search: icons.Search,
     MusicArtist: icons.MusicArtist,
-    MusicAlbum: icons.MusicAlbum
+    MusicAlbum: icons.MusicAlbum,
+    MusicPlaylist: icons.MusicPlaylist
   },
   props: {
     show: Boolean
@@ -53,15 +55,16 @@ export default {
           icon: 'MusicArtist'
         },
         {
-          name: 'Lastest Shows',
+          name: 'Newest Shows',
           link: 'newest',
           icon: 'MusicAlbum'
-        }
+        },
+        {
+          name: 'Queue',
+          link: 'queue',
+          icon: 'MusicPlaylist',
 
-        // {
-        //   name: 'Play Random Show',
-        //   link: ''
-        // },
+        },
         // {
         //   name: 'What\'s Playing Now',
         //   link: ''

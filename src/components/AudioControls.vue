@@ -28,9 +28,9 @@
       </div>
       <div class="flex justify-center mt-3  cursor-pointer">
         <div class="mr-4 text-xs -mt-1 text-grey-darker">{{formatTime(currentTime)}}</div>
-        <div class="h-1 bg-grey-light w-2/3 rounded relative slider">
+        <div class="h-1 bg-grey-light w-2/3 rounded relative slider seekbar">
           <div class="rounded bg-blue h-1 slider" v-bind:style="{width: percent}"></div>
-          <div class="rounded-full h-4 w-4 bg-grey-dark absolute dot invisible" v-bind:style="{left: percent}"></div>
+          <!-- <div class="rounded-full h-4 w-4 bg-grey-dark absolute dot invisible" v-bind:style="{left: percent}"></div> -->
         </div>
         <span class="ml-4 text-xs -mt-1 text-grey-darker">{{formatTime(duration)}}</span>
       </div>
@@ -88,7 +88,29 @@ export default {
       if (isNaN(lenSecs)) { lenSecs = 0; }
 
       return `${lenMins}:${lenSecs > 9 ? lenSecs : `0${lenSecs}`}`;
+    },
+    calcSeek(clicked, width) {
+      return ((clicked / width * 100) / 100) * this.duration;
+    },
+    mousemove(e) {
+      this.$store.dispatch('playlist/seek', this.calcSeek(e.offsetX, this.el.clientWidth));
+      window.addEventListener('mouseup', this.mouseup, false);
+    },
+    mouseup() {
+      this.el.removeEventListener('mousemove', this.mousemove, false);
+      window.removeEventListener('mouseup', this.mousemove, false);
+    },
+    mousedown(e) {      
+      this.$store.dispatch('playlist/seek', this.calcSeek(e.offsetX, this.el.clientWidth));
+      this.el.addEventListener('mousemove', this.mousemove, false);
     }
+  },
+  mounted() {
+    this.el = document.querySelector('.seekbar');
+    this.el.addEventListener('mousedown', this.mousedown, false);
+  },
+  beforeDestroy() {
+    this.el.removeEventListener('mousedown', this.mousedown, false);
   }
 };
 </script>
@@ -128,4 +150,5 @@ export default {
   button:focus {
     outline: 0 !important;
   }
+  
 </style>

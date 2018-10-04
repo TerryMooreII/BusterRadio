@@ -1,10 +1,15 @@
 <template>
-  <footer class="w-screen border-t border-solid border-grey-light h-24 pin-b fixed flex justify-center">
-    <div class="flex-none text-grey-darker w-1/3 hidden sm:block">
+  <footer class="w-screen border-t border-solid border-grey-light h-24 sm:h-24 bg-white pin-b fixed flex flex-col sm:flex-row justify-center"
+           :class="{'h-48': isExpanded}">
+    <div class="flex-none text-grey-darker w-full sm:w-1/3 hidden sm:block" :class="{'force-show': isExpanded}">
       <NowPlaying />
     </div>
 
     <div class="flex-none pt-3 sm:w-1/3 flex-no-shrink w-full">
+      <button @click="isExpanded = !isExpanded" class="fixed py-3 px-4 expander block sm:hidden">
+        <ChevronDown v-bind:cssClass="'h-6 w-6 fill-current text-grey-dark inline-block hover:text-grey-darkest cursor-pointer'" v-if="isExpanded"/>
+        <ChevronUp v-bind:cssClass="'h-6 w-6 fill-current text-grey-dark inline-block  hover:text-grey-darkest cursor-pointer'" v-if="!isExpanded"/>    
+      </button>
       <AudioControls />
     </div>
 
@@ -13,9 +18,6 @@
         <div class="w-2/5">
           <VolumeControl />
         </div>
-        <button @click="queue()">
-          <MusicPlaylist v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block ml-6 -mt-2'"/>
-        </button>
       </div>
     </div>
 
@@ -23,23 +25,23 @@
 </template>
 
 <script>
-import icons from '../icons';
 import AudioControls from './AudioControls';
 import VolumeControl from './VolumeControl';
 import NowPlaying from './NowPlaying';
+import icons from '../icons';
 
 export default {
   name: 'Footer',
   components: {
-    MusicPlaylist: icons.MusicPlaylist,
-    VolumeDown: icons.VolumeDown,
     AudioControls,
     VolumeControl,
-    NowPlaying
-  },
-  methods: {
-    queue() {
-      this.$router.push('/queue');
+    NowPlaying,
+    ChevronDown: icons.ChevronDown,
+    ChevronUp: icons.ChevronUp
+  }, 
+  data() {
+    return {
+      isExpanded: false
     }
   }
 };
@@ -52,5 +54,12 @@ export default {
   }
    button:focus {
     outline: 0 !important;
+  }
+  .force-show {
+    display: block !important
+  }
+  .expander {
+    bottom: 45px;
+    left: 5px;
   }
 </style>

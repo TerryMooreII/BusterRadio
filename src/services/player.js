@@ -18,7 +18,7 @@ class Player {
 
     this.audio.addEventListener('progress', () => {
       const endBuf = this.audio.buffered.end(0);
-      const soFar = parseInt(((endBuf / this.audio.duration) * 100));
+      const soFar = parseInt(((endBuf / this.audio.duration) * 100), 10);
       // console.log('Buffered: ' + soFar);
     });
 
