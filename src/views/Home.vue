@@ -1,11 +1,11 @@
 <template>
   <div>
-
-   <div class="flex pb-24 h-screen">
-    <button class="z-50 fixed block sm:hidden mt-2 ml-3 " @click="show = !show">
+    <Navbar class="block sm:hidden" @menu="() => this.show = !this.show"/>
+   <div class="flex pb-24 pt-16 sm:pt-0 h-screen">
+    <!-- <button class="z-50 fixed block sm:hidden mt-2 ml-3 " @click="show = !show">
        <Menu v-if="!show" v-bind:cssClass="'h-6 w-6 fill-current text-grey-dark inline-block self-center'"/>
        <Close v-if="show" v-bind:cssClass="'h-6 w-6 fill-current text-white inline-block self-center'"/>
-    </button>
+    </button> -->
     <Sidenav :show="show"  @close="() => this.show = false"/>
      <transition
         name="fade"

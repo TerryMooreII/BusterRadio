@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center mt-24">
-    <div class="border border-solid border-grey-light rounded text-xl p-4 text-grey-dark flex shadow-md" :style="{width: width}">
+    <div class="text-xl p-4 text-grey-dark flex" :style="{width: width}">
       <div class="w-1/3 self-center">
           <slot name="icon"></slot>
       </div>

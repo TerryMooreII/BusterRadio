@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-grow px-0 sm:px-24 py-2 overflow-scroll width-full antialiased pt-10">
+  <div class="flex-grow px-0 sm:px-10 lg:px-32 sxl:px-64 py-2 overflow-scroll width-full antialiased pt-10">
     <div class="flex flex-wrap flex-col p-4 px-2 sm:px-0">
       <div class="flex flex-col sm:flex-row width-full bg-white sticky pin-t pt-8 sm:pt-0 mb-4 pb-4 text-center sm:text-left">
         <ArtistImage classes="mr-0 sm:mr-4 artist self-center hidden sm:block" :artist="artist" />
