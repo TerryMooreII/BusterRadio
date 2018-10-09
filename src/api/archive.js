@@ -5,6 +5,8 @@ const JSONP = 'callback=callback&save=yes&output=json';
 const COLLECTION_AND_MEDIATYPE = '/advancedsearch.php?q=mediatype%3Acollection+AND+collection%3Aetree&';
 const COLLECTION = '/advancedsearch.php?q=collection%3Aetree&';
 
+const cache = {};
+
 
 const createApi = query => `${URL}${COLLECTION}${query.join('&')}&${JSONP}`;
 
@@ -91,13 +93,31 @@ export default {
       'rows=50',
       'page=1'
     ];
+    const url = createApi(query);
+    const key = btoa(url);
+    if (cache[key]) {
+      return Promise.resolve(cache[key]);
+    }
 
-    return axios.jsonp(createApi(query))
-      .then(response => response.response.docs);
+    return axios.jsonp(url)
+      .then(response => response.response.docs)
+      .then((data) => {
+        cache[key] = data;
+        return data;
+      });
   },
   getShow(id) {
-    return axios.jsonp(`${URL}/details/${id}?${JSONP}`)
-      .then(response => new Show(response));
+    const url = `${URL}/details/${id}?${JSONP}`;
+    const key = btoa(url);
+    if (cache[key]) {
+      return Promise.resolve(cache[key]);
+    }
+    return axios.jsonp(url)
+      .then(response => new Show(response))
+      .then((data) => {
+        cache[key] = data;
+        return data;
+      });
   },
   getMediaUrl(dir, file) {
     return `//www.archive.org/download/${dir}/${file}`;
@@ -119,7 +139,10 @@ export default {
       'page=1'
     ];
     const url = `${URL}/advancedsearch.php?q=mediatype:(etree)+AND+collection:(${artistId})+AND+year:(${year})&${query.join('&')}&${JSONP}`;
-
+    const key = btoa(url);
+    if (cache[key]) {
+      return Promise.resolve(cache[key]);
+    }
     const isSoundboard = (show) => {
       if (show.source && (show.source.toLowerCase().includes('soundoard') || show.source.toLowerCase().includes('sbd'))) {
         return true;
@@ -151,6 +174,9 @@ export default {
           }
         });
         return grouped;
+      }).then((data) => {
+        cache[key] = data;
+        return data;
       });
   },
   getShowsByDate(artistId, date) {
@@ -170,9 +196,17 @@ export default {
       'page=1'
     ];
     const url = `${URL}/advancedsearch.php?q=mediatype:(etree)+AND+collection:(${artistId})+AND+date:(${date})&${query.join('&')}&${JSONP}`;
+    const key = btoa(url);
+    if (cache[key]) {
+      return Promise.resolve(cache[key]);
+    }
     return axios.jsonp(url)
       .then(response => response.response.docs)
-      .then(shows => shows.sort((a, b) => b.avg_rating - a.avg_rating).sort((a, b) => b.downloads - a.downloads));
+      .then(shows => shows.sort((a, b) => b.avg_rating - a.avg_rating).sort((a, b) => b.downloads - a.downloads))
+      .then((data) => {
+        cache[key] = data;
+        return data;
+      });
   },
   getYears(artist) {
     const query = [
@@ -183,6 +217,11 @@ export default {
       'page=1'
     ];
     const url = `${URL}/advancedsearch.php?q=mediatype:(etree)+AND+collection:(${artist})&${query.join('&')}&${JSONP}`;
+    const key = btoa(url);
+    if (cache[key]) {
+      return Promise.resolve(cache[key]);
+    }
+
     return axios.jsonp(url)
       .then(response => response.response.docs)
       .then((response) => {
@@ -204,6 +243,10 @@ export default {
           });
         });
         return ret.sort((a, b) => a.year - b.year);
+      })
+      .then((data) => {
+        cache[key] = data;
+        return data;
       });
   }
 };
