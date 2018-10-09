@@ -1,4 +1,5 @@
 import player from '../../services/player';
+import notification from '../../services/notification';
 
 const LOCALSTORAGE = {
   QUEUE: 'queue'
@@ -99,7 +100,8 @@ const actions = {
 
   next({ commit, state, getters }) {
     if (state.queue.length && getters.nextTrackIndex !== null) {
-      player.load(state.queue[getters.nextTrackIndex]);
+      const track = state.queue[getters.nextTrackIndex];
+      player.load(track);
       commit('isPlaying', true);
       commit('setqIdx', getters.nextTrackIndex);
     }
