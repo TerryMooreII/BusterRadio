@@ -104,6 +104,8 @@ const actions = {
       player.load(track);
       commit('isPlaying', true);
       commit('setqIdx', getters.nextTrackIndex);
+    } else {
+      commit('isPlaying', false);
     }
   },
 

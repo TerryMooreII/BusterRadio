@@ -23,9 +23,7 @@ class Player {
     });
 
     this.audio.addEventListener('ended', () => {
-      if (store.getters['playlist/nextTrackIndex']) {
-        store.dispatch('playlist/next');
-      }
+      store.dispatch('playlist/next');
     });
 
     this.audio.addEventListener('timeupdate', () => {
