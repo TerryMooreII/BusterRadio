@@ -32,7 +32,8 @@ export default {
     Search: icons.Search,
     MusicArtist: icons.MusicArtist,
     MusicAlbum: icons.MusicAlbum,
-    MusicPlaylist: icons.MusicPlaylist
+    MusicPlaylist: icons.MusicPlaylist,
+    Shuffle: icons.Shuffle
   },
   props: {
     show: Boolean
@@ -58,6 +59,11 @@ export default {
           name: 'Newest Shows',
           link: 'newest',
           icon: 'MusicAlbum'
+        },
+        {
+          name: 'Random Show',
+          link: 'random',
+          icon: 'Shuffle'
         },
         {
           name: 'Queue',

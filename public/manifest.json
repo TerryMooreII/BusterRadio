@@ -1,6 +1,7 @@
 {
   "name": "BusterRadio",
   "short_name": "BusterRadio",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "/img/icons/android-chrome-192x192.png",

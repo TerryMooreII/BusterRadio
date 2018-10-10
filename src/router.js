@@ -8,6 +8,7 @@ import Shows from './views/Shows.vue';
 import Show from './views/Show.vue';
 import Queue from './views/Queue.vue';
 import Search from './views/Search.vue';
+import RandomShow from './views/RandomShow.vue';
 
 Vue.use(Router);
 
@@ -29,6 +30,11 @@ export default new Router({
           path: '',
           component: Artists,
           name: 'artists'
+        },
+        {
+          path: '/random-show',
+          component: RandomShow,
+          name: 'random'
         },
         {
           path: '/search',

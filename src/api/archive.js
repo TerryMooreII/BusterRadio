@@ -51,7 +51,6 @@ class Show {
           artist: this.artist,
           dir: this.dir,
           venue: this.venue,
-          artist: this.artist,
           year: this.year
         }));
     });

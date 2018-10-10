@@ -18,9 +18,9 @@ const getters = {
   artistsByDownloads(state) {
     return [...state.all.slice().sort((a, b) => b.downloads - a.downloads)];
   },
-
+  
   search: state => search =>
-    state.all.filter(artist => artist.title.toLowerCase().includes(search.toLowerCase()))
+    state.all.filter(artist => artist.title.toLowerCase().includes(search.toLowerCase())) 
 };
 
 // actions

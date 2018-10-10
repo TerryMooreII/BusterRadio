@@ -15,8 +15,8 @@
 
     <NoResults v-if="queue.length === 0" width="361px">
         <MusicPlaylist v-bind:cssClass="'h-24 w-24 fill-current block ml-2'" slot="icon"/>
-        Your queue is empty. <br> <br> 
-        Go add some tracks!
+        Your queue is empty. <br> <br>
+        Go add some tracks or a <router-link to="/random-show" class="text-grey">Random Show</router-link>!
     </NoResults>
 
 
