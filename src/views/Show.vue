@@ -4,7 +4,11 @@
       <div class="flex flex-col sm:flex-row width-full bg-white sticky pin-t pt-8 sm:pt-0 mb-4 pb-4 text-center sm:text-left">
         <ArtistImage classes="mr-0 sm:mr-4 artist self-center hidden sm:block" :artist="artist" />
         <div class="flex flex-col w-full">
-          <h1 class="font-hairline mb-1">{{artist.title}}</h1>
+          <h1 class="font-hairline mb-1">
+            <router-link :to="{name: 'years', params: {artistId: artist.identifier} }" class="no-underline hover:underline text-black">
+              {{artist.title}}
+            </router-link>
+          </h1>
           <p class="leading-normal">
             <span class="italic text-grey-darkest">{{show.date | dateformat}}</span>
             <br>

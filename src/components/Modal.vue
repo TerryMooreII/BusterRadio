@@ -51,7 +51,7 @@ export default {
     transform: rotate(45deg)
   }
   .modal {
-    max-height: calc(100vh - 200px);
+    max-width: calc(100vh - 200px);
     min-height: calc(100vh - 200px);
     z-index: 100;
   }
