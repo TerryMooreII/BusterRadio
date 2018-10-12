@@ -20,7 +20,6 @@
       <NoResults v-if="results.length === 0 &&  q && q.length > 2" width="362px">
         <Search v-bind:cssClass="'h-24 w-24 fill-current block ml-2'" slot="icon"/>
         <p class="leading-loose"> No Results Found. <br> Try Searching Again. </p>
-    
     </NoResults>
   </div>
 </template>

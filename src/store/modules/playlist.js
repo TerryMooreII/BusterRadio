@@ -3,7 +3,7 @@ import notification from '../../services/notification';
 
 const LOCALSTORAGE = {
   QUEUE: 'queue'
-}
+};
 
 const state = {
   queue: JSON.parse(localStorage.getItem(LOCALSTORAGE.QUEUE)) || [],

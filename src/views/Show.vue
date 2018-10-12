@@ -11,6 +11,7 @@
             {{show.venue}} in
             {{show.location}}
           </p>
+          <Stars cssClass="h-4 w-4" v-if="show.reviews" :rank="show.reviews.info.avg_rating" />
           <button class="rounded bg-blue text-white w-100 py-3 font-bold mt-3 px-5 ml-auto mb-3 sm:mb-0" type="button" @click="addTracks(show.tracks.mp3)">
             Play Show
           </button>
@@ -50,6 +51,22 @@
           </div>
         </div>
        </div>
+      
+         <Accordian class="mt-16" v-if="show.lineage || show.source">
+          <span slot="header">Lineage &amp; Source</span>
+          <p class="my-2 text-xs">
+            {{show.lineage}}
+          </p>
+          <p class="my-2 text-xs">
+            {{show.source}}
+          </p>
+        </Accordian>
+         
+      
+        <Accordian v-if="show.reviews">
+          <span slot="header">Reviews</span>
+          <Reviews :reviews="show.reviews.reviews" />
+        </Accordian>
       </div>
   </div>
 </template>
@@ -61,6 +78,9 @@ import ArchiveApi from '../api/archive';
 import ArtistImage from '../components/ArtistImage';
 import Loading from '../components/Loading';
 import Popover from '../components/Popover';
+import Stars from '../components/Stars';
+import Reviews from '../components/Reviews';
+import Accordian from '../components/Accordian';
 
 const TRACK_FILE_TYPE = {
   MP3: 'mp3',
@@ -77,7 +97,10 @@ export default {
     DotsVertical: icons.DotsVertical,
     ArtistImage,
     Loading,
-    Popover
+    Popover,
+    Stars,
+    Reviews,
+    Accordian
   },
   computed: {
     ...mapGetters('playlist', {

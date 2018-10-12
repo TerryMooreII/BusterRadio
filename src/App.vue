@@ -14,6 +14,9 @@
    }  
 }
 
+.h-0 {
+  height: 0;
+}
 
 #heart {
     position: relative;
