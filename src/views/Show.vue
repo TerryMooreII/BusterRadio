@@ -52,21 +52,24 @@
         </div>
        </div>
       
-         <Accordian class="mt-16" v-if="show.lineage || show.source">
-          <span slot="header">Lineage &amp; Source</span>
-          <p class="my-2 text-xs">
-            {{show.lineage}}
-          </p>
-          <p class="my-2 text-xs">
-            {{show.source}}
-          </p>
-        </Accordian>
-         
-      
-        <Accordian v-if="show.reviews">
-          <span slot="header">Reviews</span>
-          <Reviews :reviews="show.reviews.reviews" />
-        </Accordian>
+      <Accordian class="mt-10" v-if="show.lineage || show.source">
+        <span slot="header">Lineage &amp; Source</span>
+        <p class="my-2 text-xs leading-normal">
+          {{show.lineage}}<br><br>
+          {{show.source}}
+        </p>
+      </Accordian>
+      <Accordian v-if="show.reviews">
+        <span slot="header">Reviews</span>
+        <Reviews :reviews="show.reviews.reviews" />
+      </Accordian>
+
+      <Accordian v-if="show.description">
+        <span slot="header">More Info</span>
+        <p class="my-2 text-xs leading-normal">
+           {{sanitize(show.description)}}
+        </p>
+      </Accordian>
       </div>
   </div>
 </template>
@@ -138,6 +141,12 @@ export default {
         return `${pad(m)}:${pad(s)}`
       }
       return track.length;
+    },
+    sanitize(val){
+      var div = document.createElement("div");
+      div.innerHTML = val;
+      var text = div.textContent || div.innerText || "";
+      return text;
     }
   },
   mounted() {
