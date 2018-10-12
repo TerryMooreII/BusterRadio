@@ -19,11 +19,15 @@
           </div>
         </router-link>
       </li>
+      <div @click="login()" class="text-white" v-if="!currentUser">Login</div>
+      <div @click="logout()" class="text-white" v-if="currentUser">Logout</div>
+      
     </ul>
   </div>
 </template>
 
 <script>
+import firebase from 'firebase';
 import icons from '../icons';
 
 export default {
@@ -40,6 +44,7 @@ export default {
   },
   data() {
     return {
+      currentUser: {},
       links: [
         {
           name: 'Search',
@@ -78,7 +83,35 @@ export default {
       ]
     };
   },
+  async mounted() {
+    await firebase.auth().getRedirectResult();
+    this.currentUser = firebase.auth().currentUser;
+    const database = firebase.database();
+
+    // const starCountRef = firebase.database().ref('favorite-artist/' + this.currentUser.uid );
+    // starCountRef.on('value', function(snapshot) {
+    //   console.log(snapshot.val());
+    // });
+  },
   methods: {
+    async login() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      try {
+        await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+        const result = await firebase.auth().signInWithPopup(provider);
+        this.currentUser = firebase.auth().currentUser;
+      }catch(error) {
+        console.error(error);
+      }
+    },
+    async logout() {
+      try{
+        await firebase.auth().signOut();
+        this.currentUser = firebase.auth().currentUser;
+      } catch(error) {
+        console.log('Unable to logout');
+      }
+    }
 
   }
 };
