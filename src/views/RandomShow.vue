@@ -19,33 +19,31 @@ export default {
     Shuffle: icons.Shuffle
   },
   methods: {
-    getRandomShow() {
+    async getRandomShow() {
       const artists = this.$store.getters['artists/all'];
       const artistId = artists[Math.floor(Math.random() * artists.length)].identifier;
       let year;
 
-      ArchiveApi.getYears(artistId)
-        .then(years => {
-          if (years.length === 0) {
-            this.getRandomShow();
-            return Promise.resolve(null);
-          }
-          year = years[Math.floor(Math.random() * years.length)].year;
-          return ArchiveApi.getShows(artistId, year)  
-        })
-        .then(shows => {
-          if (!shows){
-            return;
-          }
-          const keys = Object.keys(shows);
-          const id = keys[Math.floor(Math.random() * keys.length)];
-          const identifier = shows[id].identifier;
-          this.$router.push(`${artistId}/${year}/${identifier}`);
-        });
+      try {
+        const years = await ArchiveApi.getYears(artistId);
+        if (years.length === 0) return await this.getRandomShow();
+        
+        year = years[Math.floor(Math.random() * years.length)].year;
+
+        const shows = await ArchiveApi.getShows(artistId, year);
+        if (!shows) return await this.getRandomShow();
+
+        const keys = Object.keys(shows);
+        const id = keys[Math.floor(Math.random() * keys.length)];
+        const identifier = shows[id].identifier;
+        this.$router.push(`${artistId}/${year}/${identifier}`);
+      }catch(error) {
+        console.log(error);
+      }
     }
   },
-  mounted() {
-    this.getRandomShow();
+  async mounted() {
+   await this.getRandomShow();
   }
 };
 </script>
