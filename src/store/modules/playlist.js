@@ -54,10 +54,24 @@ const actions = {
   },
 
   addTrack({ commit, state }, track) {
-    commit('add', [...state.queue, track]);
-    player.load(state.queue[state.queue.length - 1]);
+    let index;
+    // This checks to see if the file is in queue and plays that one
+    const isTrackInQueue = state.queue.find((t, i) => {
+      const match = t.file === track.file;
+      if (match) {
+        index = i;
+      }
+      return match;
+    });
+
+    if (isTrackInQueue == null) {
+      commit('add', [...state.queue, track]);
+      index = state.queue.length - 1;
+    }
+
+    player.load(state.queue[index]);
+    commit('setqIdx', index);
     commit('isPlaying', true);
-    commit('setqIdx', state.queue.length - 1);
   },
 
   addTrackToQueue({ commit, state }, track) {

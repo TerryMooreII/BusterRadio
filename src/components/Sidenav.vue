@@ -20,6 +20,18 @@
         </router-link>
       </li>
     </ul>
+
+    <ul class="list-reset mt-6 border-t border-solid border-grey pt-4">
+      <li class="text-sm py-2" v-for="item of custom" :key="item.name">
+        <router-link :to="{name: item.link}" 
+                     class="antialiased text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
+          <div @click="$emit('close')">
+            <component v-bind:is="item.icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" /> 
+            {{item.name}}
+          </div>
+        </router-link>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -75,8 +87,23 @@ export default {
         //   name: 'What\'s Playing Now',
         //   link: ''
         // },
+      ],
+      custom: [
+        {
+          name: 'Favorites',
+          link: 'favorites',
+          icon: '',
+        },
+        {
+          name: 'Recently Played',
+          link: 'recent',
+          icon: '',
+        },
       ]
     };
+
+
+    
   },
   methods: {
 
