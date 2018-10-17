@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import datastore from './services/datastore';
 import Home from './views/Home.vue';
 import Artists from './views/Artists.vue';
 import LatestShows from './views/LatestShows.vue';
@@ -13,7 +14,7 @@ import FavoriteArtists from './views/FavoriteArtists.vue';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   scrollBehavior(to, from, savedPosition) {
@@ -23,6 +24,10 @@ export default new Router({
     return { x: 0, y: 0 };
   },
   routes: [
+    {
+      path: '*',
+      redirect: '/'
+    },
     {
       path: '/',
       component: Home,
@@ -35,7 +40,10 @@ export default new Router({
         {
           path: '/favorite-artist',
           component: FavoriteArtists,
-          name: 'favoriteArtists'
+          name: 'favoriteArtists',
+          meta: {
+            requiresAuth: true
+          }
         },
         {
           path: '/random-show',
@@ -85,3 +93,16 @@ export default new Router({
     }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  console.log('here');
+  const currentUser = datastore.getCurrentUser();
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  if (!currentUser && requiresAuth) {
+    next('/');
+  } else {
+    next();
+  }
+});
+
+export default router;

@@ -12,24 +12,14 @@
 </template>
 
 <script>
-import firebase from 'firebase';
-import icons from '../icons';  
+import datastore from '../services/datastore'
 
 export default {
   name: 'User',
-  components:{
-    Login: icons.Login,
-    Logout: icons.Logout,
-  },
   data() {
     return {
-      currentUser: firebase.auth().currentUser
+      currentUser: datastore.getCurrentUser()
     };
-  },
-  methods: {
-    async mounted() {
-      this.currentUser = firebase.auth().currentUser;
-    }
   }
 };
 </script>

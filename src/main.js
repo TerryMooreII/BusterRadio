@@ -28,11 +28,10 @@ firebase.auth().onAuthStateChanged(() => {
   filters.forEach((f) => {
     Vue.filter(f.name, f.execute);
   });
-  
+
   new Vue({
     router,
     store,
-    render: h => h(App),
+    render: h => h(App)
   }).$mount('#app');
-  
 });

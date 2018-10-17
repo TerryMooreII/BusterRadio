@@ -35,16 +35,17 @@
     </ul>
 
     <ul class="list-reset mt-6 border-t border-solid border-grey pt-4">
-      <li>
-        <div @click="login()" class="text-white cursor-pointer" v-if="!isLoggedIn">
-          <Login v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" />
+      <li @click="login()" 
+          v-if="!isLoggedIn"
+          class="antialiased text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
+        <Login v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 mt-1'" />
           Login
-        </div>
-        <div @click="logout()" class="text-white cursor-pointer" v-if="isLoggedIn">
-          <Logout v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" />
+      </li>
+      <li @click="logout()" 
+          v-if="isLoggedIn"
+          class="antialiased text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
+        <Logout v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 mt-1'" />
           Logout
-        </div>
-
       </li>
     </ul>
   </div>
