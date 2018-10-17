@@ -19,12 +19,10 @@
           </div>
         </router-link>
       </li>
-      <div @click="login()" class="text-white" v-if="!currentUser">Login</div>
-      <div @click="logout()" class="text-white" v-if="currentUser">Logout</div>
-      
     </ul>
 
-    <ul class="list-reset mt-6 border-t border-solid border-grey pt-4">
+    <ul class="list-reset mt-6 border-t border-solid border-grey pt-4" v-if="isLoggedIn">
+      <li class="text-sm py-2"><User /></li>
       <li class="text-sm py-2" v-for="item of custom" :key="item.name">
         <router-link :to="{name: item.link}" 
                      class="antialiased text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
@@ -35,12 +33,27 @@
         </router-link>
       </li>
     </ul>
+
+    <ul class="list-reset mt-6 border-t border-solid border-grey pt-4">
+      <li>
+        <div @click="login()" class="text-white cursor-pointer" v-if="!isLoggedIn">
+          <Login v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" />
+          Login
+        </div>
+        <div @click="logout()" class="text-white cursor-pointer" v-if="isLoggedIn">
+          <Logout v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" />
+          Logout
+        </div>
+
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import firebase from 'firebase';
+import datastore from '../services/datastore';
 import icons from '../icons';
+import User from './User';
 
 export default {
   name: 'Sidenav',
@@ -49,14 +62,22 @@ export default {
     MusicArtist: icons.MusicArtist,
     MusicAlbum: icons.MusicAlbum,
     MusicPlaylist: icons.MusicPlaylist,
-    Shuffle: icons.Shuffle
+    Shuffle: icons.Shuffle,
+    Heart: icons.Heart,
+    Login: icons.Login,
+    Logout: icons.Logout,
+    User: User
   },
   props: {
     show: Boolean
   },
+  computed: {
+    isLoggedIn() {
+      return datastore.getCurrentUser();
+    }
+  },
   data() {
     return {
-      currentUser: {},
       links: [
         {
           name: 'Search',
@@ -95,51 +116,25 @@ export default {
       ],
       custom: [
         {
-          name: 'Favorites',
-          link: 'favorites',
-          icon: '',
+          name: 'Favorite Artists',
+          link: 'favoriteArtists',
+          icon: 'Heart',
         },
-        {
-          name: 'Recently Played',
-          link: 'recent',
-          icon: '',
-        },
+        // {
+        //   name: 'Recently Played',
+        //   link: 'recent',
+        //   icon: '',
+        // },
       ]
     };
-
-
-    
-  },
-  async mounted() {
-    await firebase.auth().getRedirectResult();
-    this.currentUser = firebase.auth().currentUser;
-    const database = firebase.database();
-
-    // const starCountRef = firebase.database().ref('favorite-artist/' + this.currentUser.uid );
-    // starCountRef.on('value', function(snapshot) {
-    //   console.log(snapshot.val());
-    // });
   },
   methods: {
     async login() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      try {
-        await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-        const result = await firebase.auth().signInWithPopup(provider);
-        this.currentUser = firebase.auth().currentUser;
-      }catch(error) {
-        console.error(error);
-      }
+      return datastore.login();
     },
     async logout() {
-      try{
-        await firebase.auth().signOut();
-        this.currentUser = firebase.auth().currentUser;
-      } catch(error) {
-        console.log('Unable to logout');
-      }
+      return datastore.logout();
     }
-
   }
 };
 </script>

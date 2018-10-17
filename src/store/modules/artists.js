@@ -6,7 +6,6 @@ const state = {
   all: JSON.parse(window.localStorage.getItem(ARTISTS) || '[]')
 };
 
-
 const getters = {
   all(state) {
     return state.all;
@@ -18,9 +17,10 @@ const getters = {
   artistsByDownloads(state) {
     return [...state.all.slice().sort((a, b) => b.downloads - a.downloads)];
   },
-  
+
   search: state => search =>
-    state.all.filter(artist => artist.title.toLowerCase().includes(search.toLowerCase())) 
+    state.all.filter(artist => artist.title.toLowerCase().includes(search.toLowerCase()))
+
 };
 
 // actions
@@ -29,11 +29,10 @@ const actions = {
     return ArchiveApi.getAllArtists()
       .then((artists) => {
         localStorage.setItem(ARTISTS, JSON.stringify(artists));
-        commit('setArtists', { artists })
-      })
+        commit('setArtists', { artists });
+      });
   },
   findArtistById({ state, commit }, identifier) {
-    console.log(identifier);
     const artist = state.all.find(artist => artist.title === identifier);
     commit('setArtist', { artist });
   }
@@ -44,10 +43,10 @@ const mutations = {
   setArtists(state, { artists }) {
     state.all = artists;
   },
-  setArtist (state, { artist }) {
+  setArtist(state, { artist }) {
     state.artist = artist;
-  },
-}
+  }
+};
 
 export default {
   namespaced: true,
@@ -55,4 +54,4 @@ export default {
   getters,
   actions,
   mutations
-}
+};

@@ -22,6 +22,9 @@ import Close from './Close.vue';
 import DotsVertical from './DotsVertical.vue';
 import ChevronUp from './ChevronUp.vue';
 import ChevronDown from './ChevronDown.vue';
+import Heart from './Heart.vue';
+import Login from './Login.vue';
+import Logout from './Logout.vue';
 
 export default {
   Play,
@@ -47,6 +50,9 @@ export default {
   Close,
   DotsVertical,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Heart,
+  Login,
+  Logout
 };
 

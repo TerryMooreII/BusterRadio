@@ -24,13 +24,15 @@ UIkit.use(Icons);
 
 Vue.config.productionTip = false;
 
-
-filters.forEach((f) => {
-  Vue.filter(f.name, f.execute);
+firebase.auth().onAuthStateChanged(() => {
+  filters.forEach((f) => {
+    Vue.filter(f.name, f.execute);
+  });
+  
+  new Vue({
+    router,
+    store,
+    render: h => h(App),
+  }).$mount('#app');
+  
 });
-
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app');

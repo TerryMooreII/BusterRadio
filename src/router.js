@@ -9,6 +9,7 @@ import Show from './views/Show.vue';
 import Queue from './views/Queue.vue';
 import Search from './views/Search.vue';
 import RandomShow from './views/RandomShow.vue';
+import FavoriteArtists from './views/FavoriteArtists.vue';
 
 Vue.use(Router);
 
@@ -30,6 +31,11 @@ export default new Router({
           path: '',
           component: Artists,
           name: 'artists'
+        },
+        {
+          path: '/favorite-artist',
+          component: FavoriteArtists,
+          name: 'favoriteArtists'
         },
         {
           path: '/random-show',
