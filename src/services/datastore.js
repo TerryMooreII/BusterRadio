@@ -85,6 +85,26 @@ export default {
   async addLive(track) {
     await firebase.database()
       .ref('live').push(track);
+  },
+
+  async getQueue() {
+    if (!this.getCurrentUser()) {
+      return [];
+    }
+
+    const snapshot = await firebase.database()
+      .ref(`queue/${this.getCurrentUser().uid}`)
+      .once('value');
+    return snapshot.val();
+  },
+
+  async setQueue(queue) {
+    if (!this.getCurrentUser()) {
+      return;
+    }
+    await firebase.database()
+      .ref(`queue/${this.getCurrentUser().uid}`).set(queue);
   }
+
 };
 

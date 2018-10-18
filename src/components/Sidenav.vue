@@ -11,7 +11,7 @@
 
     <ul class="list-reset mt-6 border-t border-solid border-grey pt-4">
       <li class="text-sm " v-for="item of links" :key="item.name">
-        <router-link :to="{name: item.link}" v-if="!item.hideLoggedIn"
+        <router-link :to="{name: item.link}" v-if="(!item.hideLoggedIn || !isLoggedIn)"
                      class="antialiased block py-2 text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
           <div @click="$emit('close')">
             <component v-bind:is="item.icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" /> 
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import datastore from '../services/datastore';
 import icons from '../icons';
 import User from './User';
@@ -139,8 +140,15 @@ export default {
     };
   },
   methods: {
+    ...mapActions('playlist', [
+      'addTracks'
+    ]),
     async login() {
-      return datastore.login();
+      await datastore.login();
+
+      // Set queue from datastore
+      const queue = await datastore.getQueue();
+      this.addTracks(queue);
     },
     async logout() {
       return datastore.logout();

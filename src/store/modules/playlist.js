@@ -168,6 +168,9 @@ const mutations = {
   add(state, track) {
     state.queue = track;
     localStorage.setItem(LOCALSTORAGE.QUEUE, JSON.stringify(state.queue));
+    if (datastore.getCurrentUser()) {
+      datastore.setQueue(state.queue);
+    }
   },
 
   setqIdx(state, index) {
