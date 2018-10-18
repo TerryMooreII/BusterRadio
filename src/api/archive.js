@@ -161,7 +161,7 @@ export default {
           } else if (grouped[show.date] && show.soundboard && !grouped[show.date].soundboard) {
             const count = grouped[show.date].count + 1;
             grouped[show.date] = Object.assign(show, { count });
-          } else if (grouped[show.date] && show.soundboard && !grouped[show.date].soundboard && (show.avg_rating > grouped[show.date].avg_rating) || !grouped[show.date].avg_rating) {
+          } else if (grouped[show.date] && show.soundboard && !grouped[show.date].soundboard && (show.avg_rating > grouped[show.date].avg_rating) || !grouped[show.date].avg_rating) { // eslint-disable-line
             const count = grouped[show.date].count + 1;
             grouped[show.date] = Object.assign(show, { count });
           } else if (grouped[show.date] && (show.avg_rating > grouped[show.date].avg_rating || 0)) {
@@ -201,7 +201,9 @@ export default {
     }
     return axios.jsonp(url)
       .then(response => response.response.docs)
-      .then(shows => shows.sort((a, b) => b.avg_rating - a.avg_rating).sort((a, b) => b.downloads - a.downloads))
+      .then(shows => shows
+        .sort((a, b) => b.avg_rating - a.avg_rating)
+        .sort((a, b) => b.downloads - a.downloads))
       .then((data) => {
         cache[key] = data;
         return data;
