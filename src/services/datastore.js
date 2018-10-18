@@ -57,6 +57,34 @@ export default {
         .ref(`favorite-artist/${this.getCurrentUser().uid}/${key}`)
         .remove();
     });
+  },
+
+  async getRecents() {
+    if (!this.getCurrentUser()) {
+      return [];
+    }
+
+    const snapshot = await firebase.database()
+      .ref(`recent-tracks/${this.getCurrentUser().uid}`).limitToLast(100)
+      .once('value');
+    return snapshot.val();
+  },
+
+  async addRecent(track) {
+    await firebase.database()
+      .ref(`recent-tracks/${this.getCurrentUser().uid}`).push(track);
+  },
+
+  async getLive() {
+    const snapshot = await firebase.database()
+      .ref('live').limitToLast(100)
+      .once('value');
+    return snapshot.val();
+  },
+
+  async addLive(track) {
+    await firebase.database()
+      .ref('live').push(track);
   }
 };
 

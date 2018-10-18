@@ -67,6 +67,7 @@ export default {
     Heart: icons.Heart,
     Login: icons.Login,
     Logout: icons.Logout,
+    Calendar: icons.Calendar,
     User: User
   },
   props: {
@@ -121,11 +122,11 @@ export default {
           link: 'favoriteArtists',
           icon: 'Heart',
         },
-        // {
-        //   name: 'Recently Played',
-        //   link: 'recent',
-        //   icon: '',
-        // },
+        {
+          name: 'Recently Played',
+          link: 'recent',
+          icon: 'Calendar',
+        },
       ]
     };
   },

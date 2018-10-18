@@ -1,9 +1,17 @@
 import player from '../../services/player';
-import notification from '../../services/notification';
+import datastore from '../../services/datastore';
 
 const LOCALSTORAGE = {
   QUEUE: 'queue'
 };
+
+const loadTrack = (track) => {
+  player.load(track);
+  if (datastore.getCurrentUser()) {
+    datastore.addRecent(track);
+  }
+
+}
 
 const state = {
   queue: JSON.parse(localStorage.getItem(LOCALSTORAGE.QUEUE)) || [],
@@ -48,7 +56,7 @@ const actions = {
 
   addTracks({ commit }, tracks) {
     commit('add', tracks);
-    player.load(state.queue[0]);
+    loadTrack(state.queue[0]);
     commit('isPlaying', true);
     commit('setqIdx', 0);
   },
@@ -69,7 +77,7 @@ const actions = {
       index = state.queue.length - 1;
     }
 
-    player.load(state.queue[index]);
+    loadTrack(state.queue[index]);
     commit('setqIdx', index);
     commit('isPlaying', true);
   },
@@ -90,7 +98,7 @@ const actions = {
 
   play({ commit, state }) {
     if (state.queue.length && state.qIdx === null) {
-      player.load(state.queue[0]);
+      loadTrack(state.queue[0]);
       commit('isPlaying', true);
       commit('setqIdx', 0);
     } else if (state.queue.length) {
@@ -100,7 +108,7 @@ const actions = {
   },
 
   playQueueTrack({ commit, state }, index) {
-    player.load(state.queue[index]);
+    loadTrack(state.queue[index]);
     commit('isPlaying', true);
     commit('setqIdx', index);
   },
@@ -115,7 +123,7 @@ const actions = {
   next({ commit, state, getters }) {
     if (state.queue.length && getters.nextTrackIndex !== null) {
       const track = state.queue[getters.nextTrackIndex];
-      player.load(track);
+      loadTrack(track);
       commit('isPlaying', true);
       commit('setqIdx', getters.nextTrackIndex);
     } else {
@@ -125,7 +133,7 @@ const actions = {
 
   previous({ commit, state, getters }) {
     if (state.queue.length && getters.previousTrackIndex !== null) {
-      player.load(state.queue[getters.previousTrackIndex]);
+      loadTrack(state.queue[getters.previousTrackIndex]);
       commit('isPlaying', true);
       commit('setqIdx', getters.previousTrackIndex);
     }

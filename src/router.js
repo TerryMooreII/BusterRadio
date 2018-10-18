@@ -11,6 +11,7 @@ import Queue from './views/Queue.vue';
 import Search from './views/Search.vue';
 import RandomShow from './views/RandomShow.vue';
 import FavoriteArtists from './views/FavoriteArtists.vue';
+import RecentlyPlayed from './views/RecentlyPlayed.vue';
 
 Vue.use(Router);
 
@@ -41,6 +42,14 @@ const router = new Router({
           path: '/favorite-artist',
           component: FavoriteArtists,
           name: 'favoriteArtists',
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: '/recent',
+          component: RecentlyPlayed,
+          name: 'recent',
           meta: {
             requiresAuth: true
           }
@@ -95,7 +104,6 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log('here');
   const currentUser = datastore.getCurrentUser();
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
   if (!currentUser && requiresAuth) {
