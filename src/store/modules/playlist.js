@@ -10,8 +10,8 @@ const loadTrack = (track) => {
   if (datastore.getCurrentUser()) {
     datastore.addRecent(track);
   }
-
-}
+  datastore.addLive(track);
+};
 
 const state = {
   queue: JSON.parse(localStorage.getItem(LOCALSTORAGE.QUEUE)) || [],

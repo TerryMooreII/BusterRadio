@@ -10,9 +10,9 @@
     </div>
 
     <ul class="list-reset mt-6 border-t border-solid border-grey pt-4">
-      <li class="text-sm py-2" v-for="item of links" :key="item.name">
-        <router-link :to="{name: item.link}" 
-                     class="antialiased text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
+      <li class="text-sm " v-for="item of links" :key="item.name">
+        <router-link :to="{name: item.link}" v-if="!item.hideLoggedIn"
+                     class="antialiased block py-2 text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
           <div @click="$emit('close')">
             <component v-bind:is="item.icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" /> 
             {{item.name}}
@@ -68,6 +68,7 @@ export default {
     Login: icons.Login,
     Logout: icons.Logout,
     Calendar: icons.Calendar,
+    Globe: icons.Globe,
     User: User
   },
   props: {
@@ -106,17 +107,24 @@ export default {
           icon: 'Shuffle'
         },
         {
+          name: 'Playing Now',
+          link: 'live',
+          icon: 'Globe'
+        },
+        {
+          name: 'Queue',
+          link: 'queue',
+          icon: 'MusicPlaylist',
+          hideLoggedIn: true
+        }
+      ],
+      custom: [
+        {
           name: 'Queue',
           link: 'queue',
           icon: 'MusicPlaylist',
 
         },
-        // {
-        //   name: 'What\'s Playing Now',
-        //   link: ''
-        // },
-      ],
-      custom: [
         {
           name: 'Favorite Artists',
           link: 'favoriteArtists',

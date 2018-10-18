@@ -25,6 +25,7 @@ import ChevronDown from './ChevronDown.vue';
 import Heart from './Heart.vue';
 import Login from './Login.vue';
 import Logout from './Logout.vue';
+import Globe from './Globe.vue';
 
 export default {
   Play,
@@ -53,6 +54,7 @@ export default {
   ChevronUp,
   Heart,
   Login,
-  Logout
+  Logout,
+  Globe
 };
 

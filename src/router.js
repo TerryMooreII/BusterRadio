@@ -12,6 +12,7 @@ import Search from './views/Search.vue';
 import RandomShow from './views/RandomShow.vue';
 import FavoriteArtists from './views/FavoriteArtists.vue';
 import RecentlyPlayed from './views/RecentlyPlayed.vue';
+import Live from './views/Live.vue';
 
 Vue.use(Router);
 
@@ -37,6 +38,11 @@ const router = new Router({
           path: '',
           component: Artists,
           name: 'artists'
+        },
+        {
+          path: '/live',
+          component: Live,
+          name: 'live'
         },
         {
           path: '/favorite-artist',
