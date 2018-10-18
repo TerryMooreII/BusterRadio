@@ -34,12 +34,12 @@ export default {
     DotsVertical: icons.DotsVertical
   },
   props: {
-    tracks: Array,
+    tracks: Array
   },
   data() {
     return {
       openPopover: null
-    }
+    };
   },
   methods: {
     ...mapActions('playlist', [

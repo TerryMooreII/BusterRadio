@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-none text-grey-darker px-8 w-240 pt-4 border-grey-light border-r border-solid bg-blue-dark sm:visible sidenav" 
+  <div class="flex-none text-grey-darker px-8 w-240 pt-4 border-grey-light border-r border-solid bg-blue-dark sm:visible sidenav"
        :class="{'visible': show === true, 'invisible': show === false}">
     <div class="flex items-center flex-no-shrink text-white mr-6 tracking-wide ">
       <svg class="fill-current h-8 w-8 mr-2 hidden sm:block" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
@@ -14,7 +14,7 @@
         <router-link :to="{name: item.link}" v-if="(!item.hideLoggedIn || !isLoggedIn)"
                      class="antialiased block py-2 text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
           <div @click="$emit('close')">
-            <component v-bind:is="item.icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" /> 
+            <component v-bind:is="item.icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" />
             {{item.name}}
           </div>
         </router-link>
@@ -24,10 +24,10 @@
     <ul class="list-reset mt-6 border-t border-solid border-grey pt-4" v-if="isLoggedIn">
       <li class="text-sm py-2"><User /></li>
       <li class="text-sm py-2" v-for="item of custom" :key="item.name">
-        <router-link :to="{name: item.link}" 
+        <router-link :to="{name: item.link}"
                      class="antialiased text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
           <div @click="$emit('close')">
-            <component v-bind:is="item.icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" /> 
+            <component v-bind:is="item.icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" />
             {{item.name}}
           </div>
         </router-link>
@@ -35,13 +35,13 @@
     </ul>
 
     <ul class="list-reset mt-6 border-t border-solid border-grey pt-4">
-      <li @click="login()" 
+      <li @click="login()"
           v-if="!isLoggedIn"
           class="antialiased text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
         <Login v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 mt-1'" />
           Login
       </li>
-      <li @click="logout()" 
+      <li @click="logout()"
           v-if="isLoggedIn"
           class="antialiased text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
         <Logout v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 mt-1'" />
@@ -70,7 +70,7 @@ export default {
     Logout: icons.Logout,
     Calendar: icons.Calendar,
     Globe: icons.Globe,
-    User: User
+    User
   },
   props: {
     show: Boolean
@@ -123,19 +123,19 @@ export default {
         {
           name: 'Queue',
           link: 'queue',
-          icon: 'MusicPlaylist',
+          icon: 'MusicPlaylist'
 
         },
         {
           name: 'Favorite Artists',
           link: 'favoriteArtists',
-          icon: 'Heart',
+          icon: 'Heart'
         },
         {
           name: 'Recently Played',
           link: 'recent',
-          icon: 'Calendar',
-        },
+          icon: 'Calendar'
+        }
       ]
     };
   },
@@ -175,7 +175,6 @@ export default {
       }
     }
   }
-
 
 
 </style>

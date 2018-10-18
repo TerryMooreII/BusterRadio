@@ -36,7 +36,7 @@ export default {
       artists: state => state.artists.all
     }),
     ...mapGetters('artists', {
-      artistsByDownloads: 'artistsByDownloads',
+      artistsByDownloads: 'artistsByDownloads'
     })
   },
   methods: {

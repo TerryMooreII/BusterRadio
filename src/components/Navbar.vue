@@ -1,7 +1,7 @@
 
 <template>
   <nav class="flex items-center justify-between flex-wrap bg-blue-dark px-6 py-4 fixed w-full">
-    
+
     <div class="block lg:hidden">
       <button class="flex items-center px-3 py-2 border rounded text-teal-lighter border-teal-light hover:text-white hover:border-white"
               @click="$emit('menu')">

@@ -15,7 +15,7 @@ import NoResults from '../components/NoResults';
 export default {
   name: 'years',
   components: {
-    NoResults, 
+    NoResults,
     Shuffle: icons.Shuffle
   },
   methods: {
@@ -27,7 +27,7 @@ export default {
       try {
         const years = await ArchiveApi.getYears(artistId);
         if (years.length === 0) return await this.getRandomShow();
-        
+
         year = years[Math.floor(Math.random() * years.length)].year;
 
         const shows = await ArchiveApi.getShows(artistId, year);
@@ -37,13 +37,13 @@ export default {
         const id = keys[Math.floor(Math.random() * keys.length)];
         const identifier = shows[id].identifier;
         this.$router.push(`${artistId}/${year}/${identifier}`);
-      }catch(error) {
+      } catch (error) {
         console.log(error);
       }
     }
   },
   async mounted() {
-   await this.getRandomShow();
+    await this.getRandomShow();
   }
 };
 </script>

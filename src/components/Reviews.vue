@@ -1,5 +1,5 @@
 <template>
-  <div> 
+  <div>
     <div class="flex flex-row" v-for="review of reviews" :key="review.date">
       <div class="flex flex-col text-sm pb-5 w-full">
         <div class="flex flex-col">
@@ -14,7 +14,7 @@
               {{review.reviewbody}}
             </div>
             <div class="justify-left leading-normal text-xs">
-              <span class="text-grey-dark">{{review.reviewer}} on {{review.reviewdate | dateformat}}</span> 
+              <span class="text-grey-dark">{{review.reviewer}} on {{review.reviewdate | dateformat}}</span>
             </div>
           </div>
         </div>
@@ -25,6 +25,7 @@
 
 <script>
 import Stars from '../components/Stars';
+
 export default {
   name: 'Reviews',
   components: {

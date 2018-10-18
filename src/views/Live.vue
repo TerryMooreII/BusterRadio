@@ -29,12 +29,11 @@ export default {
   data() {
     return {
       liveList: null
-    }
+    };
   },
   async mounted() {
-    const recent =  await datastore.getLive();
+    const recent = await datastore.getLive();
     this.liveList = Object.values(recent).map(val => val).reverse();
-
   }
 };
 </script>

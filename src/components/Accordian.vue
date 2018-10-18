@@ -4,9 +4,9 @@
       <slot name="header"></slot>
     </h2>
     <div :class="{ 'h-0': !open }">
-      <slot />  
+      <slot />
     </div>
-    
+
   </div>
 </template>
 

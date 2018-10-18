@@ -55,7 +55,7 @@
           </div>
         </div>
        </div>
-      
+
       <Accordian class="mt-10" v-if="show.lineage || show.source">
         <span slot="header">Lineage &amp; Source</span>
         <p class="my-2 text-xs leading-normal">
@@ -134,22 +134,22 @@ export default {
       this.openPopover = null;
     },
     time(track) {
-      if (!track && !track.length){
+      if (!track && !track.length) {
         return '0:00';
-      } else if (track.length.includes('.')){
+      } else if (track.length.includes('.')) {
         const t = track.length / 3600;
         const h = Math.floor(t);
         const m = Math.floor((t - h) * 60);
         const s = Math.floor(((t - h) * 60 - m) * 60);
-        const pad = (unit) => String(unit).length === 2 ? unit : `0${unit}`
-        return `${pad(m)}:${pad(s)}`
+        const pad = unit => (String(unit).length === 2 ? unit : `0${unit}`);
+        return `${pad(m)}:${pad(s)}`;
       }
       return track.length;
     },
-    sanitize(val){
-      var div = document.createElement("div");
+    sanitize(val) {
+      const div = document.createElement('div');
       div.innerHTML = val;
-      var text = div.textContent || div.innerText || "";
+      const text = div.textContent || div.innerText || '';
       return text;
     }
   },

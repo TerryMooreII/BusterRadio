@@ -8,7 +8,7 @@
     <div class="flex-none pt-3 md:w-1/3 flex-no-shrink w-full">
       <button @click="isExpanded = !isExpanded" class="fixed py-3 px-4 expander block sm:hidden">
         <ChevronDown v-bind:cssClass="'h-6 w-6 fill-current text-grey-dark inline-block hover:text-grey-darkest cursor-pointer'" v-if="isExpanded"/>
-        <ChevronUp v-bind:cssClass="'h-6 w-6 fill-current text-grey-dark inline-block  hover:text-grey-darkest cursor-pointer'" v-if="!isExpanded"/>    
+        <ChevronUp v-bind:cssClass="'h-6 w-6 fill-current text-grey-dark inline-block  hover:text-grey-darkest cursor-pointer'" v-if="!isExpanded"/>
       </button>
       <AudioControls />
     </div>
@@ -38,11 +38,11 @@ export default {
     NowPlaying,
     ChevronDown: icons.ChevronDown,
     ChevronUp: icons.ChevronUp
-  }, 
+  },
   data() {
     return {
       isExpanded: false
-    }
+    };
   }
 };
 </script>

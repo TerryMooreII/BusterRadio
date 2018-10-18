@@ -34,12 +34,11 @@ export default {
   data() {
     return {
       recentList: null
-    }
+    };
   },
   async mounted() {
-    const recent =  await datastore.getRecents();
+    const recent = await datastore.getRecents();
     this.recentList = Object.values(recent).map(val => val).reverse();
-
   }
 };
 </script>

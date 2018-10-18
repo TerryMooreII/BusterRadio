@@ -3,7 +3,7 @@
     <div @click="toggle()">
       <Heart v-bind:cssClass="`heart ${Boolean(favorite) ? 'favorite text-red-dark hover:text-red' : '' } h-6 w-6 absolute fill-current text-grey-dark mx-2 hover:text-grey-darkest cursor-pointer`"/>
     </div>
-    
+
     <ArtistImage classes="rounded-full border border-solid border-grey p-1 cursor-pointer" :artist="artist" @click="getYears(artist.identifier)"/>
     <div class="p-1">
       <div class="antialiased font-bold text-sm mb-1 text-center text-grey-darkest">{{artist.title}}</div>
@@ -36,14 +36,14 @@ export default {
       this.$router.push(`/${identifier}`);
     },
     toggle() {
-      if (!datastore.getCurrentUser()){
+      if (!datastore.getCurrentUser()) {
         console.log('Need to login');
         return;
       }
 
-      if (this.favorite){
+      if (this.favorite) {
         this.unfavorite();
-      }else{
+      } else {
         this.addFavorite();
       }
     },
@@ -53,12 +53,11 @@ export default {
 
     async addFavorite() {
       await datastore.addFavoriteArtist(this.artist);
-      await this.isFavorite()
-
+      await this.isFavorite();
     },
     async unfavorite() {
       await datastore.removeFavoriteArtist(this.favorite);
-      await this.isFavorite()
+      await this.isFavorite();
     }
   },
   mounted() {

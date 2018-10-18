@@ -24,7 +24,7 @@
         </button>
         <button class="p-2">
           <Shuffle v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mx-2 hover:text-grey-darkest cursor-pointer'"/>
-        </button> 
+        </button>
       </div>
       <div class="flex justify-center mt-3  cursor-pointer">
         <div class="mr-4 text-xs -mt-1 text-grey-darker">{{formatTime(currentTime)}}</div>
@@ -100,7 +100,7 @@ export default {
       this.el.removeEventListener('mousemove', this.mousemove, false);
       window.removeEventListener('mouseup', this.mousemove, false);
     },
-    mousedown(e) {      
+    mousedown(e) {
       this.$store.dispatch('playlist/seek', this.calcSeek(e.offsetX, this.el.clientWidth));
       this.el.addEventListener('mousemove', this.mousemove, false);
     }
@@ -150,5 +150,5 @@ export default {
   button:focus {
     outline: 0 !important;
   }
-  
+
 </style>

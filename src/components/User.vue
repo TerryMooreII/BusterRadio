@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import datastore from '../services/datastore'
+import datastore from '../services/datastore';
 
 export default {
   name: 'User',

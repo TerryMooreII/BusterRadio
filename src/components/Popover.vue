@@ -1,6 +1,6 @@
 <template>
   <div class="relative w-full">
-    <div class="border border-solid border-grey absolute p-3 rounded z-50 shadow-lg popover bg-white" 
+    <div class="border border-solid border-grey absolute p-3 rounded z-50 shadow-lg popover bg-white"
          v-bind:style="{left: left, width: width}">
       <slot></slot>
     </div>
@@ -16,23 +16,23 @@ export default {
   props: {
     right: Boolean,
     width: {
-      type: String, 
+      type: String,
       default: '100px'
     }
   },
   data() {
     return {
       show: false
-    }
+    };
   },
   computed: {
     left() {
       if (this.right) {
-        return `-${parseInt(this.width) - 30}px`
+        return `-${parseInt(this.width) - 30}px`;
       }
-      return 0
+      return 0;
     }
-  }, 
+  },
   methods: {
     close() {
       this.$emit('close');
