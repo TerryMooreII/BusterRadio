@@ -2,11 +2,7 @@
   <div>
     <Navbar class="block sm:hidden" @menu="() => this.show = !this.show"/>
    <div class="flex pb-24 pt-16 sm:pt-0 h-screen">
-    <!-- <button class="z-50 fixed block sm:hidden mt-2 ml-3 " @click="show = !show">
-       <Menu v-if="!show" v-bind:cssClass="'h-6 w-6 fill-current text-grey-dark inline-block self-center'"/>
-       <Close v-if="show" v-bind:cssClass="'h-6 w-6 fill-current text-white inline-block self-center'"/>
-    </button> -->
-    <Sidenav :show="show"  @close="() => this.show = false"/>
+    <Sidenav :show="show" @close="() => this.show = false"/>
      <transition
         name="fade"
         mode="out-in">
@@ -19,6 +15,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import Navbar from '@/components/Navbar.vue';
 import Sidenav from '@/components/Sidenav.vue';
 import Footer from '@/components/Footer.vue';
@@ -44,7 +41,8 @@ export default {
     artists: state => state.artists.all
   }),
   beforeRouteEnter(to, from, next) {
-    if (!localStorage.artists) {
+    if (!localStorage.artists || !localStorage.artistFetch || moment().diff(parseInt(localStorage.artistFetch, 10), 'weeks') >= 1) {
+      localStorage.setItem('artistFetch', Date.now());
       store.dispatch('artists/getArtists')
         .then(() => next());
     } else {

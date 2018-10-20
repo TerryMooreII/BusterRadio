@@ -11,6 +11,10 @@ const getters = {
     return state.all;
   },
 
+  total(state) {
+    return state.all.length;
+  },
+
   artist: state => search =>
     state.all.find(artist => artist.title === search || artist.identifier === search),
 

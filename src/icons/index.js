@@ -26,6 +26,8 @@ import Heart from './Heart.vue';
 import Login from './Login.vue';
 import Logout from './Logout.vue';
 import Globe from './Globe.vue';
+import ArrowRight from './ArrowRight.vue';
+import ArrowLeft from './ArrowLeft.vue';
 
 export default {
   Play,
@@ -55,6 +57,8 @@ export default {
   Heart,
   Login,
   Logout,
-  Globe
+  Globe,
+  ArrowLeft,
+  ArrowRight
 };
 

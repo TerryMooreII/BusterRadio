@@ -2,7 +2,7 @@
    <div id="artists" class="flex-grow px-0 sm:px-24 py-2 sm:mt-0 mt-3 overflow-scroll">
      <div class="flex antialiased text-grey-darkest px-2 sm:px-0 py-6 sticky pin-t w-full bg-white z-10">
       <div class="w-2/3">
-        <h2>Artists</h2>
+        <h2>Artists <small class="text-grey-dark">({{total}})</small></h2>
       </div>
       <div class="text-right w-1/3 ">
         <router-link to="/?orderby=a-to-z" class="text-grey-darker text-sm no-underline hover:underline"  v-if="!$route.query.orderby">Sort by A-Z</router-link>
@@ -36,7 +36,8 @@ export default {
       artists: state => state.artists.all
     }),
     ...mapGetters('artists', {
-      artistsByDownloads: 'artistsByDownloads'
+      artistsByDownloads: 'artistsByDownloads',
+      total: 'total'
     })
   },
   methods: {

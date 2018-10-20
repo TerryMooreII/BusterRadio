@@ -13,6 +13,7 @@
       <Loading v-if="!shows.length" />
       <ShowCard v-for="show of shows" :key="show.identifier" :show="show"/>
     </div>
+    <Pager :page="page" :count="shows.length" :pagesize="50" @onPageChange="pageChange" v-if="shows.length"/>
   </div>
 </template>
 
@@ -21,31 +22,44 @@ import ArchiveApi from '../api/archive';
 import icons from '../icons';
 import ShowCard from '@/components/ShowCard.vue';
 import Loading from '../components/Loading';
+import Pager from '../components/Pager';
 
 export default {
   name: 'LatestShows',
   components: {
     Sort: icons.Sort,
     ShowCard,
-    Loading
+    Loading,
+    Pager
   },
   props: {
   },
   data() {
     return {
       shows: [],
-      orderby: 'publicdate'
+      orderby: 'publicdate',
+      page: this.$route.query.page ? parseInt(this.$route.query.page, 10) : 1
     };
   },
   methods: {
     query() {
       this.orderby = this.$route.query.orderby || 'publicdate';
       this.shows = [];
-      ArchiveApi.getLatestShows(this.orderby).then(data => this.shows = data);
+      ArchiveApi.getLatestShows(this.orderby, this.$route.query.page).then(data => this.shows = data);
+    },
+    pageChange(page) {
+      if (page == null) {
+        return;
+      }
+      const query = Object.assign({}, this.$route.query, { page });
+      this.$router.push({ name: 'newest', query });
     }
   },
   watch: {
     '$route.query.orderby': function () {
+      this.query();
+    },
+    '$route.query.page': function () {
       this.query();
     }
   },
@@ -54,7 +68,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="less">
-
-</style>

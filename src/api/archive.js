@@ -1,4 +1,5 @@
 import axios from 'axios-jsonp-pro';
+import moment from 'moment';
 
 const URL = 'https://archive.org';
 const JSONP = 'callback=callback&save=yes&output=json';
@@ -69,13 +70,13 @@ export default {
       'fl[]=title',
       'fl[]=downloads',
       'sort[]=titleSorter+asc',
-      'rows=10000',
+      'rows=15000',
       'page=1'];
 
     return axios.jsonp(`${URL}${COLLECTION_AND_MEDIATYPE}${query.join('&')}&${JSONP}`)
       .then(response => response.response.docs);
   },
-  getLatestShows(orderby = 'publicdate') {
+  getLatestShows(orderby = 'publicdate', page = 1) {
     const query = [
       'fl[]=avg_rating',
       'fl[]=collection',
@@ -90,18 +91,22 @@ export default {
       'sort[]=',
       'sort[]=',
       'rows=50',
-      'page=1'
+      `page=${page}`
     ];
     const url = createApi(query);
     const key = btoa(url);
-    if (cache[key]) {
-      return Promise.resolve(cache[key]);
+    if (cache[key] && moment().diff(cache[key].timestamp, 'minutes') <= 30) {
+      return Promise.resolve(cache[key].data);
     }
 
     return axios.jsonp(url)
       .then(response => response.response.docs)
       .then((data) => {
-        cache[key] = data;
+        cache[key] = {
+          data,
+          timestamp: Date.now()
+        };
+
         return data;
       });
   },
