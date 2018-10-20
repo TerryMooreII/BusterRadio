@@ -14,7 +14,7 @@
            class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center px-0 sm:px-5"
            @click="getShow(show.identifier)">
         <div class="w-3/4 text-grey-darkest leading-normal text-sm">
-          <span class="text-grey-darkest italic">{{show.date | dateformat}} </span>
+          <span class="text-grey-darkest italic">{{show.date| removeTimezone | dateformat}}</span>
           <span class="text-white text-xs bg-blue-dark px-1 py-px rounded ml-3" v-if="show.soundboard">Soundboard</span>
           <br />
           <span class="text-grey-darker mr-2 text-lg">{{show.venue}}</span> <br />
