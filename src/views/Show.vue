@@ -61,7 +61,6 @@
         <span slot="header">More Info</span>
         <p class="my-2 text-xs leading-normal" v-html="show.description">
            <!-- {{sanitize(show.description)}} -->
-           
         </p>
       </Accordian>
 
@@ -75,14 +74,14 @@
         <Reviews :reviews="show.reviews.reviews" />
       </Accordian>
 
-      <Accordian class="mt-10" v-if="show.lineage || show.source">
+      <Accordian v-if="show.lineage || show.source">
         <span slot="header">Lineage &amp; Source</span>
         <p class="my-2 text-xs leading-normal">
           {{show.lineage}}<br><br>
           {{show.source}}
         </p>
       </Accordian>
-      
+
     </div>
   </div>
 </template>

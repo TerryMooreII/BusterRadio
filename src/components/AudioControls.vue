@@ -27,12 +27,14 @@
         </button>
       </div>
       <div class="flex justify-center mt-3  cursor-pointer">
-        <div class="mr-4 text-xs -mt-1 text-grey-darker">{{formatTime(currentTime)}}</div>
-        <div class="h-1 bg-grey-light w-2/3 rounded relative slider seekbar">
-          <div class="rounded bg-blue h-1 slider" v-bind:style="{width: percent}"></div>
+        <div class="mr-4 text-xs -mt-1 text-grey-dark">{{formatTime(currentTime)}}</div>
+        <div class="h-1 bg-grey-lighter w-2/3 rounded relative slider seekbar">
+          <div class="rounded bg-grey h-1 slider" v-bind:style="{width: buffered}"></div>
+          <div class="rounded bg-blue -mt-1 h-1 slider" v-bind:style="{width: percent}"></div>
+          
           <!-- <div class="rounded-full h-4 w-4 bg-grey-dark absolute dot invisible" v-bind:style="{left: percent}"></div> -->
         </div>
-        <span class="ml-4 text-xs -mt-1 text-grey-darker">{{formatTime(duration)}}</span>
+        <span class="ml-4 text-xs -mt-1 text-grey-dark">{{formatTime(duration)}}</span>
       </div>
   </div>
 </template>
@@ -54,16 +56,23 @@ export default {
     Shuffle: icons.Shuffle
   },
   computed: {
-    ...mapGetters('playlist', {
-
-    }),
     ...mapState('playlist', {
       isPlaying: 'isPlaying',
       duration: 'duration',
       currentTime: 'currentTime',
+      buffer: 'buffer',
       nextTrackIndex: 'nextTrackIndex'
     }),
+    buffered() {
+      if (this.duration === 0){
+        return '0%';
+      }
+      return `${(this.buffer / this.duration) * 100}%`;
+    },
     percent() {
+      if (this.duration === 0){
+        return '0%';
+      }
       return `${(this.currentTime / this.duration) * 100}%`;
     }
   },

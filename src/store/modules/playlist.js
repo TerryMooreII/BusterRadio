@@ -18,7 +18,8 @@ const state = {
   qIdx: null,
   isPlaying: false,
   duration: 0,
-  currentTime: 0
+  currentTime: 0,
+  buffer: 0
 };
 
 const getters = {
@@ -147,6 +148,10 @@ const actions = {
     commit('setCurrentTime', currentTime);
   },
 
+  buffer({ commit }, buffer) {
+    commit('setBuffer', buffer);
+  },
+
   seek({ commit }, time) {
     player.seek(time);
     commit('setCurrentTime', time);
@@ -187,6 +192,10 @@ const mutations = {
 
   setCurrentTime(state, currentTime) {
     state.currentTime = currentTime;
+  },
+
+  setBuffer(state, buffer) {
+    state.buffer = buffer;
   }
 };
 

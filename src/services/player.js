@@ -16,11 +16,9 @@ class Player {
       this.play();
     });
 
-    // this.audio.addEventListener('progress', () => {
-    //   const endBuf = this.audio.buffered.end(0);
-    //   const soFar = parseInt(((endBuf / this.audio.duration) * 100), 10);
-    //   // console.log('Buffered: ' + soFar);
-    // });
+    this.audio.addEventListener('progress', () => {
+      store.dispatch('playlist/buffer', this.audio.buffered.end(0));
+    });
 
     this.audio.addEventListener('ended', () => {
       store.dispatch('playlist/next');
