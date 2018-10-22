@@ -56,6 +56,25 @@
         </div>
        </div>
 
+
+      <Accordian v-if="show.description">
+        <span slot="header">More Info</span>
+        <p class="my-2 text-xs leading-normal" v-html="show.description">
+           <!-- {{sanitize(show.description)}} -->
+           
+        </p>
+      </Accordian>
+
+       <Accordian v-if="show.date" @onToggle="onAlternateRecordingsOpen">
+        <span slot="header">Alternate Recordings</span>
+        <Recordings :artist="artist" :date="show.date" :filter="$route.params.showId" v-if="fetchAlternateRecordings"/>
+      </Accordian>
+      
+      <Accordian v-if="show.reviews">
+        <span slot="header">Reviews</span>
+        <Reviews :reviews="show.reviews.reviews" />
+      </Accordian>
+
       <Accordian class="mt-10" v-if="show.lineage || show.source">
         <span slot="header">Lineage &amp; Source</span>
         <p class="my-2 text-xs leading-normal">
@@ -63,21 +82,7 @@
           {{show.source}}
         </p>
       </Accordian>
-      <Accordian v-if="show.reviews">
-        <span slot="header">Reviews</span>
-        <Reviews :reviews="show.reviews.reviews" />
-      </Accordian>
-
-      <Accordian v-if="show.description">
-        <span slot="header">More Info</span>
-        <p class="my-2 text-xs leading-normal">
-           {{sanitize(show.description)}}
-        </p>
-      </Accordian>
-      <Accordian v-if="show.date" @onToggle="onAlternateRecordingsOpen">
-        <span slot="header">Alternate Recordings</span>
-        <Recordings :artist="artist" :date="show.date" :filter="$route.params.showId" v-if="fetchAlternateRecordings"/>
-      </Accordian>
+      
     </div>
   </div>
 </template>
