@@ -107,7 +107,7 @@ export default {
     },
     mouseup() {
       this.el.removeEventListener('mousemove', this.mousemove, false);
-      window.removeEventListener('mouseup', this.mousemove, false);
+      window.removeEventListener('mouseup', this.mouseup, false);
     },
     mousedown(e) {
       this.$store.dispatch('playlist/seek', this.calcSeek(e.offsetX, this.el.clientWidth));
