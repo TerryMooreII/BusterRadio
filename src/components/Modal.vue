@@ -6,7 +6,7 @@
           <span class="close inline-block">+</span>
         </button>
       </div>
-      <div class="">
+      <div>
         <slot />
       </div>
       <div v-if="false">Footer</div>

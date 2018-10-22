@@ -8,7 +8,7 @@
         <h1 class="py-4 ">{{artist.title}}</h1>
       </div>
       <Loading v-if="!shows" />
-      <Recordings :recordings="recodings" :artist="artist" @dismiss="() => recodings = null" v-if="recodings" />
+      <RecordingsModal :recordings="recordings" :artist="artist" @dismiss="() => recordings = null" v-if="recordings" />
       <div v-for="show of shows"
            :key="show.identifier"
            class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center px-0 sm:px-5"
@@ -22,7 +22,7 @@
         </div>
         <div class="w-1/4 text-right text-grey-dark italictext-sm">
           <Stars cssClass="h-4 w-4" :rank="show.avg_rating" />
-          <div @click.stop="recodings = show" class="hover:underline">{{show.count}} recordings</div>
+          <div @click.stop="recordings = show" class="hover:underline">{{show.count}} recordings</div>
         </div>
       </div>
    </div>
@@ -36,7 +36,7 @@ import ArchiveApi from '../api/archive';
 import ArtistImage from '../components/ArtistImage';
 import Loading from '../components/Loading';
 import Stars from '../components/Stars';
-import Recordings from '../components/Recordings';
+import RecordingsModal from '../components/RecordingsModal';
 
 export default {
   name: 'shows',
@@ -45,13 +45,13 @@ export default {
     ArtistImage,
     Loading,
     Stars,
-    Recordings
+    RecordingsModal
   },
   data() {
     return {
       shows: [],
       artist: {},
-      recodings: null
+      recordings: null
     };
   },
   methods: {

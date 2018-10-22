@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-grow px-0 sm:px-10 lg:px-32 sxl:px-64 py-2 overflow-scroll width-full antialiased pt-10">
+  <div id="show" class="flex-grow px-0 sm:px-10 lg:px-32 sxl:px-64 py-2 overflow-scroll width-full antialiased pt-10">
     <div class="flex flex-wrap flex-col p-4 px-2 sm:px-0">
       <div class="flex flex-col sm:flex-row width-full bg-white sticky pin-t pt-8 sm:pt-0 mb-4 pb-4 text-center sm:text-left">
         <ArtistImage classes="mr-0 sm:mr-4 artist self-center hidden sm:block" :artist="artist" />
@@ -15,7 +15,7 @@
             {{show.venue}} in
             {{show.location}}
           </p>
-          <Stars cssClass="h-4 w-4" v-if="show.reviews" :rank="show.reviews.info.avg_rating" />
+          <Stars cssClass="h-4 w-4 mt-4" v-if="show.reviews" :rank="show.reviews.info.avg_rating" />
           <button class="rounded bg-blue text-white w-100 py-3 font-bold mt-3 px-5 ml-auto mb-3 sm:mb-0" type="button" @click="addTracks(show.tracks.mp3)">
             Play Show
           </button>
@@ -74,7 +74,11 @@
            {{sanitize(show.description)}}
         </p>
       </Accordian>
-      </div>
+      <Accordian v-if="show.date" @onToggle="onAlternateRecordingsOpen">
+        <span slot="header">Alternate Recordings</span>
+        <Recordings :artist="artist" :date="show.date" :filter="$route.params.showId" v-if="fetchAlternateRecordings"/>
+      </Accordian>
+    </div>
   </div>
 </template>
 
@@ -88,6 +92,7 @@ import Popover from '../components/Popover';
 import Stars from '../components/Stars';
 import Reviews from '../components/Reviews';
 import Accordian from '../components/Accordian';
+import Recordings from '../components/Recordings';
 
 const TRACK_FILE_TYPE = {
   MP3: 'mp3',
@@ -107,7 +112,8 @@ export default {
     Popover,
     Stars,
     Reviews,
-    Accordian
+    Accordian,
+    Recordings
   },
   computed: {
     ...mapGetters('playlist', {
@@ -115,12 +121,18 @@ export default {
       isPlaying: 'isPlaying'
     })
   },
+  watch: {
+    '$route.params.showId': function(){
+      this.getShow();
+    }
+  },
   data() {
     return {
       show: {},
       artist: {},
       trackFileType: TRACK_FILE_TYPE.MP3,
-      openPopover: null
+      openPopover: null,
+      fetchAlternateRecordings: false
     };
   },
   methods: {
@@ -132,6 +144,11 @@ export default {
     ]),
     close() {
       this.openPopover = null;
+    },
+    onAlternateRecordingsOpen(isOpen){
+      if (isOpen && !this.fetchAlternateRecordings){
+        this.fetchAlternateRecordings = true
+      }
     },
     time(track) {
       if (!track && !track.length) {
@@ -151,6 +168,12 @@ export default {
       div.innerHTML = val;
       const text = div.textContent || div.innerText || '';
       return text;
+    },
+    getShow(){
+       ArchiveApi.getShow(this.$route.params.showId).then(data => {
+         this.show = data;
+         document.querySelector('#show').scrollTo(0,0);
+       });
     }
   },
   mounted() {
@@ -159,8 +182,9 @@ export default {
     if (search && supportedFileTypes.some(val => search.toLowerCase() === val)) {
       this.trackFileType = TRACK_FILE_TYPE[search.toUpperCase()];
     }
-    ArchiveApi.getShow(this.$route.params.showId,).then(data => this.show = data);
+    this.getShow();
     this.artist = this.$store.getters['artists/artist'](this.$route.params.artistId);
+    
   }
 };
 </script>
