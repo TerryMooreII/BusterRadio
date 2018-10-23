@@ -1,24 +1,32 @@
 <template>
-  <div id="show" class="flex-grow px-0 sm:px-10 lg:px-32 sxl:px-64 py-2 overflow-scroll width-full antialiased pt-10">
+  <div id="show" class="flex-grow px-0 sm:px-10 lg:px-32 sxl:px-64 py-2 overflow-scroll width-full antialiased">
     <div class="flex flex-wrap flex-col p-4 px-2 sm:px-0">
-      <div class="flex flex-col sm:flex-row width-full bg-white sticky pin-t pt-8 sm:pt-0 mb-4 pb-4 text-center sm:text-left">
+      <div class="flex flex-col sm:flex-row width-full bg-white sticky pin-t pt-3 sm:pt-0 mb-4 pb-3 text-left">
         <ArtistImage classes="mr-0 sm:mr-4 artist self-center hidden sm:block" :artist="artist" />
-        <div class="flex flex-col w-full">
-          <h1 class="font-hairline mb-1">
-            <router-link :to="{name: 'years', params: {artistId: artist.identifier} }" class="no-underline hover:underline text-black">
-              {{artist.title}}
-            </router-link>
-          </h1>
-          <p class="leading-normal">
-            <span class="italic text-grey-darkest">{{show.date | dateformat}}</span>
-            <br>
-            {{show.venue}} in
-            {{show.location}}
-          </p>
-          <Stars cssClass="h-4 w-4 mt-4" v-if="show.reviews" :rank="show.reviews.info.avg_rating" />
-          <button class="rounded bg-blue text-white w-100 py-3 font-bold mt-3 px-5 ml-auto mb-3 sm:mb-0" type="button" @click="addTracks(show.tracks.mp3)">
-            Play Show
-          </button>
+        <div class="flex flex-row w-full self-center justify-between">
+          <div>
+            <h1 class="font-hairline mb-1">
+              <router-link :to="{name: 'years', params: {artistId: artist.identifier} }" class="no-underline hover:underline text-black">
+                {{artist.title}}
+              </router-link>
+            </h1>
+            <p class="leading-normal">
+              <span class="italic text-grey-darkest">{{show.date | dateformat}}</span>
+              <br>
+              {{show.venue}} in
+              {{show.location}}
+              
+            </p>
+          </div>
+          <div class="flex flex-col text-right">
+            <Stars cssClass="h-4 w-4 mt-4 pull-right" v-if="show.reviews" :rank="show.reviews.info.avg_rating" />
+            <button class="rounded bg-blue text-white w-100 py-3 font-bold mt-3 px-5 ml-auto mb-3 sm:mb-0" 
+                    type="button" 
+                    @click="addTracks(show.tracks.mp3)">
+              Play Show
+            </button>
+            
+          </div>
         </div>
       </div>
       <h2 v-if="show.tracks && !show.tracks[trackFileType].length" class="flex justify-center pt-8 text-grey-darkest italic">
