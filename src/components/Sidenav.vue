@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-none text-grey-darker px-8 w-240 pt-4 border-grey-light border-r border-solid bg-blue-dark sm:visible sidenav"
+  <div class="flex-none text-grey-darker px-8 w-240 pt-4 border-grey-light border-r border-solid bg-blue-dark sm:visible sidenav overflow-scroll pb-10"
        :class="{'visible': show === true, 'invisible': show === false}">
     <div class="flex items-center flex-no-shrink text-white mr-6 tracking-wide ">
       <svg class="fill-current h-8 w-8 mr-2 hidden sm:block" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
@@ -129,6 +129,11 @@ export default {
         {
           name: 'Favorite Artists',
           link: 'favoriteArtists',
+          icon: 'Heart'
+        },
+        {
+          name: 'Favorite Shows',
+          link: 'favoriteShows',
           icon: 'Heart'
         },
         {

@@ -11,6 +11,7 @@ import Queue from './views/Queue.vue';
 import Search from './views/Search.vue';
 import RandomShow from './views/RandomShow.vue';
 import FavoriteArtists from './views/FavoriteArtists.vue';
+import FavoriteShows from './views/FavoriteShows.vue';
 import RecentlyPlayed from './views/RecentlyPlayed.vue';
 import Live from './views/Live.vue';
 
@@ -45,9 +46,17 @@ const router = new Router({
           name: 'live'
         },
         {
-          path: '/favorite-artist',
+          path: '/favorite/artists',
           component: FavoriteArtists,
           name: 'favoriteArtists',
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: '/favorite/shows',
+          component: FavoriteShows,
+          name: 'favoriteShows',
           meta: {
             requiresAuth: true
           }

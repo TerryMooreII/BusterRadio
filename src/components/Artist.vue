@@ -18,7 +18,7 @@ import ArtistImage from './ArtistImage';
 import icons from '../icons';
 
 export default {
-  name: 'List',
+  name: 'Artist',
   components: {
     ArtistImage,
     Heart: icons.Heart

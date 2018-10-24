@@ -1,5 +1,12 @@
 import firebase from 'firebase';
 
+const sanitizeShow = show => Object.keys(show).reduce((acc, s) => {
+  if (typeof show[s] !== 'undefined' && typeof show[s] !== 'function') {
+    acc[s] = show[s];
+  }
+  return acc;
+}, {});
+
 export default {
   getCurrentUser() {
     return firebase.auth().currentUser;
@@ -55,6 +62,50 @@ export default {
     Object.keys(artist).forEach(async (key) => {
       await firebase.database()
         .ref(`favorite-artist/${this.getCurrentUser().uid}/${key}`)
+        .remove();
+    });
+  },
+
+  async getFavoriteShows() {
+    if (!this.getCurrentUser()) {
+      return [];
+    }
+
+    const snapshot = await firebase.database()
+      .ref(`favorite-show/${this.getCurrentUser().uid}`)
+      .once('value');
+    return snapshot.val();
+  },
+
+  async isFavoriteShow(show) {
+    if (!this.getCurrentUser()) {
+      return null;
+    }
+
+    // Deleting methods on show object
+    // cause firebase dont like those
+    show = sanitizeShow(show);
+
+    const snapshot = await firebase.database()
+      .ref(`favorite-show/${this.getCurrentUser().uid}`)
+      .equalTo(show.identifier)
+      .orderByChild('identifier')
+      .once('value');
+    return snapshot.val();
+  },
+
+  async addFavoriteShow(show) {
+    // Deleting methods on show object
+    // cause firebase dont like those
+    show = sanitizeShow(show);
+    await firebase.database()
+      .ref(`favorite-show/${this.getCurrentUser().uid}`).push(show);
+  },
+
+  async removeFavoriteShow(show) {
+    Object.keys(show).forEach(async (key) => {
+      await firebase.database()
+        .ref(`favorite-show/${this.getCurrentUser().uid}/${key}`)
         .remove();
     });
   },

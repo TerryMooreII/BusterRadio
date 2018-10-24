@@ -1,15 +1,14 @@
 <template>
-  <div class="show overflow-hidden mx-4 my-4" v-if="artist">
+  <div class="show overflow-hidden mx-4 my-4 relative" v-if="artist">
     <ArtistImage :artist="artist" @click="getShow(show)" classes="cursor-pointer"/>
     <div class="p-1">
-
       <router-link :to="{name: 'years', params: {artistId: artist.identifier}}" v-if="artist.identifier"
                   class="antialiased font-bold text-sm mb-1 text-black no-underline hover:underline"
-                  >{{show.creator}}</router-link>
+                  >{{artist.title}}</router-link>
       <p class="text-sm leading-tight">
       <span class="subpixel-antialiased date text-grey-darkest text-xs italic">{{date}}</span> <br />
         <span class="antialiased text-grey-darker">{{show.venue}}</span> <br />
-        <span class="antialiased text-grey-dark italic">{{show.coverage}}</span> &nbsp;
+        <span class="antialiased text-grey-dark italic">{{show.coverage || show.location}}</span> &nbsp;
       </p>
     </div>
   </div>
@@ -36,18 +35,21 @@ export default {
       return this.show.date.split('T')[0];
     },
     artist() {
-      return this.$store.getters['artists/artist'](this.show.creator);
+      return this.$store.getters['artists/artist'](this.show.creator || this.show.artist);
     }
   },
   methods: {
     getShow(show) {
-      this.$router.push(`${this.artist.identifier}/${show.year}/${show.identifier}`);
+      this.$router.push(`/${this.artist.identifier}/${show.year}/${show.identifier}`);
     }
   }
 };
 </script>
 
 <style scoped lang="less">
+  .favorite {
+    position: absolute;
+  }
   img {
     height: 155px;
     width: 155px;

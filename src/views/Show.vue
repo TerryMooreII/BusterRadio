@@ -1,10 +1,10 @@
 <template>
   <div id="show" class="flex-grow px-0 sm:px-10 lg:px-32 sxl:px-64 py-2 overflow-scroll width-full antialiased">
-    <div class="flex flex-wrap flex-col p-4 px-2 sm:px-0">
-      <div class="flex flex-col sm:flex-row width-full bg-white sticky pin-t pt-3 sm:pt-0 mb-4 pb-3 text-left">
+    <div class="flex flex-wrap flex-col p-4 px-2 sm:px-0" v-if="show">
+      <div class="flex flex-col sm:flex-row width-full bg-white sticky pin-t pt-3 sm:pt-0 mb-4 pb-3 text-left border-b border-solid border-grey">
         <ArtistImage classes="mr-0 sm:mr-4 artist self-center hidden sm:block" :artist="artist" />
         <div class="flex flex-row w-full self-center justify-between">
-          <div>
+          <div class="flex flex-col self-center">
             <h1 class="font-hairline mb-1">
               <router-link :to="{name: 'years', params: {artistId: artist.identifier} }" class="no-underline hover:underline text-black">
                 {{artist.title}}
@@ -18,14 +18,18 @@
               
             </p>
           </div>
-          <div class="flex flex-col text-right">
-            <Stars cssClass="h-4 w-4 mt-4 pull-right" v-if="show.reviews" :rank="show.reviews.info.avg_rating" />
-            <button class="rounded bg-blue text-white w-100 py-3 font-bold mt-3 px-5 ml-auto mb-3 sm:mb-0" 
+          <div class="flex flex-col text-right self-center">
+            <div>
+              <FavoriteShow :show="show" v-if="show"/>
+              <DotsVertical cssClass="h-5 w-5 ml-3" />
+            </div>
+            <Stars cssClass="h-4 w-4 mt-2" v-if="show.reviews" :rank="show.reviews.info.avg_rating" />
+            <span class="text-sm text-grey-darker">{{show.downloads || 0}} downloads</span>
+            <button class="rounded bg-blue text-white w-100 py-2 sm:py-3 font-bold mt-3 px-3 text-sm sm:text-base sm:px-4 ml-auto mb-3 sm:mb-0" 
                     type="button" 
                     @click="addTracks(show.tracks.mp3)">
               Play Show
             </button>
-            
           </div>
         </div>
       </div>
@@ -105,6 +109,7 @@ import Stars from '../components/Stars';
 import Reviews from '../components/Reviews';
 import Accordian from '../components/Accordian';
 import Recordings from '../components/Recordings';
+import FavoriteShow from '../components/FavoriteShow';
 
 const TRACK_FILE_TYPE = {
   MP3: 'mp3',
@@ -113,12 +118,13 @@ const TRACK_FILE_TYPE = {
 };
 
 export default {
-  name: 'show',
+  name: 'ShowComp',
   components: {
     PlayIcon: icons.Play,
     PauseIcon: icons.Pause,
     ListAdd: icons.ListAdd,
     DotsVertical: icons.DotsVertical,
+    FavoriteShow,
     ArtistImage,
     Loading,
     Popover,
@@ -140,7 +146,7 @@ export default {
   },
   data() {
     return {
-      show: {},
+      show: null,
       artist: {},
       trackFileType: TRACK_FILE_TYPE.MP3,
       openPopover: null,
