@@ -11,6 +11,13 @@ const cache = {};
 
 const createApi = query => `${URL}${COLLECTION}${query.join('&')}&${JSONP}`;
 
+const isSoundboard = (show) => {
+  if (show.source && (show.source.toLowerCase().includes('soundoard') || show.source.toLowerCase().includes('sbd'))) {
+    return true;
+  }
+  return false;
+};
+
 class Show {
   constructor(show) {
     this.dir = show.dir;
@@ -79,7 +86,8 @@ export default {
   getLatestShows(orderby = 'publicdate', page = 1) {
     const query = [
       'fl[]=avg_rating',
-      'fl[]=collection',
+      'fl[]=downloads',
+      'fl[]=source',
       'fl[]=coverage',
       'fl[]=creator',
       'fl[]=date',
@@ -102,6 +110,7 @@ export default {
     return axios.jsonp(url)
       .then(response => response.response.docs)
       .then((data) => {
+        data = data.map(s => Object.assign({}, s, { soundboard: isSoundboard(s) }));
         cache[key] = {
           data,
           timestamp: Date.now()
@@ -147,12 +156,6 @@ export default {
     if (cache[key]) {
       return Promise.resolve(cache[key]);
     }
-    const isSoundboard = (show) => {
-      if (show.source && (show.source.toLowerCase().includes('soundoard') || show.source.toLowerCase().includes('sbd'))) {
-        return true;
-      }
-      return false;
-    };
 
     return axios.jsonp(url)
       .then(response => response.response.docs)

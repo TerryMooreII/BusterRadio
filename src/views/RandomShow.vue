@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-grow px-0 sm:px-24 py-2 sm:mt-0 mt-3 overflow-scroll">
+  <div class="flex-grow px-0 sm:px-24 sm:mt-0 mt-3 overflow-scroll">
     <NoResults width="361px">
       <Shuffle v-bind:cssClass="'h-24 w-24 fill-current block ml-2'" slot="icon"/>
         Grabbing a random show.

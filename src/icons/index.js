@@ -28,6 +28,7 @@ import Logout from './Logout.vue';
 import Globe from './Globe.vue';
 import ArrowRight from './ArrowRight.vue';
 import ArrowLeft from './ArrowLeft.vue';
+import Download from './Download.vue';
 
 export default {
   Play,
@@ -59,6 +60,7 @@ export default {
   Logout,
   Globe,
   ArrowLeft,
-  ArrowRight
+  ArrowRight,
+  Download
 };
 

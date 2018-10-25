@@ -1,6 +1,6 @@
 <template>
-  <div class="flex-col w-full px-0 sm:px-24 py-2 sm:mt-0 mt-3 overflow-scroll">
-    <div class="flex antialiased text-grey-darkest py-6 px-2 sm:px-0 sticky pin-t w-full bg-white">
+  <div class="flex-col w-full px-0 sm:px-24 sm:mt-0 mt-3 overflow-scroll">
+    <div class="flex antialiased text-grey-darkest py-6 px-2 sm:px-16 sticky pin-t w-full bg-white z-10">
       <div class="w-2/3">
         <h2>Lastest Uploaded Shows</h2>
       </div>

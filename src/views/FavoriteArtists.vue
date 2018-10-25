@@ -1,6 +1,6 @@
 <template>
-  <div id="artists" class="flex-grow px-0 sm:px-24 py-2 sm:mt-0 mt-3 overflow-scroll">
-     <div class="flex antialiased text-grey-darkest px-2 sm:px-0 py-6 sticky pin-t w-full bg-white z-10">
+  <div id="artists" class="flex-grow px-0 sm:px-24 sm:mt-0 mt-3 overflow-scroll">
+     <div class="flex antialiased text-grey-darkest px-2 sm:px-16 py-6 sticky pin-t w-full bg-white z-10">
       <div class="w-2/3">
         <h2>Your Favorite Artists</h2>
       </div>
