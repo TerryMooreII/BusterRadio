@@ -35,11 +35,14 @@
     </ul>
 
     <ul class="list-reset mt-6 border-t border-solid border-grey pt-4">
-      <li @click="login()"
-          v-if="!isLoggedIn"
-          class="antialiased text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
+      <li v-if="!isLoggedIn"
+          class="antialiased text-grey-lightest no-underline cursor-pointer text-lg">
         <Login v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 mt-1'" />
-          Login
+          <router-link to="/signup" class="antialiased text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
+            Signup
+          </router-link>
+          /
+          <span @click="login()" class=" hover:text-grey-light "> Login</span>
       </li>
       <li @click="logout()"
           v-if="isLoggedIn"
@@ -156,7 +159,8 @@ export default {
       this.addTracks(queue);
     },
     async logout() {
-      return datastore.logout();
+      datastore.logout();
+      this.$router.push('/');
     }
   }
 };

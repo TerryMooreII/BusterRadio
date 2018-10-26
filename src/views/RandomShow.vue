@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import datastore from '../services/datastore';
 import icons from '../icons';
 import ArchiveApi from '../api/archive';
 import NoResults from '../components/NoResults';
@@ -19,9 +20,17 @@ export default {
     Shuffle: icons.Shuffle
   },
   methods: {
-    async getRandomShow() {
-      const artists = this.$store.getters['artists/all'];
+    async getRandomShow(fromFav = this.$route.query.from) {
+      let  artists;
+      if (fromFav) {
+        const firebaseArtists = await datastore.getFavoriteArtists();
+        artists = Object.keys(firebaseArtists).map(k => firebaseArtists[k])
+      } else {
+        artists = this.$store.getters['artists/all'];
+      }
+      
       const artistId = artists[Math.floor(Math.random() * artists.length)].identifier;
+
       let year;
 
       try {

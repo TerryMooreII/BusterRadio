@@ -14,6 +14,7 @@ import FavoriteArtists from './views/FavoriteArtists.vue';
 import FavoriteShows from './views/FavoriteShows.vue';
 import RecentlyPlayed from './views/RecentlyPlayed.vue';
 import Live from './views/Live.vue';
+import Signup from './views/Signup.vue';
 
 Vue.use(Router);
 
@@ -44,6 +45,11 @@ const router = new Router({
           path: '/live',
           component: Live,
           name: 'live'
+        },
+        {
+          path: '/signup',
+          component: Signup,
+          name: 'signup'
         },
         {
           path: '/favorite/artists',

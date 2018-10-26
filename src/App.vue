@@ -12,6 +12,10 @@
    }
 }
 
+.bg-white-show {
+  background-color: snow;
+}
+
 .h-0 {
   height: 0;
 }
