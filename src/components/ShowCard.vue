@@ -1,7 +1,7 @@
 <template>
-  <div class="show overflow-hidden mx-4 my-4 relative shadow-md flex flex-col justify-between" v-if="artist">
+  <div class="show overflow-hidden mx-4 my-4 relative shadow flex flex-col justify-between p-3 pb-px" v-if="artist">
     <ArtistImage :artist="artist" @click="getShow(show)" classes="cursor-pointer"/>
-    <div class="p-3 pt-1 items-stretch">
+    <div class="py-2 items-stretch">
       <router-link :to="{name: 'years', params: {artistId: artist.identifier}}" v-if="artist.identifier"
                   class="antialiased font-bold text-sm mb-1 text-black no-underline hover:underline"
                   >{{artist.title}}</router-link>
@@ -11,15 +11,13 @@
         <span class="antialiased text-grey-dark italic ">{{show.coverage || show.location}}</span> &nbsp;
       </p>
     </div>
-    <div class="w-100 border-t border-solid border-grey-light p-1 text-right flex flex-row items-center justify-between">
-      
-      <div class=" text-grey-dark flex items-center">
+    <div class="w-100 border-t border-solid border-grey-light py-1 text-right flex flex-row items-center justify-between">
+      <div class="text-grey-dark flex items-center">
         <span class="bg-white border border-blue-dark text-xs text-blue-dark px-1 py-px rounded" v-if="show.soundboard">Soundboard</span>
       </div>
       <div>
         <FavoriteShow :show="show" />
       </div>
-      
     </div>
   </div>
 </template>
@@ -67,6 +65,6 @@ export default {
     width: 200px;
   }
   .show {
-    width: 200px
+    width: 220px
   }
 </style>
