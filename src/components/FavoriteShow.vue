@@ -1,5 +1,5 @@
 <template>
-  <div class="inline-block" @click="toggle()" :class="{'right': right}">
+  <div class="inline-block" @click="toggle()" :class="{'right': right}" v-if="isLoggedIn">
     <Heart v-bind:cssClass="`heart ${Boolean(favorite) ? 'favorite text-red-dark hover:text-red' : '' } h-5 w-5 fill-current text-grey-dark hover:text-grey-darkest cursor-pointer`"/>
   </div>
 </template>
@@ -18,6 +18,11 @@ export default {
     right: {
       type: Boolean,
       default: false
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      return datastore.getCurrentUser()
     }
   },
   data() {

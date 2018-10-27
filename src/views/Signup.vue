@@ -31,7 +31,7 @@
         </button>
         </div>
         <div class="text-xs text-center">
-            We know privacy is important that's why Buster Radio will NEVER sell any of your personal data or information.  And we use Google to manage you account becuase they do security better than we can :)  (More login providers are coming soon)
+            We know privacy is important that's why Buster Radio will NEVER sell any of your personal data or information.  And we use Google to manage your account becuase they do security better than we can :)  (More login providers are coming soon)
           </div>
       </div>
     </div>
