@@ -1,7 +1,7 @@
 <template>
   <div class="relative w-full">
     <div class="border border-solid border-grey absolute p-3 rounded z-50 shadow-lg popover bg-white"
-         v-bind:style="{left: left, width: width}">
+         v-bind:style="{left: leftComputed, width: width}">
       <slot></slot>
     </div>
   </div>
@@ -18,6 +18,10 @@ export default {
     width: {
       type: String,
       default: '100px'
+    },
+    left: {
+      type: String,
+      default: null
     }
   },
   data() {
@@ -26,9 +30,9 @@ export default {
     };
   },
   computed: {
-    left() {
+    leftComputed() {
       if (this.right) {
-        return `-${parseInt(this.width) - 30}px`;
+        return this.left || `-${parseInt(this.width) - 30}px`;
       }
       return 0;
     }

@@ -21,7 +21,22 @@
           <div class="flex flex-col text-right self-center">
             <div>
               <FavoriteShow :show="show" v-if="show"/>
-              <DotsVertical cssClass="h-5 w-5 ml-3" />
+              
+              <button class="cursor-pointer h-5 w-5 ml-3" @click.stop.prevent="openShowPopover = !openShowPopover" type="button">
+                <DotsVertical v-bind:cssClass="'h-5 w-5 fill-current inline-block cursor-pointer'"/>
+              </button>
+              <Popover :right="true" width="195px" left="-95px" v-if="openShowPopover" @close="close">
+                <ul class="list-reset text-sm text-left popover">
+                  <!-- <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" @click.stop="addTrackToQueuePlayNext(track);close()">Add Show to Queue</li> -->
+                  <li class="pt-1 pb-1 mb-1 border-b border-grey text-center uppercase text-xs">Download Show</li>
+                  <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" v-if="show.tracks.mp3" @click.stop="downloadShow('mp3');close()">as MP3</li>
+                  <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" v-if="show.tracks.flac" @click.stop="downloadShow('flac');close()">as FLAC</li>
+                  <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" v-if="show.tracks.ogg" @click.stop="downloadShow('ogg');close()">as OGG</li>
+                  <li class="pt-1 pb-1 mb-1 border-b border-grey text-center uppercase text-xs"></li>
+                  <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" @click.stop="openOnArchive();close()">View On Archive.org</li>
+                </ul>
+              </Popover>
+
             </div>
             <Stars cssClass="h-4 w-4 mt-2" v-if="show.reviews" :rank="show.reviews.info.avg_rating" />
             <span class="text-sm text-grey-darker">{{show.downloads || 0}} downloads</span>
@@ -150,6 +165,7 @@ export default {
       artist: {},
       trackFileType: TRACK_FILE_TYPE.MP3,
       openPopover: null,
+      openShowPopover: null,
       fetchAlternateRecordings: false
     };
   },
@@ -162,6 +178,7 @@ export default {
     ]),
     close() {
       this.openPopover = null;
+      this.openShowPopover = null;
     },
     onAlternateRecordingsOpen(isOpen){
       if (isOpen && !this.fetchAlternateRecordings){
@@ -192,6 +209,12 @@ export default {
          this.show = data;
          document.querySelector('#show').scrollTo(0,0);
        });
+    },
+    downloadShow(format) {
+      window.open(ArchiveApi.downloadShowUrl(this.show.identifier, format), '_blank');
+    },
+    openOnArchive() {
+      window.open(ArchiveApi.getArchiveUrl(this.show.identifier), '_blank');
     }
   },
   mounted() {

@@ -257,6 +257,24 @@ export default {
         cache[key] = data;
         return data;
       });
+  },
+
+  downloadShowUrl(identifier, fileType) {
+    let format;
+    switch (fileType) {
+      case 'ogg':
+        format = 'OGG%20VORBIS';
+        break;
+      case 'flac':
+        format = 'FLAC';
+        break;
+      default:
+        format = 'VBR%20MP3';
+        break;
+    }
+    return `https://archive.org/compress/${identifier}/formats=${format}&file=/${identifier}.zip`;
+  },
+  getArchiveUrl(identifier) {
+    return `https://archive.org/details/${identifier}`;
   }
 };
-
