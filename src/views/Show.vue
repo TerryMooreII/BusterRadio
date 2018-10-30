@@ -86,9 +86,7 @@
 
       <Accordian v-if="show.description">
         <span slot="header">More Info</span>
-        <p class="my-2 text-xs leading-normal" v-html="show.description">
-           <!-- {{sanitize(show.description)}} -->
-        </p>
+        <p class="my-2 text-xs leading-normal" v-html="show.description"></p>
       </Accordian>
 
        <Accordian v-if="show.date" @onToggle="onAlternateRecordingsOpen">
@@ -155,7 +153,8 @@ export default {
     })
   },
   watch: {
-    '$route.params.showId': function(){
+    '$route.params.showId': function() {
+      this.fetchAlternateRecordings = false;
       this.getShow();
     }
   },
@@ -181,7 +180,7 @@ export default {
       this.openShowPopover = null;
     },
     onAlternateRecordingsOpen(isOpen){
-      if (isOpen && !this.fetchAlternateRecordings){
+      if (isOpen && !this.fetchAlternateRecordings) {
         this.fetchAlternateRecordings = true
       }
     },
