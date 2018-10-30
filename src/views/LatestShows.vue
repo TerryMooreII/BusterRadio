@@ -1,6 +1,6 @@
 <template>
-  <div class="flex-col w-full px-0 sm:px-24 sm:mt-0 mt-3 overflow-scroll">
-    <div class="flex antialiased text-grey-darkest py-6 px-2 sm:px-16 sticky pin-t w-full bg-white z-10">
+  <Container :wide="true">
+    <template slot="header">
       <div class="w-2/3">
         <h2>Lastest Uploaded Shows</h2>
       </div>
@@ -8,13 +8,13 @@
         <router-link to="/newest?orderby=date" class="text-grey-darker text-sm no-underline hover:underline" v-if="orderby === 'publicdate'">Sort By Show Date</router-link>
         <router-link to="/newest?orderby=publicdate" class="text-grey-darker text-sm  no-underline hover:underline" v-if="orderby === 'date'">Sort By Publish Date</router-link>
       </div>
-    </div>
+    </template>
     <div class="flex items-stretch flex-wrap justify-center">
       <Loading v-if="!shows.length" />
       <ShowCard v-for="show of shows" :key="show.identifier" :show="show"/>
     </div>
     <Pager :page="page" :count="shows.length" :pagesize="50" @onPageChange="pageChange" v-if="shows.length"/>
-  </div>
+  </Container>
 </template>
 
 <script>
@@ -23,10 +23,12 @@ import icons from '../icons';
 import ShowCard from '@/components/ShowCard.vue';
 import Loading from '../components/Loading';
 import Pager from '../components/Pager';
+import Container from '../components/Container';
 
 export default {
   name: 'LatestShows',
   components: {
+    Container,
     Sort: icons.Sort,
     ShowCard,
     Loading,

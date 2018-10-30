@@ -7,8 +7,8 @@
 <style lang="less">
 @media (min-width: 1400px) {
   .sxl\:px-64 {
-    padding-left: 16em;
-    padding-right: 16em;
+    margin-left: 16em;
+    margin-right: 16em;
    }
 }
 
@@ -18,5 +18,12 @@
 
 .h-0 {
   height: 0;
+}
+body { 
+  background-color: #F5F5F5 
+}
+
+.bg-f5 {
+  background-color: #F5F5F5 
 }
 </style>

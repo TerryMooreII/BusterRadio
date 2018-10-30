@@ -1,5 +1,5 @@
 <template>
-  <div id="show" class="flex-grow px-0 sm:px-10 lg:px-32 sxl:px-64 overflow-scroll width-full antialiased">
+  <Container id="show">
     <div class="flex flex-wrap flex-col p-4 px-2 sm:px-0" v-if="show">
       <div class="flex flex-col sm:flex-row width-full bg-white sticky pin-t pt-3 sm:pt-0 mb-4 pb-3 text-left border-b border-solid border-grey">
         <ArtistImage classes="mr-0 sm:mr-4 artist self-center hidden sm:block" :artist="artist" />
@@ -108,7 +108,7 @@
       </Accordian>
 
     </div>
-  </div>
+  </Container>
 </template>
 
 <script>
@@ -123,6 +123,7 @@ import Reviews from '../components/Reviews';
 import Accordian from '../components/Accordian';
 import Recordings from '../components/Recordings';
 import FavoriteShow from '../components/FavoriteShow';
+import Container from '../components/Container';
 
 const TRACK_FILE_TYPE = {
   MP3: 'mp3',
@@ -133,6 +134,7 @@ const TRACK_FILE_TYPE = {
 export default {
   name: 'ShowComp',
   components: {
+    Container,
     PlayIcon: icons.Play,
     PauseIcon: icons.Pause,
     ListAdd: icons.ListAdd,

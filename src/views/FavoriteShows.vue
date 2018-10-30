@@ -1,25 +1,27 @@
 <template>
-  <div class="flex-col w-full px-0 sm:px-24 sm:mt-0 mt-3 overflow-scroll">
-    <div class="flex antialiased text-grey-darkest py-6 px-2 sm:px-16 sticky pin-t w-full bg-white z-100">
+  <Container :wide="true">
+    <template slot="header">
       <div class="w-2/3">
         <h2>Favorite Shows</h2>
       </div>
-    </div>
+    </template>
     <div class="flex items-stretch flex-wrap justify-center">
       <Loading v-if="!shows" />
       <ShowCard v-for="show of shows" :key="show.identifier" :show="show"/>
     </div>
-  </div>
+  </Container>
 </template>
 
 <script>
 import datastore from '../services/datastore';
 import ShowCard from '@/components/ShowCard.vue';
 import Loading from '../components/Loading';
+import Container from '../components/Container';
 
 export default {
   name: 'FavoriteShows',
   components: {
+    Container,
     ShowCard,
     Loading
   },

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-grow px-0 sm:px-10 lg:px-32 sxl:px-64 overflow-scroll width-full antialiased">
+  <Container>
     <div class="flex flex-wrap flex-col px-2 sm:px-0 p-4">
       <div class="flex flex-col items-center width-full mb-2 bg-white">
          <ArtistImage classes="rounded-full border border-solid border-grey p-2 artist-image" :artist="artist" />
@@ -20,7 +20,7 @@
         </div>
       </div>
    </div>
-  </div>
+  </Container>
 </template>
 
 <script>
@@ -28,13 +28,15 @@ import icons from '../icons';
 import ArchiveApi from '../api/archive';
 import ArtistImage from '../components/ArtistImage';
 import Loading from '../components/Loading';
+import Container from '../components/Container';
 
 export default {
   name: 'years',
   components: {
     Calendar: icons.Calendar,
     ArtistImage,
-    Loading
+    Loading,
+    Container
   },
   data() {
     return {

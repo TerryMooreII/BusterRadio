@@ -1,5 +1,5 @@
 <template>
-  <div class="show overflow-hidden mx-4 my-4 relative shadow flex flex-col justify-between p-3 pb-px" v-if="artist">
+  <div class="show overflow-hidden mx-4 my-4 relative shadow flex flex-col justify-between p-3 pb-px bg-white rounded" v-if="artist">
     <ArtistImage :artist="artist" @click="getShow(show)" classes="cursor-pointer"/>
     <div class="py-2 items-stretch">
       <router-link :to="{name: 'years', params: {artistId: artist.identifier}}" v-if="artist.identifier"

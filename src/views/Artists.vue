@@ -1,6 +1,6 @@
 <template>
-   <div id="artists" class="flex-grow px-0 sm:px-24 sm:mt-0 mt-3 overflow-scroll">
-     <div class="flex antialiased text-grey-darkest px-2 sm:px-16 py-6 sticky pin-t w-full bg-white z-10">
+   <Container :wide="true">
+     <template slot="header">
       <div class="w-2/3">
         <h2>Artists <small class="text-grey-dark">({{total}})</small></h2>
       </div>
@@ -8,20 +8,22 @@
         <router-link to="/?orderby=a-to-z" class="text-grey-darker text-sm no-underline hover:underline"  v-if="!$route.query.orderby">Sort by A-Z</router-link>
         <router-link to="/" class="text-grey-darker text-sm  no-underline hover:underline" v-if="$route.query.orderby === 'a-to-z'">Sort By Popularity</router-link>
       </div>
-    </div>
+    </template>
     <div class="flex items-stretch flex-wrap justify-center">
       <Artist v-for="artist of artistsList" :key="artist.identifier" :artist="artist" />
     </div>
-   </div>
+   </Container>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
 import Artist from '../components/Artist.vue';
+import Container from '../components/Container.vue';
 
 export default {
   name: 'Artists',
   components: {
+    Container,
     Artist
   },
   data() {
@@ -63,8 +65,8 @@ export default {
       }
     },
     handleScroll() {
-      if (this.el.scrollHeight - this.el.scrollTop === this.el.clientHeight) {
-        this.getArtists();
+      if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+         this.getArtists();
       }
     }
   },
@@ -77,7 +79,6 @@ export default {
   },
   mounted() {
     this.getArtists();
-    this.el = document.querySelector('div#artists');
     window.addEventListener('wheel', this.handleScroll);
     window.addEventListener('scroll', this.handleScroll);
   },

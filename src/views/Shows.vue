@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-grow px-0 sm:px-10 lg:px-32 sxl:px-64 overflow-scroll width-full antialiased ">
+  <Container>
     <div class="flex flex-wrap flex-col px-2 sm:px-0 p-4">
       <div class="flex flex-col items-center width-full mb-2 bg-white">
         <ArtistImage classes="rounded-full border border-solid border-grey p-2 hidden sm:block" :artist="artist" />
@@ -27,7 +27,7 @@
       </div>
    </div>
 
-  </div>
+  </Container>
 </template>
 
 <script>
@@ -37,6 +37,7 @@ import ArtistImage from '../components/ArtistImage';
 import Loading from '../components/Loading';
 import Stars from '../components/Stars';
 import RecordingsModal from '../components/RecordingsModal';
+import Container from '../components/Container';
 
 export default {
   name: 'shows',
@@ -45,7 +46,8 @@ export default {
     ArtistImage,
     Loading,
     Stars,
-    RecordingsModal
+    RecordingsModal,
+    Container
   },
   data() {
     return {

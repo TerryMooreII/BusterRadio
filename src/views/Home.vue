@@ -1,8 +1,8 @@
 <template>
   <div>
     <Navbar class="block sm:hidden" @menu="() => this.show = !this.show"/>
-   <div class="flex pb-24 pt-16 sm:pt-0 h-screen">
-    <Sidenav :show="show" @close="() => this.show = false"/>
+      <Sidenav :show="show" @close="() => this.show = false"/>
+   <div class="flex pb-32 a">
      <transition
         name="fade"
         mode="out-in">
@@ -55,7 +55,7 @@ export default {
 <style>
 .fade-enter-active,
 .fade-leave-active {
-  transition-duration: 0.3s;
+  transition-duration: 0.2s;
   transition-property: opacity;
   transition-timing-function: ease;
 }
@@ -64,4 +64,5 @@ export default {
 .fade-leave-active {
   opacity: 0
 }
+.a { margin-left: 240px}
 </style>

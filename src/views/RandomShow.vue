@@ -1,9 +1,13 @@
 <template>
-  <div class="flex-grow px-0 sm:px-24 sm:mt-0 mt-3 overflow-scroll">
-    <NoResults width="361px">
+  <div class="flex-grow mt-24 w-2/3 ">     
+    <div class="flex antialiased text-grey-darker leading-normal justify-around ">
+      <div class="flex flex-col shadow rounded w-2/5 p-6 bg-white pb-24">
+        <NoResults width="361px">
       <Shuffle v-bind:cssClass="'h-24 w-24 fill-current block ml-2'" slot="icon"/>
         Grabbing a random show.
     </NoResults>
+    </div>
+    </div>
   </div>
 </template>
 
@@ -21,6 +25,7 @@ export default {
   },
   methods: {
     async getRandomShow(fromFav = this.$route.query.from) {
+      return;
       let  artists;
       if (fromFav) {
         const firebaseArtists = await datastore.getFavoriteArtists();
