@@ -2,7 +2,7 @@
   <div>
     <Navbar class="block sm:hidden" @menu="() => this.show = !this.show"/>
     <Sidenav :show="show" @close="() => this.show = false"/>
-    <div class="flex pb-32 a">
+    <div class="flex pb-32 main">
       <transition
         name="fade"
         mode="out-in">
@@ -66,5 +66,17 @@ export default {
 }
 
 
-.a { margin-left: 240px}
+.main { 
+  padding-left: 240px;
+}
+
+@media (max-width: 576px) {
+  .main { 
+    padding-top: 48px;
+    padding-left: 0px;
+  }
+  .pin-t {
+    top: 64px;
+  }
+}
 </style>

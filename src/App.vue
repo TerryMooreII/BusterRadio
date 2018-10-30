@@ -6,7 +6,7 @@
 
 <style lang="less">
 @media (min-width: 1400px) {
-  .sxl\:px-64 {
+  .sxl\:mx-64 {
     margin-left: 16em;
     margin-right: 16em;
    }
@@ -20,7 +20,8 @@
   height: 0;
 }
 body { 
-  background-color: #F5F5F5 
+  background-color: #F5F5F5;
+  overflow: auto;
 }
 
 .bg-f5 {

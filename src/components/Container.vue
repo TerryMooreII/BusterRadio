@@ -1,5 +1,5 @@
 <template>
-  <div :class="css">
+  <div :class="css" >
      <span :class="cssHeader">
         <slot name="header" />
       </span>
@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     css() {
-      const shared = 'my-4 mx-0 sm:mx-10 lg:mx-32 sxl:px-64 w-2/3 antialiased bg-white p-4 rounded shadow'
+      const shared = 'my-4 mx-0 sm:mx-10 lg:mx-32 sxl:mx-64 w-full antialiased bg-white p-4 rounded shadow'
       if (this.wide){
         return `flex-col w-full px-0 sm:px-24 sm:mt-0 mt-3`
       }

@@ -1,12 +1,12 @@
 <template>
-  <div class="absolute sm:w-2/3 min-h-screen modal mt-6 border border-grey-light border-solid shadow-lg rounded p-4 bg-white overflow-auto mr-2 ">
-      <div class="flex mb-4 pin-t sticky bg-white pt-4">
+  <div class="fixed flex flex-col modal w-100 border border-grey-light shadow-lg rounded  bg-white overflow-auto">
+      <div class="flex w-100 mb-6 bg-white px-6 py-4 absolute pin-r pin-l  border-b border-grey-light">
        <slot name="header"></slot>
         <button class="ml-auto text-xl cursor-pointer h-4 w-4 -mt-2 -mr-2" @click="$emit('dismiss')">
           <span class="close inline-block">+</span>
         </button>
       </div>
-      <div>
+      <div class="pt-24 overflow-auto px-4">
         <slot />
       </div>
       <div v-if="false">Footer</div>
@@ -29,6 +29,7 @@ export default {
     };
   },
   beforeMount() {
+    document.body.classList.add('overflow-hidden');
     this.div = document.createElement('div');
     this.div.style.position = 'fixed';
     this.div.style.backgroundColor = 'black';
@@ -41,6 +42,7 @@ export default {
     document.body.appendChild(this.div);
   },
   beforeDestroy() {
+    document.body.classList.remove('overflow-hidden');
     document.body.removeChild(this.div);
   }
 };
@@ -51,8 +53,23 @@ export default {
     transform: rotate(45deg)
   }
   .modal {
-    max-width: calc(100vh - 200px);
-    min-height: calc(100vh - 200px);
+    top: 0;
+    left: 0;
+    right:0;
+    bottom: 0;
+    margin-top: 100px;
+    margin: 50px 160px;
     z-index: 100;
   }
+
+  @media (max-width: 576px) {
+  .modal {
+    top: 0;
+    left: 0;
+    right:0;
+    bottom: 0;
+    margin: 20px 10px;
+    z-index: 999;
+  }
+}
 </style>
