@@ -1,40 +1,35 @@
 <template>
   <Container>
-    <div class="flex flex-wrap flex-col px-2 sm:px-0 p-4">
-      <div class="flex flex-col items-center width-full mb-2 bg-white">
-         <ArtistImage classes="rounded-full border border-solid border-grey p-2 artist-image" :artist="artist" />
+     <template slot="header">
+        <ArtistHeader :artist="artist" />
+      </template>
+    <Loading v-if="!years" />
+    <div v-for="year of years"
+          :key="year.year"
+          class="flex py-4 hover:bg-grey-lighter cursor-pointer items-center"
+          @click="getShows(year.year)">
+      <div class="w-1/2 text-grey-darkest px-5">
+        <Calendar v-bind:cssClass="'h-4 w-4 fill-current text-grey-dark inline-block self-center mr-6 mt-px'"/> {{year.year}}
       </div>
-      <div class="flex flex-col items-center width-full border-b border-solid border-grey mb-2 sticky pin-t bg-white">
-         <h1 class="py-4 ">{{artist.title}}</h1>
+      <div class="w-1/2 text-right text-grey-dark italic px-5">
+        {{year.total}} shows
       </div>
-      <Loading v-if="!years" />
-      <div v-for="year of years"
-           :key="year.year"
-           class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center"
-           @click="getShows(year.year)">
-        <div class="w-1/2 text-grey-darkest px-5">
-          <Calendar v-bind:cssClass="'h-4 w-4 fill-current text-grey-dark inline-block self-center mr-6 mt-px'"/> {{year.year}}
-        </div>
-        <div class="w-1/2 text-right text-grey-dark italic px-5">
-          {{year.total}} shows
-        </div>
-      </div>
-   </div>
+    </div>
   </Container>
 </template>
 
 <script>
 import icons from '../icons';
 import ArchiveApi from '../api/archive';
-import ArtistImage from '../components/ArtistImage';
 import Loading from '../components/Loading';
 import Container from '../components/Container';
+import ArtistHeader from '../components/ArtistHeader';
 
 export default {
   name: 'years',
   components: {
+    ArtistHeader,
     Calendar: icons.Calendar,
-    ArtistImage,
     Loading,
     Container
   },

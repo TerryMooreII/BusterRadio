@@ -1,16 +1,16 @@
 <template>
   <div>
     <Navbar class="block sm:hidden" @menu="() => this.show = !this.show"/>
-      <Sidenav :show="show" @close="() => this.show = false"/>
-   <div class="flex pb-32 a">
-     <transition
+    <Sidenav :show="show" @close="() => this.show = false"/>
+    <div class="flex pb-32 a">
+      <transition
         name="fade"
         mode="out-in">
         <router-view/>
       </transition>
-  </div>
+    </div>
   <Footer />
-</div>
+  </div>
 
 </template>
 
@@ -64,5 +64,7 @@ export default {
 .fade-leave-active {
   opacity: 0
 }
+
+
 .a { margin-left: 240px}
 </style>
