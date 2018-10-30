@@ -7,7 +7,7 @@
       <div class="flex flex-col items-center width-full border-b border-solid border-grey mb-2 sticky pin-t bg-white">
          <h1 class="py-4 ">{{artist.title}}</h1>
       </div>
-      <Loading v-if="!years.length" />
+      <Loading v-if="!years" />
       <div v-for="year of years"
            :key="year.year"
            class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center"
@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      years: [],
+      years: null,
       artist: {}
     };
   },

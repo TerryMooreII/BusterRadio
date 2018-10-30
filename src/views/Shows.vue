@@ -51,7 +51,7 @@ export default {
   },
   data() {
     return {
-      shows: [],
+      shows: null,
       artist: {},
       recordings: null
     };

@@ -25,7 +25,6 @@ export default {
   },
   methods: {
     async getRandomShow(fromFav = this.$route.query.from) {
-      return;
       let  artists;
       if (fromFav) {
         const firebaseArtists = await datastore.getFavoriteArtists();

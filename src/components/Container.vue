@@ -1,10 +1,10 @@
 <template>
   <div :class="css">
-    <div :class="cssHeader">
-      <slot name="header" />
-    </div>
+     <div :class="cssHeader">
+        <slot name="header" />
+      </div>
 
-    <slot />
+      <slot />
   </div>
 </template>
 
@@ -26,11 +26,10 @@ export default {
     },
 
     cssHeader() {
-      const shared = 'flex antialiased text-grey-darkest px-2 sm:px-16 py-6 sticky pin-t w-full bg-f5 z-10'
       if (this.wide) {
-        return shared;
+        return 'flex antialiased text-grey-darkest px-2 sm:px-16 py-6 sticky pin-t w-full bg-f5 z-10';
       }
-      return shared;
+      return '';
     }
   }
 };
