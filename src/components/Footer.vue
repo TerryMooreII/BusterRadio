@@ -56,7 +56,7 @@ export default {
     outline: 0 !important;
   }
   .force-show {
-    display: block !important
+    display: block !important;
   }
   .expander {
     bottom: 45px;
