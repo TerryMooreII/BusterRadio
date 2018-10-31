@@ -32,7 +32,7 @@ export default {
   computed: {
     leftComputed() {
       if (this.right) {
-        return this.left || `-${parseInt(this.width) - 30}px`;
+        return this.left || `-${parseInt(this.width, 10) - 30}px`;
       }
       return 0;
     }

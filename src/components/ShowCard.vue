@@ -3,7 +3,7 @@
     <div class="flex justify-center">
       <ArtistImage :artist="artist" @click="getShow(show)" classes="cursor-pointer"/>
     </div>
-    
+
     <div class="py-2 items-stretch text-center lg:text-left w-full">
       <router-link :to="{name: 'years', params: {artistId: artist.identifier}}" v-if="artist.identifier"
                   class="font-bold text-sm mb-1 text-black no-underline hover:underline"
@@ -26,8 +26,6 @@
 </template>
 
 <script>
-
-import ArchiveApi from '../api/archive';
 import ArtistImage from './ArtistImage';
 import FavoriteShow from './FavoriteShow';
 

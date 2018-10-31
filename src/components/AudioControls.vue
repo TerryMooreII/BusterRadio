@@ -31,7 +31,7 @@
         <div class="h-1 bg-grey-lighter w-2/3 rounded relative slider seekbar">
           <div class="rounded bg-grey h-1 slider" v-bind:style="{width: buffered}"></div>
           <div class="rounded bg-blue -mt-1 h-1 slider" v-bind:style="{width: percent}"></div>
-          
+
           <!-- <div class="rounded-full h-4 w-4 bg-grey-dark absolute dot invisible" v-bind:style="{left: percent}"></div> -->
         </div>
         <span class="ml-4 text-xs -mt-1 text-grey-dark">{{formatTime(duration)}}</span>
@@ -40,10 +40,9 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex';
+import { mapState } from 'vuex';
 
 import icons from '../icons';
-import Player from '../services/player';
 
 export default {
   name: 'AudioControls',
@@ -64,13 +63,13 @@ export default {
       nextTrackIndex: 'nextTrackIndex'
     }),
     buffered() {
-      if (this.duration === 0){
+      if (this.duration === 0) {
         return '0%';
       }
       return `${(this.buffer / this.duration) * 100}%`;
     },
     percent() {
-      if (this.duration === 0){
+      if (this.duration === 0) {
         return '0%';
       }
       return `${(this.currentTime / this.duration) * 100}%`;
@@ -93,8 +92,8 @@ export default {
       const value = parseInt(time, 10);
       let lenMins = Math.floor(value / 60);
       let lenSecs = value - lenMins * 60;
-      if (isNaN(lenMins)) { lenMins = 0; }
-      if (isNaN(lenSecs)) { lenSecs = 0; }
+      if (Number.isNaN(lenMins)) { lenMins = 0; }
+      if (Number.isNaN(lenSecs)) { lenSecs = 0; }
 
       return `${lenMins}:${lenSecs > 9 ? lenSecs : `0${lenSecs}`}`;
     },

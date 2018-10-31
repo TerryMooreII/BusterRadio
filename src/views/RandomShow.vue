@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-grow mt-24 w-2/3 ">     
+  <div class="flex-grow mt-24 w-2/3 ">
     <div class="flex text-grey-darker leading-normal justify-around ">
       <div class="flex flex-col shadow rounded w-2/5 p-6 bg-white pb-24">
         <NoResults width="361px">
@@ -25,14 +25,14 @@ export default {
   },
   methods: {
     async getRandomShow(fromFav = this.$route.query.from) {
-      let  artists;
+      let artists;
       if (fromFav) {
         const firebaseArtists = await datastore.getFavoriteArtists();
-        artists = Object.keys(firebaseArtists).map(k => firebaseArtists[k])
+        artists = Object.keys(firebaseArtists).map(k => firebaseArtists[k]);
       } else {
         artists = this.$store.getters['artists/all'];
       }
-      
+
       const artistId = artists[Math.floor(Math.random() * artists.length)].identifier;
 
       let year;
@@ -41,18 +41,19 @@ export default {
         const years = await ArchiveApi.getYears(artistId);
         if (years.length === 0) return await this.getRandomShow();
 
-        year = years[Math.floor(Math.random() * years.length)].year;
+        year = years[Math.floor(Math.random() * years.length)].year; // eslint-disable-line
 
         const shows = await ArchiveApi.getShows(artistId, year);
         if (!shows) return await this.getRandomShow();
 
         const keys = Object.keys(shows);
         const id = keys[Math.floor(Math.random() * keys.length)];
-        const identifier = shows[id].identifier;
+        const { identifier } = shows[id];
         this.$router.push(`${artistId}/${year}/${identifier}`);
       } catch (error) {
         console.log(error);
       }
+      return true;
     }
   },
   async mounted() {

@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import datastore from '../services/datastore';
 import icons from '../icons';
 import User from './User';
@@ -164,7 +164,7 @@ export default {
       this.$router.push('/');
     },
     close() {
-      this.$emit('close')
+      this.$emit('close');
     },
     overlayAdd() {
       document.body.classList.add('overflow-hidden');
@@ -185,15 +185,15 @@ export default {
       document.body.classList.remove('overflow-hidden');
       document.body.removeChild(this.overlay);
       this.overlay.removeEventListener('click', this.close, false);
-    }  
+    }
   },
   watch: {
-    show: function(isOpen){
-     if (isOpen){
-       this.overlayAdd();
-     } else {
-       this.overlayRemove();
-     }
+    show(isOpen) {
+      if (isOpen) {
+        this.overlayAdd();
+      } else {
+        this.overlayRemove();
+      }
     }
   }
 };
@@ -219,7 +219,7 @@ export default {
 
       &.visible {
         left: 0px;
-      }     
+      }
     }
   }
 

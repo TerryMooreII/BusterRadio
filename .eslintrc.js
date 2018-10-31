@@ -13,7 +13,11 @@ module.exports = {
     'comma-dangle': ['error', 'never'],
     'no-shadow': 'off',
     'no-param-reassign': 'off',
-    'max-len': 'off'
+    'max-len': 'off',
+    'import/extensions': 'off',
+    'no-return-assign': 'off',
+    'no-mixed-operators': 'off',
+    'func-names': 'off'
   },
   parserOptions: {
     parser: 'babel-eslint'

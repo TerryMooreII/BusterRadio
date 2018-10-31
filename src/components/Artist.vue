@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
 import datastore from '../services/datastore';
 import ArtistImage from './ArtistImage';
 import icons from '../icons';

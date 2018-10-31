@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex';
+import { mapActions } from 'vuex';
 import icons from '../icons';
 import Popover from '../components/Popover';
 

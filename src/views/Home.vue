@@ -19,7 +19,7 @@ import moment from 'moment';
 import Navbar from '@/components/Navbar.vue';
 import Sidenav from '@/components/Sidenav.vue';
 import Footer from '@/components/Footer.vue';
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 import store from '../store';
 import icons from '../icons';
 
@@ -66,12 +66,12 @@ export default {
 }
 
 
-.main { 
+.main {
   padding-left: 240px;
 }
 
 @media (max-width: 576px) {
-  .main { 
+  .main {
     padding-top: 48px;
     padding-left: 0px;
   }

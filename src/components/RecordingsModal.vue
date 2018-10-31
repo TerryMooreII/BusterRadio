@@ -25,11 +25,15 @@ export default {
   props: {
     recordings: {
       type: Object,
-      default: {}
+      default() {
+        return {};
+      }
     },
     artist: {
       type: Object,
-      default: {}
+      default() {
+        return {};
+      }
     }
   }
 };

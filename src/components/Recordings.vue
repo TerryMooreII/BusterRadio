@@ -1,9 +1,9 @@
 <template>
   <div class="flex-col">
     <Loading v-if="loading" />
-    <div class="flex py-4 px-3 hover:bg-grey-lighter cursor-pointer" 
-          v-for="show in shows" 
-          :key="show.identifier" 
+    <div class="flex py-4 px-3 hover:bg-grey-lighter cursor-pointer"
+          v-for="show in shows"
+          :key="show.identifier"
           @click="getShow(show.identifier)"
           v-if="shows.length">
       <div class="w-2/3">
@@ -35,11 +35,13 @@ export default {
   props: {
     date: {
       type: [Date, String],
-      default: null,
+      default: null
     },
     artist: {
       type: Object,
-      default: {}
+      default() {
+        return {};
+      }
     },
     filter: {
       type: String,
@@ -59,7 +61,7 @@ export default {
   },
   mounted() {
     ArchiveApi.getShowsByDate(this.artist.identifier, new Date(this.date).toISOString())
-      .then(shows => {
+      .then((shows) => {
         this.shows = shows.filter(show => show.identifier !== this.filter);
         this.loading = false;
       });

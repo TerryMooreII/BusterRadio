@@ -18,9 +18,9 @@
 </template>
 
 <script>
+import ShowCard from '@/components/ShowCard.vue';
 import ArchiveApi from '../api/archive';
 import icons from '../icons';
-import ShowCard from '@/components/ShowCard.vue';
 import Loading from '../components/Loading';
 import Pager from '../components/Pager';
 import Container from '../components/Container';

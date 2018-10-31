@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import Artist from '../components/Artist.vue';
 import Container from '../components/Container.vue';
 
@@ -66,7 +66,7 @@ export default {
     },
     handleScroll() {
       if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-         this.getArtists();
+        this.getArtists();
       }
     }
   },

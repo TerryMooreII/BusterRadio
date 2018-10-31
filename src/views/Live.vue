@@ -1,5 +1,5 @@
 <template>
-  <Container>     
+  <Container>
     <div class="flex text-grey-darkest px-2 sm:px-0 py-6 sticky pin-t w-full bg-white">
       <div class="w-full">
         <h2>Playing from around the world </h2>
@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex';
 import datastore from '../services/datastore';
 import icons from '../icons';
 import RecentTracks from '../components/RecentTracks';

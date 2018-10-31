@@ -20,6 +20,7 @@ export default {
       if (this.artist) {
         return `https://archive.org/services/img/${this.artist.identifier}`;
       }
+      return null;
     }
   }
 };

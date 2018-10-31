@@ -19,13 +19,13 @@
 .h-0 {
   height: 0;
 }
-body { 
+body {
   background-color: #F5F5F5;
   overflow: auto;
 }
 
 .bg-f5 {
-  background-color: #F5F5F5 
+  background-color: #F5F5F5
 }
 
 * {

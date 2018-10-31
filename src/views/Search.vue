@@ -10,7 +10,7 @@
                    placeholder="Start typing..."
                    v-model="q" autofocus />
           </div>
-      
+
     </div>
     <div class="flex items-stretch flex-wrap justify-center">
       <Artist v-for="artist in results" :key="artist.identifer" :artist="artist" />
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import Artist from '../components/Artist';
 import icons from '../icons';
 import NoResults from '../components/NoResults';

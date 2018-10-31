@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex';
 import datastore from '../services/datastore';
 import icons from '../icons';
 import RecentTracks from '../components/RecentTracks';

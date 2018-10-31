@@ -10,7 +10,7 @@ import icons from '../icons';
 
 export default {
   name: 'FavoriteShow',
-  components: { 
+  components: {
     Heart: icons.Heart
   },
   props: {
@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     isLoggedIn() {
-      return datastore.getCurrentUser()
+      return datastore.getCurrentUser();
     }
   },
   data() {
@@ -43,7 +43,7 @@ export default {
         this.addFavorite();
       }
     },
-    
+
     async isFavorite() {
       this.favorite = await datastore.isFavoriteShow(this.show);
     },

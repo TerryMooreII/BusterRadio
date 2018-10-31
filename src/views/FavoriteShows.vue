@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import datastore from '../services/datastore';
 import ShowCard from '@/components/ShowCard.vue';
+import datastore from '../services/datastore';
 import Loading from '../components/Loading';
 import Container from '../components/Container';
 
@@ -28,7 +28,7 @@ export default {
 
   data() {
     return {
-      shows: null,
+      shows: null
     };
   },
   methods: {

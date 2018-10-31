@@ -19,13 +19,11 @@ export default {
   },
   computed: {
     stars() {
-      const MAX_STARS = 5;
       if (!this.rank) {
         return 0;
       }
 
       return Math.round(this.rank);
-      this.openStars = MAX_STARS - this.stars;
     }
   }
 };

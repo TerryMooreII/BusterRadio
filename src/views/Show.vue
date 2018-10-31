@@ -15,13 +15,13 @@
               <br>
               {{show.venue}} in
               {{show.location}}
-              
+
             </p>
           </div>
           <div class="flex flex-col text-right self-center">
             <div>
               <FavoriteShow :show="show" v-if="show"/>
-              
+
               <button class="cursor-pointer h-5 w-5 ml-3" @click.stop.prevent="openShowPopover = !openShowPopover" type="button">
                 <DotsVertical v-bind:cssClass="'h-5 w-5 fill-current inline-block cursor-pointer'"/>
               </button>
@@ -40,8 +40,8 @@
             </div>
             <Stars cssClass="h-4 w-4 mt-2" v-if="show.reviews" :rank="show.reviews.info.avg_rating" />
             <span class="text-sm text-grey-darker">{{show.downloads || 0}} downloads</span>
-            <button class="rounded bg-blue text-white w-100 py-2 sm:py-3 font-bold mt-3 px-3 text-sm sm:text-base sm:px-4 ml-auto mb-3 sm:mb-0" 
-                    type="button" 
+            <button class="rounded bg-blue text-white w-100 py-2 sm:py-3 font-bold mt-3 px-3 text-sm sm:text-base sm:px-4 ml-auto mb-3 sm:mb-0"
+                    type="button"
                     @click="addTracks(show.tracks.mp3)">
               Play Show
             </button>
@@ -93,7 +93,7 @@
         <span slot="header">Alternate Recordings</span>
         <Recordings :artist="artist" :date="show.date" :filter="$route.params.showId" v-if="fetchAlternateRecordings"/>
       </Accordian>
-      
+
       <Accordian v-if="show.reviews">
         <span slot="header">Reviews</span>
         <Reviews :reviews="show.reviews.reviews" />
@@ -155,7 +155,7 @@ export default {
     })
   },
   watch: {
-    '$route.params.showId': function() {
+    '$route.params.showId': function () {
       this.fetchAlternateRecordings = false;
       this.getShow();
     }
@@ -181,9 +181,9 @@ export default {
       this.openPopover = null;
       this.openShowPopover = null;
     },
-    onAlternateRecordingsOpen(isOpen){
+    onAlternateRecordingsOpen(isOpen) {
       if (isOpen && !this.fetchAlternateRecordings) {
-        this.fetchAlternateRecordings = true
+        this.fetchAlternateRecordings = true;
       }
     },
     time(track) {
@@ -205,11 +205,11 @@ export default {
       const text = div.textContent || div.innerText || '';
       return text;
     },
-    getShow(){
-       ArchiveApi.getShow(this.$route.params.showId).then(data => {
-         this.show = data;
-         document.querySelector('#show').scrollTo(0,0);
-       });
+    getShow() {
+      ArchiveApi.getShow(this.$route.params.showId).then((data) => {
+        this.show = data;
+        document.querySelector('#show').scrollTo(0, 0);
+      });
     },
     downloadShow(format) {
       window.open(ArchiveApi.downloadShowUrl(this.show.identifier, format), '_blank');
@@ -226,7 +226,6 @@ export default {
     }
     this.getShow();
     this.artist = this.$store.getters['artists/artist'](this.$route.params.artistId);
-    
   }
 };
 </script>

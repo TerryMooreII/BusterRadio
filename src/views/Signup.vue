@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-grow mt-24 w-2/3 ">     
+  <div class="flex-grow mt-24 w-2/3 ">
     <div class="flex text-grey-darker leading-normal justify-around ">
       <div class="flex flex-col shadow rounded w-3/5 p-6 bg-white">
         <h2 class="mb-3 pb-2 border-b border-grey-light">
@@ -40,7 +40,6 @@
 
 <script>
 import datastore from '../services/datastore';
-import icons from '../icons';
 
 export default {
   name: 'Signup',
@@ -51,7 +50,7 @@ export default {
     }
   },
   mounted() {
-    if(datastore.getCurrentUser()){
+    if (datastore.getCurrentUser()) {
       this.$router.push('/');
     }
   }
