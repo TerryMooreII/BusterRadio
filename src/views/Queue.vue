@@ -6,7 +6,7 @@
       </div>
       <div class="text-right w-1/3">
         <button type="button"
-                class="text-sm py-1 px-2 text-red rounded border border-solid border-red hover:text-white hover:bg-red"
+                class="text-sm py-1 px-2 text-red rounded border border-red hover:text-white hover:bg-red"
                 @click="clear()">
                 Clear
         </button>

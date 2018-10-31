@@ -1,5 +1,5 @@
 <template>
-  <footer class="w-screen border-t border-solid border-grey-light h-24 md:h-24 bg-white pin-b fixed flex flex-col sm:flex-row justify-center"
+  <footer class="w-screen border-t border-grey-light h-24 md:h-24 bg-white pin-b fixed flex flex-col sm:flex-row justify-center"
            :class="{'h-48': isExpanded}">
     <div class="flex-none text-grey-darker w-full md:w-1/3 hidden md:block" :class="{'force-show': isExpanded}">
       <NowPlaying />

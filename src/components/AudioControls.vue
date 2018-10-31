@@ -8,12 +8,12 @@
           <StepBack v-bind:cssClass="'h-6 w-6 fill-current text-grey-dark inline-block self-center mx-2 hover:text-grey-darkest cursor-pointer'"/>
         </button>
 
-        <div class="rounded-full h-12 w-12 border-solid border-line bg-blue flex self-center mx-2 hover:bg-blue-dark cursor-pointer"
+        <div class="rounded-full h-12 w-12 border-line bg-blue flex self-center mx-2 hover:bg-blue-dark cursor-pointer"
              @click="play()"
              v-if="!isPlaying">
           <Play v-bind:cssClass="'h-8 w-8 fill-current text-white inline-block play'"/>
         </div>
-        <div class="rounded-full h-12 w-12 border-solid border-line bg-blue flex self-center mx-2 hover:bg-blue-dark cursor-pointer"
+        <div class="rounded-full h-12 w-12 border-line bg-blue flex self-center mx-2 hover:bg-blue-dark cursor-pointer"
              @click="pause()"
              v-if="isPlaying">
           <Pause v-bind:cssClass="'h-8 w-8 fill-current text-white inline-block pause'"/>

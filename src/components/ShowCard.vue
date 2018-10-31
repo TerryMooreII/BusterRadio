@@ -14,7 +14,7 @@
         <span class="text-grey-dark italic ">{{show.coverage || show.location}}</span> &nbsp;
       </p>
     </div>
-    <div class="w-100 h-8 border-t border-solid border-grey-light py-1 text-right flex flex-row items-center justify-between">
+    <div class="w-100 h-8 border-t border-grey-light py-1 text-right flex flex-row items-center justify-between">
       <div class="text-grey-dark flex items-center">
         <span class="bg-white border border-blue-dark text-xs text-blue-dark px-1 py-px rounded" v-if="show.soundboard">Soundboard</span>
       </div>

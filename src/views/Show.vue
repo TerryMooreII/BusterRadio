@@ -1,7 +1,7 @@
 <template>
   <Container id="show">
     <div v-if="show">
-      <div class="flex flex-col sm:flex-row width-full bg-white sticky pin-t pt-3 sm:pt-0 mb-4 pb-3 text-left border-b border-solid border-grey">
+      <div class="flex flex-col sm:flex-row width-full bg-white sticky pin-t pt-3 sm:pt-0 mb-4 pb-3 text-left border-b border-grey">
         <ArtistImage classes="mr-0 sm:mr-4 artist self-center hidden sm:block" :artist="artist" />
         <div class="flex flex-row w-full self-center justify-between">
           <div class="flex flex-col self-center">

@@ -1,6 +1,6 @@
 <template>
-  <div class="flex w-full justify-center mt-2 mb-10 border-t border-b border-solid border-grey-light">
-    <div class="w-22 text-right p-3  border-r border-solid border-grey-light" 
+  <div class="flex w-full justify-center mt-2 mb-10 border-t border-b border-grey-light">
+    <div class="w-22 text-right p-3  border-r border-grey-light" 
          :class="{'text-grey hover:text-grey hover:no-underline cursor-default': page <= 1, 'text-blue hover:text-blue-darker hover:underline cursor-pointer': page > 1 }"
           @click="prev()">
       <ArrowLeft v-bind:cssClass="'h-3 w-3 fill-current inline-block self-center mr-1'"/>

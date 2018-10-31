@@ -1,6 +1,6 @@
 <template>
   <div class="relative w-full">
-    <div class="border border-solid border-grey absolute p-3 rounded z-50 shadow-lg popover bg-white"
+    <div class="border border-grey absolute p-3 rounded z-50 shadow-lg popover bg-white"
          v-bind:style="{left: leftComputed, width: width}">
       <slot></slot>
     </div>

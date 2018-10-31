@@ -4,7 +4,7 @@
       <Heart v-bind:cssClass="`heart ${Boolean(favorite) ? 'favorite text-red-dark hover:text-red' : '' } h-6 w-6 absolute fill-current text-grey-dark mx-2 hover:text-grey-darkest cursor-pointer`"/>
     </div>
 
-    <ArtistImage classes="rounded-full border border-solid border-grey p-1 cursor-pointer" :artist="artist" @click="getYears(artist.identifier)"/>
+    <ArtistImage classes="rounded-full border border-grey p-1 cursor-pointer" :artist="artist" @click="getYears(artist.identifier)"/>
     <div class="p-1">
       <div class="font-bold text-sm mb-1 text-center text-grey-darkest">{{artist.title}}</div>
     </div>
