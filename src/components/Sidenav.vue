@@ -1,5 +1,5 @@
 <template>
-  <div class="text-grey-darker px-8 w-240 pt-4 bg-blue-dark sm:visible sidenav overflow-scroll fixed sm:min-h-screen text-white"
+  <div class="text-grey-darker px-8 pb-16 w-240 pt-4 bg-blue-dark sm:visible sidenav overflow-scroll fixed sm:min-h-screen text-white"
        :class="{'visible': show === true, 'invisible': show === false}">
     <div class="flex items-center flex-no-shrink tracking-wide ">
       <svg class="fill-current h-8 w-8 mr-2 hidden sm:block" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
@@ -177,7 +177,7 @@ export default {
       this.overlay.style.bottom = 0;
       this.overlay.style.right = 0;
       this.overlay.style.left = 0;
-      this.overlay.style.zIndex = 10000;
+      this.overlay.style.zIndex = 1001;
       document.body.appendChild(this.overlay);
       this.overlay.addEventListener('click', this.close, false);
     },
@@ -207,7 +207,7 @@ export default {
   @media (max-width: 576px) {
     .sidenav {
       position: fixed !important;
-      z-index: 1000 !important;
+      z-index: 1002 !important;
       top: 64px !important;
       bottom: 95px !important;
       left:-270px;
