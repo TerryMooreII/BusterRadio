@@ -1,7 +1,7 @@
 <template>
-  <div class="flex-none text-grey-darker px-8 w-240 pt-4 border-grey-light border-r border-solid bg-blue-dark sm:visible sidenav overflow-scroll pb-10 fixed sm:min-h-screen"
+  <div class="text-grey-darker px-8 w-240 pt-4 bg-blue-dark sm:visible sidenav overflow-scroll fixed sm:min-h-screen text-white"
        :class="{'visible': show === true, 'invisible': show === false}">
-    <div class="flex items-center flex-no-shrink text-white mr-6 tracking-wide ">
+    <div class="flex items-center flex-no-shrink tracking-wide ">
       <svg class="fill-current h-8 w-8 mr-2 hidden sm:block" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
         <path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/>
       </svg>
@@ -9,10 +9,10 @@
       <span class="font-semibold text-xl tracking-tight tracking-normal hidden sm:block">BusterRadio</span>
     </div>
 
-    <ul class="list-reset mt-6 border-t border-solid border-grey pt-4">
+    <ul class="list-reset mt-6 border-t border-grey pt-4">
       <li class="text-sm " v-for="item of links" :key="item.name">
         <router-link :to="{name: item.link}" v-if="(!item.hideLoggedIn || !isLoggedIn)"
-                     class="antialiased block py-2 text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
+                     class=" block py-2 text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
           <div @click="close()">
             <component v-bind:is="item.icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" />
             {{item.name}}
@@ -21,11 +21,11 @@
       </li>
     </ul>
 
-    <ul class="list-reset mt-6 border-t border-solid border-grey pt-4" v-if="isLoggedIn">
+    <ul class="list-reset mt-6 border-t border-grey pt-4" v-if="isLoggedIn">
       <li class="text-sm py-2"><User /></li>
       <li class="text-sm py-2" v-for="item of custom" :key="item.name">
         <router-link :to="{name: item.link}"
-                     class="antialiased text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
+                     class=" text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
           <div @click="close()">
             <component v-bind:is="item.icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" />
             {{item.name}}
@@ -34,11 +34,11 @@
       </li>
     </ul>
 
-    <ul class="list-reset mt-6 border-t border-solid border-grey pt-4">
+    <ul class="list-reset mt-6 border-t border-grey pt-4">
       <li v-if="!isLoggedIn"
-          class="antialiased text-grey-lightest no-underline cursor-pointer text-lg">
+          class=" text-grey-lightest no-underline cursor-pointer text-lg">
         <Login v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 mt-1'" />
-          <router-link to="/signup" class="antialiased text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
+          <router-link to="/signup" class=" text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
             Signup
           </router-link>
           /
@@ -46,7 +46,7 @@
       </li>
       <li @click="logout()"
           v-if="isLoggedIn"
-          class="antialiased text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
+          class=" text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
         <Logout v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 mt-1'" />
           Logout
       </li>
@@ -177,6 +177,7 @@ export default {
       this.overlay.style.bottom = 0;
       this.overlay.style.right = 0;
       this.overlay.style.left = 0;
+      this.overlay.style.zIndex = 10000;
       document.body.appendChild(this.overlay);
       this.overlay.addEventListener('click', this.close, false);
     },
@@ -215,7 +216,7 @@ export default {
       -o-transition: all .3s ease;
       -ms-transition: all .3s ease;
       transition: all .3s ease;
-      
+
       &.visible {
         left: 0px;
       }     

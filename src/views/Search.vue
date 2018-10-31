@@ -1,17 +1,16 @@
 <template>
-  <div class="flex-grow px-0 sm:px-24 sm:mt-0 mt-3 overflow-scroll">
-    <div class="flex antialiased text-grey-darkest px-2 sm:px-0 py-6 sticky pin-t w-full bg-white border-b border-solid border-grey-light z-10">
-      <div class="flex-col">
-        <h2 class="flex-auto flex-grow">
+  <div class="flex-grow px-0 sm:px-24 sm:mt-0 mt-3">
+    <div class="flex flex-col antialiased text-grey-darkest px-2 py-6 sticky pin-t w-full bg-white shadow z-10 rounded">
+        <h2 class="">
           Search for Artists and Venues
         </h2>
-          <div class="flex">
+          <div class="">
             <input type="text"
-                   class="flex-auto border-none h-24 flex-auto text-grey-darkest"
+                   class="h-24 flex-auto text-grey-darkest"
                    placeholder="Start typing..."
                    v-model="q" autofocus />
           </div>
-      </div>
+      
     </div>
     <div class="flex items-stretch flex-wrap justify-center">
       <Artist v-for="artist in results" :key="artist.identifer" :artist="artist" />
