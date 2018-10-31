@@ -6,12 +6,12 @@
     
     <div class="py-2 items-stretch text-center lg:text-left w-full">
       <router-link :to="{name: 'years', params: {artistId: artist.identifier}}" v-if="artist.identifier"
-                  class="antialiased font-bold text-sm mb-1 text-black no-underline hover:underline"
+                  class="font-bold text-sm mb-1 text-black no-underline hover:underline"
                   >{{artist.title}}</router-link>
       <p class="text-sm leading-tight truncate items-stretch">
-      <span class="subpixel-antialiased date text-grey-darkest text-xs italic ">{{date}}</span> <br />
-        <span class="antialiased text-grey-darker">{{show.venue}}</span> <br />
-        <span class="antialiased text-grey-dark italic ">{{show.coverage || show.location}}</span> &nbsp;
+      <span class="subpixel-date text-grey-darkest text-xs italic ">{{date}}</span> <br />
+        <span class="text-grey-darker">{{show.venue}}</span> <br />
+        <span class="text-grey-dark italic ">{{show.coverage || show.location}}</span> &nbsp;
       </p>
     </div>
     <div class="w-100 h-8 border-t border-solid border-grey-light py-1 text-right flex flex-row items-center justify-between">

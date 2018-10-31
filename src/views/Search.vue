@@ -1,6 +1,6 @@
 <template>
   <div class="flex-grow px-0 sm:px-24 sm:mt-0 mt-3">
-    <div class="flex flex-col antialiased text-grey-darkest px-2 py-6 sticky pin-t w-full bg-white shadow z-10 rounded">
+    <div class="flex flex-col text-grey-darkest px-2 py-6 sticky pin-t w-full bg-white shadow z-10 rounded">
         <h2 class="">
           Search for Artists and Venues
         </h2>

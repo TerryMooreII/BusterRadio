@@ -27,4 +27,9 @@ body {
 .bg-f5 {
   background-color: #F5F5F5 
 }
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 </style>

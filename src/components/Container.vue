@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     css() {
-      const shared = 'my-4 mx-0 sm:mx-10 lg:mx-32 sxl:mx-64 w-full antialiased bg-white p-4 rounded shadow'
+      const shared = 'my-4 mx-0 sm:mx-10 lg:mx-32 sxl:mx-64 w-full bg-white p-4 rounded shadow'
       if (this.wide){
         return `flex-col w-full px-0 sm:px-24 sm:mt-0 mt-3`
       }
@@ -26,7 +26,7 @@ export default {
 
     cssHeader() {
       if (this.wide) {
-        return 'flex antialiased text-grey-darkest px-2 sm:px-16 py-6 sticky pin-t w-full bg-f5 z-10 block';
+        return 'flex text-grey-darkest px-2 sm:px-16 py-6 sticky pin-t w-full bg-f5 z-10 block';
       }
       return '';
     }

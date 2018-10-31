@@ -1,6 +1,6 @@
 <template>
   <Container>     
-    <div class="flex antialiased text-grey-darkest px-2 sm:px-0 py-6 sticky pin-t w-full bg-white">
+    <div class="flex text-grey-darkest px-2 sm:px-0 py-6 sticky pin-t w-full bg-white">
       <div class="w-full">
         <h2>Playing from around the world </h2>
       </div>

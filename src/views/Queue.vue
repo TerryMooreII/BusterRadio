@@ -1,6 +1,6 @@
 <template>
    <Container>
-     <div class="flex antialiased text-grey-darkest px-2 sm:px-0 py-6 sticky pin-t w-full bg-white">
+     <div class="flex text-grey-darkest px-2 sm:px-0 py-6 sticky pin-t w-full bg-white">
       <div class="w-2/3">
         <h2>Play Queue</h2>
       </div>

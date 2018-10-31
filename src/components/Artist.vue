@@ -1,12 +1,12 @@
 <template>
   <div class="card overflow-hidden mx-4 my-4 relative">
-    <div @click="toggle()">
+    <div @click="toggle()" v-if="isLoggedIn">
       <Heart v-bind:cssClass="`heart ${Boolean(favorite) ? 'favorite text-red-dark hover:text-red' : '' } h-6 w-6 absolute fill-current text-grey-dark mx-2 hover:text-grey-darkest cursor-pointer`"/>
     </div>
 
     <ArtistImage classes="rounded-full border border-solid border-grey p-1 cursor-pointer" :artist="artist" @click="getYears(artist.identifier)"/>
     <div class="p-1">
-      <div class="antialiased font-bold text-sm mb-1 text-center text-grey-darkest">{{artist.title}}</div>
+      <div class="font-bold text-sm mb-1 text-center text-grey-darkest">{{artist.title}}</div>
     </div>
   </div>
 </template>
@@ -30,6 +30,11 @@ export default {
     return {
       favorite: null
     };
+  },
+  computed: {
+    isLoggedIn() {
+      return Boolean(datastore.getCurrentUser());
+    }
   },
   methods: {
     getYears(identifier) {
