@@ -13,7 +13,7 @@
       <li class="text-sm " v-for="item of links" :key="item.name">
         <router-link :to="{name: item.link}" v-if="(!item.hideLoggedIn || !isLoggedIn)"
                      class="antialiased block py-2 text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
-          <div @click="$emit('close')">
+          <div @click="close()">
             <component v-bind:is="item.icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" />
             {{item.name}}
           </div>
@@ -26,7 +26,7 @@
       <li class="text-sm py-2" v-for="item of custom" :key="item.name">
         <router-link :to="{name: item.link}"
                      class="antialiased text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
-          <div @click="$emit('close')">
+          <div @click="close()">
             <component v-bind:is="item.icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" />
             {{item.name}}
           </div>
@@ -85,6 +85,7 @@ export default {
   },
   data() {
     return {
+      overlay: false,
       links: [
         {
           name: 'Search',
@@ -161,6 +162,37 @@ export default {
     async logout() {
       datastore.logout();
       this.$router.push('/');
+    },
+    close() {
+      this.$emit('close')
+    },
+    overlayAdd() {
+      document.body.classList.add('overflow-hidden');
+
+      this.overlay = document.createElement('div');
+      this.overlay.style.position = 'fixed';
+      this.overlay.style.backgroundColor = 'black';
+      this.overlay.style.opacity = 0.3;
+      this.overlay.style.top = 0;
+      this.overlay.style.bottom = 0;
+      this.overlay.style.right = 0;
+      this.overlay.style.left = 0;
+      document.body.appendChild(this.overlay);
+      this.overlay.addEventListener('click', this.close, false);
+    },
+    overlayRemove() {
+      document.body.classList.remove('overflow-hidden');
+      document.body.removeChild(this.overlay);
+      this.overlay.removeEventListener('click', this.close, false);
+    }  
+  },
+  watch: {
+    show: function(isOpen){
+     if (isOpen){
+       this.overlayAdd();
+     } else {
+       this.overlayRemove();
+     }
     }
   }
 };
@@ -177,14 +209,16 @@ export default {
       z-index: 1000 !important;
       top: 64px !important;
       bottom: 95px !important;
+      left:-270px;
+      -webkit-transition: all .3s ease;
+      -moz-transition: all .3s ease;
+      -o-transition: all .3s ease;
+      -ms-transition: all .3s ease;
+      transition: all .3s ease;
       
       &.visible {
         left: 0px;
-      }
-
-      &.invisible {
-        left:-270px;
-      }
+      }     
     }
   }
 

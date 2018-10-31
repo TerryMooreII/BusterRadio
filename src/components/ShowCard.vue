@@ -1,7 +1,10 @@
 <template>
   <div class="show overflow-hidden mx-4 my-4 relative shadow flex flex-col justify-between p-3 pb-px bg-white rounded" v-if="artist">
-    <ArtistImage :artist="artist" @click="getShow(show)" classes="cursor-pointer"/>
-    <div class="py-2 items-stretch">
+    <div class="flex justify-center">
+      <ArtistImage :artist="artist" @click="getShow(show)" classes="cursor-pointer"/>
+    </div>
+    
+    <div class="py-2 items-stretch text-center lg:text-left w-full">
       <router-link :to="{name: 'years', params: {artistId: artist.identifier}}" v-if="artist.identifier"
                   class="antialiased font-bold text-sm mb-1 text-black no-underline hover:underline"
                   >{{artist.title}}</router-link>
@@ -66,5 +69,13 @@ export default {
   }
   .show {
     width: 220px
+  }
+  @media (max-width: 992px) {
+    .img {
+      width: 100%;
+    }
+    .show {
+      width: 100%
+    }
   }
 </style>
