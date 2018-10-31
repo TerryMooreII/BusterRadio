@@ -1,6 +1,4 @@
 import Vue from 'vue';
-import UIkit from 'uikit';
-import Icons from 'uikit/dist/js/uikit-icons';
 import firebase from 'firebase';
 import App from './App.vue';
 import router from './router';
@@ -18,9 +16,6 @@ const config = {
 };
 
 firebase.initializeApp(config);
-
-// loads the Icon plugin
-UIkit.use(Icons);
 
 Vue.config.productionTip = false;
 

@@ -16,7 +16,6 @@
     "moment": "^2.22.2",
     "npm": "^6.4.1",
     "register-service-worker": "^1.0.0",
-    "uikit": "^3.0.0-rc.14",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
