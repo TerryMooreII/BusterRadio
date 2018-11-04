@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import icons from '../icons';
 import ArchiveApi from '../api/archive';
 import ArtistHeader from '../components/ArtistHeader';
 import Loading from '../components/Loading';
@@ -36,7 +35,6 @@ import Container from '../components/Container';
 export default {
   name: 'shows',
   components: {
-    Calendar: icons.Calendar,
     ArtistHeader,
     Loading,
     Stars,

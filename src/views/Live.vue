@@ -14,7 +14,6 @@
 
 <script>
 import datastore from '../services/datastore';
-import icons from '../icons';
 import RecentTracks from '../components/RecentTracks';
 import NoResults from '../components/NoResults';
 import Container from '../components/Container';
@@ -24,8 +23,7 @@ export default {
   components: {
     Container,
     NoResults,
-    RecentTracks,
-    MusicPlaylist: icons.MusicPlaylist
+    RecentTracks
   },
   data() {
     return {

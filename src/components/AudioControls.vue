@@ -2,28 +2,28 @@
   <div>
     <div class="flex justify-center">
         <button class="p-2">
-          <Replay v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mx-2 hover:text-grey-darkest cursor-pointer'"/>
+          <Zondicons icon="Replay" class="h-5 w-5 fill-current text-grey-dark inline-block self-center mx-2 hover:text-grey-darkest cursor-pointer"/>
         </button>
         <button @click="previous()" class="p-2">
-          <StepBack v-bind:cssClass="'h-6 w-6 fill-current text-grey-dark inline-block self-center mx-2 hover:text-grey-darkest cursor-pointer'"/>
+          <Zondicons icon="StepBack" class="h-6 w-6 fill-current text-grey-dark inline-block self-center mx-2 hover:text-grey-darkest cursor-pointer"/>
         </button>
 
         <div class="rounded-full h-12 w-12 border-line bg-blue flex self-center mx-2 hover:bg-blue-dark cursor-pointer"
              @click="play()"
              v-if="!isPlaying">
-          <Play v-bind:cssClass="'h-8 w-8 fill-current text-white inline-block play'"/>
+          <Zondicons icon="Play" class="h-8 w-8 fill-current text-white inline-block play"/>
         </div>
         <div class="rounded-full h-12 w-12 border-line bg-blue flex self-center mx-2 hover:bg-blue-dark cursor-pointer"
              @click="pause()"
              v-if="isPlaying">
-          <Pause v-bind:cssClass="'h-8 w-8 fill-current text-white inline-block pause'"/>
+          <Zondicons icon="Pause" class="h-8 w-8 fill-current text-white inline-block pause"/>
         </div>
 
         <button @click="next()" class="p-2">
-          <StepForward v-bind:cssClass="'h-6 w-6 fill-current text-grey-dark self-center mx-2 hover:text-grey-darkest cursor-pointer'"/>
+          <Zondicons icon="StepForward" class="h-6 w-6 fill-current text-grey-dark self-center mx-2 hover:text-grey-darkest cursor-pointer"/>
         </button>
         <button class="p-2">
-          <Shuffle v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mx-2 hover:text-grey-darkest cursor-pointer'"/>
+          <Zondicons icon="Shuffle" class="h-5 w-5 fill-current text-grey-dark inline-block self-center mx-2 hover:text-grey-darkest cursor-pointer"/>
         </button>
       </div>
       <div class="flex justify-center mt-3  cursor-pointer">
@@ -42,17 +42,12 @@
 <script>
 import { mapState } from 'vuex';
 
-import icons from '../icons';
+import Zondicons from '../icons/Zondicons';
 
 export default {
   name: 'AudioControls',
   components: {
-    Play: icons.Play,
-    Pause: icons.Pause,
-    StepForward: icons.StepForward,
-    StepBack: icons.StepBack,
-    Replay: icons.Replay,
-    Shuffle: icons.Shuffle
+    Zondicons
   },
   computed: {
     ...mapState('playlist', {

@@ -1,7 +1,7 @@
 <template>
   <div class="card overflow-hidden mx-4 my-4 relative">
     <div @click="toggle()" v-if="isLoggedIn">
-      <Heart v-bind:cssClass="`heart ${Boolean(favorite) ? 'favorite text-red-dark hover:text-red' : '' } h-6 w-6 absolute fill-current text-grey-dark mx-2 hover:text-grey-darkest cursor-pointer`"/>
+      <Zondicons icon="Heart" :class="clazz"/>
     </div>
 
     <ArtistImage classes="rounded-full border border-grey p-1 cursor-pointer" :artist="artist" @click="getYears(artist.identifier)"/>
@@ -14,13 +14,13 @@
 <script>
 import datastore from '../services/datastore';
 import ArtistImage from './ArtistImage';
-import icons from '../icons';
+import Zondicons from '../icons/Zondicons';
 
 export default {
   name: 'Artist',
   components: {
     ArtistImage,
-    Heart: icons.Heart
+    Zondicons
   },
   props: {
     artist: Object
@@ -31,6 +31,9 @@ export default {
     };
   },
   computed: {
+    clazz() {
+      return `heart ${Boolean(this.favorite) ? 'favorite text-red-dark hover:text-red' : '' } h-6 w-6 absolute fill-current text-grey-dark mx-2 hover:text-grey-darkest cursor-pointer`;
+    },
     isLoggedIn() {
       return Boolean(datastore.getCurrentUser());
     }

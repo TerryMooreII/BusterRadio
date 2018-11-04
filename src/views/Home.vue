@@ -21,16 +21,13 @@ import Sidenav from '@/components/Sidenav.vue';
 import Footer from '@/components/Footer.vue';
 import { mapState } from 'vuex';
 import store from '../store';
-import icons from '../icons';
 
 export default {
   name: 'home',
   components: {
     Navbar,
     Sidenav,
-    Footer,
-    Menu: icons.Menu,
-    Close: icons.Close
+    Footer
   },
   data() {
     return {

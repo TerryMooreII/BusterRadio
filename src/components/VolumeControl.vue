@@ -1,15 +1,15 @@
 <template>
    <div class="flex justify-end">
     <div v-if="!isMuted" @click="mute()" class="-mt-px">
-      <VolumeMute v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2'"
+      <Zondicons icon="VolumeMute" class="h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2"
         v-if="level < 40"/>
-      <VolumeDown v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2'"
+      <Zondicons icon="VolumeDown" class="h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2"
         v-if="level >= 40 && level < 70"/>
-      <VolumeUp v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2'"
+      <Zondicons icon="VolumeUp" class="h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2"
         v-if="level >= 70"/>
     </div>
     <div v-if="isMuted" @click="unmute()" class="-mt-px">
-      <VolumeOff v-bind:cssClass="'h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2'" />
+      <Zondicons icon="VolumeOff" class="h-5 w-5 fill-current text-grey-dark inline-block self-center mr-1 -mt-2" />
     </div>
     <div class="h-1 bg-grey-light w-1/2 rounded relative volumebar">
       <div class="rounded bg-blue h-1" v-bind:style="{width: levelPercent}"></div>
@@ -19,15 +19,12 @@
 
 <script>
 import { mapActions } from 'vuex';
-import icons from '../icons';
+import Zondicons from '../icons/Zondicons';
 
 export default {
   name: 'VolumeControl',
   components: {
-    VolumeDown: icons.VolumeDown,
-    VolumeUp: icons.VolumeUp,
-    VolumeMute: icons.VolumeMute,
-    VolumeOff: icons.VolumeOff
+    Zondicons
   },
   data() {
     return {

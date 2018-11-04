@@ -23,7 +23,7 @@
               <FavoriteShow :show="show" v-if="show"/>
 
               <button class="cursor-pointer h-5 w-5 ml-3" @click.stop.prevent="openShowPopover = !openShowPopover" type="button">
-                <DotsVertical v-bind:cssClass="'h-5 w-5 fill-current inline-block cursor-pointer'"/>
+                <Zondicons icon="DotsVertical" class="h-5 w-5 fill-current inline-block cursor-pointer"/>
               </button>
               <Popover :right="true" width="195px" left="-95px" v-if="openShowPopover" @close="close">
                 <ul class="list-reset text-sm text-left popover">
@@ -38,7 +38,7 @@
            <div>
               <button class="cursor-pointer text-sm text-grey-darker mt-1 text-right" @click.stop.prevent="openDownloadPopover = !openDownloadPopover" type="button">
                 {{show.downloads || 0}}
-              <Download v-bind:cssClass="'h-4 w-4 -mb-1 fill-current inline-block'"/>
+              <Zondicons icon="Download" class="h-4 w-4 -mb-1 fill-current inline-block"/>
             </button>
             <Popover :right="true" width="195px" left="-95px" v-if="openDownloadPopover" @close="close">
               <ul class="list-reset text-sm text-left popover">
@@ -69,8 +69,8 @@
              class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row">
           <div class="w-10 text-center">
             <span class="track-number" v-if="track.file !== currentTrack.file">{{index + 1}}</span>
-            <PlayIcon class="play-icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block ml-2'" v-if="track.file !== currentTrack.file"/>
-            <PauseIcon class="pause-icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block ml-1'" v-if="track.file === currentTrack.file && !isPlaying" />
+            <Zondicons icon="Play" class="play-icon h-4 w-4 fill-current inline-block ml-2" v-if="track.file !== currentTrack.file"/>
+            <Zondicons icon="Pause" class="pause-icon h-4 w-4 fill-current inline-block ml-1" v-if="track.file === currentTrack.file && !isPlaying" />
             <img src="/img/equalizer.gif" alt="equalizer" class="h-4 w-4" v-if="track.file === currentTrack.file && isPlaying">
           </div>
           <div class="w-full truncate pl-4">
@@ -81,7 +81,7 @@
           </div>
           <div class="w-16 text-center">
              <button class="cursor-pointer h-4 w-4" @click.stop.prevent="openPopover = openPopover !== null ? null : index" type="button">
-              <DotsVertical v-bind:cssClass="'h-4 w-4 fill-current inline-block cursor-pointer '"/>
+              <Zondicons icon="DotsVertical" class="h-4 w-4 fill-current inline-block cursor-pointer"/>
             </button>
             <Popover :right="true" width="195px" v-if="openPopover === index" @close="close">
               <ul class="list-reset text-sm text-left popover">
@@ -123,7 +123,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import icons from '../icons';
+import Zondicons from '../icons/Zondicons';
 import ArchiveApi from '../api/archive';
 import ArtistImage from '../components/ArtistImage';
 import Loading from '../components/Loading';
@@ -145,11 +145,7 @@ export default {
   name: 'ShowComp',
   components: {
     Container,
-    PlayIcon: icons.Play,
-    PauseIcon: icons.Pause,
-    ListAdd: icons.ListAdd,
-    DotsVertical: icons.DotsVertical,
-    Download: icons.Download,
+    Zondicons,
     FavoriteShow,
     ArtistImage,
     Loading,
@@ -249,7 +245,10 @@ export default {
     width: 150px;
     background: white;
   }
-  .play-icon{
+</style>
+
+<style lang="less">
+.play-icon {
     display: none;
   }
 

@@ -1,23 +1,26 @@
 <template>
   <div>
-    <Star :cssClass="cssClass" v-for="i in stars" :key="i" />
+    <Zondicons icon="Star" :class="clazz" v-for="i in stars" :key="i" />
     <span class="text-grey text-sm italic" v-if="!stars">Not Rated</span>
   </div>
 </template>
 
 <script>
-import icons from '../icons';
+import Zondicons from '../icons/Zondicons';
 
 export default {
   name: 'Stars',
   components: {
-    Star: icons.Star
+    Zondicons
   },
   props: {
     rank: [String, Number],
     cssClass: String
   },
   computed: {
+    clazz() {
+      return this.cssClass + ' ' + 'text-yellow-dark fill-current';
+    },
     stars() {
       if (!this.rank) {
         return 0;

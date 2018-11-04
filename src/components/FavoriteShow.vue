@@ -1,17 +1,17 @@
 <template>
   <div class="inline-block" @click="toggle()" :class="{'right': right}" v-if="isLoggedIn">
-    <Heart v-bind:cssClass="`heart ${Boolean(favorite) ? 'favorite text-red-dark hover:text-red' : '' } h-5 w-5 fill-current text-grey-dark hover:text-grey-darkest cursor-pointer`"/>
+    <Zondicons icon="Heart" :class="clazz"/>
   </div>
 </template>
 
 <script>
 import datastore from '../services/datastore';
-import icons from '../icons';
+import Zondicons from '../icons/Zondicons';
 
 export default {
   name: 'FavoriteShow',
   components: {
-    Heart: icons.Heart
+    Zondicons
   },
   props: {
     show: Object,
@@ -21,6 +21,9 @@ export default {
     }
   },
   computed: {
+    clazz() {
+      return `heart ${Boolean(this.favorite) ? 'favorite text-red-dark hover:text-red' : '' } h-5 w-5 fill-current text-grey-dark hover:text-grey-darkest cursor-pointer`
+    },
     isLoggedIn() {
       return datastore.getCurrentUser();
     }

@@ -9,7 +9,7 @@
           class="flex py-4 hover:bg-grey-lighter cursor-pointer items-center"
           @click="getShows(year.year)">
       <div class="w-1/2 text-grey-darkest px-5">
-        <Calendar v-bind:cssClass="'h-4 w-4 fill-current text-grey-dark inline-block self-center mr-6 mt-px'"/> {{year.year}}
+        <Zondicons icon="Calendar" class="h-4 w-4 fill-current text-grey-dark inline-block self-center mr-6 mt-px"/> {{year.year}}
       </div>
       <div class="w-1/2 text-right text-grey-dark italic px-5">
         {{year.total}} shows
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import icons from '../icons';
+import Zondicons from '../icons/Zondicons';
 import ArchiveApi from '../api/archive';
 import Loading from '../components/Loading';
 import Container from '../components/Container';
@@ -29,7 +29,7 @@ export default {
   name: 'years',
   components: {
     ArtistHeader,
-    Calendar: icons.Calendar,
+    Zondicons,
     Loading,
     Container
   },

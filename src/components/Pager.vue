@@ -3,7 +3,7 @@
     <div class="w-22 text-right p-3  border-r border-grey-light"
          :class="{'text-grey hover:text-grey hover:no-underline cursor-default': page <= 1, 'text-blue hover:text-blue-darker hover:underline cursor-pointer': page > 1 }"
           @click="prev()">
-      <ArrowLeft v-bind:cssClass="'h-3 w-3 fill-current inline-block self-center mr-1'"/>
+      <Zondicons icon="ArrowLeft" class="h-3 w-3 fill-current inline-block self-center mr-1"/>
       Prev
     </div>
 
@@ -11,19 +11,18 @@
          :class="{'text-grey hover:text-grey hover:no-underline cursor-default': this.count < this.pagesize , 'text-blue hover:text-blue-darker hover:underline cursor-pointer': this.count === this.pagesize  }"
          @click="next()">
       Next
-      <ArrowRight v-bind:cssClass="'h-3 w-3 fill-current inline-block self-center ml-1'"/>
+      <Zondicons icon="ArrowRight" class="h-3 w-3 fill-current inline-block self-center ml-1"/>
     </div>
   </div>
 </template>
 
 <script>
-import icons from '../icons';
+import Zondicons from '../icons/Zondicons';
 
 export default {
   name: 'Pager',
   components: {
-    ArrowLeft: icons.ArrowLeft,
-    ArrowRight: icons.ArrowRight
+   Zondicons
   },
   props: {
     page: Number,
