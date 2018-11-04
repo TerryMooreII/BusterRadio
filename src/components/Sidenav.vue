@@ -10,11 +10,11 @@
     </div>
 
     <ul class="list-reset mt-6 border-t border-grey pt-4">
-      <li class="text-sm " v-for="item of links" :key="item.name">
+      <li class="" v-for="item of links" :key="item.name">
         <router-link :to="{name: item.link}" v-if="(!item.hideLoggedIn || !isLoggedIn)"
-                     class=" block py-2 text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
+                     class=" block py-2 text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-base">
           <div @click="close()">
-            <component v-bind:is="item.icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" />
+            <component v-bind:is="item.icon" v-bind:cssClass="'h-3 w-3 fill-current inline-block  mr-2'" />
             {{item.name}}
           </div>
         </router-link>
@@ -22,12 +22,12 @@
     </ul>
 
     <ul class="list-reset mt-6 border-t border-grey pt-4" v-if="isLoggedIn">
-      <li class="text-sm py-2"><User /></li>
-      <li class="text-sm py-2" v-for="item of custom" :key="item.name">
+      <li class="py-2"><User /></li>
+      <li class="py-2" v-for="item of custom" :key="item.name">
         <router-link :to="{name: item.link}"
-                     class=" text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
+                     class=" text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-base">
           <div @click="close()">
-            <component v-bind:is="item.icon" v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 -mt-2'" />
+            <component v-bind:is="item.icon" v-bind:cssClass="'h-3 w-3 fill-current inline-block  mr-2'" />
             {{item.name}}
           </div>
         </router-link>
@@ -36,9 +36,9 @@
 
     <ul class="list-reset mt-6 border-t border-grey pt-4">
       <li v-if="!isLoggedIn"
-          class=" text-grey-lightest no-underline cursor-pointer text-lg">
-        <Login v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 mt-1'" />
-          <router-link to="/signup" class=" text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
+          class="text-grey-lightest no-underline cursor-pointer text-base">
+        <Login v-bind:cssClass="'h-3 w-3 fill-current inline-block  mr-2 mt-1'" />
+          <router-link to="/signup" class=" text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-base">
             Signup
           </router-link>
           /
@@ -46,8 +46,8 @@
       </li>
       <li @click="logout()"
           v-if="isLoggedIn"
-          class=" text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-lg">
-        <Logout v-bind:cssClass="'h-4 w-4 fill-current inline-block self-center mr-2 mt-1'" />
+          class=" text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-base">
+        <Logout v-bind:cssClass="'h-3 w-3 fill-current inline-block  mr-2 mt-1'" />
           Logout
       </li>
     </ul>

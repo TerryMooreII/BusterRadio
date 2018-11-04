@@ -28,19 +28,29 @@
               <Popover :right="true" width="195px" left="-95px" v-if="openShowPopover" @close="close">
                 <ul class="list-reset text-sm text-left popover">
                   <!-- <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" @click.stop="addTrackToQueuePlayNext(track);close()">Add Show to Queue</li> -->
-                  <li class="pt-1 pb-1 mb-1 border-b border-grey text-center uppercase text-xs">Download Show</li>
-                  <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" v-if="show.tracks.mp3" @click.stop="downloadShow('mp3');close()">as MP3</li>
-                  <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" v-if="show.tracks.flac" @click.stop="downloadShow('flac');close()">as FLAC</li>
-                  <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" v-if="show.tracks.ogg" @click.stop="downloadShow('ogg');close()">as OGG</li>
-                  <li class="pt-1 pb-1 mb-1 border-b border-grey text-center uppercase text-xs"></li>
                   <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" @click.stop="openOnArchive();close()">View On Archive.org</li>
                 </ul>
               </Popover>
 
             </div>
             <Stars cssClass="h-4 w-4 mt-2" v-if="show.reviews" :rank="show.reviews.info.avg_rating" />
-            <span class="text-sm text-grey-darker">{{show.downloads || 0}} downloads</span>
-            <button class="rounded bg-blue text-white w-100 py-2 sm:py-3 font-bold mt-3 px-3 text-sm sm:text-base sm:px-4 ml-auto mb-3 sm:mb-0"
+           
+           <div>
+              <button class="cursor-pointer text-sm text-grey-darker mt-1 text-right" @click.stop.prevent="openDownloadPopover = !openDownloadPopover" type="button">
+                {{show.downloads || 0}}
+              <Download v-bind:cssClass="'h-4 w-4 -mb-1 fill-current inline-block'"/>
+            </button>
+            <Popover :right="true" width="195px" left="-95px" v-if="openDownloadPopover" @close="close">
+              <ul class="list-reset text-sm text-left popover">
+                <li class="pt-1 pb-1 mb-1 border-b border-grey text-center uppercase text-xs">Download Show</li>
+                <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" v-if="show.tracks.mp3" @click.stop="downloadShow('mp3');close()">as MP3</li>
+                <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" v-if="show.tracks.flac" @click.stop="downloadShow('flac');close()">as FLAC</li>
+                <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" v-if="show.tracks.ogg" @click.stop="downloadShow('ogg');close()">as OGG</li>
+              </ul>
+            </Popover>
+           </div>
+            
+            <button class="rounded bg-blue text-white w-24 sm:w-32 py-2 sm:py-3 font-bold mt-3 px-3 text-sm sm:text-base sm:px-4 ml-auto mb-3 sm:mb-0"
                     type="button"
                     @click="addTracks(show.tracks.mp3)">
               Play Show
@@ -71,7 +81,7 @@
           </div>
           <div class="w-16 text-center">
              <button class="cursor-pointer h-4 w-4" @click.stop.prevent="openPopover = openPopover !== null ? null : index" type="button">
-              <DotsVertical v-bind:cssClass="'h-4 w-4 fill-current inline-block cursor-pointer'"/>
+              <DotsVertical v-bind:cssClass="'h-4 w-4 fill-current inline-block cursor-pointer '"/>
             </button>
             <Popover :right="true" width="195px" v-if="openPopover === index" @close="close">
               <ul class="list-reset text-sm text-left popover">
@@ -139,6 +149,7 @@ export default {
     PauseIcon: icons.Pause,
     ListAdd: icons.ListAdd,
     DotsVertical: icons.DotsVertical,
+    Download: icons.Download,
     FavoriteShow,
     ArtistImage,
     Loading,
@@ -167,6 +178,7 @@ export default {
       trackFileType: TRACK_FILE_TYPE.MP3,
       openPopover: null,
       openShowPopover: null,
+      openDownloadPopover: null,
       fetchAlternateRecordings: false
     };
   },
@@ -180,6 +192,7 @@ export default {
     close() {
       this.openPopover = null;
       this.openShowPopover = null;
+      this.openDownloadPopover = null;
     },
     onAlternateRecordingsOpen(isOpen) {
       if (isOpen && !this.fetchAlternateRecordings) {

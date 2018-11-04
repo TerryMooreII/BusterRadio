@@ -2,7 +2,7 @@
   <Container :wide="true">
     <template slot="header">
       <div class="w-2/3">
-        <h2>Lastest Uploaded Shows</h2>
+        <h2>Lastest Shows</h2>
       </div>
       <div class="text-right w-1/3 ">
         <router-link to="/newest?orderby=date" class="text-grey-darker text-sm no-underline hover:underline" v-if="orderby === 'publicdate'">Sort By Show Date</router-link>

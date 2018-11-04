@@ -1,11 +1,13 @@
 <template>
   <Container :wide="true" id="artists">
      <template slot="header">
-      <div class="w-1/3">
-        <h2>Your Favorite Artists</h2>
+      <div class="w-full sm:w-1/3">
+        <h2>Favorite Artists</h2>
       </div>
-      <div class="w-2/3 text-right">
-        <router-link class="text-grey-dark no-underline hover:underline" :to="{path: '/random-show', 'query': {'from': 'artist'}}">Play Random From Favorites</router-link>
+      <div class="w-full sm:w-2/3 text-right">
+        <router-link class="text-grey-dark no-underline hover:underline" :to="{path: '/random-show', 'query': {'from': 'artist'}}">
+          Play Random Show From Favs
+        </router-link>
       </div>
     </template>
     <div class="flex items-stretch flex-wrap justify-center">

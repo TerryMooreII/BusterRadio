@@ -9,14 +9,14 @@
            :key="show.identifier"
            class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center px-0 sm:px-5"
            @click="getShow(show.identifier)">
-        <div class="w-3/4 text-grey-darkest leading-normal text-sm">
+        <div class="w-3/5 text-grey-darkest leading-normal text-sm">
           <span class="text-grey-darkest italic">{{show.date| removeTimezone | dateformat}}</span>
           <span class="text-white text-xs bg-blue-dark px-1 py-px rounded ml-3" v-if="show.soundboard">Soundboard</span>
           <br />
           <span class="text-grey-darker mr-2 text-lg">{{show.venue}}</span> <br />
           <span class="text-grey-darker text-sm">{{show.coverage}}</span>
         </div>
-        <div class="w-1/4 text-right text-grey-dark italictext-sm">
+        <div class="w-2/5 text-right text-grey-dark italictext-sm">
           <Stars cssClass="h-4 w-4" :rank="show.avg_rating" />
           <div @click.stop="recordings = show" class="hover:underline">{{show.count}} recordings</div>
         </div>
