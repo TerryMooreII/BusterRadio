@@ -1,26 +1,28 @@
 <template>
-  <div class="flex-grow px-0 sm:px-24 sm:mt-0 mt-3">
-    <div class="flex flex-col text-grey-darkest px-2 py-6 sticky pin-t w-full bg-white shadow z-10 rounded">
-        <h2 class="">
-          Search for Artists and Venues
-        </h2>
-          <div class="">
-            <input type="text"
-                   class="h-24 flex-auto text-grey-darkest"
-                   placeholder="Start typing..."
-                   v-model="q" autofocus />
-          </div>
+  <Container :wide="true">
 
-    </div>
+    <template slot="header">
+      <div class="flex-col w-full">
+            <label>Search for Artists</label>
+            <div class="relative">
+              <Search v-bind:cssClass="'h-5 w-5 fill-current block absolute mt-5 ml-3'"/>
+              <input type="text"
+                   class="p-3 pl-10 w-full text-grey-darkest mt-2 rounded border border-grey w-full"
+                   placeholder="Search"
+                   v-model="q" autofocus />
+            </div>
+      </div>
+    </template>
+
     <div class="flex items-stretch flex-wrap justify-center">
       <Artist v-for="artist in results" :key="artist.identifer" :artist="artist" />
     </div>
 
-      <NoResults v-if="results.length === 0 &&  q && q.length > 2" width="362px">
-        <Search v-bind:cssClass="'h-24 w-24 fill-current block ml-2'" slot="icon"/>
-        <p class="leading-loose"> No Results Found. <br> Try Searching Again. </p>
+    <NoResults v-if="results.length === 0 &&  q && q.length > 2" width="362px">
+      <Search v-bind:cssClass="'h-24 w-24 fill-current block ml-2'" slot="icon"/>
+      <p class="leading-loose"> No Results Found. <br> Try Searching Again. </p>
     </NoResults>
-  </div>
+  </Container>
 </template>
 
 <script>
@@ -28,6 +30,7 @@ import { mapGetters } from 'vuex';
 import Artist from '../components/Artist';
 import icons from '../icons';
 import NoResults from '../components/NoResults';
+import Container from '../components/Container';
 
 
 export default {
@@ -35,12 +38,14 @@ export default {
   components: {
     Artist,
     NoResults,
-    Search: icons.Search
+    Search: icons.Search,
+    Container
   },
   data() {
     return {
       q: null,
-      results: []
+      results: [],
+      debounce: null
     };
   },
   computed: {
@@ -54,7 +59,10 @@ export default {
       this.submit();
     },
     q() {
-      this.$router.push(`/search?q=${this.q}`);
+      if (this.debounce) clearTimeout(this.debounce);
+      this.debounce = setTimeout(() => {
+        this.$router.push(`/search?q=${this.q}`);
+      }, 400);
     }
   },
   methods: {
@@ -76,9 +84,7 @@ export default {
 </script>
 
 <style>
-  input {
-    font-size:50px
-  }
+ 
   *:focus {
     outline: none
   }

@@ -81,7 +81,7 @@ export default {
 
   .heart {
     right: -6px;
-    display: none;
+    display: block;
   }
   .heart {
     &.favorite {
