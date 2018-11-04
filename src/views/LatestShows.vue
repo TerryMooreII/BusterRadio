@@ -32,8 +32,6 @@ export default {
     Loading,
     Pager
   },
-  props: {
-  },
   data() {
     return {
       shows: [],

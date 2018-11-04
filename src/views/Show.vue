@@ -2,7 +2,9 @@
   <Container id="show">
     <div v-if="show">
       <div class="flex flex-col sm:flex-row width-full bg-white sticky pin-t pt-3 sm:pt-0 mb-4 pb-3 text-left border-b border-grey">
-        <ArtistImage classes="mr-0 sm:mr-4 artist self-center hidden sm:block" :artist="artist" />
+        
+        <ArtistImage classes="mr-0 sm:mr-4 artist self-center hidden sm:block" :artist="artist" v-if="!hasShowImage"/>
+        <img class="mr-0 sm:mr-4 artist self-center hidden sm:block" v-bind:src="show.image" v-bind:alt="show.image" v-if="hasShowImage">
         <div class="flex flex-row w-full self-center justify-between">
           <div class="flex flex-col self-center">
             <h1 class="font-hairline mb-1">
@@ -112,8 +114,10 @@
       <Accordian v-if="show.lineage || show.source">
         <span slot="header">Lineage &amp; Source</span>
         <p class="my-2 text-xs leading-normal">
-          {{show.lineage}}<br><br>
-          {{show.source}}
+          <strong>Taper:</strong> {{show.taper || 'unknown'}}<br>
+          <strong>Source:</strong> {{show.source}}<br>
+          <strong>Lineage:</strong> {{show.lineage}}<br>
+          
         </p>
       </Accordian>
 
@@ -159,7 +163,10 @@ export default {
     ...mapGetters('playlist', {
       currentTrack: 'currentTrack',
       isPlaying: 'isPlaying'
-    })
+    }),
+    hasShowImage() {
+      return this.show.image.includes('http') && !this.show.image.includes('__ia_thumb');
+    }
   },
   watch: {
     '$route.params.showId': function () {
