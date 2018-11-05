@@ -55,7 +55,7 @@ export default {
   },
   mounted() {
     ArchiveApi.getShows(this.$route.params.artistId, this.$route.params.year).then(data => this.shows = data);
-    this.artist = this.$store.getters['artists/artist'](this.$route.params.artistId);
+    this.artist = this.$store.getters['artists/artistByIdentifier'](this.$route.params.artistId);
   }
 };
 </script>

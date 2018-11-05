@@ -29,6 +29,7 @@ import Globe from './Globe.vue';
 import ArrowRight from './ArrowRight.vue';
 import ArrowLeft from './ArrowLeft.vue';
 import Download from './Download.vue';
+import Ticket from './Ticket.vue';
 
 export default {
   Play,
@@ -61,6 +62,7 @@ export default {
   Globe,
   ArrowLeft,
   ArrowRight,
-  Download
+  Download,
+  Ticket
 };
 

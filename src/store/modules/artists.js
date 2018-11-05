@@ -15,8 +15,11 @@ const getters = {
     return state.all.length;
   },
 
-  artist: state => search =>
-    state.all.find(artist => artist.title === search || artist.identifier === search),
+  artistByIdentifier: state => search =>
+    state.all.find(artist => artist.identifier === search),
+
+  artistByTitle: state => search =>
+    state.all.find(artist => artist.title === search),
 
   artistsByDownloads(state) {
     return [...state.all.slice().sort((a, b) => b.downloads - a.downloads)];

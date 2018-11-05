@@ -23,6 +23,7 @@
           <div class="flex flex-col text-right self-center">
             <div>
               <FavoriteShow :show="show" v-if="show"/>
+              <JambaseLookup :artist="artist" class="ml-4"/>
 
               <button class="cursor-pointer h-5 w-5 ml-3" @click.stop.prevent="openShowPopover = !openShowPopover" type="button">
                 <Zondicons icon="DotsVertical" class="h-5 w-5 fill-current inline-block cursor-pointer"/>
@@ -38,9 +39,9 @@
             <Stars cssClass="h-4 w-4 mt-2" v-if="show.reviews" :rank="show.reviews.info.avg_rating" />
            
            <div>
-              <button class="cursor-pointer text-sm text-grey-darker mt-1 text-right" @click.stop.prevent="openDownloadPopover = !openDownloadPopover" type="button">
-                {{show.downloads || 0}}
-              <Zondicons icon="Download" class="h-4 w-4 -mb-1 fill-current inline-block"/>
+              <button class="cursor-pointer text-sm text-grey-darker text-right" @click.stop.prevent="openDownloadPopover = !openDownloadPopover" type="button">
+                <span class="inline-block mr-1 -pt-1">{{show.downloads || 0}}</span>
+              <Zondicons icon="Download" class="h-4 w-4 fill-current inline-block"/>
             </button>
             <Popover :right="true" width="195px" left="-95px" v-if="openDownloadPopover" @close="close">
               <ul class="list-reset text-sm text-left popover">
@@ -138,6 +139,7 @@ import Accordian from '../components/Accordian';
 import Recordings from '../components/Recordings';
 import FavoriteShow from '../components/FavoriteShow';
 import Container from '../components/Container';
+import JambaseLookup from '../components/JambaseLookup';
 
 const TRACK_FILE_TYPE = {
   MP3: 'mp3',
@@ -157,7 +159,8 @@ export default {
     Stars,
     Reviews,
     Accordian,
-    Recordings
+    Recordings,
+    JambaseLookup
   },
   computed: {
     ...mapGetters('playlist', {
@@ -241,7 +244,7 @@ export default {
       this.trackFileType = TRACK_FILE_TYPE[search.toUpperCase()];
     }
     this.getShow();
-    this.artist = this.$store.getters['artists/artist'](this.$route.params.artistId);
+    this.artist = this.$store.getters['artists/artistByIdentifier'](this.$route.params.artistId);
   }
 };
 </script>

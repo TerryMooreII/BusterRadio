@@ -1,9 +1,10 @@
 <template>
   <div class="card overflow-hidden mx-4 my-4 relative">
+    
     <div @click="toggle()" v-if="isLoggedIn">
       <Zondicons icon="Heart" :class="clazz"/>
     </div>
-
+      <JambaseLookup :artist="artist" class="absolute ticket"/>
     <ArtistImage classes="rounded-full border border-grey p-1 cursor-pointer" :artist="artist" @click="getYears(artist.identifier)"/>
     <div class="p-1">
       <div class="font-bold text-sm mb-1 text-center text-grey-darkest">{{artist.title}}</div>
@@ -15,12 +16,14 @@
 import datastore from '../services/datastore';
 import ArtistImage from './ArtistImage';
 import Zondicons from '../icons/Zondicons';
+import JambaseLookup from './JambaseLookup'
 
 export default {
   name: 'Artist',
   components: {
     ArtistImage,
-    Zondicons
+    Zondicons,
+    JambaseLookup
   },
   props: {
     artist: Object
@@ -84,7 +87,7 @@ export default {
 
   .heart {
     right: -6px;
-    display: block;
+    display: none;
   }
   .heart {
     &.favorite {
@@ -92,8 +95,14 @@ export default {
     }
   }
 
+  .ticket {
+    display: none;
+  }
   .card:hover {
     .heart {
+      display: block;
+    }
+    .ticket {
       display: block;
     }
   }

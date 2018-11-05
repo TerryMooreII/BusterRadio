@@ -37,11 +37,11 @@ export default {
       currentTrack: 'currentTrack'
     }),
     ...mapGetters('artists', {
-      artist: 'artist'
+      artistByTitle: 'artistByTitle'
     }),
     artistId() {
       if (this.currentTrack) {
-        const artist = this.artist(this.currentTrack.artist);
+        const artist = this.artistByTitle(this.currentTrack.artist);
         if (artist) {
           return artist;
         }
