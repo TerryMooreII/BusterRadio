@@ -31,7 +31,7 @@
               <Popover :right="true" width="195px" left="-95px" v-if="openShowPopover" @close="close">
                 <ul class="list-reset text-sm text-left popover">
                   <!-- <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" @click.stop="addTrackToQueuePlayNext(track);close()">Add Show to Queue</li> -->
-                  <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" @click.stop="openOnArchive();close()">View On Archive.org</li>
+                  <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer" @click.stop="openOnArchive();close()">View On Archive.org</li>
                 </ul>
               </Popover>
 
@@ -39,16 +39,16 @@
             <Stars cssClass="h-4 w-4 mt-2" v-if="show.reviews" :rank="show.reviews.info.avg_rating" />
            
            <div>
-              <button class="cursor-pointer text-sm text-grey-darker text-right" @click.stop.prevent="openDownloadPopover = !openDownloadPopover" type="button">
+              <button class="cursor-pointer text-sm text-grey-darker flex self-center ml-auto" @click.stop.prevent="openDownloadPopover = !openDownloadPopover" type="button">
                 <span class="inline-block mr-1 -pt-1">{{show.downloads || 0}}</span>
               <Zondicons icon="Download" class="h-4 w-4 fill-current inline-block"/>
             </button>
             <Popover :right="true" width="195px" left="-95px" v-if="openDownloadPopover" @close="close">
               <ul class="list-reset text-sm text-left popover">
                 <li class="pt-1 pb-1 mb-1 border-b border-grey text-center uppercase text-xs">Download Show</li>
-                <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" v-if="show.tracks.mp3" @click.stop="downloadShow('mp3');close()">as MP3</li>
-                <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" v-if="show.tracks.flac" @click.stop="downloadShow('flac');close()">as FLAC</li>
-                <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" v-if="show.tracks.ogg" @click.stop="downloadShow('ogg');close()">as OGG</li>
+                <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer" v-if="show.tracks.mp3" @click.stop="downloadShow('mp3');close()">as MP3</li>
+                <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer" v-if="show.tracks.flac" @click.stop="downloadShow('flac');close()">as FLAC</li>
+                <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer" v-if="show.tracks.ogg" @click.stop="downloadShow('ogg');close()">as OGG</li>
               </ul>
             </Popover>
            </div>
@@ -88,8 +88,8 @@
             </button>
             <Popover :right="true" width="195px" v-if="openPopover === index" @close="close">
               <ul class="list-reset text-sm text-left popover">
-                <li class="py-2 px-2 hover:bg-grey-light rounded" @click.stop="addTrackToQueue(track);close()">Add to Queue</li>
-                <li class="py-2 px-2 rounded hover:bg-grey-light" @click.stop="addTrackToQueuePlayNext(track);close()">Add to Queue Play Next</li>
+                <li class="px-3 py-2 hover:bg-grey-lighter" @click.stop="addTrackToQueue(track);close()">Add to Queue</li>
+                <li class="px-3 py-2 hover:bg-grey-lighter" @click.stop="addTrackToQueuePlayNext(track);close()">Add to Queue Play Next</li>
               </ul>
             </Popover>
           </div>
@@ -140,6 +140,7 @@ import Recordings from '../components/Recordings';
 import FavoriteShow from '../components/FavoriteShow';
 import Container from '../components/Container';
 import JambaseLookup from '../components/JambaseLookup';
+import helpers from '../services/helpers';
 
 const TRACK_FILE_TYPE = {
   MP3: 'mp3',
@@ -206,17 +207,7 @@ export default {
       }
     },
     time(track) {
-      if (!track && !track.length) {
-        return '0:00';
-      } else if (track.length.includes('.')) {
-        const t = track.length / 3600;
-        const h = Math.floor(t);
-        const m = Math.floor((t - h) * 60);
-        const s = Math.floor(((t - h) * 60 - m) * 60);
-        const pad = unit => (String(unit).length === 2 ? unit : `0${unit}`);
-        return `${pad(m)}:${pad(s)}`;
-      }
-      return track.length;
+      return helpers.calcTrackTime(track);
     },
     sanitize(val) {
       const div = document.createElement('div');

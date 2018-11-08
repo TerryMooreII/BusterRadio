@@ -33,10 +33,18 @@
         </div>
         <div class="w-full truncate">
           {{track.title}} <br>
-          <span class="text-grey-dark text-sm italic">{{track.creator}} :: {{track.album}}</span>
+          <router-link 
+                class="text-grey-dark text-sm italic no-underline hover:underline" 
+                @click.native="$event.stopImmediatePropagation()"
+                :to="{name:'years', params: {artistId: getArtistId(track.creator)}}">{{track.creator}}</router-link>
+          <span  class="text-grey-dark text-sm italic" v-if="track.creator">&nbsp;::&nbsp;</span>
+          <router-link 
+                  class="text-grey-dark text-sm italic no-underline hover:underline" 
+                  @click.native="$event.stopImmediatePropagation()"
+                  :to="{name:'show', params: {artistId: getArtistId(track.creator), year: track.year, showId: track.identifier}}">{{track.album}}</router-link>
         </div>
         <div class="w-24 text-right pr-2">
-          {{track.length}}
+          {{time(track)}}
         </div>
       </div>
       </div>
@@ -50,6 +58,7 @@ import Zondicons from '../icons/Zondicons';
 import Artist from '../components/Artist.vue';
 import NoResults from '../components/NoResults';
 import Container from '../components/Container';
+import helpers from '../services/helpers';
 
 export default {
   name: 'Artists',
@@ -74,7 +83,16 @@ export default {
     ...mapActions('playlist', [
       'playQueueTrack',
       'clear'
-    ])
+    ]),
+    getArtistId(creator) {
+      if (!creator) return ''
+      const artist = this.$store.getters['artists/artistByTitle'](creator);
+      if (!artist) return '';
+      return artist.identifier;
+    },
+    time(track) {
+      return helpers.calcTrackTime(track);
+    }
   }
 };
 </script>
