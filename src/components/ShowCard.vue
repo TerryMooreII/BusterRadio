@@ -18,7 +18,7 @@
       <div class="text-grey-dark flex items-center">
         <span class="bg-white border border-blue-dark text-xs text-blue-dark px-1 py-px rounded" v-if="show.soundboard">Soundboard</span>
       </div>
-      
+
       <div>
          <JambaseLookup :artist="artist" class="mr-3"/>
         <FavoriteShow :show="show"/>

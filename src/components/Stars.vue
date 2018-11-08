@@ -14,7 +14,7 @@ export default {
   },
   computed: {
     clazz() {
-      return this.cssClass + ' ' + 'text-yellow-dark fill-current';
+      return `${this.cssClass} text-yellow-dark fill-current`;
     },
     stars() {
       if (!this.rank) {

@@ -12,7 +12,7 @@
     <div class="flex items-stretch flex-wrap justify-center">
       <Loading v-if="!shows.length" />
       <ShowCard v-for="show of shows" :key="show.identifier" :show="show"/>
-      
+
     </div>
     <Pager :page="page" :count="shows.length" :pagesize="50" @onPageChange="pageChange" v-if="shows.length"/>
   </Container>

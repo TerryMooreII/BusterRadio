@@ -2,7 +2,7 @@
   <Container id="show">
     <div v-if="show">
       <div class="flex flex-col sm:flex-row width-full bg-white sticky pin-t pt-3 sm:pt-0 mb-4 pb-3 text-left border-b border-grey">
-        
+
         <ArtistImage classes="mr-0 sm:mr-4 artist self-center hidden sm:block" :artist="artist" v-if="!hasShowImage"/>
         <img class="mr-0 sm:mr-4 artist self-center hidden sm:block" v-bind:src="show.image" v-bind:alt="show.image" v-if="hasShowImage">
         <div class="flex flex-row w-full self-center justify-between">
@@ -37,7 +37,7 @@
 
             </div>
             <Stars cssClass="h-4 w-4 mt-2" v-if="show.reviews" :rank="show.reviews.info.avg_rating" />
-           
+
            <div>
               <button class="cursor-pointer text-sm text-grey-darker flex self-center ml-auto" @click.stop.prevent="openDownloadPopover = !openDownloadPopover" type="button">
                 <span class="inline-block mr-1 -pt-1">{{show.downloads || 0}}</span>
@@ -52,7 +52,7 @@
               </ul>
             </Popover>
            </div>
-            
+
             <button class="rounded bg-blue text-white w-24 sm:w-32 py-2 sm:py-3 font-bold mt-3 px-3 text-sm sm:text-base sm:px-4 ml-auto mb-3 sm:mb-0"
                     type="button"
                     @click="addTracks(show.tracks.mp3)">
@@ -118,7 +118,7 @@
           <strong>Taper:</strong> {{show.taper || 'unknown'}}<br>
           <strong>Source:</strong> {{show.source}}<br>
           <strong>Lineage:</strong> {{show.lineage}}<br>
-          
+
         </p>
       </Accordian>
 

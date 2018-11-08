@@ -1,6 +1,6 @@
 <template>
   <div class="card overflow-hidden mx-4 my-4 relative">
-    
+
     <div @click="toggle()" v-if="isLoggedIn">
       <Zondicon icon="Heart" :class="clazz"/>
     </div>
@@ -33,7 +33,7 @@ export default {
   },
   computed: {
     clazz() {
-      return `heart ${Boolean(this.favorite) ? 'favorite text-red-dark hover:text-red' : '' } h-6 w-6 absolute fill-current text-grey-dark mx-2 hover:text-grey-darkest cursor-pointer`;
+      return `heart ${this.favorite ? 'favorite text-red-dark hover:text-red' : ''} h-6 w-6 absolute fill-current text-grey-dark mx-2 hover:text-grey-darkest cursor-pointer`;
     },
     isLoggedIn() {
       return Boolean(datastore.getCurrentUser());

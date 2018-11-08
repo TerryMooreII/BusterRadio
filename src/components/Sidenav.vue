@@ -61,7 +61,7 @@ import User from './User';
 
 export default {
   name: 'Sidenav',
-  components: { 
+  components: {
     User
   },
   props: {

@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     clazz() {
-      return `heart ${Boolean(this.favorite) ? 'favorite text-red-dark hover:text-red' : '' } h-5 w-5 fill-current text-grey-dark hover:text-grey-darkest cursor-pointer`
+      return `heart ${this.favorite ? 'favorite text-red-dark hover:text-red' : ''} h-5 w-5 fill-current text-grey-dark hover:text-grey-darkest cursor-pointer`;
     },
     isLoggedIn() {
       return datastore.getCurrentUser();

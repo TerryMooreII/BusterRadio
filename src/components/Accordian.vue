@@ -14,7 +14,7 @@
 
 export default {
   name: 'Accordian',
-  
+
   data() {
     return {
       open: false

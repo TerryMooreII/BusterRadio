@@ -43,11 +43,10 @@
 import { mapState } from 'vuex';
 
 
-
 export default {
   name: 'AudioControls',
   components: {
-    
+
   },
   computed: {
     ...mapState('playlist', {

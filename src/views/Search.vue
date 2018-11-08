@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style>
- 
+
   *:focus {
     outline: none
   }
