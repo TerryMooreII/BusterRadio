@@ -1,18 +1,14 @@
 <template>
   <div class="inline-block" @click="toggle()" :class="{'right': right}" v-if="isLoggedIn">
-    <Zondicons icon="Heart" :class="clazz"/>
+    <Zondicon icon="Heart" :class="clazz"/>
   </div>
 </template>
 
 <script>
 import datastore from '../services/datastore';
-import Zondicons from '../icons/Zondicons';
 
 export default {
   name: 'FavoriteShow',
-  components: {
-    Zondicons
-  },
   props: {
     show: Object,
     right: {

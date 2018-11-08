@@ -6,7 +6,7 @@
             <label>Search for Artists</label>
             <div class="relative">
               <!-- <Search v-bind:cssClass="'h-5 w-5 fill-current block absolute mt-5 ml-3'"/> -->
-              <Zondicons icon="Search" class="h-5 w-5 fill-current block absolute mt-5 ml-3"/>
+              <Zondicon icon="Search" class="h-5 w-5 fill-current block absolute mt-5 ml-3"/>
               <input type="text"
                    class="p-3 pl-10 w-full text-grey-darkest mt-2 rounded border border-grey w-full"
                    placeholder="Search"
@@ -20,7 +20,7 @@
     </div>
 
     <NoResults v-if="results.length === 0 &&  q && q.length > 2" width="362px">
-      <Zondicons icon="Search" class="h-24 w-24 fill-current block ml-2" slot="icon"/>
+      <Zondicon icon="Search" class="h-24 w-24 fill-current block ml-2" slot="icon"/>
       <p class="leading-loose"> No Results Found. <br> Try Searching Again. </p>
     </NoResults>
   </Container>
@@ -29,17 +29,14 @@
 <script>
 import { mapGetters } from 'vuex';
 import Artist from '../components/Artist';
-import Zondicons from '../icons/Zondicons';
 import NoResults from '../components/NoResults';
 import Container from '../components/Container';
-
 
 export default {
   name: 'search',
   components: {
     Artist,
     NoResults,
-    Zondicons,
     Container
   },
   data() {

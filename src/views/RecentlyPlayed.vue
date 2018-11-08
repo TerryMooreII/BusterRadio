@@ -7,7 +7,7 @@
     </div>
 
     <NoResults v-if="!recentList" width="361px">
-        <Zondicons icon="MusicPlaylist" class="h-24 w-24 fill-current block ml-2" slot="icon"/>
+        <Zondicon icon="MusicPlaylist" class="h-24 w-24 fill-current block ml-2" slot="icon"/>
         Go play some music!!!
     </NoResults>
 
@@ -19,7 +19,6 @@
 
 <script>
 import datastore from '../services/datastore';
-import Zondicons from '../icons/Zondicons';
 import RecentTracks from '../components/RecentTracks';
 import NoResults from '../components/NoResults';
 import Container from '../components/Container';
@@ -29,8 +28,7 @@ export default {
   components: {
     Container,
     NoResults,
-    RecentTracks,
-    Zondicons
+    RecentTracks
   },
   data() {
     return {

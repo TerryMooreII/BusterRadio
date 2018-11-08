@@ -14,7 +14,7 @@
     </div>
 
     <NoResults v-if="queue.length === 0" width="361px">
-        <Zondicons icon="MusicPlaylist" class="h-24 w-24 fill-current block ml-2" slot="icon"/>
+        <Zondicon icon="MusicPlaylist" class="h-24 w-24 fill-current block ml-2" slot="icon"/>
         Your queue is empty. <br> <br>
         Go add some tracks or a <router-link to="/random-show" class="text-grey">Random Show</router-link>!
     </NoResults>
@@ -27,8 +27,8 @@
             @click="playQueueTrack(index)">
         <div class="w-10 text-center">
           <span class="track-number" v-if="track.file !== currentTrack.file || qIdx !== index">{{index + 1}}</span>
-          <Zondicons icon="Play" class="play-icon h-4 w-4 fill-current inline-block ml-2" v-if="track.file !== currentTrack.file  || qIdx !== index"/>
-          <Zondicons icon="Pause" class="pause-icon h-4 w-4 fill-current inline-block ml-1" v-if="track.file === currentTrack.file && !isPlaying && qIdx === index" />
+          <Zondicon icon="Play" class="play-icon h-4 w-4 fill-current inline-block ml-2" v-if="track.file !== currentTrack.file  || qIdx !== index"/>
+          <Zondicon icon="Pause" class="pause-icon h-4 w-4 fill-current inline-block ml-1" v-if="track.file === currentTrack.file && !isPlaying && qIdx === index" />
           <img src="/img/equalizer.gif" alt="equalizer" class="h-4 w-4" v-if="track.file === currentTrack.file && isPlaying && qIdx === index">
         </div>
         <div class="w-full truncate">
@@ -54,7 +54,7 @@
 
 <script>
 import { mapGetters, mapActions, mapState } from 'vuex';
-import Zondicons from '../icons/Zondicons';
+
 import Artist from '../components/Artist.vue';
 import NoResults from '../components/NoResults';
 import Container from '../components/Container';
@@ -65,8 +65,7 @@ export default {
   components: {
     Container,
     Artist,
-    NoResults,
-    Zondicons
+    NoResults
   },
   computed: {
     ...mapState({

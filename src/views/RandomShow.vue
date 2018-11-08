@@ -3,7 +3,7 @@
     <div class="flex text-grey-darker leading-normal justify-around ">
       <div class="flex flex-col shadow rounded w-2/5 p-6 bg-white pb-24">
         <NoResults width="361px">
-      <Zondicons icon="Shuffle" class="h-24 w-24 fill-current block ml-2" slot="icon"/>
+      <Zondicon icon="Shuffle" class="h-24 w-24 fill-current block ml-2" slot="icon"/>
         Grabbing a random show.
     </NoResults>
     </div>
@@ -13,15 +13,13 @@
 
 <script>
 import datastore from '../services/datastore';
-import Zondicons from '../icons/Zondicons';
 import ArchiveApi from '../api/archive';
 import NoResults from '../components/NoResults';
 
 export default {
   name: 'years',
   components: {
-    NoResults,
-    Zondicons
+    NoResults
   },
   methods: {
     async getRandomShow(fromFav = this.$route.query.from) {

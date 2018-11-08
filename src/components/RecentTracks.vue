@@ -9,7 +9,7 @@
         </div>
         <div class="w-6 text-right pr-2" v-if="track.md5">
           <button class="cursor-pointer h-4 w-4" @click.stop.prevent="openPopover = openPopover !== null ? null : index" type="button">
-              <Zondicons icon="DotsVertical" class="h-4 w-4 fill-current inline-block cursor-pointer"/>
+              <Zondicon icon="DotsVertical" class="h-4 w-4 fill-current inline-block cursor-pointer"/>
           </button>
           <Popover :right="true" width="195px" v-if="openPopover === index" @close="close">
               <ul class="list-reset text-sm text-left popover">
@@ -24,14 +24,12 @@
 
 <script>
 import { mapActions } from 'vuex';
-import Zondicons from '../icons/Zondicons';
 import Popover from '../components/Popover';
 
 export default {
   name: 'RecentTracks',
   components: {
-    Popover,
-    Zondicons
+    Popover
   },
   props: {
     tracks: Array

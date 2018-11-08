@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import firebase from 'firebase';
+import Zondicon from 'vue-zondicons';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -18,6 +19,8 @@ const config = {
 firebase.initializeApp(config);
 
 Vue.config.productionTip = false;
+
+Vue.component('Zondicon', Zondicon);
 
 firebase.auth().onAuthStateChanged(() => {
   filters.forEach((f) => {
