@@ -190,7 +190,7 @@ export default {
 
 <style scoped lang="less">
   .w-240 {
-    width: 240px
+    width: 240px;
   }
 
   @media (max-width: 576px) {
@@ -207,7 +207,7 @@ export default {
       transition: all .3s ease;
 
       &.visible {
-        left: 0px;
+        left: 0px !important;
       }
     }
   }

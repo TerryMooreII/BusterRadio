@@ -28,6 +28,7 @@
     "@vue/eslint-config-airbnb": "^3.0.1",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
+    "tailwindcss": "^0.7.2",
     "vue-template-compiler": "^2.5.17"
   }
 }

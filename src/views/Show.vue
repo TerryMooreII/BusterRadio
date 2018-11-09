@@ -118,10 +118,8 @@
           <strong>Taper:</strong> {{show.taper || 'unknown'}}<br>
           <strong>Source:</strong> {{show.source}}<br>
           <strong>Lineage:</strong> {{show.lineage}}<br>
-
         </p>
       </Accordian>
-
     </div>
   </Container>
 </template>
@@ -246,16 +244,15 @@ export default {
   }
 </style>
 
-<style lang="less">
-.play-icon {
+<style scoped lang="less">
+.play-icon{
     display: none;
   }
-
   .track-row:hover {
-    .play-icon {
+    & > div > .play-icon {
       display: block;
     }
-    .track-number {
+    & > div >  .track-number {
       display: none;
     }
   }

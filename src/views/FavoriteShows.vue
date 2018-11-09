@@ -42,11 +42,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="less">
   .right {
     position: absolute;
     right: 4px;
     top: 4px;
   }
 </style>
-

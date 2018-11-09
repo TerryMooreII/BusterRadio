@@ -49,7 +49,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
 .fade-enter-active,
 .fade-leave-active {
   transition-duration: 0.2s;
@@ -71,9 +71,10 @@ export default {
   .main {
     padding-top: 48px;
     padding-left: 0px;
+  
   }
   .pin-t {
-    top: 64px;
+    top: 64px !important;
   }
 }
 </style>

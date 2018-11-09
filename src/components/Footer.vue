@@ -45,7 +45,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-
   .w-240 {
     width: 240px;
   }

@@ -6,6 +6,7 @@ import router from './router';
 import store from './store';
 import './registerServiceWorker';
 import filters from './filters';
+import './main.css';
 
 const config = {
   apiKey: 'AIzaSyB-4aj5Nu7VvdyXaXt2B6IV27OMW89FWjg',
