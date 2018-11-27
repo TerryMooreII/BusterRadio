@@ -38,6 +38,16 @@ const router = new Router({
       children: [
         {
           path: '',
+          component: LatestShows,
+          name: 'newest'
+        },
+        {
+          path: '/newest',
+          component: LatestShows,
+          name: 'newest'
+        },
+        {
+          path: '/artists',
           component: Artists,
           name: 'artists'
         },
@@ -85,12 +95,6 @@ const router = new Router({
           component: Search,
           name: 'search'
         },
-        {
-          path: '/newest',
-          component: LatestShows,
-          name: 'newest'
-        },
-
         {
           path: '/queue',
           component: Queue,

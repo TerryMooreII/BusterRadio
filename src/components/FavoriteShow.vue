@@ -1,6 +1,6 @@
 <template>
-  <div class="inline-block" @click="toggle()" :class="{'right': right}" v-if="isLoggedIn">
-    <Zondicon icon="Heart" :class="clazz"/>
+  <div class="inline-block" @click="toggle()" :class="{'right': right, 'flex item-center': $attrs.label}" v-if="isLoggedIn">
+    <Zondicon icon="Heart" :class="clazz"/> <span v-if="$attrs.label" class="inline-block ml-2">{{$attrs.label}}</span>
   </div>
 </template>
 

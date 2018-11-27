@@ -5,8 +5,8 @@
         <h2>Artists <small class="text-grey-dark">({{total}})</small></h2>
       </div>
       <div class="text-right w-1/3 ">
-        <router-link to="/?orderby=a-to-z" class="text-grey-darker text-sm no-underline hover:underline"  v-if="!$route.query.orderby">Sort by A-Z</router-link>
-        <router-link to="/" class="text-grey-darker text-sm  no-underline hover:underline" v-if="$route.query.orderby === 'a-to-z'">Sort By Popularity</router-link>
+        <router-link to="/artists?orderby=a-to-z" class="text-grey-darker text-sm no-underline hover:underline"  v-if="!$route.query.orderby">Sort by A-Z</router-link>
+        <router-link to="/artists" class="text-grey-darker text-sm  no-underline hover:underline" v-if="$route.query.orderby === 'a-to-z'">Sort By Popularity</router-link>
       </div>
     </template>
     <div class="flex items-stretch flex-wrap justify-center">

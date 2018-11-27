@@ -71,7 +71,6 @@ export default {
   .main {
     padding-top: 48px;
     padding-left: 0px;
-  
   }
   .pin-t {
     top: 64px !important;

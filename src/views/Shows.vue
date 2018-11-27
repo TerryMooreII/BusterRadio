@@ -4,7 +4,6 @@
         <ArtistHeader :artist="artist" />
       </template>
       <Loading v-if="!shows" />
-      <RecordingsModal :recordings="recordings" :artist="artist" @dismiss="() => recordings = null" v-if="recordings" />
       <div v-for="show of shows"
            :key="show.identifier"
            class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center px-0 sm:px-5"
@@ -18,7 +17,6 @@
         </div>
         <div class="w-2/5 text-right text-grey-dark italictext-sm">
           <Stars cssClass="h-4 w-4" :rank="show.avg_rating" />
-          <div @click.stop="recordings = show" class="hover:underline">{{show.count}} recordings</div>
         </div>
       </div>
   </Container>
@@ -29,7 +27,6 @@ import ArchiveApi from '../api/archive';
 import ArtistHeader from '../components/ArtistHeader';
 import Loading from '../components/Loading';
 import Stars from '../components/Stars';
-import RecordingsModal from '../components/RecordingsModal';
 import Container from '../components/Container';
 
 export default {
@@ -38,14 +35,12 @@ export default {
     ArtistHeader,
     Loading,
     Stars,
-    RecordingsModal,
     Container
   },
   data() {
     return {
       shows: null,
-      artist: {},
-      recordings: null
+      artist: {}
     };
   },
   methods: {

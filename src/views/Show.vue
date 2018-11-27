@@ -17,42 +17,35 @@
               <br>
               {{show.venue}} in
               {{show.location}}
-
             </p>
           </div>
           <div class="flex flex-col text-right self-center">
             <div>
-              <FavoriteShow :show="show" v-if="show"/>
-              <JambaseLookup :artist="artist" class="ml-4"/>
 
               <button class="cursor-pointer h-5 w-5 ml-3" @click.stop.prevent="openShowPopover = !openShowPopover" type="button">
                 <Zondicon icon="DotsHorizontalTriple" class="h-5 w-5 fill-current inline-block cursor-pointer"/>
               </button>
               <Popover :right="true" width="195px" left="-95px" v-if="openShowPopover" @close="close">
-                <ul class="list-reset text-sm text-left popover">
+                <ul class="list-reset text-sm text-left popover text-grey-darkest">
                   <!-- <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" @click.stop="addTrackToQueuePlayNext(track);close()">Add Show to Queue</li> -->
-                  <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer" @click.stop="openOnArchive();close()">View On Archive.org</li>
+                  <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer flex item-center" @click.stop="openOnArchive();close()">
+                    <Zondicon icon="link" class="h-5 w-5 fill-current mr-2" /> View On Archive.org
+                  </li>
+                  <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer flex item-center">
+                    <JambaseLookup :artist="artist"  class="text-black no-underline" label="Find Upcoming Shows" />
+                  </li>
+                  <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer flex item-center">
+                    <FavoriteShow :show="show" v-if="show" label="Add show to Favorites"/>
+                  </li>
+
+                  <li class="pt-1 pb-1 mb-1 mt-2 border-b border-grey text-center uppercase text-xs">Download Show</li>
+                  <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer" v-if="show.tracks.mp3" @click.stop="downloadShow('mp3');close()">as MP3</li>
+                  <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer" v-if="show.tracks.flac" @click.stop="downloadShow('flac');close()">as FLAC</li>
+                  <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer" v-if="show.tracks.ogg" @click.stop="downloadShow('ogg');close()">as OGG</li>
                 </ul>
               </Popover>
-
             </div>
             <Stars cssClass="h-4 w-4 mt-2" v-if="show.reviews" :rank="show.reviews.info.avg_rating" />
-
-           <div>
-              <button class="cursor-pointer text-sm text-grey-darker flex self-center ml-auto" @click.stop.prevent="openDownloadPopover = !openDownloadPopover" type="button">
-                <span class="inline-block mr-1 -pt-1">{{show.downloads || 0}}</span>
-              <Zondicon icon="Download" class="h-4 w-4 fill-current inline-block"/>
-            </button>
-            <Popover :right="true" width="195px" left="-95px" v-if="openDownloadPopover" @close="close">
-              <ul class="list-reset text-sm text-left popover">
-                <li class="pt-1 pb-1 mb-1 border-b border-grey text-center uppercase text-xs">Download Show</li>
-                <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer" v-if="show.tracks.mp3" @click.stop="downloadShow('mp3');close()">as MP3</li>
-                <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer" v-if="show.tracks.flac" @click.stop="downloadShow('flac');close()">as FLAC</li>
-                <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer" v-if="show.tracks.ogg" @click.stop="downloadShow('ogg');close()">as OGG</li>
-              </ul>
-            </Popover>
-           </div>
-
             <button class="rounded bg-blue text-white w-24 sm:w-32 py-2 sm:py-3 font-bold mt-3 px-3 text-sm sm:text-base sm:px-4 ml-auto mb-3 sm:mb-0"
                     type="button"
                     @click="addTracks(show.tracks.mp3)">
@@ -181,7 +174,6 @@ export default {
       trackFileType: TRACK_FILE_TYPE.MP3,
       openPopover: null,
       openShowPopover: null,
-      openDownloadPopover: null,
       fetchAlternateRecordings: false
     };
   },
@@ -195,7 +187,6 @@ export default {
     close() {
       this.openPopover = null;
       this.openShowPopover = null;
-      this.openDownloadPopover = null;
     },
     onAlternateRecordingsOpen(isOpen) {
       if (isOpen && !this.fetchAlternateRecordings) {
