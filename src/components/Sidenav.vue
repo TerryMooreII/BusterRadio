@@ -120,13 +120,8 @@ export default {
 
         },
         {
-          name: 'Favorite Artists',
+          name: 'Favorites',
           link: 'favoriteArtists',
-          icon: 'Heart'
-        },
-        {
-          name: 'Favorite Shows',
-          link: 'favoriteShows',
           icon: 'Heart'
         },
         {

@@ -25,19 +25,22 @@
               <button class="cursor-pointer h-5 w-5 ml-3" @click.stop.prevent="openShowPopover = !openShowPopover" type="button">
                 <Zondicon icon="DotsHorizontalTriple" class="h-5 w-5 fill-current inline-block cursor-pointer"/>
               </button>
-              <Popover :right="true" width="195px" left="-95px" v-if="openShowPopover" @close="close">
+              <Popover :right="true" width="235px" left="-115px" v-if="openShowPopover" @close="close">
                 <ul class="list-reset text-sm text-left popover text-grey-darkest">
-                  <!-- <li class="py-2 px-2 rounded hover:bg-grey-light cursor-pointer" @click.stop="addTrackToQueuePlayNext(track);close()">Add Show to Queue</li> -->
-                  <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer flex item-center" @click.stop="openOnArchive();close()">
-                    <Zondicon icon="link" class="h-5 w-5 fill-current mr-2" /> View On Archive.org
+                  <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer flex item-center" @click.stop="addTracksToQueue(show.tracks[trackFileType]);close()">
+                    <Zondicon icon="list-add" class="h-5 w-5 fill-current mr-2" />Add Show to Queue
                   </li>
-                  <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer flex item-center">
-                    <JambaseLookup :artist="artist"  class="text-black no-underline" label="Find Upcoming Shows" />
-                  </li>
+
                   <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer flex item-center">
                     <FavoriteShow :show="show" v-if="show" label="Add show to Favorites"/>
                   </li>
-
+                  <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer flex item-center">
+                    <JambaseLookup :artist="artist" class="text-black no-underline" label="Find Upcoming Shows" />
+                  </li>
+                  <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer flex item-center" @click.stop="openOnArchive();close()">
+                    <Zondicon icon="link" class="h-5 w-5 fill-current mr-2" /> View On Archive.org
+                  </li>
+                  
                   <li class="pt-1 pb-1 mb-1 mt-2 border-b border-grey text-center uppercase text-xs">Download Show</li>
                   <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer" v-if="show.tracks.mp3" @click.stop="downloadShow('mp3');close()">as MP3</li>
                   <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer" v-if="show.tracks.flac" @click.stop="downloadShow('flac');close()">as FLAC</li>
@@ -182,7 +185,8 @@ export default {
       'addTrack',
       'addTracks',
       'addTrackToQueue',
-      'addTrackToQueuePlayNext'
+      'addTrackToQueuePlayNext',
+      'addTracksToQueue'
     ]),
     close() {
       this.openPopover = null;

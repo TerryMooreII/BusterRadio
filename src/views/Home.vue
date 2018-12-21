@@ -67,6 +67,13 @@ export default {
   padding-left: 240px;
 }
 
+@media (min-width: 1500px) {
+  .xxl\:mx-64 {
+    margin-right: 16rem !important;
+    margin-left: 16rem !important;
+  }
+}
+
 @media (max-width: 576px) {
   .main {
     padding-top: 48px;

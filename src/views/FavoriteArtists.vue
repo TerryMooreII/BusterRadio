@@ -1,15 +1,11 @@
 <template>
   <Container :wide="true" id="artists">
      <template slot="header">
-      <div class="w-full sm:w-1/3">
-        <h2>Favorite Artists</h2>
-      </div>
-      <div class="w-full sm:w-2/3 text-right">
-        <router-link class="text-grey-dark no-underline hover:underline" :to="{path: '/random-show', 'query': {'from': 'artist'}}">
-          Play Random Show From Favs
-        </router-link>
-      </div>
+      <FavoritesTabs />
     </template>
+    <!-- <router-link class="text-grey-dark no-underline hover:underline" :to="{path: '/random-show', 'query': {'from': 'artist'}}">
+          Play Random Show From Favs
+        </router-link> -->
     <div class="flex items-stretch flex-wrap justify-center">
       <Artist v-for="artist of artistsList" :key="artist.identifier" :artist="artist"/>
     </div>
@@ -20,12 +16,14 @@
 import datastore from '../services/datastore';
 import Artist from '../components/Artist';
 import Container from '../components/Container';
+import FavoritesTabs from '../components/FavoritesTabs';
 
 export default {
   name: 'FavoriteArtists',
   components: {
     Container,
-    Artist
+    Artist,
+    FavoritesTabs
   },
   data() {
     return {

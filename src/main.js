@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import firebase from 'firebase';
 import Zondicon from 'vue-zondicons';
+import VueAnalytics from 'vue-analytics'
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -17,11 +18,21 @@ const config = {
   messagingSenderId: '348951168415'
 };
 
+const isProd = process.env.NODE_ENV === 'production';
+
 firebase.initializeApp(config);
 
 Vue.config.productionTip = false;
 
 Vue.component('Zondicon', Zondicon);
+Vue.use(VueAnalytics, {
+  id: 'UA-38185444-1',
+  router,
+  debug: {
+    enabled: false, //!isProd,
+    sendHitTask: isProd
+  }
+});
 
 firebase.auth().onAuthStateChanged(() => {
   filters.forEach((f) => {

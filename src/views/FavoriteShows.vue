@@ -1,9 +1,7 @@
 <template>
   <Container :wide="true">
     <template slot="header">
-      <div class="w-2/3">
-        <h2>Favorite Shows</h2>
-      </div>
+      <FavoritesTabs />
     </template>
     <div class="flex items-stretch flex-wrap justify-center">
       <Loading v-if="!shows" />
@@ -17,13 +15,15 @@ import ShowCard from '@/components/ShowCard.vue';
 import datastore from '../services/datastore';
 import Loading from '../components/Loading';
 import Container from '../components/Container';
+import FavoritesTabs from '../components/FavoritesTabs';
 
 export default {
   name: 'FavoriteShows',
   components: {
     Container,
     ShowCard,
-    Loading
+    Loading,
+    FavoritesTabs
   },
 
   data() {
