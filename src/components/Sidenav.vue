@@ -125,7 +125,7 @@ export default {
           icon: 'Heart'
         },
         {
-          name: 'Recently Played',
+          name: 'History',
           link: 'recent',
           icon: 'Calendar'
         }

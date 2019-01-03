@@ -1,55 +1,87 @@
 <template>
-   <Container>
-     <div class="flex text-grey-darkest px-2 sm:px-0 py-6 sticky pin-t w-full bg-white">
-      <div class="w-2/3">
-        <h2>Play Queue</h2>
+  <div class="flex w-full">
+    <div class="flex-grow mt-24 w-2/3" v-if="queue.length === 0">
+      <div class="flex text-grey-darker leading-normal justify-around ">
+        <div class="flex flex-col rounded w-2/5 p-6 pb-24">
+      <NoResults v-if="queue.length === 0" width="361px">
+          <Zondicon icon="MusicPlaylist" class="h-24 w-24 fill-current block ml-2" slot="icon"/>
+          Your queue is empty. <br> <br>
+          Go add some tracks or a <router-link to="/random-show" class="text-grey">Random Show</router-link>!
+      </NoResults>
       </div>
-      <div class="text-right w-1/3">
-        <button type="button"
-                class="text-sm py-1 px-2 text-red rounded border border-red hover:text-white hover:bg-red"
-                @click="clear()">
-                Clear
-        </button>
       </div>
     </div>
-
-    <NoResults v-if="queue.length === 0" width="361px">
-        <Zondicon icon="MusicPlaylist" class="h-24 w-24 fill-current block ml-2" slot="icon"/>
-        Your queue is empty. <br> <br>
-        Go add some tracks or a <router-link to="/random-show" class="text-grey">Random Show</router-link>!
-    </NoResults>
-
-
-    <div v-if="queue">
-      <div v-for="(track, index) in queue"
-            :key="track.file + index"
-            class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row"
-            @click="playQueueTrack(index)">
-        <div class="w-10 text-center">
-          <span class="track-number" v-if="track.file !== currentTrack.file || qIdx !== index">{{index + 1}}</span>
-          <Zondicon icon="Play" class="play-icon h-4 w-4 fill-current inline-block ml-2" v-if="track.file !== currentTrack.file  || qIdx !== index"/>
-          <Zondicon icon="Pause" class="pause-icon h-4 w-4 fill-current inline-block ml-1" v-if="track.file === currentTrack.file && !isPlaying && qIdx === index" />
-          <img src="/img/equalizer.gif" alt="equalizer" class="h-4 w-4" v-if="track.file === currentTrack.file && isPlaying && qIdx === index">
+    
+    <Container v-if="queue.length > 0">
+      <div class="flex text-grey-darkest px-2 sm:px-0 py-6 sticky pin-t w-full bg-white">
+        <div class="w-2/3">
+          <h2>Your Queue</h2>
         </div>
+        <div class="text-right w-1/3">
+          <button type="button"
+                  class="text-sm py-1 px-2 text-red rounded border border-red hover:text-white hover:bg-red"
+                  @click="clear()">
+                  Clear
+          </button>
+        </div>
+      </div>
+
+    
+
+
+      <div v-if="queue.length > 0">
+
+        <h3 class="mb-4 pb-2 border-b font-normal text-xl">Now Playing</h3>
+        <div class="flex" v-if="currentTrack.sha1">
         <div class="w-full truncate">
-          {{track.title}} <br>
-          <router-link
-                class="text-grey-dark text-sm italic no-underline hover:underline"
-                @click.native="$event.stopImmediatePropagation()"
-                :to="{name:'years', params: {artistId: getArtistId(track.creator)}}">{{track.creator}}</router-link>
-          <span  class="text-grey-dark text-sm italic" v-if="track.creator">&nbsp;::&nbsp;</span>
-          <router-link
+            {{currentTrack.title}} <br>
+            <router-link
                   class="text-grey-dark text-sm italic no-underline hover:underline"
                   @click.native="$event.stopImmediatePropagation()"
-                  :to="{name:'show', params: {artistId: getArtistId(track.creator), year: track.year, showId: track.identifier}}">{{track.album}}</router-link>
+                  :to="{name:'years', params: {artistId: getArtistId(currentTrack.creator)}}">{{currentTrack.creator}}</router-link>
+            <span  class="text-grey-dark text-sm italic" v-if="currentTrack.creator">&nbsp;::&nbsp;</span>
+            <router-link
+                    class="text-grey-dark text-sm italic no-underline hover:underline"
+                    @click.native="$event.stopImmediatePropagation()"
+                    :to="{name:'show', params: {artistId: getArtistId(currentTrack.creator), year: currentTrack.year, showId: currentTrack.identifier}}">{{currentTrack.album}}</router-link>
+          </div>
+          <div class="w-24 text-right pr-2">
+            {{time(currentTrack)}}
+          </div>
         </div>
-        <div class="w-24 text-right pr-2">
-          {{time(track)}}
-        </div>
-      </div>
-      </div>
-  </Container>
 
+
+        <h3 class="mt-6 mb-2 pb-2 border-b  font-normal text-xl">Next Up</h3>
+
+        <div v-for="(track, index) in queue"
+              :key="track.file + index"
+              class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row"
+              @click="playQueueTrack(index)">
+          <div class="w-10 text-center">
+            <span class="track-number" v-if="track.file !== currentTrack.file || qIdx !== index">{{index + 1}}</span>
+            <Zondicon icon="Play" class="play-icon h-4 w-4 fill-current inline-block ml-2" v-if="track.file !== currentTrack.file  || qIdx !== index"/>
+            <Zondicon icon="Pause" class="pause-icon h-4 w-4 fill-current inline-block ml-1" v-if="track.file === currentTrack.file && !isPlaying && qIdx === index" />
+            <img src="/img/equalizer.gif" alt="equalizer" class="h-4 w-4" v-if="track.file === currentTrack.file && isPlaying && qIdx === index">
+          </div>
+          <div class="w-full truncate" :class="{'text-grey italic':track.hasPlayed && !track.isPlaying}">
+            {{track.title}} <br>
+            <router-link
+                  class="text-grey-dark text-sm italic no-underline hover:underline"
+                  @click.native="$event.stopImmediatePropagation()"
+                  :to="{name:'years', params: {artistId: getArtistId(track.creator)}}">{{track.creator}}</router-link>
+            <span  class="text-grey-dark text-sm italic" v-if="track.creator">&nbsp;::&nbsp;</span>
+            <router-link
+                    class="text-grey-dark text-sm italic no-underline hover:underline"
+                    @click.native="$event.stopImmediatePropagation()"
+                    :to="{name:'show', params: {artistId: getArtistId(track.creator), year: track.year, showId: track.identifier}}">{{track.album}}</router-link>
+          </div>
+          <div class="w-24 text-right pr-2">
+            {{time(track)}}
+          </div>
+        </div>
+        </div>
+    </Container>
+  </div>
 </template>
 
 <script>

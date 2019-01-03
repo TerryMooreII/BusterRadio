@@ -13,6 +13,7 @@ const loadTrack = (track) => {
   datastore.addLive(track);
 };
 
+
 const state = {
   queue: JSON.parse(localStorage.getItem(LOCALSTORAGE.QUEUE)) || [],
   qIdx: null,
@@ -20,6 +21,22 @@ const state = {
   duration: 0,
   currentTime: 0,
   buffer: 0
+};
+
+const getqIdxAndLoad = () => {
+  const savedQueue = JSON.parse(localStorage.getItem(LOCALSTORAGE.QUEUE));
+  if (!savedQueue) return null;
+
+  const idx = savedQueue.findIndex(track => track.isPlaying);
+  if (idx == null) return null;
+
+  player.load(state.queue[idx]);
+  state.isPlaying = false;
+  setTimeout(() => {
+    player.seek(state.queue[idx].currentTime);
+    player.pause();
+  }, 1500);
+  return idx;
 };
 
 const getters = {
@@ -180,6 +197,13 @@ const mutations = {
 
   setqIdx(state, index) {
     state.qIdx = index;
+    state.queue.forEach((track) => {
+      track.isPlaying = false;
+      track.currentTime = 0;
+    });
+    state.queue[index].isPlaying = true;
+    state.queue[index].hasPlayed = true;
+    localStorage.setItem(LOCALSTORAGE.QUEUE, JSON.stringify(state.queue));
   },
 
   isPlaying(state, value) {
@@ -192,13 +216,15 @@ const mutations = {
 
   setCurrentTime(state, currentTime) {
     state.currentTime = currentTime;
+    state.queue[state.qIdx].currentTime = currentTime;
+    localStorage.setItem(LOCALSTORAGE.QUEUE, JSON.stringify(state.queue));
   },
 
   setBuffer(state, buffer) {
     state.buffer = buffer;
   }
 };
-
+state.qIdx = getqIdxAndLoad();
 
 export default {
   namespaced: true,

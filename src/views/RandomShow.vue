@@ -1,11 +1,11 @@
 <template>
   <div class="flex-grow mt-24 w-2/3 ">
     <div class="flex text-grey-darker leading-normal justify-around ">
-      <div class="flex flex-col shadow rounded w-2/5 p-6 bg-white pb-24">
-        <NoResults width="361px">
-      <Zondicon icon="Shuffle" class="h-24 w-24 fill-current block ml-2" slot="icon"/>
-        Grabbing a random show.
-    </NoResults>
+      <div class="flex flex-col rounded w-2/5 p-6 pb-24">
+      <NoResults width="361px">
+        <Zondicon icon="Shuffle" class="h-24 w-24 fill-current block ml-2" slot="icon"/>
+          Grabbing a random show.
+      </NoResults>
     </div>
     </div>
   </div>
