@@ -1,5 +1,5 @@
 <template>
-  <footer class="w-screen border-t border-grey-light h-24 md:h-24 bg-white pin-b fixed flex flex-col sm:flex-row justify-center"
+  <footer class="w-screen border-t border-grey-light h-24 md:h-24 bg-white pin-b fixed flex flex-col sm:flex-row justify-center shadow-lg"
            :class="{'h-48': isExpanded}">
     <div class="flex-none text-grey-darker w-full md:w-1/3 hidden md:block" :class="{'force-show': isExpanded}">
       <NowPlaying />
@@ -45,9 +45,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-  .w-240 {
-    width: 240px;
-  }
    button:focus {
     outline: 0 !important;
   }

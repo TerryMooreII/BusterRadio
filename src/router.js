@@ -96,6 +96,21 @@ const router = new Router({
           name: 'search'
         },
         {
+          path: '/search/artists',
+          component: Search,
+          name: 'search-artists'
+        },
+        {
+          path: '/search/locations',
+          component: Search,
+          name: 'search-locations'
+        },
+        {
+          path: '/search/songs',
+          component: Search,
+          name: 'search-songs'
+        },
+        {
           path: '/queue',
           component: Queue,
           name: 'queue'

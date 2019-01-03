@@ -276,5 +276,91 @@ export default {
   },
   getArchiveUrl(identifier) {
     return `https://archive.org/details/${identifier}`;
+  },
+
+
+  search({ property, searchTerm, page = 1, count = 50, orderby = 'publicdate' } = {}) {
+    const query = [
+      'fl[]=avg_rating',
+      'fl[]=downloads',
+      'fl[]=description',
+      'fl[]=coverage',
+      'fl[]=creator',
+      'fl[]=date',
+      'fl[]=identifier',
+      'fl[]=title',
+      'fl[]=year',
+      'fl[]=venue',
+      `sort[]=${orderby} desc`,
+      'sort[]=',
+      'sort[]=',
+      `rows=${count}`,
+      `page=${page}`
+    ];
+    let filter;
+
+    if (Array.isArray(property)) {
+      filter = `(${property.map(p => `${p}:(${searchTerm})`).join('OR+')})`;
+    } else {
+      filter = `${property}:(${searchTerm})`;
+    }
+
+    const url = `${URL}/advancedsearch.php?q=mediatype:(etree)AND+${filter}&${query.join('&')}&${JSONP}`;
+    const key = btoa(url);
+    if (cache[key]) {
+      return Promise.resolve(cache[key]);
+    }
+
+    return axios.jsonp(url)
+      .then(response => response.response.docs)
+      .then((data) => {
+        cache[key] = data;
+        return data;
+      });
+  },
+
+  advancedSearch({ artist, location, song, page = 1, count = 50, orderby = 'publicdate' } = {}) {
+    const query = [
+      'fl[]=avg_rating',
+      'fl[]=downloads',
+      'fl[]=description',
+      'fl[]=coverage',
+      'fl[]=creator',
+      'fl[]=date',
+      'fl[]=identifier',
+      'fl[]=title',
+      'fl[]=year',
+      'fl[]=venue',
+      `sort[]=${orderby} desc`,
+      'sort[]=',
+      'sort[]=',
+      `rows=${count}`,
+      `page=${page}`
+    ];
+    const filter = [];
+
+    if (artist) {
+      filter.push(`creator:(${artist})`);
+    }
+    if (location) {
+      filter.push(`(venue:(${location})+OR+coverage:(${location}))`);
+    }
+    if (song) {
+      filter.push(`description:(${song})`);
+    }
+    
+    const url = `${URL}/advancedsearch.php?q=mediatype:(etree)+AND+${filter.join('+AND+')}&${query.join('&')}&${JSONP}`;
+    const key = btoa(url);
+    if (cache[key]) {
+      return Promise.resolve(cache[key]);
+    }
+
+    return axios.jsonp(url)
+      .then(response => response.response.docs)
+      .then((data) => {
+        cache[key] = data;
+        return data;
+      });
   }
+
 };
