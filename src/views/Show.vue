@@ -210,6 +210,7 @@ export default {
       ArchiveApi.getShow(this.$route.params.showId).then((data) => {
         this.show = data;
         document.querySelector('#show').scrollTo(0, 0);
+        helpers.setTitle(`${this.artist.title} at ${data.venue}`);
       });
     },
     downloadShow(format) {

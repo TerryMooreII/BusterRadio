@@ -17,6 +17,7 @@ import datastore from '../services/datastore';
 import Artist from '../components/Artist';
 import Container from '../components/Container';
 import FavoritesTabs from '../components/FavoritesTabs';
+import helpers from '../services/helpers';
 
 export default {
   name: 'FavoriteArtists',
@@ -31,6 +32,7 @@ export default {
     };
   },
   async mounted() {
+    helpers.setTitle('Favorite Artists');
     this.artistsList = await datastore.getFavoriteArtists();
   }
 };

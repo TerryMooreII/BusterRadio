@@ -75,6 +75,7 @@ import Container from '../components/Container';
 import archive from '../api/archive';
 import ShowCard from '@/components/ShowCard.vue';
 import Pager from '@/components/Pager.vue';
+import helpers from '../services/helpers';
 
 export default {
   name: 'search',
@@ -227,6 +228,7 @@ export default {
     }
   },
   mounted() {
+    helpers.setTitle('Search');
     if (this.$route.query.q) {
       this.q = this.$route.query.q;
       this.submit();

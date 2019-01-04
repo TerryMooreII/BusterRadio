@@ -40,6 +40,7 @@
 
 <script>
 import datastore from '../services/datastore';
+import helpers from '../services/helpers';
 
 export default {
   name: 'Signup',
@@ -50,6 +51,7 @@ export default {
     }
   },
   mounted() {
+    helpers.setTitle('Sign Up');
     if (datastore.getCurrentUser()) {
       this.$router.push('/');
     }

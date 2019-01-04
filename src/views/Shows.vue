@@ -28,6 +28,7 @@ import ArtistHeader from '../components/ArtistHeader';
 import Loading from '../components/Loading';
 import Stars from '../components/Stars';
 import Container from '../components/Container';
+import helpers from '../services/helpers';
 
 export default {
   name: 'shows',
@@ -51,6 +52,7 @@ export default {
   mounted() {
     ArchiveApi.getShows(this.$route.params.artistId, this.$route.params.year).then(data => this.shows = data);
     this.artist = this.$store.getters['artists/artistByIdentifier'](this.$route.params.artistId);
+    helpers.setTitle(`${this.artist.title} in ${this.$route.params.year}`);
   }
 };
 </script>

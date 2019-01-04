@@ -15,6 +15,7 @@
 import datastore from '../services/datastore';
 import ArchiveApi from '../api/archive';
 import NoResults from '../components/NoResults';
+import helpers from '../services/helpers';
 
 export default {
   name: 'years',
@@ -55,6 +56,7 @@ export default {
     }
   },
   async mounted() {
+    helpers.setTitle('Random Show');
     await this.getRandomShow();
   }
 };

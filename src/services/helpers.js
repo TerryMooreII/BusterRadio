@@ -12,6 +12,9 @@ const calcTrackTime = (track) => {
   return track.length;
 };
 
+const setTitle = title => document.title = `${title} :: BusterRadio`;
+
 export default {
-  calcTrackTime
+  calcTrackTime,
+  setTitle
 };

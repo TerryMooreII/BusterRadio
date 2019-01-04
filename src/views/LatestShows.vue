@@ -24,6 +24,7 @@ import ArchiveApi from '../api/archive';
 import Loading from '../components/Loading';
 import Pager from '../components/Pager';
 import Container from '../components/Container';
+import helpers from '../services/helpers';
 
 export default {
   name: 'LatestShows',
@@ -63,6 +64,7 @@ export default {
     }
   },
   mounted() {
+    helpers.setTitle('Recent Shows');
     this.query();
   }
 };

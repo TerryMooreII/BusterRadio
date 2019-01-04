@@ -19,6 +19,7 @@
 import { mapState, mapGetters } from 'vuex';
 import Artist from '../components/Artist.vue';
 import Container from '../components/Container.vue';
+import helpers from '../services/helpers';
 
 export default {
   name: 'Artists',
@@ -78,6 +79,7 @@ export default {
     }
   },
   mounted() {
+    helpers.setTitle('Artists');
     this.getArtists();
     window.addEventListener('wheel', this.handleScroll);
     window.addEventListener('scroll', this.handleScroll);

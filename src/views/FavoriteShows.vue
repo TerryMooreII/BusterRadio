@@ -16,6 +16,7 @@ import datastore from '../services/datastore';
 import Loading from '../components/Loading';
 import Container from '../components/Container';
 import FavoritesTabs from '../components/FavoritesTabs';
+import helpers from '../services/helpers';
 
 export default {
   name: 'FavoriteShows',
@@ -37,6 +38,7 @@ export default {
     }
   },
   mounted() {
+    helpers.setTitle('Favorite Shows');
     this.query();
   }
 };

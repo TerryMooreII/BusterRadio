@@ -24,6 +24,7 @@ import ArchiveApi from '../api/archive';
 import Loading from '../components/Loading';
 import Container from '../components/Container';
 import ArtistHeader from '../components/ArtistHeader';
+import helpers from '../services/helpers';
 
 export default {
   name: 'years',
@@ -46,6 +47,7 @@ export default {
   mounted() {
     ArchiveApi.getYears(this.$route.params.artistId).then(data => this.years = data);
     this.artist = this.$store.getters['artists/artistByIdentifier'](this.$route.params.artistId);
+    helpers.setTitle(this.artist.title);
   }
 };
 </script>

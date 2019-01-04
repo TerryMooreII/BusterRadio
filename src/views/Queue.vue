@@ -124,6 +124,9 @@ export default {
     time(track) {
       return helpers.calcTrackTime(track);
     }
+  },
+  mounted() {
+    helpers.setTitle('Queue');
   }
 };
 </script>

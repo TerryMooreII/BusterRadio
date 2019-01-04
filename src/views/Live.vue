@@ -17,6 +17,7 @@ import datastore from '../services/datastore';
 import RecentTracks from '../components/RecentTracks';
 import NoResults from '../components/NoResults';
 import Container from '../components/Container';
+import helpers from '../services/helpers';
 
 export default {
   name: 'RecentlyPlayed',
@@ -31,6 +32,7 @@ export default {
     };
   },
   async mounted() {
+    helpers.setTitle('Live');
     const recent = await datastore.getLive();
     this.liveList = Object.values(recent).map(val => val).reverse();
   }
