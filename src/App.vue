@@ -6,6 +6,11 @@
 
 <style lang="less">
   @media (min-width: 1400px) {
+    // body{
+    //   //font-family: 'Encode Sans Expanded', sans-serif !important;
+      
+    //   // font-family: 'Roboto', sans-serif !important;
+    // }
     .sxl\:mx-64 {
       margin-left: 16em;
       margin-right: 16em;
