@@ -1,10 +1,11 @@
 <template>
-  <div class="text-grey-darker px-8 pb-16 w-285 pt-4 bg-blue-dark sm:visible sidenav overflow-scroll fixed sm:min-h-screen text-white shadow-lg"
+  <div class="px-8 pb-16 w-285 pt-4 bg-blue-dark sm:visible sidenav overflow-scroll fixed sm:min-h-screen text-white shadow-lg"
        :class="{'visible': show === true, 'invisible': show === false}">
     <div class="flex items-center flex-no-shrink tracking-wide justify-center">
-      <svg class="fill-current h-8 w-8 mr-2 hidden sm:block" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
+      <!-- <svg class="fill-current h-8 w-8 mr-2 hidden sm:block" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
         <path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/>
-      </svg>
+      </svg> -->
+      <Zondicon icon="Radio" class="play-icon h-5 w-5 fill-current inline-block mr-2 -mt-1 text-grey-lighter" />
       <!-- <img src="/img/pig-lg-grey.png" alt="logo" class="h-8 w-12"> -->
       <span class="font-semibold text-xl tracking-tight tracking-normal hidden sm:block">BusterRadio</span>
     </div>
