@@ -65,7 +65,7 @@
         <div v-for="(track, index) in show.tracks[trackFileType]"
              :key="track.file"
              @click="addTrack(track)"
-             class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row">
+             class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row leading-tight">
           <div class="w-10 text-center">
             <span class="track-number" v-if="track.file !== currentTrack.file">{{index + 1}}</span>
             <Zondicon icon="Play" class="play-icon h-4 w-4 fill-current inline-block ml-2" v-if="track.file !== currentTrack.file"/>

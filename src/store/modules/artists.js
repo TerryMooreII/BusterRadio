@@ -22,7 +22,15 @@ const getters = {
     state.all.find(artist => artist.title === search),
 
   artistsByDownloads(state) {
-    return [...state.all.slice().sort((a, b) => b.downloads - a.downloads)];
+    return [...state.all.slice().sort((a, b) => {
+      if (a.downloads == null) {
+        a.downloads = 0;
+      }
+      if (b.downloads == null) {
+        b.downloads = 0;
+      }
+      return b.downloads - a.downloads;
+    })];
   },
 
   search: state => search =>
