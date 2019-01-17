@@ -56,7 +56,7 @@
       <h2 class="" v-if="isTopResults()">Advanced Search Results</h2>
       <div class="flex items-stretch flex-wrap justify-center">
         <ShowCard v-for="show of advResults" :key="show.identifier" :show="show"/>
-         <Pager :page="page" :count="advResults.length" :pagesize="50" @onPageChange="pageChange" v-if="advResults.length && !isTopResults()"/>
+         <Pager :page="page" :count="advResults.length" :pagesize="50" @onPageChange="pageChange" v-if="advResults.length"/>
       </div>
     </div>
 
@@ -170,7 +170,7 @@ export default {
       this.$router.push({ name: this.$route.name, query });
     },
     advancedSearch(q){
-      this.reset();
+      //this.reset();
       const getCriteria = (item) => {
         
         const aIdx = item.indexOf('artist:');
@@ -194,10 +194,9 @@ export default {
           return acc;
         }, {});
       }
-      const c = getCriteria(q)
+      const c = getCriteria(q);
 
-
-      archive.advancedSearch({ artist: c.artist, location: c.location, song: c.song, count: this.isTopResults() ? 10 : 50, page: this.page })
+      archive.advancedSearch({ artist: c.artist, location: c.location, song: c.song, count: 50, page: this.page })
         .then(data => this.advResults = data);
     },
     submit() {

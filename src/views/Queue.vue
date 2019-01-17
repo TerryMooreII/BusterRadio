@@ -26,14 +26,14 @@
         </div>
       </div>
 
-    
-
-
       <div v-if="queue.length > 0">
 
         <h3 class="mb-4 pb-2 border-b font-normal text-xl">Now Playing</h3>
         <div class="flex" v-if="currentTrack.sha1">
-        <div class="w-full truncate">
+          <div class="mx-4">
+            <img :src="currentTrack.image" class="h-12 w-12">
+          </div>
+          <div class="w-full truncate mt-2">
             {{currentTrack.title}} <br>
             <router-link
                   class="text-grey-dark text-sm italic no-underline hover:underline"
@@ -45,7 +45,7 @@
                     @click.native="$event.stopImmediatePropagation()"
                     :to="{name:'show', params: {artistId: getArtistId(currentTrack.creator), year: currentTrack.year, showId: currentTrack.identifier}}">{{currentTrack.album}}</router-link>
           </div>
-          <div class="w-24 text-right pr-2">
+          <div class="w-24 text-right pr-2 mt-2">
             {{time(currentTrack)}}
           </div>
         </div>
