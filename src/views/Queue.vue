@@ -36,12 +36,12 @@
           <div class="w-full truncate mt-2">
             {{currentTrack.title}} <br>
             <router-link
-                  class="text-grey-dark text-sm italic no-underline hover:underline"
+                  class="text-grey-dark text-sm no-underline hover:underline"
                   @click.native="$event.stopImmediatePropagation()"
                   :to="{name:'years', params: {artistId: getArtistId(currentTrack.creator)}}">{{currentTrack.creator}}</router-link>
-            <span  class="text-grey-dark text-sm italic" v-if="currentTrack.creator">&nbsp;::&nbsp;</span>
+            <span  class="text-grey-dark text-sm" v-if="currentTrack.creator">&nbsp;::&nbsp;</span>
             <router-link
-                    class="text-grey-dark text-sm italic no-underline hover:underline"
+                    class="text-grey-dark text-sm no-underline hover:underline"
                     @click.native="$event.stopImmediatePropagation()"
                     :to="{name:'show', params: {artistId: getArtistId(currentTrack.creator), year: currentTrack.year, showId: currentTrack.identifier}}">{{currentTrack.album}}</router-link>
           </div>
@@ -56,22 +56,22 @@
         <div v-for="(track, index) in queue"
               :key="track.file + index"
               class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row"
-              @click="playQueueTrack(index)">
+              @click="playQueueTrack(index)" :class="{'text-grey':track.hasPlayed && !track.isPlaying}">
           <div class="w-10 text-center">
             <span class="track-number" v-if="track.file !== currentTrack.file || qIdx !== index">{{index + 1}}</span>
             <Zondicon icon="Play" class="play-icon h-4 w-4 fill-current inline-block ml-2" v-if="track.file !== currentTrack.file  || qIdx !== index"/>
             <Zondicon icon="Pause" class="pause-icon h-4 w-4 fill-current inline-block ml-1" v-if="track.file === currentTrack.file && !isPlaying && qIdx === index" />
             <img src="/img/equalizer.gif" alt="equalizer" class="h-4 w-4" v-if="track.file === currentTrack.file && isPlaying && qIdx === index">
           </div>
-          <div class="w-full truncate" :class="{'text-grey italic':track.hasPlayed && !track.isPlaying}">
+          <div class="w-full truncate">
             {{track.title}} <br>
             <router-link
-                  class="text-grey-dark text-sm italic no-underline hover:underline"
+                  class="text-grey-dark text-sm no-underline hover:underline"
                   @click.native="$event.stopImmediatePropagation()"
                   :to="{name:'years', params: {artistId: getArtistId(track.creator)}}">{{track.creator}}</router-link>
-            <span  class="text-grey-dark text-sm italic" v-if="track.creator">&nbsp;::&nbsp;</span>
+            <span  class="text-grey-dark text-sm" v-if="track.creator">&nbsp;::&nbsp;</span>
             <router-link
-                    class="text-grey-dark text-sm italic no-underline hover:underline"
+                    class="text-grey-dark text-sm no-underline hover:underline"
                     @click.native="$event.stopImmediatePropagation()"
                     :to="{name:'show', params: {artistId: getArtistId(track.creator), year: track.year, showId: track.identifier}}">{{track.album}}</router-link>
           </div>

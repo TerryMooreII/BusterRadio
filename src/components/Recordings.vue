@@ -8,14 +8,14 @@
           v-if="shows.length">
       <div class="w-2/3">
         {{show.source}} <br />
-        <span class="text-grey-dark italic text-sm">Published {{show.publicdate | dateformat}} <span v-if="show.publisher"> by {{show.publisher}}</span></span>
+        <span class="text-grey-dark text-sm">Published {{show.publicdate | dateformat}} <span v-if="show.publisher"> by {{show.publisher}}</span></span>
       </div>
       <div class="w-1/3 text-right" >
         <Stars cssClass="h-4 w-4" :rank="show.avg_rating" />
-        <span class="text-grey-dark italic text-sm">{{show.downloads}} downloads</span>
+        <span class="text-grey-dark text-sm">{{show.downloads}} downloads</span>
       </div>
     </div>
-    <div v-if="!loading && !shows.length" class="text-grey-darker italic text-sm">
+    <div v-if="!loading && !shows.length" class="text-grey-darker text-sm">
       No Alternate Shows
     </div>
   </div>

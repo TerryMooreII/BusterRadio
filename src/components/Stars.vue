@@ -1,7 +1,7 @@
 <template>
   <div>
     <Zondicon icon="star-full" :class="clazz" v-for="i in stars" :key="i" />
-    <span class="text-grey text-sm italic" v-if="!stars">Not Rated</span>
+    <span class="text-grey text-sm" v-if="!stars">Not Rated</span>
   </div>
 </template>
 

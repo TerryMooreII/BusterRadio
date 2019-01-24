@@ -11,7 +11,7 @@
       <div class="w-1/2 text-grey-darkest px-5">
         <Zondicon icon="Calendar" class="h-4 w-4 fill-current text-grey-dark inline-block self-center mr-6 mt-px"/> {{year.year}}
       </div>
-      <div class="w-1/2 text-right text-grey-dark italic px-5">
+      <div class="w-1/2 text-right text-grey-dark px-5">
         {{year.total}} shows
       </div>
     </div>

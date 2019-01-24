@@ -13,7 +13,7 @@
               </router-link>
             </h1>
             <p class="leading-normal">
-              <span class="italic text-grey-darkest">{{show.date | dateformat}}</span>
+              <span class="text-grey-darkest">{{show.date | dateformat}}</span>
               <br>
               {{show.venue}} in
               {{show.location}}
@@ -57,7 +57,7 @@
           </div>
         </div>
       </div>
-      <h2 v-if="show.tracks && !show.tracks[trackFileType].length" class="flex justify-center pt-8 text-grey-darkest italic">
+      <h2 v-if="show.tracks && !show.tracks[trackFileType].length" class="flex justify-center pt-8 text-grey-darkest">
         No {{trackFileType}} tracks for this show.
       </h2>
       <Loading v-if="!show.tracks" />

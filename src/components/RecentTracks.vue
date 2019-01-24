@@ -5,7 +5,7 @@
             class="flex py-2 items-center justify-between track-row">
         <div class="w-full truncate">
           {{track.title}} <br>
-          <span class="text-grey-dark text-sm italic">{{track.creator}} :: {{track.album}}</span>
+          <span class="text-grey-dark text-sm">{{track.creator}} :: {{track.album}}</span>
         </div>
         <div class="w-6 text-right pr-2" v-if="track.md5">
           <button class="cursor-pointer h-4 w-4" @click.stop.prevent="openPopover = openPopover !== null ? null : index" type="button">

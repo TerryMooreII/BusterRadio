@@ -9,9 +9,9 @@
                   class="font-bold text-sm mb-1 text-black no-underline hover:underline"
                   >{{artist.title}}</router-link>
       <p class="text-sm leading-tight truncate items-stretch">
-      <span class="subpixel-date text-grey-darkest text-xs italic ">{{date}}</span> <br />
+      <span class="subpixel-date text-grey-darkest text-xs ">{{date}}</span> <br />
         <span class="text-grey-darker">{{show.venue}}</span> <br />
-        <span class="text-grey-dark italic ">{{show.coverage || show.location}}</span> &nbsp;
+        <span class="text-grey-dark ">{{show.coverage || show.location}}</span> &nbsp;
       </p>
     </div>
     <div class="w-100 h-8 border-t border-grey-light py-1 text-right flex flex-row items-center justify-between">
