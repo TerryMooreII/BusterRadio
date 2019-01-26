@@ -1,50 +1,49 @@
 <template>
-  <div class="px-8 pb-16 w-285 pt-4 bg-blue-dark sm:visible sidenav overflow-scroll fixed sm:min-h-screen text-white shadow-lg"
+  <div class=" pb-16 w-285 pt-4 sm:visible sidenav overflow-scroll fixed sm:min-h-screen text-grey-darkest"
        :class="{'visible': show === true, 'invisible': show === false}">
-    <div class="flex items-center flex-no-shrink tracking-wide justify-center">
-      <Zondicon icon="Radio" class="play-icon h-5 w-5 fill-current inline-block mr-2 -mt-1 text-grey-lighter hidden sm:block" />
+
+    <div class="flex items-center flex-no-shrink tracking-wide justify-center mb-6 mt-3">
+      <Zondicon icon="Radio" class="play-icon h-5 w-5 fill-current inline-block mr-2 -mt-1 text-grey-darker hidden sm:block" />
       <span class="font-semibold text-xl tracking-tight tracking-normal hidden sm:block">BusterRadio</span>
     </div>
 
-    <ul class="list-reset mt-6 border-t border-grey pt-4">
-      <li class="" v-for="item of links" :key="item.name">
+    <ul class="nav">
+      <li  v-for="item of links" :key="item.name">
         <router-link :to="{name: item.link}" v-if="(!item.hideLoggedIn || !isLoggedIn)"
-                     class=" block py-2 text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-base">
+                     class="nav-item"
+                     :exact="item.exact">
           <div @click="close()">
-            <Zondicon :icon="item.icon" class="h-3 w-3 fill-current inline-block mr-2" />
+            <Zondicon :icon="item.icon" class="h-4 w-4 fill-current inline-block mr-2" />
             {{item.name}}
           </div>
         </router-link>
       </li>
     </ul>
 
-    <ul class="list-reset mt-6 border-t border-grey pt-4" v-if="isLoggedIn">
-      <li class="py-2"><User /></li>
-      <li class="py-2" v-for="item of custom" :key="item.name">
+    <ul class="nav" v-if="isLoggedIn">
+      <li class="py-2 ml-4"><User /></li>
+      <li class="" v-for="item of custom" :key="item.name">
         <router-link :to="{name: item.link}"
-                     class=" text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-base">
+                     class="nav-item">
           <div @click="close()">
-            <Zondicon :icon="item.icon" class="h-3 w-3 fill-current inline-block mr-2"/>
+            <Zondicon :icon="item.icon" class="h-4 w-4  fill-current inline-block mr-2"/>
             {{item.name}}
           </div>
         </router-link>
       </li>
-    </ul>
-
-    <ul class="list-reset mt-6 border-t border-grey pt-4">
       <li v-if="!isLoggedIn"
-          class="text-grey-lightest no-underline cursor-pointer text-base">
-        <Zondicon icon="ArrowOutlineRight" class="h-3 w-3 fill-current inline-block mr-2 mt-1" />
-          <router-link to="/signup" class=" text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-base">
+          class="text-grey-darkest no-underline cursor-pointer text-base">
+        <Zondicon icon="ArrowOutlineRight" class="h-4 w-4 fill-current inline-block mr-2" />
+          <router-link to="/signup" class="nav-item">
             Signup
           </router-link>
           /
-          <span @click="login()" class=" hover:text-grey-light "> Login</span>
+          <span @click="login()" class=" hover:text-grey-dark "> Login</span>
       </li>
       <li @click="logout()"
           v-if="isLoggedIn"
-          class="text-grey-lightest hover:text-grey-light no-underline cursor-pointer text-base">
-        <Zondicon icon="ArrowOutlineLeft" class="h-3 w-3 fill-current inline-block  mr-2 mt-1" />
+          class="nav-item cursor-pointer">
+        <Zondicon icon="ArrowOutlineLeft" class="h-4 w-4 fill-current inline-block mr-3" />
           Logout
       </li>
     </ul>
@@ -90,7 +89,8 @@ export default {
         {
           name: 'Newest Shows',
           link: 'newest',
-          icon: 'MusicAlbum'
+          icon: 'MusicAlbum',
+          //exact: true
         },
         {
           name: 'Random Show',
@@ -180,9 +180,28 @@ export default {
 };
 </script>
 
+<style lang="postcss" scoped>
+  .nav {
+    @apply .list-reset .m-2 .mx-6 .px-4 .py-4 .bg-white .bg-white .rounded .shadow .mb-8
+  }
+
+  .nav-item {
+     @apply  .text-grey-darkest .no-underline .py-2 .px-4 .my-1 .flex .items-center
+  }
+
+  .nav-item:hover {
+    @apply .block .bg-blue-dark .text-white .rounded
+  }
+  
+  .router-link-active {
+    @apply .block .bg-blue-dark .text-white .rounded
+  }
+</style>
+
+
 <style scoped lang="less">
   .w-285 {
-    width: 285px;
+    width: 300px;
   }
 
   @media (max-width: 576px) {

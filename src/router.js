@@ -12,6 +12,7 @@ import Search from './views/Search.vue';
 import RandomShow from './views/RandomShow.vue';
 import FavoriteArtists from './views/FavoriteArtists.vue';
 import FavoriteShows from './views/FavoriteShows.vue';
+import Favorite from './views/Favorite.vue';
 import RecentlyPlayed from './views/RecentlyPlayed.vue';
 import Live from './views/Live.vue';
 import Signup from './views/Signup.vue';
@@ -37,11 +38,6 @@ const router = new Router({
       component: Home,
       children: [
         {
-          path: '',
-          component: LatestShows,
-          name: 'newest'
-        },
-        {
           path: '/newest',
           component: LatestShows,
           name: 'newest'
@@ -62,20 +58,35 @@ const router = new Router({
           name: 'signup'
         },
         {
-          path: '/favorite/artists',
-          component: FavoriteArtists,
-          name: 'favoriteArtists',
-          meta: {
-            requiresAuth: true
-          }
-        },
-        {
-          path: '/favorite/shows',
-          component: FavoriteShows,
-          name: 'favoriteShows',
-          meta: {
-            requiresAuth: true
-          }
+          path: '/favorite',
+          name: 'favorite',
+          component: Favorite,
+          children: [
+            {
+              path: '',
+              component: FavoriteArtists,
+              name: 'favoriteArtists',
+              meta: {
+                requiresAuth: true
+              }
+            },
+            {
+              path: 'artists',
+              component: FavoriteArtists,
+              name: 'favoriteArtists',
+              meta: {
+                requiresAuth: true
+              }
+            },
+            {
+              path: 'shows',
+              component: FavoriteShows,
+              name: 'favoriteShows',
+              meta: {
+                requiresAuth: true
+              }
+            }
+          ]
         },
         {
           path: '/recent',
@@ -129,7 +140,8 @@ const router = new Router({
           path: '/:artistId/:year/:showId',
           component: Show,
           name: 'show'
-        }
+        },
+        { path: '*', redirect: '/newest' }
       ]
     },
     {

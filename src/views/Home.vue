@@ -64,7 +64,7 @@ export default {
 
 
 .main {
-  padding-left: 285px;
+  padding-left: 300px;
 }
 
 @media (min-width: 1500px) {
