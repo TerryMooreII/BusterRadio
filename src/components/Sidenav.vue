@@ -1,8 +1,8 @@
 <template>
-  <div class=" pb-16 w-285 pt-4 sm:visible sidenav overflow-scroll fixed sm:min-h-screen text-grey-darkest"
+  <div class="pb-16 w-285 sm:visible sidenav overflow-scroll fixed sm:min-h-screen text-grey-darkest"
        :class="{'visible': show === true, 'invisible': show === false}">
 
-    <div class="flex items-center flex-no-shrink tracking-wide justify-center mb-6 mt-3">
+    <div class="flex items-center tracking-wide pt-6 mt-2 pl-12 ml-2">
       <Zondicon icon="Radio" class="play-icon h-5 w-5 fill-current inline-block mr-2 -mt-1 text-grey-darker hidden sm:block" />
       <span class="font-semibold text-xl tracking-tight tracking-normal hidden sm:block">BusterRadio</span>
     </div>
@@ -20,9 +20,9 @@
       </li>
     </ul>
 
-    <ul class="nav" v-if="isLoggedIn">
-      <li class="py-2 ml-4"><User /></li>
-      <li class="" v-for="item of custom" :key="item.name">
+    <ul class="nav">
+      <li class="py-2 ml-4" v-if="isLoggedIn"><User /></li>
+      <li class="" v-for="item of custom" :key="item.name" v-if="isLoggedIn">
         <router-link :to="{name: item.link}"
                      class="nav-item">
           <div @click="close()">
@@ -31,14 +31,18 @@
           </div>
         </router-link>
       </li>
-      <li v-if="!isLoggedIn"
-          class="text-grey-darkest no-underline cursor-pointer text-base">
-        <Zondicon icon="ArrowOutlineRight" class="h-4 w-4 fill-current inline-block mr-2" />
-          <router-link to="/signup" class="nav-item">
-            Signup
-          </router-link>
-          /
-          <span @click="login()" class=" hover:text-grey-dark "> Login</span>
+      <li v-if="!isLoggedIn">
+        
+        <router-link to="/signup" class="nav-item">
+        <Zondicon icon="User" class="h-4 w-4 fill-current inline-block mr-2" />
+          Signup
+        </router-link>
+      </li>
+      <li v-if="!isLoggedIn">
+          <div class="nav-item cursor-pointer">
+            <Zondicon icon="ArrowOutlineRight" class="h-4 w-4 fill-current inline-block mr-2" />
+             <span @click="login()" > Login</span>
+          </div>
       </li>
       <li @click="logout()"
           v-if="isLoggedIn"
@@ -182,7 +186,11 @@ export default {
 
 <style lang="postcss" scoped>
   .nav {
-    @apply .list-reset .m-2 .mx-6 .px-4 .py-4 .bg-white .bg-white .rounded .shadow .mb-8
+    @apply .list-reset .m-2 .mx-6 .px-4 .py-4 
+  }
+
+  .nav-white {
+    @apply .bg-white .rounded .shadow .mb-4
   }
 
   .nav-item {
@@ -195,6 +203,13 @@ export default {
   
   .router-link-active {
     @apply .block .bg-blue-dark .text-white .rounded
+  }
+
+  @media (max-width: 576px) {
+    .sidenav{
+      @apply .bg-grey-lightest
+    }
+     
   }
 </style>
 
