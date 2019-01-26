@@ -186,7 +186,7 @@ export default {
 
 <style lang="postcss" scoped>
   .nav {
-    @apply .list-reset .m-2 .mx-6 .px-4 .py-4 
+    @apply .list-reset .m-2 .mx-6 .py-4 .pl-6
   }
 
   .nav-white {
@@ -216,7 +216,7 @@ export default {
 
 <style scoped lang="less">
   .w-285 {
-    width: 300px;
+    width: 285px;
   }
 
   @media (max-width: 576px) {
