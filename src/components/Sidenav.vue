@@ -1,8 +1,10 @@
 <template>
-  <div class="pb-16 w-285 sm:visible sidenav overflow-scroll fixed sm:min-h-screen text-grey-darkest"
+  <div class="pb-16 w-285 sm:visible sidenav sm:min-h-screen text-grey-darkest"
        :class="{'visible': show === true, 'invisible': show === false}">
 
-    <div class="flex items-center tracking-wide pt-6 mt-2 pl-12 ml-2">
+    <div class=" sticky pin-t">
+
+    <div class="flex items-center tracking-wide pt-8 pl-12 ml-2 ">
       <Zondicon icon="Radio" class="play-icon h-5 w-5 fill-current inline-block mr-2 -mt-1 text-grey-darker hidden sm:block" />
       <span class="font-semibold text-xl tracking-tight tracking-normal hidden sm:block">BusterRadio</span>
     </div>
@@ -51,6 +53,7 @@
           Logout
       </li>
     </ul>
+  </div>
   </div>
 </template>
 
@@ -215,9 +218,6 @@ export default {
 
 
 <style scoped lang="less">
-  .w-285 {
-    width: 285px;
-  }
 
   @media (max-width: 576px) {
     .sidenav {
@@ -231,6 +231,7 @@ export default {
       -o-transition: all .3s ease;
       -ms-transition: all .3s ease;
       transition: all .3s ease;
+      overflow-x: scroll;
 
       &.visible {
         left: 0px !important;

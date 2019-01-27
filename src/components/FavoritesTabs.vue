@@ -23,23 +23,12 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
-  .tabs {}
   .tab-item {
-    @apply .w-1/2 .text-center .border-b .border-grey .p-6 .text-lg .no-underline .text-blue-dark border-b-2 .bg-grey-lightest
+    @apply .flex .w-1/2 .justify-center .items-center .pt-6 .pb-2 .border-b .border-grey .text-center .text-grey-darkest .no-underline
   }
-  .tab-item:nth-child(1) {
-    @apply .rounded-r-none
-  }
-  .tab-item:nth-child(2) {
-    @apply .border-r-0
-  }
-  .tab-item.router-link-active {
+  .tab-item.router-link-exact-active {
     @apply .border-b-2 .border-blue-dark
   }
-  .tab-item:hover {
-    @apply .border-b-2 .border-blue-dark .bg-grey-lighter
-  }
-
 </style>
 
 

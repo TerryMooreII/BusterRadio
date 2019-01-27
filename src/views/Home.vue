@@ -1,13 +1,16 @@
 <template>
   <div>
     <Navbar class="block sm:hidden" @menu="() => this.show = !this.show"/>
-    <Sidenav :show="show" @close="() => this.show = false"/>
-    <div class="flex pb-32 main">
-      <transition
-        name="fade"
-        mode="out-in">
-        <router-view/>
-      </transition>
+    <div class="flex">
+      <Sidenav :show="show" @close="() => this.show = false"/>
+      <div class="flex w-full pb-32 main mr-0 sm:mr-20 xl:mr-0">
+        <transition
+          name="fade"
+          mode="out-in">
+          <router-view/>
+        </transition>
+      </div>
+      <!-- <div class="w-285 hidden xl:block"></div> -->
     </div>
   <Footer />
   </div>
@@ -62,16 +65,19 @@ export default {
   opacity: 0
 }
 
-
+.w-285 {
+    min-width: 285px;
+  }
 .main {
-  padding-left: 285px;
+  // padding-left: 75px;
+  // padding-right: 75px;
 }
 
 @media (min-width: 1500px) {
-  .xxl\:mx-64 {
-    margin-right: 16rem !important;
-    margin-left: 16rem !important;
-  }
+  // .xxl\:mx-64 {
+  //   margin-right: 16rem !important;
+  //   margin-left: 16rem !important;
+  // }
 }
 
 @media (max-width: 576px) {

@@ -16,9 +16,9 @@ export default {
   },
   computed: {
     css() {
-      const shared = 'my-4 mx-0 sm:mx-10 lg:mx-32 xxl:mx-64 w-full bg-white p-4 rounded shadow';
+      const shared = 'my-4 mx-0 w-full bg-white p-4 rounded shadow xl:mx-32 mr-285';
       if (this.wide) {
-        return 'flex-col w-full px-0 sm:px-24 sm:mt-0 mt-3';
+        return 'my-4 flex-col w-full px-0 sm:mt-0 mt-3';
       }
 
       return shared;
@@ -33,3 +33,16 @@ export default {
   }
 };
 </script>
+
+<style lang="less" scoped>
+  .mr-285 {
+    margin-right: 8rem;
+  }
+
+  @media (min-width: 1400px) {
+    .mr-285 {
+      margin-right: calc(285px + 8rem);
+    }
+  }
+</style>
+
