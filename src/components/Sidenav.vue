@@ -4,7 +4,7 @@
 
     <div class=" sticky pin-t">
 
-    <div class="flex items-center tracking-wide pt-8 pl-12 ml-2 ">
+    <div class="flex items-center tracking-wide pt-8 pl-12">
       <Zondicon icon="Radio" class="play-icon h-5 w-5 fill-current inline-block mr-2 -mt-1 text-grey-darker hidden sm:block" />
       <span class="font-semibold text-xl tracking-tight tracking-normal hidden sm:block">BusterRadio</span>
     </div>
@@ -23,7 +23,7 @@
     </ul>
 
     <ul class="nav">
-      <li class="py-2 ml-4" v-if="isLoggedIn"><User /></li>
+      <li class="py-2 font-bold" v-if="isLoggedIn"><User /></li>
       <li class="" v-for="item of custom" :key="item.name" v-if="isLoggedIn">
         <router-link :to="{name: item.link}"
                      class="nav-item">
