@@ -1,5 +1,6 @@
 <template>
   <Container id="show">
+    <Loading v-if="!show" />
     <div v-if="show">
       <div class="flex flex-col sm:flex-row width-full bg-white sticky pin-t pt-3 sm:pt-0 mb-4 pb-3 text-left border-b border-grey">
 
@@ -60,7 +61,7 @@
       <h2 v-if="show.tracks && !show.tracks[trackFileType].length" class="flex justify-center pt-8 text-grey-darkest">
         No {{trackFileType}} tracks for this show.
       </h2>
-      <Loading v-if="!show.tracks" />
+      
       <div v-if="show.tracks && show.tracks[trackFileType].length">
         <div v-for="(track, index) in show.tracks[trackFileType]"
              :key="track.file"

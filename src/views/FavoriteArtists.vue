@@ -4,7 +4,7 @@
       <FavoritesTabs />
     </template>
     <div class="flex items-stretch flex-wrap justify-center">
-      <div class="mt-2 my-6 mb-16 " style="width:155px">
+      <div class="mt-2 my-6 mb-16" style="width:155px" v-if="artistsList && Object.keys(artistsList).length > 0">
         <router-link class="flex flex-col justify-center items-center p-4 text-center h-full text-grey-dark no-underline" :to="{path: '/random-show', 'query': {'from': 'artist'}}">
           <Zondicon icon="Shuffle" class="h-12 w-12 fill-current mb-4"/>
           Play a random show from your favorties
@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      artistsList: []
+      artistsList: {}
     };
   },
   async mounted() {

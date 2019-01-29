@@ -15,7 +15,7 @@
                      class="nav-item"
                      :exact="item.exact">
           <div @click="close()">
-            <Zondicon :icon="item.icon" class="h-4 w-4 fill-current inline-block mr-2" />
+            <Zondicon :icon="item.icon" class="nav-icon" />
             {{item.name}}
           </div>
         </router-link>
@@ -28,7 +28,7 @@
         <router-link :to="{name: item.link}"
                      class="nav-item">
           <div @click="close()">
-            <Zondicon :icon="item.icon" class="h-4 w-4  fill-current inline-block mr-2"/>
+            <Zondicon :icon="item.icon" class="nav-icon"/>
             {{item.name}}
           </div>
         </router-link>
@@ -36,20 +36,20 @@
       <li v-if="!isLoggedIn">
         
         <router-link to="/signup" class="nav-item">
-        <Zondicon icon="User" class="h-4 w-4 fill-current inline-block mr-2" />
+        <Zondicon icon="User" class="nav-icon" />
           Signup
         </router-link>
       </li>
       <li v-if="!isLoggedIn">
           <div class="nav-item cursor-pointer">
-            <Zondicon icon="ArrowOutlineRight" class="h-4 w-4 fill-current inline-block mr-2" />
+            <Zondicon icon="ArrowOutlineRight" class="nav-icon" />
              <span @click="login()" > Login</span>
           </div>
       </li>
       <li @click="logout()"
           v-if="isLoggedIn"
           class="nav-item cursor-pointer">
-        <Zondicon icon="ArrowOutlineLeft" class="h-4 w-4 fill-current inline-block mr-3" />
+        <Zondicon icon="ArrowOutlineLeft" class="nav-icon mr-3" />
           Logout
       </li>
     </ul>
@@ -197,7 +197,10 @@ export default {
   }
 
   .nav-item {
-     @apply  .text-grey-darkest .no-underline .py-2 .px-4 .my-1 .flex .items-center
+     @apply  .text-grey-darkest .no-underline .py-2 .px-4 .my-1 .flex .items-center .text-sm
+  }
+  .nav-icon {
+    @apply .h-3 .w-3 .fill-current .inline-block .mr-2
   }
 
   .nav-item:hover {

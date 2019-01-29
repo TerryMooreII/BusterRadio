@@ -204,6 +204,9 @@ const mutations = {
     state.queue[index].isPlaying = true;
     state.queue[index].hasPlayed = true;
     localStorage.setItem(LOCALSTORAGE.QUEUE, JSON.stringify(state.queue));
+    if (datastore.getCurrentUser()) {
+      datastore.setQueue(state.queue);
+    }
   },
 
   isPlaying(state, value) {
