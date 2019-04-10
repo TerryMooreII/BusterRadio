@@ -47,7 +47,7 @@ const syncTitles = (tracks, trackTypes) => {
     });
   }
   return tracks;
-}
+};
 
 class Show {
   constructor(show) {
