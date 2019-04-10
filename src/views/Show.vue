@@ -32,7 +32,7 @@
                     <Zondicon icon="list-add" class="h-5 w-5 fill-current mr-2" />Add Show to Queue
                   </li>
 
-                  <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer flex item-center">
+                  <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer flex item-center" v-if="isLoggedIn">
                     <FavoriteShow :show="show" v-if="show" label="Add show to Favorites"/>
                   </li>
                   <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer flex item-center">
@@ -135,6 +135,7 @@ import FavoriteShow from '../components/FavoriteShow';
 import Container from '../components/Container';
 import JambaseLookup from '../components/JambaseLookup';
 import helpers from '../services/helpers';
+import datastore from '../services/datastore';
 
 const TRACK_FILE_TYPE = {
   MP3: 'mp3',
@@ -163,6 +164,9 @@ export default {
     }),
     hasShowImage() {
       return this.show.image.includes('http') && !this.show.image.includes('__ia_thumb');
+    },
+    isLoggedIn() {
+      return datastore.getCurrentUser();
     }
   },
   watch: {
