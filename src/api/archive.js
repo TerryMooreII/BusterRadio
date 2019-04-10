@@ -35,7 +35,7 @@ const syncTitles = (tracks, trackTypes) => {
     }
 
     if (exists) {
-      titles = tracks[exists].map(track => (track.file != null ? track.file.substring(1, track.file.length - 4) : ''));  
+      titles = tracks[exists].map(track => (track.file != null ? track.file.substring(1, track.file.length - 4) : ''));
     }
   }
 
@@ -312,7 +312,13 @@ export default {
   },
 
 
-  search({ property, searchTerm, page = 1, count = 50, orderby = 'publicdate' } = {}) {
+  search({
+    property,
+    searchTerm,
+    page = 1,
+    count = 50,
+    orderby = 'publicdate'
+  } = {}) {
     const query = [
       'fl[]=avg_rating',
       'fl[]=downloads',
@@ -352,7 +358,14 @@ export default {
       });
   },
 
-  advancedSearch({ artist, location, song, page = 1, count = 50, orderby = 'publicdate' } = {}) {
+  advancedSearch({
+    artist,
+    location,
+    song,
+    page = 1,
+    count = 50,
+    orderby = 'publicdate'
+  } = {}) {
     const query = [
       'fl[]=avg_rating',
       'fl[]=downloads',
@@ -381,7 +394,7 @@ export default {
     if (song) {
       filter.push(`description:(${song})`);
     }
-    
+
     const url = `${URL}/advancedsearch.php?q=mediatype:(etree)+AND+${filter.join('+AND+')}&${query.join('&')}&${JSONP}`;
     const key = btoa(url);
     if (cache[key]) {
