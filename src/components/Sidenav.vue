@@ -24,7 +24,7 @@
 
     <ul class="nav">
       <li class="py-2 font-bold" v-if="isLoggedIn"><User /></li>
-      <li class="" v-for="item of custom" :key="item.name" v-if="isLoggedIn">
+      <li class="" v-for="item of custom" :key="item.name" v-if="isLoggedIn"> 
         <router-link :to="{name: item.link}"
                      class="nav-item">
           <div @click="close()">

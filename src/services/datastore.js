@@ -155,7 +155,47 @@ export default {
     }
     await firebase.database()
       .ref(`queue/${this.getCurrentUser().uid}`).set(queue);
-  }
+  },
 
+  async getPlaylistsPrivate() {
+    if (!this.getCurrentUser()) {
+      return [];
+    }
+
+    const snapshot = await firebase.database()
+      .ref(`playlists-private/${this.getCurrentUser().uid}`)
+      .once('value');
+    return snapshot.val();
+  },
+
+  async addPlaylistPrivate(playlist) {
+    await firebase.database()
+      .ref(`playlists-private/${this.getCurrentUser().uid}`).push(playlist);
+  },
+
+  async getPlaylistsPublic() {
+    const snapshot = await firebase.database()
+      .ref('playlists-public')
+      .once('value');
+    return snapshot.val();
+  },
+
+  async addPlaylistPublic(playlist) {
+    await firebase.database()
+      .ref('playlist-public').push(playlist);
+  }
 };
 
+
+/*
+  {
+    $key: poi312i3,
+    title: My Dead List,
+    user: TerryMooreII,
+    description: Maybe
+    isPublic: true,
+    tracks: [
+      {}
+    ]
+  }
+*/

@@ -52,7 +52,7 @@
             <Stars cssClass="h-4 w-4 mt-2" v-if="show.reviews" :rank="show.reviews.info.avg_rating" />
             <button class="rounded bg-blue text-white w-24 sm:w-32 py-2 sm:py-3 font-bold mt-3 px-3 text-sm sm:text-base sm:px-4 ml-auto mb-3 sm:mb-0"
                     type="button"
-                    @click="addTracks(show.tracks.mp3)">
+                    @click="addTracks(show.tracks[trackFileType])">
               Play Show
             </button>
           </div>

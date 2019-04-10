@@ -18,6 +18,37 @@ const isSoundboard = (show) => {
   return false;
 };
 
+// This function ensures that is a file type doesnt have title and another does it will sync them up.
+// If no title exists then it uses the file id.
+const syncTitles = (tracks, trackTypes) => {
+  const foundType = trackTypes.find(t => Array.isArray(tracks[t]) && tracks[t][0].title);
+
+  let titles = [];
+  if (foundType) {
+    titles = tracks[foundType].map(track => track.title);
+  } else {
+    let exists;
+    if (tracks.mp3.length) {
+      exists = 'mp3';
+    } else if (tracks.flac.length) {
+      exists = 'flac';
+    }
+
+    if (exists) {
+      titles = tracks[exists].map(track => (track.file != null ? track.file.substring(1, track.file.length - 4) : ''));  
+    }
+  }
+
+  if (titles.length) {
+    trackTypes.forEach((type) => {
+      if (type !== foundType && tracks[type].length) {
+        tracks[type].forEach((track, index) => track.title = titles[index]);
+      }
+    });
+  }
+  return tracks;
+}
+
 class Show {
   constructor(show) {
     this.dir = show.dir;
@@ -63,7 +94,8 @@ class Show {
           image: this.image
         }));
     });
-    return tracks;
+
+    return syncTitles(tracks, trackTypes);
   }
 }
 
