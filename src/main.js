@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import firebase from 'firebase';
 import Zondicon from 'vue-zondicons';
-import VueAnalytics from 'vue-analytics'
+import VueAnalytics from 'vue-analytics';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -29,7 +29,7 @@ Vue.use(VueAnalytics, {
   id: 'UA-38185444-1',
   router,
   debug: {
-    enabled: false, //!isProd,
+    enabled: false, //! isProd,
     sendHitTask: isProd
   }
 });

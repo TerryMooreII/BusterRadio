@@ -11,7 +11,7 @@
       </div>
       </div>
     </div>
-    
+
     <Container v-if="queue.length > 0">
       <div class="flex text-grey-darkest px-2 sm:px-0 py-6 sticky pin-t w-full bg-white">
         <div class="w-2/3">

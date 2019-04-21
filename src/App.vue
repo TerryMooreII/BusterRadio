@@ -8,7 +8,7 @@
   @media (min-width: 1400px) {
     // body{
     //   //font-family: 'Encode Sans Expanded', sans-serif !important;
-      
+
     //   // font-family: 'Roboto', sans-serif !important;
     // }
     .sxl\:mx-64 {

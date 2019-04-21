@@ -24,7 +24,7 @@
 
     <ul class="nav">
       <li class="py-2 font-bold" v-if="isLoggedIn"><User /></li>
-      <li class="" v-for="item of custom" :key="item.name" v-if="isLoggedIn"> 
+      <li class="" v-for="item of custom" :key="item.name" v-if="isLoggedIn">
         <router-link :to="{name: item.link}"
                      class="nav-item">
           <div @click="close()">
@@ -34,7 +34,7 @@
         </router-link>
       </li>
       <li v-if="!isLoggedIn">
-        
+
         <router-link to="/signup" class="nav-item">
         <Zondicon icon="User" class="nav-icon" />
           Signup
@@ -96,8 +96,8 @@ export default {
         {
           name: 'Newest Shows',
           link: 'newest',
-          icon: 'MusicAlbum',
-          //exact: true
+          icon: 'MusicAlbum'
+          // exact: true
         },
         {
           name: 'Random Show',
@@ -206,7 +206,7 @@ export default {
   .nav-item:hover {
     @apply .block .bg-blue-dark .text-white .rounded
   }
-  
+
   .router-link-active {
     @apply .block .bg-blue-dark .text-white .rounded
   }
@@ -215,7 +215,7 @@ export default {
     .sidenav{
       @apply .bg-grey-lightest
     }
-     
+
   }
 </style>
 

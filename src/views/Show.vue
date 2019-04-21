@@ -41,7 +41,7 @@
                   <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer flex item-center" @click.stop="openOnArchive();close()">
                     <Zondicon icon="link" class="h-5 w-5 fill-current mr-2" /> View On Archive.org
                   </li>
-                  
+
                   <li class="pt-1 pb-1 mb-1 mt-2 border-b border-grey text-center uppercase text-xs">Download Show</li>
                   <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer" v-if="show.tracks.mp3" @click.stop="downloadShow('mp3');close()">as MP3</li>
                   <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer" v-if="show.tracks.flac" @click.stop="downloadShow('flac');close()">as FLAC</li>
@@ -61,7 +61,7 @@
       <h2 v-if="show.tracks && !show.tracks[trackFileType].length" class="flex justify-center pt-8 text-grey-darkest">
         No {{trackFileType}} tracks for this show.
       </h2>
-      
+
       <div v-if="show.tracks && show.tracks[trackFileType].length">
         <div v-for="(track, index) in show.tracks[trackFileType]"
              :key="track.file"

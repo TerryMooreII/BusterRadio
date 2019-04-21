@@ -120,22 +120,22 @@ export default {
       if (this.debounce) clearTimeout(this.debounce);
       this.debounce = setTimeout(() => {
         const { name, query } = this.$route;
-        this.$router.push({ name, query: {q: this.q } });
+        this.$router.push({ name, query: { q: this.q } });
       }, 400);
     }
   },
   methods: {
-    parseQuery(){
+    parseQuery() {
       if (!this.$route.query.q) {
         return;
       }
-      
+
       if (!this.$route.query.q.includes(':')) {
         this.isAdvanceQuery = false;
-      }else{
+      } else {
         this.isAdvanceQuery = true;
       }
-      
+
       return this.$route.query.q;
     },
     isTopResults() {
@@ -148,18 +148,22 @@ export default {
       this.advResults = [];
       this.page = 1;
     },
-    parseSongs(data){
+    parseSongs(data) {
       return data;
     },
     getArtists() {
       this.artists = this.search(this.q).splice(0, 30);
     },
     getLocations() {
-      archive.search({ property: ['venue', 'coverage'], searchTerm: this.q, count: this.isTopResults() ? 10 : 50, page: this.page })
+      archive.search({
+        property: ['venue', 'coverage'], searchTerm: this.q, count: this.isTopResults() ? 10 : 50, page: this.page
+      })
         .then(data => this.venues = data);
     },
     getSongs() {
-      archive.search({ property: 'description', searchTerm: this.q, count: this.isTopResults() ? 10 : 50, page: this.page })
+      archive.search({
+        property: 'description', searchTerm: this.q, count: this.isTopResults() ? 10 : 50, page: this.page
+      })
         .then(data => this.songs = this.parseSongs(data));
     },
     pageChange(page) {
@@ -169,60 +173,61 @@ export default {
       const query = Object.assign({}, this.$route.query, { page });
       this.$router.push({ name: this.$route.name, query });
     },
-    advancedSearch(q){
-      //this.reset();
+    advancedSearch(q) {
+      // this.reset();
       const getCriteria = (item) => {
-        
         const aIdx = item.indexOf('artist:');
         const sIdx = item.indexOf('song:');
         const lIdx = item.indexOf('location:');
-          
+
         const idx = [];
-        
+
         if (aIdx !== -1) idx.push(aIdx);
         if (sIdx !== -1) idx.push(sIdx);
         if (lIdx !== -1) idx.push(lIdx);
-      
+
         return idx.sort().map((v, k) => {
           if (k + 1 === idx.length) {
-            return item.substr(v)
+            return item.substr(v);
           }
-          return item.substring(v, idx[k+1])
+          return item.substring(v, idx[k + 1]);
         }).reduce((acc, item) => {
           const [key, val] = item.split(':');
           acc[key] = val.trim();
           return acc;
         }, {});
-      }
+      };
       const c = getCriteria(q);
 
-      archive.advancedSearch({ artist: c.artist, location: c.location, song: c.song, count: 50, page: this.page })
+      archive.advancedSearch({
+        artist: c.artist, location: c.location, song: c.song, count: 50, page: this.page
+      })
         .then(data => this.advResults = data);
     },
     submit() {
       const { name } = this.$route;
       if (this.q && this.q.length >= 3) {
-          const advQuery = this.parseQuery();
-          if(this.isAdvanceQuery) {
-            this.advancedSearch(advQuery);
-            return;
-          }
-          switch(name){
-            case 'search-artists':
-              this.getArtists();
-              break;
-            case 'search-locations':
-              this.getLocations();
-              break;
-            case 'search-songs':
-              this.getSongs();
-              break;
-            default:
-              
-                this.getArtists();
-                this.getLocations();
-                this.getSongs();
-          }
+        const advQuery = this.parseQuery();
+        if (this.isAdvanceQuery) {
+          this.advancedSearch(advQuery);
+          return;
+        }
+        switch (name) {
+          case 'search-artists':
+            this.getArtists();
+            break;
+          case 'search-locations':
+            this.getLocations();
+            break;
+          case 'search-songs':
+            this.getSongs();
+            break;
+          default:
+
+            this.getArtists();
+            this.getLocations();
+            this.getSongs();
+        }
       }
     }
   },
@@ -242,7 +247,7 @@ export default {
   }
 </style>
 
-<style lang="postcss" scoped> 
+<style lang="postcss" scoped>
 .tab-item {
   @apply .flex .w-1/4 .justify-center .items-center .pt-6 .pb-2 .border-b .border-grey .text-center .text-grey-darkest .no-underline
 }
