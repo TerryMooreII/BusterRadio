@@ -80,9 +80,10 @@ class Show {
   getTracks = (files) => {
     const tracks = {};
     const trackTypes = ['mp3', 'flac', 'ogg'];
+    const sample = '_sample';
     trackTypes.forEach((trackType) => {
       tracks[trackType] = Object.keys(files)
-        .filter(file => file.endsWith(trackType) === true)
+        .filter(file => file.endsWith(trackType) && !file.endsWith(`${sample}.${trackType}`))
         .map(file => Object.assign(files[file], {
           file,
           identifier: this.identifier,
