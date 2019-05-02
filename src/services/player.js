@@ -5,6 +5,7 @@ import ArchiveApi from '../api/archive';
 class Player {
   isLoop = false;
   volume = 0.8;
+  playOnLoad = true;
 
   constructor() {
     this.audio = new Audio();
@@ -13,7 +14,9 @@ class Player {
       store.dispatch('playlist/duration', this.audio.duration);
       this.audio.volume = store.state.volume.level;
       this.audio.muted = store.state.volume.isMuted;
-      this.play();
+      if (this.playOnLoad) {
+        this.play();
+      }
     });
 
     this.audio.addEventListener('progress', () => {
@@ -37,8 +40,9 @@ class Player {
     });
   }
 
-  load(track) {
+  load(track, playOnLoad = true) {
     this.audio.src = ArchiveApi.trackUrl(track);
+    this.playOnLoad = playOnLoad;
   }
 
   play() {

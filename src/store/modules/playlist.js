@@ -30,12 +30,9 @@ const getqIdxAndLoad = () => {
   const idx = savedQueue.findIndex(track => track.isPlaying);
   if (idx == null) return null;
 
-  player.load(state.queue[idx]);
-  state.isPlaying = false;
-  setTimeout(() => {
-    player.seek(state.queue[idx].currentTime);
-    player.pause();
-  }, 1500);
+  player.load(state.queue[idx], false);
+  player.seek(state.queue[idx].currentTime);
+
   return idx;
 };
 
