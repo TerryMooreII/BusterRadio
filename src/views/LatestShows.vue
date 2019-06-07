@@ -59,7 +59,8 @@ export default {
     '$route.query.orderby': function () {
       this.query();
     },
-    '$route.query.page': function () {
+    '$route.query.page': function (val) {
+      this.page = val
       this.query();
     }
   },
