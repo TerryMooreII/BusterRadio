@@ -1,5 +1,6 @@
 import Vue from 'vue';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import Zondicon from 'vue-zondicons';
 import VueAnalytics from 'vue-analytics';
 import App from './App.vue';
