@@ -29,9 +29,8 @@
       <div class="flex justify-center mt-3  cursor-pointer">
         <div class="mr-4 text-xs -mt-1 text-grey-dark">{{formatTime(currentTime)}}</div>
         <div class="h-1 bg-grey-lighter w-2/3 rounded relative slider seekbar">
-          <div class="rounded bg-grey h-1 slider" v-bind:style="{width: buffered}"></div>
-          <div class="rounded bg-blue -mt-1 h-1 slider" v-bind:style="{width: percent}"></div>
-
+          <div class="rounded bg-grey h-1 slider" id="progress-buffer"></div>
+          <div class="rounded bg-blue -mt-1 h-1 slider" id="progress"></div>          
           <!-- <div class="rounded-full h-4 w-4 bg-grey-dark absolute dot invisible" v-bind:style="{left: percent}"></div> -->
         </div>
         <span class="ml-4 text-xs -mt-1 text-grey-dark">{{formatTime(duration)}}</span>
@@ -55,19 +54,7 @@ export default {
       currentTime: 'currentTime',
       buffer: 'buffer',
       nextTrackIndex: 'nextTrackIndex'
-    }),
-    buffered() {
-      if (this.duration === 0) {
-        return '0%';
-      }
-      return `${(this.buffer / this.duration) * 100}%`;
-    },
-    percent() {
-      if (this.duration === 0) {
-        return '0%';
-      }
-      return `${(this.currentTime / this.duration) * 100}%`;
-    }
+    })
   },
   methods: {
     play() {
@@ -105,14 +92,29 @@ export default {
     mousedown(e) {
       this.$store.dispatch('playlist/seek', this.calcSeek(e.offsetX, this.el.clientWidth));
       this.el.addEventListener('mousemove', this.mousemove, false);
+    },
+    updateProgress() {
+      this.progressEl.style.width = this.duration === 0 ? '0%' : `${(this.currentTime / this.duration) * 100}%`;
+      this.progressId = requestAnimationFrame(this.updateProgress);
+    },
+    updateProgressBuffer() {
+      this.progressBufferEl.style.width = this.duration === 0 ? '0%' : `${(this.buffer / this.duration) * 100}%`;
+      this.progressBufferId = requestAnimationFrame(this.updateProgressBuffer);
     }
+
   },
   mounted() {
     this.el = document.querySelector('.seekbar');
     this.el.addEventListener('mousedown', this.mousedown, false);
+    this.progressEl = document.getElementById('progress');
+    this.progressBufferEl = document.getElementById('progress-buffer');
+    this.progressId = requestAnimationFrame(this.updateProgress);
+    this.progressBufferId = requestAnimationFrame(this.updateProgressBuffer);
   },
   beforeDestroy() {
     this.el.removeEventListener('mousedown', this.mousedown, false);
+    cancelAnimationFrame(this.progressId);
+    cancelAnimationFrame(this.updateProgressBuffer);
   }
 };
 </script>
