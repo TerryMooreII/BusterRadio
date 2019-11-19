@@ -26,6 +26,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import ArtistImage from '../components/ArtistImage';
+import mediaSession from '../services/mediaSession';
 
 export default {
   name: 'NowPlaying',
@@ -48,6 +49,26 @@ export default {
       }
       return {};
     }
+  },
+  watch: {
+    currentTrack: function(val) {
+      this.setMediaSessionData(val);
+    }
+  },
+  methods:{
+    setMediaSessionData(val){
+      if (!val && val.identifier) return; 
+
+      mediaSession.setMetaData({
+        artist: val.artist,
+        album: val.album || val.venue,
+        title: val.title,
+        image: val.artist ? `https://archive.org/services/img/${this.artistByTitle(this.currentTrack.artist).identifier}` : ''
+      });
+    }
+  },
+  mounted(){
+    this.setMediaSessionData(this.currentTrack);
   }
 };
 </script>

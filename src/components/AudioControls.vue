@@ -30,7 +30,7 @@
         <div class="mr-4 text-xs -mt-1 text-grey-dark">{{formatTime(currentTime)}}</div>
         <div class="h-1 bg-grey-lighter w-2/3 rounded relative slider seekbar">
           <div class="rounded bg-grey h-1 slider" id="progress-buffer"></div>
-          <div class="rounded bg-blue -mt-1 h-1 slider" id="progress"></div>          
+          <div class="rounded bg-blue -mt-1 h-1 slider" id="progress"></div>
           <!-- <div class="rounded-full h-4 w-4 bg-grey-dark absolute dot invisible" v-bind:style="{left: percent}"></div> -->
         </div>
         <span class="ml-4 text-xs -mt-1 text-grey-dark">{{formatTime(duration)}}</span>
@@ -87,7 +87,7 @@ export default {
     },
     mouseup() {
       this.el.removeEventListener('mousemove', this.mousemove, false);
-      window.removeEventListener('mouseup', this.mouseup, false);
+      document.body.removeEventListener('mouseup', this.mouseup, false);
     },
     mousedown(e) {
       this.$store.dispatch('playlist/seek', this.calcSeek(e.offsetX, this.el.clientWidth));

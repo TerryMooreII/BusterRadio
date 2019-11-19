@@ -12,7 +12,7 @@ const cache = {};
 const createApi = query => `${URL}${COLLECTION}${query.join('&')}&${JSONP}`;
 
 const isSoundboard = (show) => {
-  if (show.source && (show.source.toLowerCase().includes('soundoard') || show.source.toLowerCase().includes('sbd'))) {
+  if (show.source && (show.source.toLowerCase().includes('soundboard') || show.source.toLowerCase().includes('sbd'))) {
     return true;
   }
   return false;
@@ -21,7 +21,7 @@ const isSoundboard = (show) => {
 // This function ensures that is a file type doesnt have title and another does it will sync them up.
 // If no title exists then it uses the file id.
 const syncTitles = (tracks, trackTypes) => {
-  const foundType = trackTypes.find(t => Array.isArray(tracks[t]) && tracks[t][0].title);
+  const foundType = trackTypes.find(t => Array.isArray(tracks[t]) && tracks[t].length && tracks[t][0].title);
 
   let titles = [];
   if (foundType) {
@@ -102,8 +102,7 @@ class Show {
 
 export default {
   trackUrl({ server, dir, file }) {
-    const a = `//${server}${dir}${file}`;
-    return a;
+    return `//${server}${dir}${file}`;
   },
   getAllArtists() {
     const query = [

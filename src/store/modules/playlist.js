@@ -1,4 +1,5 @@
 import player from '../../services/player';
+import mediaSession from '../../services/mediaSession';
 import datastore from '../../services/datastore';
 
 const LOCALSTORAGE = {
@@ -207,6 +208,7 @@ const mutations = {
   },
 
   isPlaying(state, value) {
+    mediaSession.setPlaybackState = value;
     state.isPlaying = value;
   },
 
@@ -216,6 +218,7 @@ const mutations = {
 
   setCurrentTime(state, currentTime) {
     state.currentTime = currentTime;
+    mediaSession.setPositionState(state.duration, currentTime);
     state.queue[state.qIdx].currentTime = currentTime;
     localStorage.setItem(LOCALSTORAGE.QUEUE, JSON.stringify(state.queue));
   },

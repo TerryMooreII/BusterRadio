@@ -1,7 +1,6 @@
 import store from '../store';
 import ArchiveApi from '../api/archive';
 
-
 class Player {
   isLoop = false;
   volume = 0.8;
