@@ -1,6 +1,6 @@
 <template>
   <Container>
-    <div class="flex text-grey-darkest px-2 sm:px-0 py-6 sticky pin-t w-full bg-white">
+    <div class="flex text-grey-darkest px-2 md:px-0 py-6 md:sticky pin-t w-full bg-white">
       <div class="w-full">
         <h2>Last 100 Tracks Played</h2>
       </div>

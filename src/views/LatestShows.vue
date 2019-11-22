@@ -6,13 +6,12 @@
       </div>
       <div class="text-right w-1/3 ">
         <router-link to="/newest?orderby=date" class="text-grey-darker text-sm no-underline hover:underline" v-if="orderby === 'publicdate'">Sort By Show Date</router-link>
-        <router-link to="/newest?orderby=publicdate" class="text-grey-darker text-sm  no-underline hover:underline" v-if="orderby === 'date'">Sort By Upload Date</router-link>
+        <router-link to="/newest?orderby=publicdate" class="text-grey-darker text-sm no-underline hover:underline" v-if="orderby === 'date'">Sort By Upload Date</router-link>
       </div>
     </template>
     <div class="flex items-stretch flex-wrap justify-center">
       <Loading v-if="!shows.length" />
       <ShowCard v-for="show of shows" :key="show.identifier" :show="show"/>
-
     </div>
     <Pager :page="page" :count="shows.length" :pagesize="50" @onPageChange="pageChange" v-if="shows.length"/>
   </Container>

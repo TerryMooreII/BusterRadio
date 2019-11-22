@@ -62,7 +62,7 @@ export default {
     z-index: 100;
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: 776px) {
   .modal {
     top: 0;
     left: 0;

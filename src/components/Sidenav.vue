@@ -1,18 +1,18 @@
 <template>
-  <div class="pb-16 w-285 sm:visible sidenav sm:min-h-screen text-grey-darkest"
+  <div class="pb-16 w-285 md:visible sidenav md:min-h-screen text-grey-darkest"
        :class="{'visible': show === true, 'invisible': show === false}">
 
-    <div class=" sticky pin-t">
+    <div class="md:sticky pin-t">
 
-    <div class="flex items-center tracking-wide pt-8 pl-12">
-      <Zondicon icon="Radio" class="play-icon h-5 w-5 fill-current inline-block mr-2 -mt-1 text-grey-darker hidden sm:block" />
-      <span class="font-semibold text-xl tracking-tight tracking-normal hidden sm:block">BusterRadio</span>
+    <div class="flex items-center tracking-wide pt-0 md:pt-8 pl-12">
+      <Zondicon icon="Radio" class="play-icon h-5 w-5 fill-current inline-block mr-2 -mt-1 text-grey-darker hidden md:block" />
+      <span class="font-semibold text-xl tracking-tight tracking-normal hidden md:block">BusterRadio</span>
     </div>
 
     <ul class="nav">
       <li  v-for="item of links" :key="item.name">
         <router-link :to="{name: item.link}" v-if="(!item.hideLoggedIn || !isLoggedIn)"
-                     class="nav-item"
+                     class="nav-item "
                      :exact="item.exact">
           <div @click="close()">
             <Zondicon :icon="item.icon" class="nav-icon" />
@@ -197,8 +197,9 @@ export default {
   }
 
   .nav-item {
-     @apply  .text-grey-darkest .no-underline .py-2 .px-4 .my-1 .flex .items-center .text-sm
+     @apply .text-grey-darkest .no-underline .py-2 .px-4 .my-1 .flex .items-center .text-sm
   }
+  
   .nav-icon {
     @apply .h-3 .w-3 .fill-current .inline-block .mr-2
   }
@@ -211,7 +212,7 @@ export default {
     @apply .block .bg-blue-dark .text-white .rounded
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: 776px) {
     .sidenav{
       @apply .bg-grey-lightest
     }
@@ -222,7 +223,7 @@ export default {
 
 <style scoped lang="less">
 
-  @media (max-width: 576px) {
+  @media (max-width: 776px) {
     .sidenav {
       position: fixed !important;
       z-index: 1002 !important;

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <Navbar class="block sm:hidden" @menu="() => this.show = !this.show"/>
+    <Navbar class="block md:hidden" @menu="() => this.show = !this.show"/>
     <div class="flex">
       <Sidenav :show="show" @close="() => this.show = false"/>
-      <div class="flex w-full pb-32 main mr-0 sm:mr-20 xl:mr-0">
+      <div class="flex w-full pb-32 main mr-0 md:mr-20 xl:mr-0">
         <transition
           name="fade"
           mode="out-in">
@@ -80,7 +80,7 @@ export default {
   // }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 776px) {
   .main {
     padding-top: 48px;
     padding-left: 0px;

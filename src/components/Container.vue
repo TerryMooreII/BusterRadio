@@ -18,7 +18,7 @@ export default {
     css() {
       const shared = 'my-4 mx-0 w-full bg-white p-4 rounded shadow xl:mx-32 mr-285';
       if (this.wide) {
-        return 'my-4 flex-col w-full px-0 sm:mt-0 mt-3';
+        return 'my-4 flex-col w-full px-0 md:mt-0 mt-3';
       }
 
       return shared;
@@ -26,7 +26,7 @@ export default {
 
     cssHeader() {
       if (this.wide) {
-        return 'flex text-grey-darkest px-2 sm:px-16 py-6 sticky pin-t w-full bg-f5 z-10 block';
+        return 'flex text-grey-darkest px-2 md:px-16 py-6 md:sticky pin-t w-full bg-f5 z-10 block';
       }
       return '';
     }
@@ -36,7 +36,7 @@ export default {
 
 <style lang="less" scoped>
   .mr-285 {
-    margin-right: 8rem;
+    margin-right: 0rem;
   }
 
   @media (min-width: 1400px) {

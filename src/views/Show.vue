@@ -2,10 +2,9 @@
   <Container id="show">
     <Loading v-if="!show" />
     <div v-if="show">
-      <div class="flex flex-col sm:flex-row width-full bg-white sticky pin-t pt-3 sm:pt-0 mb-4 pb-3 text-left border-b border-grey">
-
-        <ArtistImage classes="mr-0 sm:mr-4 artist self-center hidden sm:block" :artist="artist" v-if="!hasShowImage"/>
-        <img class="mr-0 sm:mr-4 artist self-center hidden sm:block" v-bind:src="show.image" v-bind:alt="show.image" v-if="hasShowImage">
+      <div class="flex flex-col md:flex-row width-full bg-white md:sticky pin-t pt-3 md:pt-0 mb-4 pb-3 text-left border-b border-grey">
+        <ArtistImage classes="mr-0 md:mr-4 artist self-center hidden md:block" :artist="artist" v-if="!hasShowImage"/>
+        <img class="mr-0 md:mr-4 artist self-center hidden md:block" v-bind:src="show.image" v-bind:alt="show.image" v-if="hasShowImage">
         <div class="flex flex-row w-full self-center justify-between">
           <div class="flex flex-col self-center">
             <h1 class="font-hairline mb-1">
@@ -22,7 +21,6 @@
           </div>
           <div class="flex flex-col text-right self-center">
             <div>
-
               <button class="cursor-pointer h-5 w-5 ml-3" @click.stop.prevent="openShowPopover = !openShowPopover" type="button">
                 <Zondicon icon="DotsHorizontalTriple" class="h-5 w-5 fill-current inline-block cursor-pointer"/>
               </button>
@@ -31,7 +29,6 @@
                   <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer flex item-center" @click.stop="addTracksToQueue(show.tracks[trackFileType]);close()">
                     <Zondicon icon="list-add" class="h-5 w-5 fill-current mr-2" />Add Show to Queue
                   </li>
-
                   <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer flex item-center" v-if="isLoggedIn">
                     <FavoriteShow :show="show" v-if="show" label="Add show to Favorites"/>
                   </li>
@@ -41,7 +38,6 @@
                   <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer flex item-center" @click.stop="openOnArchive();close()">
                     <Zondicon icon="link" class="h-5 w-5 fill-current mr-2" /> View On Archive.org
                   </li>
-
                   <li class="pt-1 pb-1 mb-1 mt-2 border-b border-grey text-center uppercase text-xs">Download Show</li>
                   <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer" v-if="show.tracks.mp3" @click.stop="downloadShow('mp3');close()">as MP3</li>
                   <li class="px-3 py-2 hover:bg-grey-lighter cursor-pointer" v-if="show.tracks.flac" @click.stop="downloadShow('flac');close()">as FLAC</li>
@@ -50,7 +46,7 @@
               </Popover>
             </div>
             <Stars cssClass="h-4 w-4 mt-2" v-if="show.reviews" :rank="show.reviews.info.avg_rating" />
-            <button class="rounded bg-blue text-white w-24 sm:w-32 py-2 sm:py-3 font-bold mt-3 px-3 text-sm sm:text-base sm:px-4 ml-auto mb-3 sm:mb-0"
+            <button class="rounded bg-blue text-white w-24 md:w-32 py-2 md:py-3 font-bold mt-3 px-3 text-sm md:text-base md:px-4 ml-auto mb-3 md:mb-0"
                     type="button"
                     @click="addTracks(show.tracks[trackFileType])">
               Play Show
@@ -66,12 +62,12 @@
         <div v-for="(track, index) in show.tracks[trackFileType]"
              :key="track.file"
              @click="addTrack(track)"
-             class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row leading-tight">
+             class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row leading-tight text-xl md:text-base">
           <div class="w-10 text-center">
             <span class="track-number" v-if="track.file !== currentTrack.file">{{index + 1}}</span>
-            <Zondicon icon="Play" class="play-icon h-4 w-4 fill-current inline-block ml-2" v-if="track.file !== currentTrack.file"/>
-            <Zondicon icon="Pause" class="pause-icon h-4 w-4 fill-current inline-block ml-1" v-if="track.file === currentTrack.file && !isPlaying" />
-            <img src="/img/equalizer.gif" alt="equalizer" class="h-4 w-4" v-if="track.file === currentTrack.file && isPlaying">
+            <Zondicon icon="Play" class="play-icon md:h-4 md:w-4 w-5 h-5 fill-current inline-block ml-2" v-if="track.file !== currentTrack.file"/>
+            <Zondicon icon="Pause" class="pause-icon md:h-4 md:w-4 w-5 h-5 fill-current inline-block ml-1" v-if="track.file === currentTrack.file && !isPlaying" />
+            <img src="/img/equalizer.gif" alt="equalizer" class="md:h-4 md:w-4 w-5 h-5" v-if="track.file === currentTrack.file && isPlaying">
           </div>
           <div class="w-full truncate pl-4">
             {{track.title}}

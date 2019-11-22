@@ -27,8 +27,7 @@ const setMetaData = ({ artist, title, album, image }) => {
       { src: image, sizes: '192x192', type: 'image/jpeg' },
       { src: image, sizes: '256x256', type: 'image/jpeg' },
       { src: image, sizes: '384x384', type: 'image/jpeg' },
-      { src: image, sizes: '512x512', type: 'image/jpeg' },
-
+      { src: image, sizes: '512x512', type: 'image/jpeg' }
     ]
   });
 };

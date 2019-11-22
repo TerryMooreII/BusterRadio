@@ -6,7 +6,7 @@
       <Loading v-if="!shows" />
       <div v-for="show of shows"
            :key="show.identifier"
-           class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center px-0 sm:px-5"
+           class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center px-0 md:px-5"
            @click="getShow(show.identifier)">
         <div class="w-3/5 text-grey-darkest leading-normal text-sm">
           <span class="text-grey-darkest">{{show.date| removeTimezone | dateformat}}</span>

@@ -72,12 +72,14 @@ export default {
   .show {
     width: 220px
   }
-  @media (max-width: 992px) {
-    .img {
-      width: 100%;
-    }
+  @media (max-width: 576px) {
     .show {
-      width: 100%
+      width: 100% !important;
+    }
+  }
+  @media (max-width: 992px) {
+    .show {
+      width: 45%
     }
   }
 </style>

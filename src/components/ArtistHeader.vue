@@ -3,7 +3,7 @@
      <div class="flex justify-center mb-2">
       <ArtistImage classes="rounded-full border border-grey p-2 artist-image" :artist="artist" />
     </div>
-    <div class="flex justify-center border-b  border-grey mb-2 sticky pin-t bg-white">
+    <div class="flex justify-center border-b  border-grey mb-2 md:sticky pin-t bg-white">
       <h1 class="py-4 ">{{artist.title}}</h1>
     </div>
   </span>

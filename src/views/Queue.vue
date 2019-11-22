@@ -13,7 +13,7 @@
     </div>
 
     <Container v-if="queue.length > 0">
-      <div class="flex text-grey-darkest px-2 sm:px-0 py-6 sticky pin-t w-full bg-white">
+      <div class="flex text-grey-darkest px-2 md:px-0 py-6 md:sticky pin-t w-full bg-white">
         <div class="w-2/3">
           <h2>Your Queue</h2>
         </div>
@@ -33,7 +33,7 @@
           <div class="mx-4">
             <img :src="currentTrack.image" class="h-12 w-12">
           </div>
-          <div class="w-full truncate mt-2">
+          <div class="w-full truncate mt-2 text-xl md:text-base">
             {{currentTrack.title}} <br>
             <router-link
                   class="text-grey-dark text-sm no-underline hover:underline"
@@ -55,13 +55,13 @@
 
         <div v-for="(track, index) in queue"
               :key="track.file + index"
-              class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row"
+              class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row  text-xl md:text-base"
               @click="playQueueTrack(index)" :class="{'text-grey':track.hasPlayed && !track.isPlaying}">
           <div class="w-10 text-center">
             <span class="track-number" v-if="track.file !== currentTrack.file || qIdx !== index">{{index + 1}}</span>
-            <Zondicon icon="Play" class="play-icon h-4 w-4 fill-current inline-block ml-2" v-if="track.file !== currentTrack.file  || qIdx !== index"/>
-            <Zondicon icon="Pause" class="pause-icon h-4 w-4 fill-current inline-block ml-1" v-if="track.file === currentTrack.file && !isPlaying && qIdx === index" />
-            <img src="/img/equalizer.gif" alt="equalizer" class="h-4 w-4" v-if="track.file === currentTrack.file && isPlaying && qIdx === index">
+            <Zondicon icon="Play" class="play-icon md:h-4 md:w-4 w-5 h-5 fill-current inline-block ml-2" v-if="track.file !== currentTrack.file  || qIdx !== index"/>
+            <Zondicon icon="Pause" class="pause-icon md:h-4 md:w-4 w-5 h-5 fill-current inline-block ml-1" v-if="track.file === currentTrack.file && !isPlaying && qIdx === index" />
+            <img src="/img/equalizer.gif" alt="equalizer" class="md:h-4 md:w-4 w-5 h-5" v-if="track.file === currentTrack.file && isPlaying && qIdx === index">
           </div>
           <div class="w-full truncate">
             {{track.title}} <br>
