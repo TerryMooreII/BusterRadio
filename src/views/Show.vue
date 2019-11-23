@@ -62,14 +62,14 @@
         <div v-for="(track, index) in show.tracks[trackFileType]"
              :key="track.file"
              @click="addTrack(track)"
-             class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row leading-tight text-xl md:text-base">
+             class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row leading-tight">
           <div class="w-10 text-center">
             <span class="track-number" v-if="track.file !== currentTrack.file">{{index + 1}}</span>
             <Zondicon icon="Play" class="play-icon md:h-4 md:w-4 w-5 h-5 fill-current inline-block ml-2" v-if="track.file !== currentTrack.file"/>
             <Zondicon icon="Pause" class="pause-icon md:h-4 md:w-4 w-5 h-5 fill-current inline-block ml-1" v-if="track.file === currentTrack.file && !isPlaying" />
             <img src="/img/equalizer.gif" alt="equalizer" class="md:h-4 md:w-4 w-5 h-5" v-if="track.file === currentTrack.file && isPlaying">
           </div>
-          <div class="w-full truncate pl-4">
+          <div class="w-full truncate pl-4 text-2xl md:text-base">
             {{track.title}}
           </div>
           <div class="w-24 text-right pr-2">

@@ -6,7 +6,7 @@ import VueAnalytics from 'vue-analytics';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-// import './registerServiceWorker';
+import './registerServiceWorker';
 import filters from './filters';
 import './main.css';
 

@@ -1,21 +1,21 @@
 {
   "name": "BusterRadio",
   "short_name": "BusterRadio",
-  "orientation": "portrait",
+  "orientation": "any",
   "icons": [
     {
-      "src": "/img/icons/android-chrome-192x192.png",
+      "src": "/img/pig.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/img/icons/android-chrome-512x512.png",
+      "src": "/img/pig-lg.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#4DBA87"
+  "background_color": "#2779bd",
+  "theme_color": "#2779bd"
 }

@@ -213,10 +213,15 @@ export default {
   }
 
   @media (max-width: 776px) {
+    .nav-item{
+      @apply text-2xl;
+    }
+    .nav-icon {
+      @apply .h-5 .w-5
+    }
     .sidenav{
       @apply .bg-grey-lightest
     }
-
   }
 </style>
 
@@ -228,7 +233,7 @@ export default {
       position: fixed !important;
       z-index: 1002 !important;
       top: 64px !important;
-      bottom: 95px !important;
+      bottom: 0px !important;
       left:-270px;
       -webkit-transition: all .3s ease;
       -moz-transition: all .3s ease;

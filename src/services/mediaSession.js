@@ -13,7 +13,6 @@ if (hasMediaSession) {
 
 // eslint-disable-next-line object-curly-newline
 const setMetaData = ({ artist, title, album, image }) => {
-  console.log(artist, title, album, image);
   if (!hasMediaSession) return;
 
   // eslint-disable-next-line no-undef

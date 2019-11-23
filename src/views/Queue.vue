@@ -33,8 +33,8 @@
           <div class="mx-4">
             <img :src="currentTrack.image" class="h-12 w-12">
           </div>
-          <div class="w-full truncate mt-2 text-xl md:text-base">
-            {{currentTrack.title}} <br>
+          <div class="w-full truncate mt-2">
+            <span class="text-xl md:text-base">{{currentTrack.title}}</span> <br>
             <router-link
                   class="text-grey-dark text-sm no-underline hover:underline"
                   @click.native="$event.stopImmediatePropagation()"
@@ -55,7 +55,7 @@
 
         <div v-for="(track, index) in queue"
               :key="track.file + index"
-              class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row  text-xl md:text-base"
+              class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row"
               @click="playQueueTrack(index)" :class="{'text-grey':track.hasPlayed && !track.isPlaying}">
           <div class="w-10 text-center">
             <span class="track-number" v-if="track.file !== currentTrack.file || qIdx !== index">{{index + 1}}</span>
@@ -64,7 +64,7 @@
             <img src="/img/equalizer.gif" alt="equalizer" class="md:h-4 md:w-4 w-5 h-5" v-if="track.file === currentTrack.file && isPlaying && qIdx === index">
           </div>
           <div class="w-full truncate">
-            {{track.title}} <br>
+            <span class="text-xl md:text-base">{{track.title}}</span><br>
             <router-link
                   class="text-grey-dark text-sm no-underline hover:underline"
                   @click.native="$event.stopImmediatePropagation()"
