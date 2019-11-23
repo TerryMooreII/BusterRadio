@@ -214,7 +214,7 @@ export default {
 
   @media (max-width: 776px) {
     .nav {
-      @apply mx-0
+      @apply mx-0 mr-6
     }
     .nav-item{
       @apply text-2xl;
