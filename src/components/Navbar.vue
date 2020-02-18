@@ -13,15 +13,36 @@
       <Zondicon icon="Radio" class="play-icon h-5 w-5 fill-current inline-block mr-2 -mt-1 text-grey-lighter" />
       <span class="font-semibold text-xl tracking-tight">BusterRadio</span>
     </div>
-  <div></div>
+  <div @click="toggleNosleep()">
+    <Zondicon :icon="noSleepEnabled ? 'viewShow' : 'viewHide'" class="h-5 w-5 fill-current inline-block mr-2 -mt-1 text-grey-lighter" />
+  </div>
   </nav>
 
 </template>
 
 <script>
+import * as NoSleep from 'nosleep.js';
+
+const noSleep = new NoSleep();
 
 export default {
-  name: 'navbar'
+  name: 'navbar',
+  data() {
+    return {
+      noSleepEnabled: false
+    };
+  },
+  methods: {
+    toggleNosleep() {
+      if (this.noSleepEnabled) {
+        noSleep.disable();
+        this.noSleepEnabled = false;
+      } else {
+        noSleep.enable();
+        this.noSleepEnabled = true;
+      }
+    }
+  }
 };
 </script>
 
