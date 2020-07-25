@@ -199,7 +199,7 @@ export default {
   .nav-item {
      @apply .text-grey-darkest .no-underline .py-2 .px-4 .my-1 .flex .items-center .text-sm
   }
-  
+
   .nav-icon {
     @apply .h-3 .w-3 .fill-current .inline-block .mr-2
   }
@@ -228,7 +228,6 @@ export default {
   }
 </style>
 
-
 <style scoped lang="less">
 
   @media (max-width: 776px) {
@@ -252,4 +251,3 @@ export default {
   }
 
 </style>
-

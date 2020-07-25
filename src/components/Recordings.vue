@@ -62,7 +62,7 @@ export default {
   mounted() {
     ArchiveApi.getShowsByDate(this.artist.identifier, new Date(this.date).toISOString())
       .then((shows) => {
-        this.shows = shows.filter(show => show.identifier !== this.filter);
+        this.shows = shows.filter((show) => show.identifier !== this.filter);
         this.loading = false;
       });
   }

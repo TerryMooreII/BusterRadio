@@ -17,7 +17,9 @@ module.exports = {
     'import/extensions': 'off',
     'no-return-assign': 'off',
     'no-mixed-operators': 'off',
-    'func-names': 'off'
+    'func-names': 'off',
+    'import/no-cycle': 'off',
+    'vue/no-use-v-if-with-v-for': 'off'
   },
   parserOptions: {
     parser: 'babel-eslint'

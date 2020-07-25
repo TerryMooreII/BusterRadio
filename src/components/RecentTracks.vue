@@ -28,7 +28,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import Popover from '../components/Popover';
+import Popover from './Popover';
 
 export default {
   name: 'RecentTracks',

@@ -38,7 +38,7 @@ export default {
     };
   },
   computed: mapState({
-    artists: state => state.artists.all
+    artists: (state) => state.artists.all
   }),
   beforeRouteEnter(to, from, next) {
     if (!localStorage.artists || !localStorage.artistFetch || moment().diff(parseInt(localStorage.artistFetch, 10), 'weeks') >= 1) {

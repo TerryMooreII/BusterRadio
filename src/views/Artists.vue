@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     ...mapState({
-      artists: state => state.artists.all
+      artists: (state) => state.artists.all
     }),
     ...mapGetters('artists', {
       artistsByDownloads: 'artistsByDownloads',
@@ -55,14 +55,14 @@ export default {
       const count = 100;
       if (this.artistsList.length <= this.artists.length) {
         this.artistsList.push(...this.artists.slice().splice(this.index, count));
-        this.index = this.index + count;
+        this.index += count;
       }
     },
     getOrderByDownloads() {
       const count = 100;
       if (this.artistsList.length <= this.artistsByDownloads.length) {
         this.artistsList.push(...this.artistsByDownloads.slice().splice(this.index, count));
-        this.index = this.index + count;
+        this.index += count;
       }
     },
     handleScroll() {

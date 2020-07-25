@@ -89,7 +89,6 @@
         </div>
        </div>
 
-
       <Accordian v-if="show.description">
         <span slot="header">More Info</span>
         <p class="my-2 text-xs leading-normal" v-html="show.description"></p>
@@ -224,7 +223,7 @@ export default {
   mounted() {
     const supportedFileTypes = Object.values(TRACK_FILE_TYPE);
     const search = this.$route.query.type;
-    if (search && supportedFileTypes.some(val => search.toLowerCase() === val)) {
+    if (search && supportedFileTypes.some((val) => search.toLowerCase() === val)) {
       this.trackFileType = TRACK_FILE_TYPE[search.toUpperCase()];
     }
     this.getShow();

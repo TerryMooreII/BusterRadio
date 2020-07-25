@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import ArtistImage from '../components/ArtistImage';
+import ArtistImage from './ArtistImage';
 
 export default {
   name: 'ArtistHeader',

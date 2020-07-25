@@ -1,4 +1,3 @@
-
 export default {
   async requestPermission() {
     const result = await Notification.requestPermission();

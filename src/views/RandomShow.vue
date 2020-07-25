@@ -27,7 +27,7 @@ export default {
       let artists;
       if (fromFav) {
         const firebaseArtists = await datastore.getFavoriteArtists();
-        artists = Object.keys(firebaseArtists).map(k => firebaseArtists[k]);
+        artists = Object.keys(firebaseArtists).map((k) => firebaseArtists[k]);
       } else {
         artists = this.$store.getters['artists/all'];
       }

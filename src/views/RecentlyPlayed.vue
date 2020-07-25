@@ -39,7 +39,7 @@ export default {
   async mounted() {
     helpers.setTitle('History');
     const recent = await datastore.getRecents();
-    this.recentList = Object.values(recent).map(val => val).reverse();
+    this.recentList = Object.values(recent).map((val) => val).reverse();
   }
 };
 </script>

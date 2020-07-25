@@ -30,7 +30,7 @@
 <script>
 import ArtistImage from './ArtistImage';
 import FavoriteShow from './FavoriteShow';
-import JambaseLookup from '../components/JambaseLookup';
+import JambaseLookup from './JambaseLookup';
 
 export default {
   name: 'ShowCard',

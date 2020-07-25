@@ -6,15 +6,9 @@
 </template>
 
 <script>
-import datastore from '../services/datastore';
-import Artist from '../components/Artist';
-import Container from '../components/Container';
 
 export default {
   name: 'Favorites',
-  components: {
-    Container
-  },
   data() {
     return {
     };
@@ -30,4 +24,3 @@ export default {
     @apply .border-b-2 .border-blue-dark
   }
 </style>
-

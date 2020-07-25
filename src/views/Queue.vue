@@ -50,7 +50,6 @@
           </div>
         </div>
 
-
         <h3 class="mt-6 mb-2 pb-2 border-b  font-normal text-xl">Next Up</h3>
 
         <div v-for="(track, index) in filtered()"
@@ -86,8 +85,6 @@
 
 <script>
 import { mapGetters, mapActions, mapState } from 'vuex';
-
-import Artist from '../components/Artist.vue';
 import NoResults from '../components/NoResults';
 import Container from '../components/Container';
 import helpers from '../services/helpers';
@@ -96,14 +93,13 @@ export default {
   name: 'Artists',
   components: {
     Container,
-    Artist,
     NoResults
   },
   computed: {
     ...mapState({
-      artists: state => state.artists.all,
-      queue: state => state.playlist.queue,
-      qIdx: state => state.playlist.qIdx
+      artists: (state) => state.artists.all,
+      queue: (state) => state.playlist.queue,
+      qIdx: (state) => state.playlist.qIdx
     }),
     ...mapGetters('playlist', {
       currentTrack: 'currentTrack',
@@ -125,7 +121,7 @@ export default {
       return helpers.calcTrackTime(track);
     },
     filtered() {
-      return this.queue.filter(item => !item.hasPlayed);
+      return this.queue.filter((item) => !item.hasPlayed);
     }
   },
   mounted() {

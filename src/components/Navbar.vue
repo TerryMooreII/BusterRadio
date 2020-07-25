@@ -1,4 +1,3 @@
-
 <template>
   <nav class="navbar flex items-center justify-between flex-wrap bg-blue-dark px-6 py-4 fixed w-full">
 
@@ -21,7 +20,6 @@
 </template>
 
 <script>
-
 
 export default {
   name: 'navbar',

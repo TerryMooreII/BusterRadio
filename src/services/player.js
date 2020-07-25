@@ -3,7 +3,9 @@ import ArchiveApi from '../api/archive';
 
 class Player {
   isLoop = false;
+
   volume = 0.8;
+
   playOnLoad = true;
 
   constructor() {

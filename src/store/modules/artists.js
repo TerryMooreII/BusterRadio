@@ -15,11 +15,9 @@ const getters = {
     return state.all.length;
   },
 
-  artistByIdentifier: state => search =>
-    state.all.find(artist => artist.identifier === search),
+  artistByIdentifier: (state) => (search) => state.all.find((artist) => artist.identifier === search),
 
-  artistByTitle: state => search =>
-    state.all.find(artist => artist.title === search),
+  artistByTitle: (state) => (search) => state.all.find((artist) => artist.title === search),
 
   artistsByDownloads(state) {
     return [...state.all.slice().sort((a, b) => {
@@ -33,8 +31,7 @@ const getters = {
     })];
   },
 
-  search: state => search =>
-    state.all.filter(artist => artist.title.toLowerCase().includes(search.toLowerCase()))
+  search: (state) => (search) => state.all.filter((artist) => artist.title.toLowerCase().includes(search.toLowerCase()))
 
 };
 
@@ -48,7 +45,7 @@ const actions = {
       });
   },
   findArtistById({ state, commit }, identifier) {
-    const artist = state.all.find(artist => artist.title === identifier);
+    const artist = state.all.find((artist) => artist.title === identifier);
     commit('setArtist', { artist });
   }
 };

@@ -44,13 +44,13 @@ export default {
     query() {
       this.orderby = this.$route.query.orderby || 'date';
       this.shows = [];
-      ArchiveApi.getLatestShows(this.orderby, this.$route.query.page).then(data => this.shows = data);
+      ArchiveApi.getLatestShows(this.orderby, this.$route.query.page).then((data) => this.shows = data);
     },
     pageChange(page) {
       if (page == null) {
         return;
       }
-      const query = Object.assign({}, this.$route.query, { page });
+      const query = { ...this.$route.query, page };
       this.$router.push({ name: 'newest', query });
     }
   },
@@ -59,7 +59,7 @@ export default {
       this.query();
     },
     '$route.query.page': function (val) {
-      this.page = val
+      this.page = val;
       this.query();
     }
   },

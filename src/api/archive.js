@@ -8,8 +8,7 @@ const COLLECTION = '/advancedsearch.php?q=collection%3Aetree&';
 
 const cache = {};
 
-
-const createApi = query => `${URL}${COLLECTION}${query.join('&')}&${JSONP}`;
+const createApi = (query) => `${URL}${COLLECTION}${query.join('&')}&${JSONP}`;
 
 const isSoundboard = (show) => {
   if (show.source && (show.source.toLowerCase().includes('soundboard') || show.source.toLowerCase().includes('sbd'))) {
@@ -21,11 +20,11 @@ const isSoundboard = (show) => {
 // This function ensures that is a file type doesnt have title and another does it will sync them up.
 // If no title exists then it uses the file id.
 const syncTitles = (tracks, trackTypes) => {
-  const foundType = trackTypes.find(t => Array.isArray(tracks[t]) && tracks[t].length && tracks[t][0].title);
+  const foundType = trackTypes.find((t) => Array.isArray(tracks[t]) && tracks[t].length && tracks[t][0].title);
 
   let titles = [];
   if (foundType) {
-    titles = tracks[foundType].map(track => track.title);
+    titles = tracks[foundType].map((track) => track.title);
   } else {
     let exists;
     if (tracks.mp3.length) {
@@ -35,7 +34,7 @@ const syncTitles = (tracks, trackTypes) => {
     }
 
     if (exists) {
-      titles = tracks[exists].map(track => (track.file != null ? track.file.substring(1, track.file.length - 4) : ''));
+      titles = tracks[exists].map((track) => (track.file != null ? track.file.substring(1, track.file.length - 4) : ''));
     }
   }
 
@@ -74,17 +73,19 @@ class Show {
     this.tracks = this.getTracks(show.files);
     this.images = this.getImages(show.files);
   }
-  sanitize = item => (item && Array.isArray(item) && item.length > 0 ? item[0] : null);
 
-  getImages = files => Object.keys(files).filter(file => file.endsWith('.jpg'));
+  sanitize = (item) => (item && Array.isArray(item) && item.length > 0 ? item[0] : null);
+
+  getImages = (files) => Object.keys(files).filter((file) => file.endsWith('.jpg'));
+
   getTracks = (files) => {
     const tracks = {};
     const trackTypes = ['mp3', 'flac', 'ogg'];
     const sample = '_sample';
     trackTypes.forEach((trackType) => {
       tracks[trackType] = Object.keys(files)
-        .filter(file => file.endsWith(trackType) && !file.endsWith(`${sample}.${trackType}`))
-        .map(file => Object.assign(files[file], {
+        .filter((file) => file.endsWith(trackType) && !file.endsWith(`${sample}.${trackType}`))
+        .map((file) => Object.assign(files[file], {
           file,
           identifier: this.identifier,
           server: this.server,
@@ -114,7 +115,7 @@ export default {
       'page=1'];
 
     return axios.jsonp(`${URL}${COLLECTION_AND_MEDIATYPE}${query.join('&')}&${JSONP}`)
-      .then(response => response.response.docs);
+      .then((response) => response.response.docs);
   },
   getLatestShows(orderby = 'publicdate', page = 1) {
     const query = [
@@ -141,9 +142,9 @@ export default {
     }
 
     return axios.jsonp(url)
-      .then(response => response.response.docs)
+      .then((response) => response.response.docs)
       .then((data) => {
-        data = data.map(s => Object.assign({}, s, { soundboard: isSoundboard(s) }));
+        data = data.map((s) => ({ ...s, soundboard: isSoundboard(s) }));
         cache[key] = {
           data,
           timestamp: Date.now()
@@ -159,7 +160,7 @@ export default {
       return Promise.resolve(cache[key]);
     }
     return axios.jsonp(url)
-      .then(response => new Show(response))
+      .then((response) => new Show(response))
       .then((data) => {
         cache[key] = data;
         return data;
@@ -191,7 +192,7 @@ export default {
     }
 
     return axios.jsonp(url)
-      .then(response => response.response.docs)
+      .then((response) => response.response.docs)
       .then((shows) => {
         const grouped = {};
         shows.forEach((show) => {
@@ -241,8 +242,8 @@ export default {
       return Promise.resolve(cache[key]);
     }
     return axios.jsonp(url)
-      .then(response => response.response.docs)
-      .then(shows => shows
+      .then((response) => response.response.docs)
+      .then((shows) => shows
         .sort((a, b) => b.avg_rating - a.avg_rating)
         .sort((a, b) => b.downloads - a.downloads))
       .then((data) => {
@@ -265,7 +266,7 @@ export default {
     }
 
     return axios.jsonp(url)
-      .then(response => response.response.docs)
+      .then((response) => response.response.docs)
       .then((response) => {
         const obj = {};
         response.forEach((show) => {
@@ -311,7 +312,6 @@ export default {
     return `https://archive.org/details/${identifier}`;
   },
 
-
   search({
     property,
     searchTerm,
@@ -339,7 +339,7 @@ export default {
     let filter;
 
     if (Array.isArray(property)) {
-      filter = `(${property.map(p => `${p}:(${searchTerm})`).join('OR+')})`;
+      filter = `(${property.map((p) => `${p}:(${searchTerm})`).join('OR+')})`;
     } else {
       filter = `${property}:(${searchTerm})`;
     }
@@ -351,7 +351,7 @@ export default {
     }
 
     return axios.jsonp(url)
-      .then(response => response.response.docs)
+      .then((response) => response.response.docs)
       .then((data) => {
         cache[key] = data;
         return data;
@@ -402,7 +402,7 @@ export default {
     }
 
     return axios.jsonp(url)
-      .then(response => response.response.docs)
+      .then((response) => response.response.docs)
       .then((data) => {
         cache[key] = data;
         return data;

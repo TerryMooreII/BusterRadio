@@ -157,7 +157,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const currentUser = datastore.getCurrentUser();
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   if (!currentUser && requiresAuth) {
     next('/');
   } else {

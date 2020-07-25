@@ -14,7 +14,6 @@ const loadTrack = (track) => {
   datastore.addLive(track);
 };
 
-
 const state = {
   queue: JSON.parse(localStorage.getItem(LOCALSTORAGE.QUEUE)) || [],
   qIdx: null,
@@ -28,7 +27,7 @@ const getqIdxAndLoad = () => {
   const savedQueue = JSON.parse(localStorage.getItem(LOCALSTORAGE.QUEUE));
   if (!savedQueue) return null;
 
-  const idx = savedQueue.findIndex(track => track.isPlaying);
+  const idx = savedQueue.findIndex((track) => track.isPlaying);
   if (idx == null) return null;
 
   player.load(state.queue[idx], false);

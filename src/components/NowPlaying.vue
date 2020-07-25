@@ -25,7 +25,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import ArtistImage from '../components/ArtistImage';
+import ArtistImage from './ArtistImage';
 import mediaSession from '../services/mediaSession';
 
 export default {
@@ -51,13 +51,13 @@ export default {
     }
   },
   watch: {
-    currentTrack: function(val) {
+    currentTrack(val) {
       this.setMediaSessionData(val);
     }
   },
-  methods:{
-    setMediaSessionData(val){
-      if (!val && val.identifier) return; 
+  methods: {
+    setMediaSessionData(val) {
+      if (!val && val.identifier) return;
 
       mediaSession.setMetaData({
         artist: val.artist,
@@ -67,7 +67,7 @@ export default {
       });
     }
   },
-  mounted(){
+  mounted() {
     this.setMediaSessionData(this.currentTrack);
   }
 };

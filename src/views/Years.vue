@@ -45,7 +45,7 @@ export default {
     }
   },
   mounted() {
-    ArchiveApi.getYears(this.$route.params.artistId).then(data => this.years = data);
+    ArchiveApi.getYears(this.$route.params.artistId).then((data) => this.years = data);
     this.artist = this.$store.getters['artists/artistByIdentifier'](this.$route.params.artistId);
     helpers.setTitle(this.artist.title);
   }

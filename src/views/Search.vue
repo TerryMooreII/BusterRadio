@@ -69,12 +69,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import ShowCard from '@/components/ShowCard.vue';
+import Pager from '@/components/Pager.vue';
 import Artist from '../components/Artist';
 import NoResults from '../components/NoResults';
 import Container from '../components/Container';
 import archive from '../api/archive';
-import ShowCard from '@/components/ShowCard.vue';
-import Pager from '@/components/Pager.vue';
 import helpers from '../services/helpers';
 
 export default {
@@ -112,14 +112,14 @@ export default {
       this.page = val;
       this.submit();
     },
-    '$route.name': function (val) {
+    '$route.name': function () {
       this.reset();
       this.submit();
     },
     q() {
       if (this.debounce) clearTimeout(this.debounce);
       this.debounce = setTimeout(() => {
-        const { name, query } = this.$route;
+        const { name } = this.$route;
         this.$router.push({ name, query: { q: this.q } });
       }, 400);
     }
@@ -127,7 +127,7 @@ export default {
   methods: {
     parseQuery() {
       if (!this.$route.query.q) {
-        return;
+        return null;
       }
 
       if (!this.$route.query.q.includes(':')) {
@@ -158,19 +158,19 @@ export default {
       archive.search({
         property: ['venue', 'coverage'], searchTerm: this.q, count: this.isTopResults() ? 10 : 50, page: this.page
       })
-        .then(data => this.venues = data);
+        .then((data) => this.venues = data);
     },
     getSongs() {
       archive.search({
         property: 'description', searchTerm: this.q, count: this.isTopResults() ? 10 : 50, page: this.page
       })
-        .then(data => this.songs = this.parseSongs(data));
+        .then((data) => this.songs = this.parseSongs(data));
     },
     pageChange(page) {
       if (page == null) {
         return;
       }
-      const query = Object.assign({}, this.$route.query, { page });
+      const query = { ...this.$route.query, page };
       this.$router.push({ name: this.$route.name, query });
     },
     advancedSearch(q) {
@@ -202,7 +202,7 @@ export default {
       archive.advancedSearch({
         artist: c.artist, location: c.location, song: c.song, count: 50, page: this.page
       })
-        .then(data => this.advResults = data);
+        .then((data) => this.advResults = data);
     },
     submit() {
       const { name } = this.$route;
@@ -255,4 +255,3 @@ export default {
     @apply .border-b-2 .border-blue-dark
   }
 </style>
-

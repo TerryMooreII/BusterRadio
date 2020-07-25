@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import Stars from '../components/Stars';
+import Stars from './Stars';
 
 export default {
   name: 'Reviews',
@@ -30,4 +30,3 @@ export default {
   }
 };
 </script>
-
