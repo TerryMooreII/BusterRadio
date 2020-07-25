@@ -13,7 +13,7 @@
       <Zondicon icon="Radio" class="play-icon h-5 w-5 fill-current inline-block mr-2 -mt-1 text-grey-lighter" />
       <span class="font-semibold text-xl tracking-tight">BusterRadio</span>
     </div>
-  <div @click="toggleNosleep()">
+  <div @click="toggleNosleep()" v-if="isWakeLockSupported">
     <Zondicon :icon="noSleepEnabled ? 'viewShow' : 'viewHide'" class="h-5 w-5 fill-current inline-block mr-2 -mt-1 text-grey-lighter" />
   </div>
   </nav>
@@ -21,25 +21,35 @@
 </template>
 
 <script>
-import * as NoSleep from 'nosleep.js';
 
-const noSleep = new NoSleep();
 
 export default {
   name: 'navbar',
   data() {
     return {
-      noSleepEnabled: false
+      noSleepEnabled: false,
+      isWakeLockSupported: false
     };
   },
+  created() {
+    this.wakeLock = null;
+    this.isWakeLockSupported = 'wakeLock' in navigator;
+  },
   methods: {
-    toggleNosleep() {
-      if (this.noSleepEnabled) {
-        noSleep.disable();
-        this.noSleepEnabled = false;
+    async toggleNosleep() {
+      if (!this.isWakeLockSupported) return;
+
+      if (this.wakeLock != null) {
+        try {
+          this.wakeLock = await navigator.wakeLock.request('screen');
+          this.noSleepEnabled = true;
+        } catch (err) {
+          console.error(err);
+        }
       } else {
-        noSleep.enable();
-        this.noSleepEnabled = true;
+        await this.wakeLock.release();
+        this.wakeLock = null;
+        this.noSleepEnabled = false;
       }
     }
   }
