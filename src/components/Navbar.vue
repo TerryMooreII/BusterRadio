@@ -39,7 +39,7 @@ export default {
     async toggleNosleep() {
       if (!this.isWakeLockSupported) return;
 
-      if (this.wakeLock != null) {
+      if (this.wakeLock == null) {
         try {
           this.wakeLock = await navigator.wakeLock.request('screen');
           this.noSleepEnabled = true;
