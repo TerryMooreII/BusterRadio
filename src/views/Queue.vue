@@ -53,7 +53,7 @@
 
         <h3 class="mt-6 mb-2 pb-2 border-b  font-normal text-xl">Next Up</h3>
 
-        <div v-for="(track, index) in queue"
+        <div v-for="(track, index) in filtered()"
               :key="track.file + index"
               class="flex py-2 hover:bg-grey-lighter cursor-pointer items-center justify-between track-row"
               @click="playQueueTrack(index)" :class="{'text-grey':track.hasPlayed && !track.isPlaying}">
@@ -123,6 +123,9 @@ export default {
     },
     time(track) {
       return helpers.calcTrackTime(track);
+    },
+    filtered() {
+      return this.queue.filter(item => !item.hasPlayed);
     }
   },
   mounted() {
