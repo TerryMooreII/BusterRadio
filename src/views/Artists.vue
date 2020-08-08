@@ -66,7 +66,7 @@ export default {
       }
     },
     handleScroll() {
-      if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+      if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 100) {
         this.getArtists();
       }
     }
