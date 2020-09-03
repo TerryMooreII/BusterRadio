@@ -1,15 +1,17 @@
 <template>
-  <div class="fixed flex flex-col modal w-100 border border-grey-light shadow-lg rounded  bg-white overflow-auto">
-    <div class="flex w-100 mb-6 bg-white px-6 py-4 absolute pin-r pin-l  border-b border-grey-light">
+  <div class="fixed flex flex-col modal border border-grey-light shadow-lg rounded  bg-white overflow-auto">
+    <div class="flex mb-6 bg-white px-6 py-4  border-b border-grey-light z-10 ">
       <slot name="header"></slot>
       <button class="ml-auto text-xl cursor-pointer h-4 w-4 -mt-2 -mr-2" @click="$emit('dismiss')">
         <span class="close inline-block">+</span>
       </button>
     </div>
-    <div class="pt-24 overflow-auto px-4">
+    <div class="overflow-auto px-4 flex-1">
       <slot />
     </div>
-    <div v-if="false">Footer</div>
+    <div class="border-t flex p-4 justify-between">
+      <slot name="footer"></slot>
+    </div>
   </div>
 </template>
 
@@ -38,6 +40,7 @@ export default {
     this.div.style.bottom = 0;
     this.div.style.right = 0;
     this.div.style.left = 0;
+    this.div.style['z-index'] = 998;
 
     document.body.appendChild(this.div);
   },
@@ -59,7 +62,7 @@ export default {
     bottom: 0;
     margin-top: 100px;
     margin: 50px 160px;
-    z-index: 100;
+    z-index: 999;
   }
 
   @media (max-width: 776px) {

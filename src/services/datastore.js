@@ -159,32 +159,32 @@ export default {
       .ref(`queue/${this.getCurrentUser().uid}`).set(queue);
   },
 
-  async getPlaylistsPrivate() {
+  async getStations() {
     if (!this.getCurrentUser()) {
       return [];
     }
 
     const snapshot = await firebase.database()
-      .ref(`playlists-private/${this.getCurrentUser().uid}`)
+      .ref(`stations/${this.getCurrentUser().uid}`)
       .once('value');
-    return snapshot.val();
+    if (snapshot.val() == null) return [];
+    return Object.entries(snapshot.val()).map(([key, value]) => ({ key, ...value }));
   },
 
-  async addPlaylistPrivate(playlist) {
+  async saveStation(station) {
+    if (station.key) {
+      await firebase.database()
+        .ref(`stations/${this.getCurrentUser().uid}/${station.key}`).set(station);
+    } else {
+      await firebase.database()
+        .ref(`stations/${this.getCurrentUser().uid}`).push(station);
+    }
+  },
+
+  async removeStation(key) {
     await firebase.database()
-      .ref(`playlists-private/${this.getCurrentUser().uid}`).push(playlist);
-  },
-
-  async getPlaylistsPublic() {
-    const snapshot = await firebase.database()
-      .ref('playlists-public')
-      .once('value');
-    return snapshot.val();
-  },
-
-  async addPlaylistPublic(playlist) {
-    await firebase.database()
-      .ref('playlist-public').push(playlist);
+      .ref(`stations/${this.getCurrentUser().uid}/${key}`)
+      .remove();
   }
 };
 

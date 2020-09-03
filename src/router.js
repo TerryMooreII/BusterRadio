@@ -16,6 +16,7 @@ import Favorite from './views/Favorite.vue';
 import RecentlyPlayed from './views/RecentlyPlayed.vue';
 import Live from './views/Live.vue';
 import Signup from './views/Signup.vue';
+import Radio from './views/Radio.vue';
 
 Vue.use(Router);
 
@@ -95,6 +96,11 @@ const router = new Router({
           meta: {
             requiresAuth: true
           }
+        },
+        {
+          path: '/radio',
+          component: Radio,
+          name: 'radio'
         },
         {
           path: '/random-show',

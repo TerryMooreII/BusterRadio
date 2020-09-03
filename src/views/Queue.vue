@@ -67,7 +67,7 @@
             <router-link
                   class="text-grey-dark text-sm no-underline hover:underline"
                   @click.native="$event.stopImmediatePropagation()"
-                  :to="{name:'years', params: {artistId: getArtistId(track.creator)}}">{{track.creator}}</router-link>
+                  :to="{name:'years', params: {artistId: getArtistId(track.creator || track.artist)}}">{{track.creator || track.artist}}</router-link>
             <span  class="text-grey-dark text-sm" v-if="track.creator">&nbsp;::&nbsp;</span>
             <router-link
                     class="text-grey-dark text-sm no-underline hover:underline"
@@ -121,7 +121,7 @@ export default {
       return helpers.calcTrackTime(track);
     },
     filtered() {
-      return this.queue.filter((item) => !item.hasPlayed);
+      return this.queue; // .filter((item) => !item.hasPlayed);
     }
   },
   mounted() {
@@ -131,7 +131,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-.play-icon{
+.play-icon {
     display: none;
   }
   .track-row:hover {

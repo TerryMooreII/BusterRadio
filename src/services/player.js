@@ -21,7 +21,9 @@ class Player {
     });
 
     this.audio.addEventListener('progress', () => {
-      store.dispatch('playlist/buffer', this.audio.buffered.end(0));
+      try {
+        store.dispatch('playlist/buffer', this.audio.buffered.end(0));
+      } catch (e) { } // eslint-disable-line
     });
 
     this.audio.addEventListener('ended', () => {
@@ -36,8 +38,9 @@ class Player {
       console.log('volumed changed');
     });
 
-    this.audio.addEventListener('error', () => {
-      console.log('Audio Error');
+    this.audio.addEventListener('error', (error) => {
+      console.log('Audio Error, skipping to next song', error);
+      store.dispatch('playlist/next');
     });
   }
 

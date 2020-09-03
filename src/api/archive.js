@@ -185,7 +185,9 @@ export default {
       'rows=15000',
       'page=1'
     ];
-    const url = `${URL}/advancedsearch.php?q=mediatype:(etree)+AND+collection:(${artistId})+AND+year:(${year})&${query.join('&')}&${JSONP}`;
+    const url = year != null
+      ? `${URL}/advancedsearch.php?q=mediatype:(etree)+AND+collection:(${artistId})+AND+year:(${year})&${query.join('&')}&${JSONP}`
+      : `${URL}/advancedsearch.php?q=mediatype:(etree)+AND+collection:(${artistId})&${query.join('&')}&${JSONP}`;
     const key = btoa(url);
     if (cache[key]) {
       return Promise.resolve(cache[key]);

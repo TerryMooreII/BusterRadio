@@ -100,6 +100,12 @@ export default {
           // exact: true
         },
         {
+          name: 'Radio',
+          link: 'radio',
+          icon: 'Radio',
+          hideLoggedIn: true
+        },
+        {
           name: 'Random Show',
           link: 'random',
           icon: 'Shuffle'
@@ -127,6 +133,11 @@ export default {
           name: 'Favorites',
           link: 'favoriteArtists',
           icon: 'Heart'
+        },
+        {
+          name: 'Radio',
+          link: 'radio',
+          icon: 'Radio'
         },
         {
           name: 'History',
