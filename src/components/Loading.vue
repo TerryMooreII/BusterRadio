@@ -16,7 +16,7 @@ export default {
 
 <style scoped lang="less">
 .spinner {
-  margin: 100px auto;
+  margin: 0 auto;
   width: 60px;
   height: 40px;
   text-align: center;

@@ -18,12 +18,12 @@
 </template>
 
 <script>
-import moment from 'moment';
+// import moment from 'moment';
 import Navbar from '@/components/Navbar.vue';
 import Sidenav from '@/components/Sidenav.vue';
 import Footer from '@/components/Footer.vue';
 import { mapState } from 'vuex';
-import store from '../store';
+// import store from '../store';
 
 export default {
   name: 'home',
@@ -39,16 +39,16 @@ export default {
   },
   computed: mapState({
     artists: (state) => state.artists.all
-  }),
-  beforeRouteEnter(to, from, next) {
-    if (!localStorage.artists || !localStorage.artistFetch || moment().diff(parseInt(localStorage.artistFetch, 10), 'weeks') >= 1) {
-      localStorage.setItem('artistFetch', Date.now());
-      store.dispatch('artists/getArtists')
-        .then(() => next());
-    } else {
-      next();
-    }
-  }
+  })
+  // beforeRouteEnter(to, from, next) {
+  //   if (!localStorage.artists || !localStorage.artistFetch || moment().diff(parseInt(localStorage.artistFetch, 10), 'weeks') >= 1) {
+  //     localStorage.setItem('artistFetch', Date.now());
+  //     store.dispatch('artists/getArtists')
+  //       .then(() => next());
+  //   } else {
+  //     next();
+  //   }
+  // }
 };
 </script>
 

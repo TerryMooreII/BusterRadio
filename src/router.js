@@ -1,7 +1,9 @@
 import Vue from 'vue';
+import moment from 'moment';
 import Router from 'vue-router';
 import datastore from './services/datastore';
 import Home from './views/Home.vue';
+import LoadingArtists from './views/LoadingArtists.vue';
 import Artists from './views/Artists.vue';
 import LatestShows from './views/LatestShows.vue';
 import Years from './views/Years.vue';
@@ -38,6 +40,11 @@ const router = new Router({
       path: '/',
       component: Home,
       children: [
+        {
+          path: '/loading',
+          component: LoadingArtists,
+          name: 'loading'
+        },
         {
           path: '/newest',
           component: LatestShows,
@@ -162,6 +169,10 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+  if (to.name !== 'loading' && (!localStorage.artists || !localStorage.artistFetch || moment().diff(parseInt(localStorage.artistFetch, 10), 'weeks') >= 1)) {
+    next(`/loading?redirect=${to.path}`);
+  }
+
   const currentUser = datastore.getCurrentUser();
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   if (!currentUser && requiresAuth) {
