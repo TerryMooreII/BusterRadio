@@ -9,6 +9,7 @@
     "deploy": "npm run build && firebase deploy"
   },
   "dependencies": {
+    "@logdna/browser": "^1.0.2",
     "axios": "^0.21.1",
     "axios-jsonp-pro": "^1.1.4",
     "core-js": "^3.6.5",

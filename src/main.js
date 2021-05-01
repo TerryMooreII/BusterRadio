@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import firebase from 'firebase/app';
+import logdna from '@logdna/browser';
 import 'firebase/auth';
 import Zondicon from 'vue-zondicons';
 import VueAnalytics from 'vue-analytics';
@@ -18,6 +19,13 @@ const config = {
   storageBucket: 'busterradio-2c254.appspot.com',
   messagingSenderId: '348951168415'
 };
+
+logdna.init('2a477010810a874718526c4e8cba0f9b', {
+  hostname: 'busterradio',
+  enableStacktrace: false
+});
+
+logdna.log('Starting...');
 
 const isProd = process.env.NODE_ENV === 'production';
 

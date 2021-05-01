@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import logdna from '@logdna/browser';
 import moment from 'moment';
 import Router from 'vue-router';
 import datastore from './services/datastore';
@@ -169,6 +170,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+  logdna.log(`Route change ${to.fullPath}`);
   if (to.name !== 'loading' && (!localStorage.artists || !localStorage.artistFetch || moment().diff(parseInt(localStorage.artistFetch, 10), 'weeks') >= 1)) {
     next(`/loading?redirect=${to.path}`);
   }
