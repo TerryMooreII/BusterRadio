@@ -1,5 +1,5 @@
 <template>
-   <img :class="classes" v-bind:src="imageUrl" v-bind:alt="altTag" @click="$emit('click')">
+  <img :class="classes" v-bind:src="imageUrl" v-bind:alt="altTag" @click="$emit('click')">
 </template>
 
 <script>

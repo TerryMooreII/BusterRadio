@@ -1,7 +1,7 @@
 <template>
   <div class="flex w-full">
-    <router-link :to="{name: 'favoriteArtists'}" class="tab-item">Artists</router-link>
-    <router-link :to="{name: 'favoriteShows'}" class="tab-item">Shows</router-link>
+    <router-link :to="{ name: 'favoriteArtists' }" class="tab-item">Artists</router-link>
+    <router-link :to="{ name: 'favoriteShows' }" class="tab-item">Shows</router-link>
   </div>
 </template>
 

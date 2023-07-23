@@ -1,7 +1,7 @@
 <template>
   <div class="fixed flex flex-col modal border border-grey-light shadow-lg rounded  bg-white overflow-auto">
     <div class="flex mb-6 bg-white px-6 py-4  border-b border-grey-light z-10 ">
-      <slot name="header"></slot>
+      <slot name="header" />
       <button class="ml-auto text-xl cursor-pointer h-4 w-4 -mt-2 -mr-2" @click="$emit('dismiss')">
         <span class="close inline-block">+</span>
       </button>
@@ -10,7 +10,7 @@
       <slot />
     </div>
     <div class="border-t flex p-4 justify-between">
-      <slot name="footer"></slot>
+      <slot name="footer" />
     </div>
   </div>
 </template>

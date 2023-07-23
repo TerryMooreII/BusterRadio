@@ -1,8 +1,9 @@
 <template>
   <div class="relative w-full">
-    <div class="border border-grey absolute py-2 rounded z-50 shadow-md popover bg-white"
-         v-bind:style="{left: leftComputed, width: width}">
-      <slot></slot>
+    <div
+      class="border border-grey absolute py-2 rounded z-50 shadow-md popover bg-white"
+      v-bind:style="{ left: leftComputed, width: width }">
+      <slot />
     </div>
   </div>
 </template>

@@ -40,7 +40,6 @@ const setPositionState = (/* duration, position */) => {
 };
 
 const setPlaybackState = (isPlaying) => {
-  console.log('is', isPlaying);
   navigator.mediaSession.playbackState = isPlaying ? 'playing' : 'paused';
 };
 

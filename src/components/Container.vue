@@ -1,10 +1,10 @@
 <template>
-  <div :class="css" >
-     <span :class="cssHeader">
-        <slot name="header" />
-      </span>
+  <div :class="css">
+    <span :class="cssHeader">
+      <slot name="header" />
+    </span>
 
-      <slot />
+    <slot />
   </div>
 </template>
 

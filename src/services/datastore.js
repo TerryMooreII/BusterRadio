@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
+
 const sanitizeShow = (show) => Object.keys(show).reduce((acc, s) => {
   if (typeof show[s] !== 'undefined' && typeof show[s] !== 'function') {
     acc[s] = show[s];

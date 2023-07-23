@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white overflow-hidden">
     <h2 class="text-sm pb-2 mb-3 border-grey-light border-b mt-6 hover:underline cursor-pointer font-normal" @click="toggle()">
-      <slot name="header"></slot>
+      <slot name="header" />
     </h2>
     <div :class="{ 'h-0': !open }">
       <slot />
