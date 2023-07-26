@@ -72,7 +72,7 @@
           <div class="w-full truncate pl-4 text-2xl md:text-base">
             {{track.title}}
           </div>
-          <div class="w-24 text-right pr-2">
+          <div class="w-24 text-right pr-2 hidden md:block">
             {{time(track)}}
           </div>
           <div class="w-16 text-center">
