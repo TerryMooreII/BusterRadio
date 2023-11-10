@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@logdna/browser": "^1.0.2",
-    "axios": "^0.21.1",
+    "axios": "^1.6.0",
     "axios-jsonp-pro": "^1.1.4",
     "core-js": "^3.6.5",
     "firebase": "^8.10.1",
