@@ -1,11 +1,12 @@
-import axios from 'axios-jsonp-pro';
 import moment from 'moment';
+import fetchJsonp from 'fetch-jsonp';
+
 
 const URL = 'https://archive.org';
 const JSONP = 'callback=callback&save=yes&output=json';
 const COLLECTION_AND_MEDIATYPE = '/advancedsearch.php?q=mediatype%3Acollection+AND+collection%3Aetree&';
 const COLLECTION = '/advancedsearch.php?q=collection%3Aetree&';
-
+const FETCH_TIMEOUT = 10000
 const cache = {};
 
 const createApi = (query) => `${URL}${COLLECTION}${query.join('&')}&${JSONP}`;
@@ -114,7 +115,10 @@ export default {
       'rows=15000',
       'page=1'];
 
-    return axios.jsonp(`${URL}${COLLECTION_AND_MEDIATYPE}${query.join('&')}&${JSONP}`)
+    return fetchJsonp(`${URL}${COLLECTION_AND_MEDIATYPE}${query.join('&')}&${JSONP}`, {
+      timeout: FETCH_TIMEOUT
+    })
+      .then((response) => response.json())
       .then((response) => response.response.docs);
   },
   getLatestShows(orderby = 'publicdate', page = 1) {
@@ -141,7 +145,10 @@ export default {
       return Promise.resolve(cache[key].data);
     }
 
-    return axios.jsonp(url)
+    return fetchJsonp(url, {
+      timeout: FETCH_TIMEOUT
+    })
+      .then((response) => response.json())
       .then((response) => response.response.docs)
       .then((data) => {
         data = data.map((s) => ({ ...s, soundboard: isSoundboard(s) }));
@@ -159,7 +166,10 @@ export default {
     if (cache[key]) {
       return Promise.resolve(cache[key]);
     }
-    return axios.jsonp(url)
+    return fetchJsonp(url, {
+      timeout: FETCH_TIMEOUT
+    })
+      .then((response) => response.json())
       .then((response) => new Show(response))
       .then((data) => {
         cache[key] = data;
@@ -193,7 +203,10 @@ export default {
       return Promise.resolve(cache[key]);
     }
 
-    return axios.jsonp(url)
+    return fetchJsonp(url, {
+      timeout: FETCH_TIMEOUT
+    })
+      .then((response) => response.json())
       .then((response) => response.response.docs)
       .then((shows) => {
         const grouped = {};
@@ -243,7 +256,10 @@ export default {
     if (cache[key]) {
       return Promise.resolve(cache[key]);
     }
-    return axios.jsonp(url)
+    return fetchJsonp(url, {
+      timeout: FETCH_TIMEOUT
+    })
+      .then((response) => response.json())
       .then((response) => response.response.docs)
       .then((shows) => shows
         .sort((a, b) => b.avg_rating - a.avg_rating)
@@ -267,7 +283,10 @@ export default {
       return Promise.resolve(cache[key]);
     }
 
-    return axios.jsonp(url)
+    return fetchJsonp(url, {
+      timeout: FETCH_TIMEOUT
+    })
+      .then((response) => response.json())
       .then((response) => response.response.docs)
       .then((response) => {
         const obj = {};
@@ -352,7 +371,10 @@ export default {
       return Promise.resolve(cache[key]);
     }
 
-    return axios.jsonp(url)
+    return fetchJsonp(url, {
+      timeout: FETCH_TIMEOUT
+    })
+      .then((response) => response.json())
       .then((response) => response.response.docs)
       .then((data) => {
         cache[key] = data;
@@ -403,7 +425,10 @@ export default {
       return Promise.resolve(cache[key]);
     }
 
-    return axios.jsonp(url)
+    return fetchJsonp(url, {
+      timeout: FETCH_TIMEOUT
+    })
+      .then((response) => response.json())
       .then((response) => response.response.docs)
       .then((data) => {
         cache[key] = data;
